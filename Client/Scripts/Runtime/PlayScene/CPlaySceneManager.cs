@@ -18,7 +18,7 @@ namespace PlayScene {
 		}
 
 		#region 변수
-		/** =====> 객체 <===== */
+		[Header("=====> Objs <=====")]
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
@@ -28,8 +28,7 @@ namespace PlayScene {
 		public override bool IsIgnoreBGTouchResponder => false;
 
 		public override string SceneName => KCDefine.B_SCENE_N_PLAY;
-
-		/** =====> 객체 <===== */
+		
 		protected GameObject ItemRoot => m_oObjDict[EKey.ITEM_ROOT];
 		protected GameObject SkillRoot => m_oObjDict[EKey.SKILL_ROOT];
 		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];

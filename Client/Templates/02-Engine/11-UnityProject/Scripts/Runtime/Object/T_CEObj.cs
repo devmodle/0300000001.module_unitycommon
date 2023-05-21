@@ -23,7 +23,7 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		[Header("=====> 객체 <=====")]
+		[Header("=====> Objs <=====")]
 		[SerializeField] private List<GameObject> m_oObjList = new List<GameObject>();
 		#endregion // 변수
 

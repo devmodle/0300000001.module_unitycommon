@@ -17,7 +17,7 @@ namespace InitScene {
 		}
 
 		#region 변수
-		/** =====> UIs <===== */
+		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 		#endregion // 변수
 

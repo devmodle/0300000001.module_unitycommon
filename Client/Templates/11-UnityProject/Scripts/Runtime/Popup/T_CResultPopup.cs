@@ -45,12 +45,12 @@ public partial class CResultPopup : CSubPopup {
 	}
 
 	#region 변수
-	/** =====> UIs <===== */
+	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
-	/** =====> 객체 <===== */
+	[Header("=====> Objs <=====")]
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 	#endregion // 변수
 

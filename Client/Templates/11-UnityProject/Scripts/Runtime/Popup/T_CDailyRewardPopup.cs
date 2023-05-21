@@ -17,10 +17,10 @@ public partial class CDailyRewardPopup : CSubPopup {
 	}
 
 	#region 변수
-	/** =====> UIs <===== */
+	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
-	[Header("=====> 객체 <=====")]
+	[Header("=====> Objs <=====")]
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
 	#endregion // 변수
 

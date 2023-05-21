@@ -15,7 +15,7 @@ namespace MainScene {
 		}
 
 		#region 변수
-		/** =====> UIs <===== */
+		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		#endregion // 변수
 
@@ -23,9 +23,8 @@ namespace MainScene {
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreABTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
-		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
 
-		/** =====> UIs <===== */
+		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
 		public Text VerText => m_oTextDict[EKey.VER_TEXT];
 		#endregion // 프로퍼티
 

@@ -28,10 +28,10 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		[EKey.PREV_NUM_COINS_BOX_COINS] = KCDefine.B_VAL_0_INT
 	};
 
-	/** =====> UIs <===== */
+	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 
-	[Header("=====> 객체 <=====")]
+	[Header("=====> Objs <=====")]
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
 	#endregion // 변수

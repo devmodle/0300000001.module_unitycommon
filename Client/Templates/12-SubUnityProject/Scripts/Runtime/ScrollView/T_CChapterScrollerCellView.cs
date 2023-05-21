@@ -24,7 +24,7 @@ public partial class CChapterScrollerCellView : CScrollerCellView {
 	}
 
 	#region 변수
-	/** =====> UIs <===== */
+	[Header("=====> UIs <=====")]
 	private List<STScrollerCellUIs> m_oScrollerCellUIsList = new List<STScrollerCellUIs>();
 	#endregion // 변수
 

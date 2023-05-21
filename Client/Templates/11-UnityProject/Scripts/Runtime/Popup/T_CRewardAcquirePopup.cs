@@ -33,10 +33,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		[EKey.IS_WATCH_ADS] = false
 	};
 
-	/** =====> UIs <===== */
+	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
-	[Header("=====> 객체 <=====")]
+	[Header("=====> Objs <=====")]
 	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
 	#endregion // 변수

@@ -41,7 +41,7 @@ public partial class CContinuePopup : CSubPopup {
 		[EKey.IS_WATCH_ADS] = false
 	};
 
-	/** =====> UIs <===== */
+	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 	#endregion // 변수

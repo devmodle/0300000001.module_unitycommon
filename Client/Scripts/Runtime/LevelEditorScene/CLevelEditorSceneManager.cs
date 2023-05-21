@@ -26,7 +26,7 @@ namespace LevelEditorScene {
 		}
 
 		#region 변수
-		/** =====> 객체 <===== */
+		[Header("=====> Objs <=====")]
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
@@ -42,8 +42,7 @@ namespace LevelEditorScene {
 		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
 		public override EProjection MainCameraProjection => EProjection._3D;
 		public override Vector3 ObjRootPivotPos => (this.UIsBase != null && this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS) != null) ? Vector3.zero.ExToWorld(this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS)).ExToLocal(this.UIs) : Vector3.zero;
-
-		/** =====> 객체 <===== */
+		
 		protected GameObject MidEditorUIs => m_oUIsDict[EKey.MID_EDITOR_UIS];
 		protected GameObject LeftEditorUIs => m_oUIsDict[EKey.LEFT_EDITOR_UIS];
 		protected GameObject RightEditorUIs => m_oUIsDict[EKey.RIGHT_EDITOR_UIS];

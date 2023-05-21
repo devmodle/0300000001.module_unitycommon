@@ -61,10 +61,8 @@ namespace PlayScene {
 		private NSEngine.CEngine m_oEngine = null;
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
-		/** =====> 객체 <===== */
+		[Header("=====> Objs <=====")]
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
-
-		[Header("=====> 객체 <=====")]
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
 		#endregion // 변수
 

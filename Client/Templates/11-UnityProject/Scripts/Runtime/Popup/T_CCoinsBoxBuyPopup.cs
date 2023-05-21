@@ -18,10 +18,10 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 	}
 
 	#region 변수
-	/** =====> UIs <===== */
+	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 
-	[Header("=====> 객체 <=====")]
+	[Header("=====> Objs <=====")]
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
 	#endregion // 변수

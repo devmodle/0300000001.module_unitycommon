@@ -57,7 +57,7 @@ public partial class CStorePopup : CSubPopup {
 	private List<Product> m_oRestoreProductList = new List<Product>();
 #endif // #if PURCHASE_MODULE_ENABLE
 
-	[Header("=====> 객체 <=====")]
+	[Header("=====> Objs <=====")]
 	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
 	#endregion // 변수
 

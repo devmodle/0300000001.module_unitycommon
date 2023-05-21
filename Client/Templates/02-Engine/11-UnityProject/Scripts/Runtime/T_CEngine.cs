@@ -86,7 +86,7 @@ namespace NSEngine {
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
 		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
 
-		/** =====> 객체 <===== */
+		[Header("=====> Objs <=====")]
 		private List<GameObject> m_oCellObjRootList = new List<GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수

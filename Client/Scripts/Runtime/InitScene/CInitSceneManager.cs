@@ -19,7 +19,7 @@ namespace InitScene {
 		#endregion // 추상
 
 		#region 클래스 변수
-		/** =====> 객체 <===== */
+		[Header("=====> Objs <=====")]
 		private static GameObject m_oBlindUIs = null;
 		#endregion // 클래스 변수
 

@@ -29,7 +29,7 @@ public partial class CReadyPopup : CSubPopup {
 	}
 
 	#region 변수
-	/** =====> UIs <===== */
+	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 	#endregion // 변수
 

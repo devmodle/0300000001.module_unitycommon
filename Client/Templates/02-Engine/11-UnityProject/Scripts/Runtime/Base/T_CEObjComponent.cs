@@ -36,7 +36,7 @@ namespace NSEngine {
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 		private Dictionary<EKey, ParticleSystem> m_oParticleFXDict = new Dictionary<EKey, ParticleSystem>();
 		
-		[Header("=====> 객체 <=====")]
+		[Header("=====> Objs <=====")]
 		[SerializeField] private List<GameObject> m_oTargetList = new List<GameObject>();
 		[SerializeField] private List<GameObject> m_oExtraTargetList = new List<GameObject>();
 		#endregion // 변수

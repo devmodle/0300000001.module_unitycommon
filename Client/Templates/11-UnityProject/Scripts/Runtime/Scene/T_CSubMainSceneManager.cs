@@ -32,11 +32,11 @@ namespace MainScene {
 			[EKey.SEL_ID_INFO] = STIDInfo.INVALID
 		};
 
-		/** =====> UIs <===== */
+		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
 
-		[Header("=====> 객체 <=====")]
+		[Header("=====> Objs <=====")]
 		[SerializeField] private List<Button> m_oContentsTapBtnList = new List<Button>();
 		#endregion // 변수
 

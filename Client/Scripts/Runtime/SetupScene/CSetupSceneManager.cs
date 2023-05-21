@@ -36,16 +36,15 @@ namespace SetupScene {
 		private Stopwatch m_oStopwatch = new Stopwatch();
 		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>();
 
-		/** =====> UIs <===== */
+		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, CGaugeHandler> m_oGaugeHandlerDict = new Dictionary<EKey, CGaugeHandler>();
 
-		/** =====> 객체 <===== */
+		[Header("=====> Objs <=====")]
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 클래스 변수
-		/** =====> 객체 <===== */
 		private static GameObject m_oPopupUIs = null;
 		private static GameObject m_oTopmostUIs = null;
 		private static GameObject m_oAbsUIs = null;

@@ -15,7 +15,7 @@ namespace TitleScene {
 		}
 
 		#region 변수
-		/** =====> UIs <===== */
+		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		#endregion // 변수
 
@@ -25,8 +25,6 @@ namespace TitleScene {
 		public override bool IsIgnoreBGTouchResponder => false;
 
 		public override string SceneName => KCDefine.B_SCENE_N_TITLE;
-
-		/** =====> UIs <===== */
 		public Text VerText => m_oTextDict[EKey.VER_TEXT];
 		#endregion // 프로퍼티
 

@@ -22,7 +22,7 @@ public partial class CSyncPopup : CSubPopup {
 		[EKey.IS_LOAD_USER_INFO] = false
 	};
 
-	/** =====> 객체 <===== */
+	[Header("=====> Objs <=====")]
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 	#endregion // 변수
 

@@ -15,7 +15,7 @@ namespace TestScene {
 		}
 
 		#region 변수
-		/** =====> UIs <===== */
+		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 		#endregion // 변수
 
