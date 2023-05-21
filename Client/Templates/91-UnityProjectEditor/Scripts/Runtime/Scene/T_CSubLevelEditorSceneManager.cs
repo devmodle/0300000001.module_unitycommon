@@ -234,7 +234,7 @@ namespace LevelEditorScene {
 		public CLevelInfo SelLevelInfo => m_oLevelInfoDict[EKey.SEL_LEVEL_INFO];
 		public NSEngine.STGridInfo SelGridInfo => m_oGridInfoList[this.SelGridInfoIdx];
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
@@ -996,7 +996,7 @@ namespace LevelEditorScene {
 
 							stCellInfo.m_oCellObjInfoList.ExAddVal(a_stCellObjInfo);
 						} else {
-							stCellInfo.m_oCellObjInfoList.ExAddVal(Factory.MakeEditorCellObjInfo(EObjKinds.BG_OBJ_PLACEHOLDER_01, Vector3Int.one, a_stIdx));
+							stCellInfo.m_oCellObjInfoList.ExAddVal(this.MakeEditorCellObjInfo(EObjKinds.BG_OBJ_PLACEHOLDER_01, Vector3Int.one, a_stIdx));
 						}
 					}
 				}
@@ -1289,7 +1289,7 @@ namespace LevelEditorScene {
 		}
 #endif // #if GOOGLE_SHEET_ENABLE
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -1299,7 +1299,7 @@ namespace LevelEditorScene {
 				for(int j = 0; j < a_stSize.x; ++j) {
 					var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 
-					// 인덱스가 유효 할 경우
+					// 셀 정보가 없을 경우
 					if(!this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx)) {
 						return false;
 					}
@@ -1393,7 +1393,7 @@ namespace LevelEditorScene {
 			CGameInfoStorage.Inst.SetPlayLevelInfo(a_oLevelInfo);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 접근자 함수
+		#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 중앙 에디터 UI */
@@ -1573,7 +1573,7 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
+						this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
@@ -1594,7 +1594,7 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
+						this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && oCellInfoDict[i].m_oCellObjInfoList.ExIsValid()) {
@@ -1622,7 +1622,7 @@ namespace LevelEditorScene {
 			this.SetMEUIsGridScrollDelta(a_fVal * -fWidth, a_fVal * -fHeight);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -1657,7 +1657,7 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 접근자 함수
+		#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 왼쪽 에디터 UI */
@@ -1785,7 +1785,7 @@ namespace LevelEditorScene {
 		}
 #endif // #if AB_TEST_ENABLE
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 오른쪽 에디터 UI */
@@ -2080,7 +2080,7 @@ namespace LevelEditorScene {
 						// 객체 추가가 가능 할 경우
 						if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
 							var stIdx = new Vector3Int(j, i, KCDefine.B_VAL_0_INT);
-							this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
+							this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
 						}
 					}
 				}
@@ -2203,7 +2203,7 @@ namespace LevelEditorScene {
 			this.SetREUIsPageUIs02ObjSize(bIsValid01 ? nSizeX : KCDefine.B_VAL_1_INT, bIsValid02 ? nSizeY : KCDefine.B_VAL_1_INT);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -2278,7 +2278,7 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 조건부 접근자 함수
+		#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 스크롤러 셀 뷰 */
