@@ -24,31 +24,31 @@ MonoBehaviour:
     m_oExtraProjDirName: 0300010101-Module_Unity
   m_stiOSAppleProjInfo:
     m_oAppID: 
-    m_oStoreAppID: 1309472470
+    m_oMoreAppsID: 
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAndroidGoogleProjInfo:
     m_oAppID: 
-    m_oStoreAppID: Ninetap
+    m_oMoreAppsID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAndroidAmazonProjInfo:
     m_oAppID: 
-    m_oStoreAppID: 
+    m_oMoreAppsID: 
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stStandaloneMacSteamProjInfo:
     m_oAppID: 
-    m_oStoreAppID: 
+    m_oMoreAppsID: 
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stStandaloneWndsSteamProjInfo:
     m_oAppID: 
-    m_oStoreAppID: 
+    m_oMoreAppsID: 
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1

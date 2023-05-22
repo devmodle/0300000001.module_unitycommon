@@ -195,7 +195,7 @@ namespace LateSetupScene {
 #endif // #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
-				CAppsFlyerManager.Inst.Init(CAppsFlyerManager.MakeParams(CProjInfoTable.Inst.ProjInfo.m_oStoreAppID, CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey, new Dictionary<CAppsFlyerManager.ECallback, System.Action<CAppsFlyerManager, bool>>() {
+				CAppsFlyerManager.Inst.Init(CAppsFlyerManager.MakeParams(CProjInfoTable.Inst.ProjInfo.m_oMoreAppsID, CPluginInfoTable.Inst.AppsFlyerPluginInfo.m_oDevKey, new Dictionary<CAppsFlyerManager.ECallback, System.Action<CAppsFlyerManager, bool>>() {
 					[CAppsFlyerManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAppsFlyerManager
 				}));
 #endif // #if APPS_FLYER_MODULE_ENABLE
