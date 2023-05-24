@@ -1248,7 +1248,7 @@ namespace LevelEditorScene {
 				m_oVerInfos = a_oVerInfos;
 				Func.LoadGoogleSheets(a_oLoadGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetLoadHandlerDict, this.OnLoadGoogleSheets);
 			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 		}
 
@@ -1259,9 +1259,9 @@ namespace LevelEditorScene {
 				this.UpdateUIsState();
 				Func.OnLoadGoogleSheets(m_oVerInfos);
 
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_MSG), null, false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_MSG), null, a_bIsEnableCancelBtn: false);
 			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 		}
 
@@ -1282,9 +1282,9 @@ namespace LevelEditorScene {
 			// 로드 되었을 경우
 			if(a_bIsSuccess) {
 				this.UpdateUIsState();
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_MSG), null, false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_MSG), null, a_bIsEnableCancelBtn: false);
 			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_FAIL_MSG), null, false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 		}
 #endif // #if GOOGLE_SHEET_ENABLE

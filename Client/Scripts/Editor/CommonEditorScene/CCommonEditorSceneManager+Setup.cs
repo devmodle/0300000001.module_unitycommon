@@ -527,7 +527,7 @@ public static partial class CCommonEditorSceneManager {
 
 #if UNITY_IOS
 				oInputSettings.iOS.motionUsage.enabled == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion,
-				oInputSettings.iOS.motionUsage.usageDescription.Equals(CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc)
+				oInputSettings.iOS.motionUsage.usageDescription.ExIsEquals(CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc)
 #endif // #if UNITY_IOS
 			};
 
