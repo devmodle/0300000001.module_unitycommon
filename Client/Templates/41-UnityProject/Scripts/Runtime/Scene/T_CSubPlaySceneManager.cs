@@ -62,8 +62,8 @@ namespace PlayScene {
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		[Header("=====> Objs <=====")]
-		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 함수

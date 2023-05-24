@@ -32,7 +32,7 @@ namespace LateSetupScene {
 		}
 
 		#region 변수
-		[Header("=====> 속성 <=====")]
+		[Header("=====> Etc <=====")]
 		[SerializeField] private EUserType m_eUserType = EUserType.NONE;
 		private Dictionary<ECallback, System.Action<CPopup>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPopup>>();
 		#endregion // 변수

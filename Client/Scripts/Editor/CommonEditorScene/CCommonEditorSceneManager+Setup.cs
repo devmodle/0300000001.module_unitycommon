@@ -42,16 +42,6 @@ using Newtonsoft.Json.Linq;
 /** 공용 에디터 씬 관리자 - 설정 */
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
-	/** 에디터 씬 관리자를 설정한다 */
-	private static IEnumerator CoSetupEditorSceneManager() {
-		do {
-			yield return CFactory.CoCreateWaitForSecs(KCDefine.B_DELTA_T_ASYNC_TASK, true);
-		} while(!CEditorAccess.IsEnableUpdateState);
-
-		CCommonEditorSceneManager.m_bIsEnableSetup = true;
-		CCommonEditorSceneManager.m_bIsEnableBuild = true;
-	}
-
 	/** 태그를 설정한다 */
 	private static void SetupTags() {
 		var oLights = Resources.FindObjectsOfTypeAll<Light>();
@@ -102,6 +92,9 @@ public static partial class CCommonEditorSceneManager {
 
 		EditorApplication.projectChanged -= CCommonEditorSceneManager.OnUpdateProjectState;
 		EditorApplication.projectChanged += CCommonEditorSceneManager.OnUpdateProjectState;
+
+		EditorSceneManager.sceneOpened -= CCommonEditorSceneManager.OnOpenScene;
+		EditorSceneManager.sceneOpened += CCommonEditorSceneManager.OnOpenScene;
 	}
 
 	/** 광선 추적자를 설정한다 */

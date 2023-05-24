@@ -8,6 +8,7 @@ using UnityEngine.Events;
 #if UNITY_EDITOR
 using System.IO;
 using System.Linq;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
@@ -47,12 +48,6 @@ public static partial class CEditorSceneManager {
 		}
 
 		CEditorSceneManager.SetupCallbacks();
-	}
-
-	/** 스크립트가 로드 되었을 경우 */
-	[UnityEditor.Callbacks.DidReloadScripts]
-	public static void OnLoadScript() {
-		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
 	/** 상태를 갱신한다 */
@@ -210,15 +205,25 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	/** 에디터 씬 관리자를 설정한다 */
-	private static IEnumerator CoSetupEditorSceneManager() {
-		do {
-			yield return CFactory.CoCreateWaitForSecs(KCDefine.B_DELTA_T_ASYNC_TASK, true);
-		} while(!CEditorAccess.IsEnableUpdateState);
-
+	/** 스크립트가 로드 되었을 경우 */
+	[UnityEditor.Callbacks.DidReloadScripts]
+	private static void OnLoadScript() {
 		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
+	/** 씬이 열렸을 경우 */
+	private static void OnOpenScene(Scene a_stScene, OpenSceneMode a_eMode) {
+		// 중첩 모드 일 경우
+		if(a_eMode == OpenSceneMode.Additive) {
+			// Do Something
+		}
+	}
+	#endregion // 클래스 함수
+}
+
+/** 에디터 씬 관리자 - 설정 */
+public static partial class CEditorSceneManager {
+	#region 클래스 함수
 	/** 콜백을 설정한다 */
 	private static void SetupCallbacks() {
 		EditorApplication.update -= CEditorSceneManager.Update;
@@ -229,6 +234,9 @@ public static partial class CEditorSceneManager {
 
 		EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 		EditorApplication.update += CEditorSceneManager.UpdateDependencyState;
+
+		EditorSceneManager.sceneOpened -= CEditorSceneManager.OnOpenScene;
+		EditorSceneManager.sceneOpened += CEditorSceneManager.OnOpenScene;
 	}
 
 	/** 종속 패키지를 설정한다 */

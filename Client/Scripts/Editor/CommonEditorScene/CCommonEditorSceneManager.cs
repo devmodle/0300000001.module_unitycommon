@@ -6,7 +6,9 @@ using UnityEngine.Events;
 
 #if UNITY_EDITOR
 using System.IO;
+using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 /** 공용 에디터 씬 관리자 */
 [InitializeOnLoad]
@@ -246,10 +248,12 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.SetupSceneTemplates();
 	}
 
-	/** 에디터 모드 상태를 갱신한다 */
-	private static IEnumerator CoUpdateEditorModeState() {
-		yield return CFactory.CoCreateWaitForSecs(KCDefine.B_DELTA_T_ASYNC_TASK, true);
-		CAccess.SetTimeScale(KCDefine.B_VAL_1_REAL);
+	/** 씬이 열렸을 경우 */
+	private static void OnOpenScene(Scene a_stScene, OpenSceneMode a_eMode) {
+		// 중첩 모드 일 경우
+		if(a_eMode == OpenSceneMode.Additive) {
+			// Do Something
+		}
 	}
 	#endregion // 클래스 함수
 }
