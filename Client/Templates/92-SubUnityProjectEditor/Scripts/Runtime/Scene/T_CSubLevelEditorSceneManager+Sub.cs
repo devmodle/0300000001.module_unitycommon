@@ -160,7 +160,7 @@ namespace LevelEditorScene {
 			}
 			// 객체 제거가 가능 할 경우
 			else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
-				this.RemoveCellObjInfo(stIdx, Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE);
+				this.RemoveCellObjInfo(stIdx, Input.GetKey(CAccess.CmdKeyCode) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE);
 			}
 		}
 
@@ -180,7 +180,7 @@ namespace LevelEditorScene {
 					oIdxList.ExRemoveValAt(KCDefine.B_VAL_0_INT);
 
 					var stSize = this.GetEditorObjSize();
-					var eObjKinds = Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : stCellObjInfo.ObjKinds;
+					var eObjKinds = Input.GetKey(CAccess.CmdKeyCode) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : stCellObjInfo.ObjKinds;
 
 					bool bIsValid01 = this.IsEnableAddCellObjInfo(stIdx, stSize, m_oObjKindsDict[EKey.SEL_OBJ_KINDS], false);
 					bool bIsValid02 = this.IsEnableRemoveCellObjInfo(stIdx, eObjKinds);

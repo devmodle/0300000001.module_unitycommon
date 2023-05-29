@@ -166,7 +166,7 @@ namespace MainScene {
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 				// 단축키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.LeftShift)) {
+				if(Input.GetKey(CAccess.CmdKeyCode)) {
 					this.HandleHotKeys();
 				}
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

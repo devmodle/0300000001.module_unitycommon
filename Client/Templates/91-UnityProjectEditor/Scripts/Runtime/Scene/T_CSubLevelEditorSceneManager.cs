@@ -394,7 +394,7 @@ namespace LevelEditorScene {
 				m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 				// 단축키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.LeftShift)) {
+				if(Input.GetKey(CAccess.CmdKeyCode)) {
 					this.HandleHotKeys();
 					CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(null);
 				}
@@ -990,7 +990,7 @@ namespace LevelEditorScene {
 							int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stFindCellObjInfo) => a_stFindCellObjInfo.ObjKinds == a_stCellObjInfo.ObjKinds);
 
 							// 셀 객체 정보가 존재 할 경우
-							if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) || (!a_bIsEnableOverlay && Input.GetKey(KeyCode.LeftShift))) {
+							if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) || (!a_bIsEnableOverlay && Input.GetKey(CAccess.CmdKeyCode))) {
 								this.RemoveAllCellObjInfos(a_stIdx, stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE);
 							}
 
@@ -1348,7 +1348,7 @@ namespace LevelEditorScene {
 
 				int nIdx01 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_OBJ_PLACEHOLDER_01);
 				int nIdx02 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == a_eObjKinds && !a_bIsReplace);
-				int nIdx03 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds != a_eObjKinds && !Input.GetKey(KeyCode.LeftShift));
+				int nIdx03 = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds != a_eObjKinds && !Input.GetKey(CAccess.CmdKeyCode));
 
 				return a_bIsEnableOverlay || (!stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx01) && !stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx02) && !stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx03));
 			}
@@ -1573,11 +1573,11 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
+						this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(CAccess.CmdKeyCode));
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
-						this.RemoveAllCellObjInfos(stIdx, Input.GetKey(KeyCode.LeftShift) ? EObjKinds.NONE : m_oObjKindsDict[EKey.SEL_OBJ_KINDS]);
+						this.RemoveAllCellObjInfos(stIdx, Input.GetKey(CAccess.CmdKeyCode) ? EObjKinds.NONE : m_oObjKindsDict[EKey.SEL_OBJ_KINDS]);
 					}
 				}
 			}
@@ -1594,11 +1594,11 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
+						this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(CAccess.CmdKeyCode));
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && oCellInfoDict[i].m_oCellObjInfoList.ExIsValid()) {
-						this.RemoveAllCellObjInfos(stIdx, Input.GetKey(KeyCode.LeftShift) ? EObjKinds.NONE : m_oObjKindsDict[EKey.SEL_OBJ_KINDS]);
+						this.RemoveAllCellObjInfos(stIdx, Input.GetKey(CAccess.CmdKeyCode) ? EObjKinds.NONE : m_oObjKindsDict[EKey.SEL_OBJ_KINDS]);
 					}
 				}
 			}
@@ -2080,7 +2080,7 @@ namespace LevelEditorScene {
 						// 객체 추가가 가능 할 경우
 						if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
 							var stIdx = new Vector3Int(j, i, KCDefine.B_VAL_0_INT);
-							this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
+							this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(CAccess.CmdKeyCode));
 						}
 					}
 				}
