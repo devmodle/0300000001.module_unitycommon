@@ -523,7 +523,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	public CLevelInfo LoadLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 		return this.LoadLevelInfo(this.GetLevelInfoLoadPath(a_nLevelID, KCDefine.B_FILE_EXTENSION_BYTES, a_nStageID, a_nChapterID), a_nLevelID, a_nStageID, a_nChapterID);
-#else
+#elif NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		return this.LoadLevelInfo(this.GetLevelInfoLoadPath(a_nLevelID, KCDefine.B_FILE_EXTENSION_JSON, a_nStageID, a_nChapterID), a_nLevelID, a_nStageID, a_nChapterID);
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 	}
