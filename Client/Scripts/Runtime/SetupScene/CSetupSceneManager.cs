@@ -14,10 +14,6 @@ namespace SetupScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			LOADING_GAUGE_ANI,
-
-			STR_BUILDER_01,
-			STR_BUILDER_02,
 
 			LOADING_TEXT,
 			SCENE_INFO_TEXT,
@@ -28,20 +24,19 @@ namespace SetupScene {
 		}
 
 		#region 변수
-		private Dictionary<EKey, System.Text.StringBuilder> m_oStrBuilderDict = new Dictionary<EKey, System.Text.StringBuilder>() {
-			[EKey.STR_BUILDER_01] = new System.Text.StringBuilder(),
-			[EKey.STR_BUILDER_02] = new System.Text.StringBuilder()
-		};
-
-		private Stopwatch m_oStopwatch = new Stopwatch();
-		private Dictionary<EKey, Tween> m_oAniDict = new Dictionary<EKey, Tween>();
-
 		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, CGaugeHandler> m_oGaugeHandlerDict = new Dictionary<EKey, CGaugeHandler>();
 
 		[Header("=====> Objs <=====")]
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
+
+		[Header("=====> Fields <=====")]
+		private Tween m_oAni = null;
+		private Stopwatch m_oStopwatch = new Stopwatch();
+
+		private System.Text.StringBuilder m_oStrBuilder01 = new System.Text.StringBuilder();
+		private System.Text.StringBuilder m_oStrBuilder02 = new System.Text.StringBuilder();
 		#endregion // 변수
 
 		#region 클래스 변수
@@ -138,6 +133,11 @@ namespace SetupScene {
 			}
 		}
 
+		/** 애니메이션을 리셋한다 */
+		public virtual void ResetAni() {
+			m_oAni?.Kill();
+		}
+
 		/** 제거 되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
@@ -145,9 +145,7 @@ namespace SetupScene {
 			try {
 				// 앱이 실행 중 일 경우
 				if(CSceneManager.IsAppRunning) {
-					foreach(var stKeyVal in m_oAniDict) {
-						stKeyVal.Value?.Kill();
-					}
+					this.ResetAni();
 				}
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"CSetupSceneManager.OnDestroy Exception: {oException.Message}");
@@ -176,14 +174,14 @@ namespace SetupScene {
 
 		/** 텍스트 상태를 갱신한다 */
 		private void UpdateUIsState() {
-			m_oStrBuilderDict[EKey.STR_BUILDER_01].Clear();
-			m_oStrBuilderDict[EKey.STR_BUILDER_01].Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_SETUP_SM_LOADING_TEXT));
+			m_oStrBuilder01.Clear();
+			m_oStrBuilder01.Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_SETUP_SM_LOADING_TEXT));
 
 			string oPercentStr = string.Format(KCDefine.B_TEXT_FMT_1_INT, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
 			oPercentStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, string.Format(KCDefine.B_TEXT_FMT_PERCENT, oPercentStr));
 
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
-			m_oTextDict[EKey.LOADING_TEXT].ExSetText(string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, m_oStrBuilderDict[EKey.STR_BUILDER_01].ToString(), oPercentStr), stFontSetInfo);
+			m_oTextDict[EKey.LOADING_TEXT].ExSetText(string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, m_oStrBuilder01.ToString(), oPercentStr), stFontSetInfo);
 		}
 
 		/** 디바이스 메세지를 수신했을 경우 */
@@ -229,14 +227,14 @@ namespace SetupScene {
 		/** 설정 씬 이벤트를 수신했을 경우 */
 		private void OnReceiveSetupSceneEvent(ESetupSceneEvent a_eEvent) {
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)ESetupSceneEvent.MAX_VAL);
-			m_oAniDict.ExAssignVal(EKey.LOADING_GAUGE_ANI, this.StartLoadingGaugeAni(m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER], (a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
+			CAccess.AssignVal(ref m_oAni, this.StartLoadingGaugeAni(m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER], (a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
 
 #if DEBUG || DEVELOPMENT
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
 
 			try {
-				m_oTextDict[EKey.SCENE_INFO_TEXT].ExSetText(m_oStrBuilderDict[EKey.STR_BUILDER_02].ToString(), stFontSetInfo);
-				m_oStrBuilderDict[EKey.STR_BUILDER_02].AppendLine($"{a_eEvent}: {m_oStopwatch.ElapsedMilliseconds} ms");
+				m_oTextDict[EKey.SCENE_INFO_TEXT].ExSetText(m_oStrBuilder02.ToString(), stFontSetInfo);
+				m_oStrBuilder02.AppendLine($"{a_eEvent}: {m_oStopwatch.ElapsedMilliseconds} ms");
 			} finally {
 				m_oStopwatch.Restart();
 			}

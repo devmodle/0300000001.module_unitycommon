@@ -15,7 +15,7 @@ public partial class CDifficultyUIsHandler : CComponent {
 	}
 
 	#region 변수
-	[Header("=====> Etc <=====")]
+	[Header("=====> Fields <=====")]
 	[SerializeField] private string m_oBasePath = string.Empty;
 	[SerializeField] private EDifficulty m_eDifficulty = EDifficulty.NONE;
 	#endregion // 변수

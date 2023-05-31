@@ -33,12 +33,13 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
-		private Dictionary<EKey, ParticleSystem> m_oParticleFXDict = new Dictionary<EKey, ParticleSystem>();
-		
 		[Header("=====> Objs <=====")]
 		[SerializeField] private List<GameObject> m_oTargetList = new List<GameObject>();
 		[SerializeField] private List<GameObject> m_oExtraTargetList = new List<GameObject>();
+
+		[Header("=====> Fields <=====")]
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
+		private Dictionary<EKey, ParticleSystem> m_oParticleFXDict = new Dictionary<EKey, ParticleSystem>();
 		#endregion // 변수
 
 		#region 프로퍼티

@@ -9,24 +9,8 @@ using UnityEngine.Events;
 namespace SetupScene {
 	/** 서브 설정 씬 관리자 */
 	public partial class CSubSetupSceneManager : CSetupSceneManager {
-		/** 식별자 */
-		private enum EKey {
-			NONE = -1,
-			LOADING_GAUGE_ANI,
-
-			STR_BUILDER_01,
-			STR_BUILDER_02,
-
-			LOADING_TEXT,
-			SCENE_INFO_TEXT,
-			LOADING_GAUGE_HANDLER,
-
-			LOADING_GAUGE,
-			[HideInInspector] MAX_VAL
-		}
-
 		#region 변수
-		[Header("=====> Etc <=====")]
+		[Header("=====> Fields <=====")]
 		[SerializeField] private SystemLanguage m_eSystemLanguage = SystemLanguage.Unknown;
 		#endregion // 변수
 
