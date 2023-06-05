@@ -107,7 +107,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_5_REAL)) {
 				CCommonEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
 				CAccess.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 

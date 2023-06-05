@@ -66,9 +66,8 @@ public static partial class CEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if((EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+			if((EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_5_REAL)) {
 				CEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
-				CEditorSceneManager.SetupExtraPreloadAssets();
 
 #if UIS_ROOT_PREFAB_ENABLE
 				CAccess.EnumerateRootObjs((a_oObj) => {
@@ -144,7 +143,7 @@ public static partial class CEditorSceneManager {
 		}
 
 		// 상태 갱신이 가능 할 경우
-		if(bIsEnableUpdate && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDefineSymbolSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+		if(bIsEnableUpdate && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDefineSymbolSkipTime).ExIsGreateEquals(KCDefine.B_VAL_5_REAL)) {
 			var oDefineSymbolInfoTable = CEditorAccess.FindAsset<CDefineSymbolInfoTable>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_INFO_TABLE);
 
 			// 전처리기 심볼 정보 테이블이 존재 할 경우
@@ -191,7 +190,7 @@ public static partial class CEditorSceneManager {
 			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.Result != null && CEditorSceneManager.m_oListRequest.IsCompleted);
 
 			// 갱신 주기가 지났을 경우
-			if(bIsEnableSetup && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDependencySkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+			if(bIsEnableSetup && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDependencySkipTime).ExIsGreateEquals(KCDefine.B_VAL_5_REAL)) {
 				CEditorSceneManager.m_dblDependencySkipTime = EditorApplication.timeSinceStartup;
 				CEditorSceneManager.m_bIsEnableSetupDependencies = false;
 
@@ -209,6 +208,11 @@ public static partial class CEditorSceneManager {
 	[UnityEditor.Callbacks.DidReloadScripts]
 	private static void OnLoadScript() {
 		CEditorSceneManager.m_bIsEnableSetup = true;
+	}
+
+	/** 프로젝트 상태가 갱신 되었을 경우 */
+	private static void OnUpdateProjectState() {
+		CEditorSceneManager.SetupExtraPreloadAssets();
 	}
 
 	/** 씬이 열렸을 경우 */
@@ -234,6 +238,9 @@ public static partial class CEditorSceneManager {
 
 		EditorApplication.update -= CEditorSceneManager.UpdateDependencyState;
 		EditorApplication.update += CEditorSceneManager.UpdateDependencyState;
+
+		EditorApplication.projectChanged -= CEditorSceneManager.OnUpdateProjectState;
+		EditorApplication.projectChanged += CEditorSceneManager.OnUpdateProjectState;
 
 		EditorSceneManager.sceneOpened -= CEditorSceneManager.OnOpenScene;
 		EditorSceneManager.sceneOpened += CEditorSceneManager.OnOpenScene;
