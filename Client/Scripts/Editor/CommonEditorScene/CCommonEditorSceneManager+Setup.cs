@@ -275,14 +275,7 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_REAL),
 				a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_REAL),
 				a_oSettings.indirectResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION),
-				a_oSettings.lightmapResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION),
-
-#if !UNITY_2022_1_OR_NEWER
-				a_oSettings.finalGather,
-				a_oSettings.finalGatherFiltering,
-
-				a_oSettings.finalGatherRayCount == (int)EPOT._256,
-#endif // #if !UNITY_2022_1_OR_NEWER
+				a_oSettings.lightmapResolution.Equals(KCDefine.B_UNIT_LIGHTMAP_RESOLUTION)
 			};
 
 			// 설정 갱신이 필요 할 경우
@@ -306,13 +299,6 @@ public static partial class CCommonEditorSceneManager {
 				a_oSettings.indirectScale = KCDefine.B_VAL_1_INT;
 				a_oSettings.indirectResolution = KCDefine.B_UNIT_LIGHTMAP_RESOLUTION;
 				a_oSettings.lightmapResolution = KCDefine.B_UNIT_LIGHTMAP_RESOLUTION;
-
-#if !UNITY_2022_1_OR_NEWER
-				a_oSettings.finalGather = true;
-				a_oSettings.finalGatherFiltering = true;
-				
-				a_oSettings.finalGatherRayCount = (int)EPOT._256;
-#endif // #if !UNITY_2022_1_OR_NEWER
 			}
 		}
 	}

@@ -134,18 +134,14 @@ namespace InitScene {
 			bool bIsValid = oTargetFrameInfoDict.TryGetValue(Application.platform, out (long, long) stTargetFrameInfo);
 			long nTargetFrameRate = bIsValid ? stTargetFrameInfo.Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
 
+			int nDefTargetFrameRate = Application.isEditor ? KCDefine.B_EDITOR_TARGET_FRAME_RATE : KCDefine.B_MIN_TARGET_FRAME_RATE;
+			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate)));
+
 #if MULTI_TOUCH_ENABLE
 			Input.multiTouchEnabled = true;
 #else
 			Input.multiTouchEnabled = false;
 #endif // #if MULTI_TOUCH_ENABLE
-
-#if UNITY_2022_1_OR_NEWER
-			int nDefTargetFrameRate = Application.isEditor ? KCDefine.B_EDITOR_TARGET_FRAME_RATE : KCDefine.B_MIN_TARGET_FRAME_RATE;
-			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate)));
-#else
-			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.Min(Screen.currentResolution.refreshRate, (int)nTargetFrameRate));
-#endif // #if UNITY_2022_1_OR_NEWER
 
 #if UNITY_EDITOR
 			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eQualityLevel, true);
