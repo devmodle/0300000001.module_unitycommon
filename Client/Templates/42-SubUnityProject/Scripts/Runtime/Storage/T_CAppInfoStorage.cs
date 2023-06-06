@@ -85,7 +85,7 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	public CAppInfo AppInfo { get; private set; } = new CAppInfo();
 
 #if ADS_MODULE_ENABLE
-	public int AdsSkipTimes { get; private set; } = KCDefine.B_VAL_0_INT;
+	public int AdsSkipTimes { get; private set; } = 0;
 	public System.DateTime PrevRewardAdsTime { get; private set; } = System.DateTime.Now;
 	public System.DateTime PrevFullscreenAdsTime { get; private set; } = System.DateTime.Now;
 
