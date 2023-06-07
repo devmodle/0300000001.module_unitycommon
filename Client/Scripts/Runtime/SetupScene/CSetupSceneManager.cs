@@ -14,7 +14,6 @@ namespace SetupScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-
 			LOADING_TEXT,
 			SCENE_INFO_TEXT,
 			LOADING_GAUGE_HANDLER,

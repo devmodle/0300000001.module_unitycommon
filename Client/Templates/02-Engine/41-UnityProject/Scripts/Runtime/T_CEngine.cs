@@ -15,15 +15,6 @@ namespace NSEngine {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			IS_FINISH,
-			IS_RUNNING,
-
-			SEL_GRID_IDX,
-			SEL_PLAYER_OBJ_IDX,
-
-			SKIP_TIME,
-			TIME_SCALE,
-
 			CELL_OBJ_ROOT,
 			PLAYER_OBJ_ROOT,
 			ENEMY_OBJ_ROOT,
@@ -68,32 +59,26 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
-			[EKey.IS_FINISH] = false,
-			[EKey.IS_RUNNING] = false
-		};
-
-		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
-			[EKey.SEL_GRID_IDX] = KCDefine.B_VAL_0_INT,
-			[EKey.SEL_PLAYER_OBJ_IDX] = KCDefine.B_VAL_0_INT
-		};
-
-		private Dictionary<EKey, float> m_oRealDict = new Dictionary<EKey, float>() {
-			[EKey.SKIP_TIME] = KCDefine.B_VAL_0_REAL,
-			[EKey.TIME_SCALE] = KCDefine.B_VAL_1_REAL
-		};
-
-		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
-		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
-
 		[Header("=====> Objs <=====")]
 		private List<GameObject> m_oCellObjRootList = new List<GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
+
+		[Header("=====> Fields <=====")]
+		private float m_fSkipTime = 0.0f;
+		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
+		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
 		#endregion // 변수
 
 		#region 프로퍼티
 		public STParams Params { get; private set; }
 		public STRecordInfo RecordInfo { get; private set; }
+
+		public bool IsFinish { get; private set; } = false;
+		public bool IsRunning { get; private set; } = false;
+
+		public int SelGridInfoIdx { get; private set; } = 0;
+		public int SelPlayerObjIdx { get; private set; } = 0;
+		public float DeltaTimeScale { get; private set; } = 1.0f;
 
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
@@ -115,12 +100,7 @@ namespace NSEngine {
 		public List<(STSkillInfo, CSkillTargetInfo)> SkillInfoTupleList { get; } = new List<(STSkillInfo, CSkillTargetInfo)>();
 
 		public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
-
-		public bool IsRunning => m_oBoolDict[EKey.IS_RUNNING];
 		public bool IsEnableUpdate => Time.timeScale.ExIsGreate(KCDefine.B_VAL_0_REAL);
-
-		public int SelGridInfoIdx => m_oIntDict[EKey.SEL_GRID_IDX];
-		public int SelPlayerObjIdx => m_oIntDict[EKey.SEL_PLAYER_OBJ_IDX];
 
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
@@ -163,9 +143,9 @@ namespace NSEngine {
 		/** 상태를 리셋한다 */
 		public override void Reset() {
 			base.Reset();
-			this.SetState(EState.NONE);
+			this.IsRunning = false;
 
-			m_oBoolDict[EKey.IS_RUNNING] = false;
+			this.SetState(EState.NONE);
 		}
 
 		/** 제거 되었을 경우 */
@@ -189,10 +169,10 @@ namespace NSEngine {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning && this.IsEnableUpdate) {
 				// 실행 중 일 경우
-				if(m_oBoolDict[EKey.IS_RUNNING]) {
+				if(this.IsRunning) {
 					switch(this.SubState) {
-						case ESubState.PLAY: this.HandlePlaySubState(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]); break;
-						case ESubState.PAUSE: this.HandlePauseSubState(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]); break;
+						case ESubState.PLAY: this.HandlePlaySubState(a_fDeltaTime * this.DeltaTimeScale); break;
+						case ESubState.PAUSE: this.HandlePauseSubState(a_fDeltaTime * this.DeltaTimeScale); break;
 					}
 
 					// 플레이어 객체가 존재 할 경우
@@ -202,7 +182,7 @@ namespace NSEngine {
 					}
 				}
 
-				this.SubOnUpdate(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]);
+				this.SubOnUpdate(a_fDeltaTime * this.DeltaTimeScale);
 			}
 		}
 
@@ -212,7 +192,7 @@ namespace NSEngine {
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning && this.IsEnableUpdate) {
-				this.SubOnLateUpdate(a_fDeltaTime * m_oRealDict[EKey.TIME_SCALE]);
+				this.SubOnLateUpdate(a_fDeltaTime * this.DeltaTimeScale);
 			}
 		}
 
@@ -406,7 +386,7 @@ namespace NSEngine {
 					var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), a_stGridInfo, null);
 					oCellObj.transform.localPosition = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);				
 					
-					oCellObj.GetController<CECellObjController>().SetIdx(a_stCellInfo.m_stIdx);
+					oCellObj.GetController<CECellObjController>().SetCellIdx(a_stCellInfo.m_stIdx);
 					oCellObj.GetController<CECellObjController>().SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
 
 					oCellObjList.ExAddVal(oCellObj);
@@ -486,7 +466,7 @@ namespace NSEngine {
 
 		/** 구동 여부를 변경한다 */
 		public void SetEnableRunning(bool a_bIsEnable) {
-			m_oBoolDict[EKey.IS_RUNNING] = a_bIsEnable;
+			this.IsRunning = a_bIsEnable;
 		}
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
@@ -494,9 +474,9 @@ namespace NSEngine {
 			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsEnable);
 		}
 
-		/** 시간 비율을 변경한다 */
-		public void SetTimeScale(float a_fTimeScale) {
-			m_oRealDict[EKey.TIME_SCALE] = a_fTimeScale.ExGetClampVal(KDefine.E_MIN_TIME_SCALE, KDefine.E_MAX_TIME_SCALE);
+		/** 시간 간격 비율을 변경한다 */
+		public void SetDeltaTimeScale(float a_fTimeScale) {
+			this.DeltaTimeScale = a_fTimeScale.ExGetClampVal(KDefine.E_MIN_DELTA_TIME_SCALE, KDefine.E_MAX_DELTA_TIME_SCALE);
 		}
 
 		/** 상태를 변경한다 */
@@ -815,11 +795,11 @@ namespace NSEngine {
 
 		/** 셀 객체를 제거한다 */
 		private void RemoveCellObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
-			var oCellObjList = (a_oObj != null) ? this.CellObjListsContainer.ExGetVal(a_oObj.GetController<CECellObjController>().Idx, null) : null;
-			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().Idx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+			var oCellObjList = (a_oObj != null) ? this.CellObjListsContainer.ExGetVal(a_oObj.GetController<CECellObjController>().CellIdx, null) : null;
+			CAccess.Assert(!a_bIsEnableAssert || (a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
 
 			// 셀 객체가 존재 할 경우
-			if(a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().Idx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+			if(a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				oCellObjList.ExRemoveVal(a_oObj);
 				CFactory.RemoveObj(a_oObj.Params.m_stBaseParams.m_oController, a_bIsEnableAssert: false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);

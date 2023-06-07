@@ -167,15 +167,6 @@ namespace InitScene {
 		private IEnumerator CoStart() {
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
 
-			// iOS 를 설정한다 {
-#if UNITY_IOS
-			Device.hideHomeButton = false;
-
-			Device.SetNoBackupFlag(KCDefine.B_DIR_P_WRITABLE);
-			Device.SetNoBackupFlag(KCDefine.U_IMG_P_SCREENSHOT);
-#endif // #if UNITY_IOS
-			// iOS 를 설정한다 }
-
 			// 관리자를 생성한다 {
 			CSndManager.Create();
 			CResManager.Create();
@@ -214,11 +205,9 @@ namespace InitScene {
 #endif // #if NOTI_MODULE_ENABLE
 			// 관리자를 생성한다 }
 
-			// 씬 객체를 생성한다
+			// 전역 객체를 생성한다
 			CUSingleton.Create();
 			CSceneLoader.Create();
-
-			// 디바이스 연동 객체를 생성한다
 			CUnityMsgSender.Create();
 			CDeviceMsgReceiver.Create();
 
@@ -246,6 +235,15 @@ namespace InitScene {
 			CCommonAppInfoStorage.Create();
 			CCommonUserInfoStorage.Create();
 			CCommonGameInfoStorage.Create();
+
+			// 디바이스를 설정한다 {
+#if UNITY_IOS
+			Device.hideHomeButton = false;
+
+			Device.SetNoBackupFlag(KCDefine.B_DIR_P_WRITABLE);
+			Device.SetNoBackupFlag(KCDefine.U_IMG_P_SCREENSHOT);
+#endif // #if UNITY_IOS
+			// 디바이스를 설정한다 }
 
 			this.Setup();
 			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);

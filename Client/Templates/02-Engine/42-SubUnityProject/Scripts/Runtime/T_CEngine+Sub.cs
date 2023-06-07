@@ -78,8 +78,8 @@ namespace NSEngine {
 		/** 클리어 상태를 처리한다 */
 		private void HandleClearState() {
 			// 종료 상태가 아닐 경우
-			if(!m_oBoolDict[EKey.IS_FINISH]) {
-				m_oBoolDict[EKey.IS_FINISH] = true;
+			if(!this.IsFinish) {
+				this.IsFinish = true;
 
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 #if NEVER_USE_THIS
@@ -92,8 +92,8 @@ namespace NSEngine {
 		/** 클리어 실패 상태를 처리한다 */
 		private void HandleClearFailState() {
 			// 종료 상태가 아닐 경우
-			if(!m_oBoolDict[EKey.IS_FINISH]) {
-				m_oBoolDict[EKey.IS_FINISH] = true;
+			if(!this.IsFinish) {
+				this.IsFinish = true;
 
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 #if NEVER_USE_THIS
@@ -113,7 +113,7 @@ namespace NSEngine {
 			global::Func.UpdateComponents(this.EnemyObjListWrapper, a_fDeltaTime);
 
 			// 실행 중 일 경우
-			if(m_oBoolDict[EKey.IS_RUNNING]) {
+			if(this.IsRunning) {
 				var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
 				try {
@@ -163,7 +163,7 @@ namespace NSEngine {
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict[EKey.IS_RUNNING]) {
+			if(this.IsRunning) {
 				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
@@ -177,7 +177,7 @@ namespace NSEngine {
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict[EKey.IS_RUNNING]) {
+			if(this.IsRunning) {
 				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
@@ -191,7 +191,7 @@ namespace NSEngine {
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
-			if(m_oBoolDict[EKey.IS_RUNNING]) {
+			if(this.IsRunning) {
 				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
