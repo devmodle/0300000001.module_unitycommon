@@ -75,9 +75,9 @@ namespace LoadingScene {
 			this.SubUpdateUIsState();
 		}
 
-		/** 비동기 씬 로딩 상태가 갱신 되었을 경우 */
-		protected override void OnUpdateAsyncSceneLoadingState(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
-			base.OnUpdateAsyncSceneLoadingState(a_oAsyncOperation, a_bIsComplete);
+		/** 비동기 씬 로딩 수치가 변경 되었을 경우 */
+		protected override void OnChangeAsyncSceneLoadingPercent(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
+			base.OnChangeAsyncSceneLoadingPercent(a_oAsyncOperation, a_bIsComplete);
 		}
 #endregion // 함수
 	}

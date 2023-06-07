@@ -537,9 +537,9 @@ namespace LevelEditorScene {
 			}
 		}
 
-		/** 화면 크기가 갱신 되었을 경우 */
-		protected override void OnUpdateScreenSize(Vector3 a_stScreenSize) {
-			base.OnUpdateScreenSize(a_stScreenSize);
+		/** 화면 크기가 변경 되었을 경우 */
+		protected override void OnChangeScreenSize(Vector3 a_stScreenSize) {
+			base.OnChangeScreenSize(a_stScreenSize);
 			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR), KCDefine.B_VAL_0_1_REAL);
 		}
 

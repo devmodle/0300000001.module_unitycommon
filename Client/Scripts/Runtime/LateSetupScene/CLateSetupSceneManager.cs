@@ -252,16 +252,16 @@ namespace LateSetupScene {
 #if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 				// 기본 씬 일 경우
 				if(KCDefine.B_DEF_SCENE_NAME_LIST_02.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
-					CSceneLoader.Inst.LoadSceneAsync(KCDefine.B_SCENE_N_MENU, this.OnUpdateAsyncSceneLoadingState);
+					CSceneLoader.Inst.LoadSceneAsync(KCDefine.B_SCENE_N_MENU, this.OnChangeAsyncSceneLoadingPercent);
 				} else {
-					CSceneLoader.Inst.LoadSceneAsync(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_MENU : CSceneLoader.Inst.AwakeActiveSceneName, this.OnUpdateAsyncSceneLoadingState);
+					CSceneLoader.Inst.LoadSceneAsync(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_MENU : CSceneLoader.Inst.AwakeActiveSceneName, this.OnChangeAsyncSceneLoadingPercent);
 				}
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				// 기본 씬 일 경우
 				if(KCDefine.B_DEF_SCENE_NAME_LIST_01.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
-					CSceneLoader.Inst.LoadSceneAsync(KCDefine.B_SCENE_N_TITLE, this.OnUpdateAsyncSceneLoadingState);
+					CSceneLoader.Inst.LoadSceneAsync(KCDefine.B_SCENE_N_TITLE, this.OnChangeAsyncSceneLoadingPercent);
 				} else {
-					CSceneLoader.Inst.LoadSceneAsync(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : CSceneLoader.Inst.AwakeActiveSceneName, this.OnUpdateAsyncSceneLoadingState);
+					CSceneLoader.Inst.LoadSceneAsync(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : CSceneLoader.Inst.AwakeActiveSceneName, this.OnChangeAsyncSceneLoadingPercent);
 				}
 #endif // #if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			});
