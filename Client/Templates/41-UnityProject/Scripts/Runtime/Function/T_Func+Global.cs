@@ -653,16 +653,6 @@ public static partial class Func {
 #endif // #if FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-	/** 상품이 결제 되었을 경우 */
-	public static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
-		// 결제 되었을 경우
-		if(a_bIsSuccess) {
-			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_PURCHASE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
-		} else {
-			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_PURCHASE_FAIL_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
-		}
-	}
-
 	/** 상품이 복원 되었을 경우 */
 	public static void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 복원 되었을 경우
@@ -670,6 +660,16 @@ public static partial class Func {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_RESTORE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
 		} else {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_RESTORE_FAIL_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
+		}
+	}
+
+	/** 상품이 결제 되었을 경우 */
+	public static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+		// 결제 되었을 경우
+		if(a_bIsSuccess) {
+			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_PURCHASE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
+		} else {
+			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_PURCHASE_FAIL_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
 		}
 	}
 

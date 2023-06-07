@@ -26,8 +26,8 @@ public partial class CStoreUIsHandler : CComponent {
 	public enum ECallback {
 		NONE = -1,
 		ADS,
-		PURCHASE,
 		RESTORE,
+		PURCHASE,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -162,6 +162,14 @@ public partial class CStoreUIsHandler : CComponent {
 		}
 	}
 
+	/** 복원 버튼을 눌렀을 경우 */
+	private void OnTouchRestoreBtn() {
+#if PURCHASE_MODULE_ENABLE
+		m_oRestoreProductList.Clear();
+		Func.RestoreProducts(this.OnRestoreProducts);
+#endif // #if PURCHASE_MODULE_ENABLE
+	}
+
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STProductTradeInfo a_stProductTradeInfo) {
 		switch(a_stProductTradeInfo.m_ePurchaseType) {
@@ -173,6 +181,10 @@ public partial class CStoreUIsHandler : CComponent {
 
 				break;
 			}
+			case EPurchaseType.TARGET: {
+				Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, a_stProductTradeInfo);
+				break;
+			}
 			case EPurchaseType.IN_APP_PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
 				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
@@ -180,19 +192,7 @@ public partial class CStoreUIsHandler : CComponent {
 
 				break;
 			}
-			case EPurchaseType.TARGET: {
-				Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, a_stProductTradeInfo);
-				break;
-			}
 		}
-	}
-
-	/** 복원 버튼을 눌렀을 경우 */
-	private void OnTouchRestoreBtn() {
-#if PURCHASE_MODULE_ENABLE
-		m_oRestoreProductList.Clear();
-		Func.RestoreProducts(this.OnRestoreProducts);
-#endif // #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion // 함수
 
@@ -212,17 +212,6 @@ public partial class CStoreUIsHandler : CComponent {
 #endif // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-	/** 상품이 결제 되었을 경우 */
-	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
-		// 결제 되었을 경우
-		if(a_bIsSuccess) {
-			// Do Something
-		}
-
-		this.UpdateUIsState();
-		this.Params.m_oPurchaseCallbackDict01?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
-	}
-
 	/** 상품이 복원 되었을 경우 */
 	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
 		// 복원 되었을 경우
@@ -239,6 +228,17 @@ public partial class CStoreUIsHandler : CComponent {
 
 		this.UpdateUIsState();
 		this.Params.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+	}
+
+	/** 상품이 결제 되었을 경우 */
+	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+		// 결제 되었을 경우
+		if(a_bIsSuccess) {
+			// Do Something
+		}
+
+		this.UpdateUIsState();
+		this.Params.m_oPurchaseCallbackDict01?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
 #if FIREBASE_MODULE_ENABLE
@@ -263,7 +263,7 @@ public partial class CStoreUIsHandler : CComponent {
 	}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 상점 UI 처리자 - 팩토리 */
