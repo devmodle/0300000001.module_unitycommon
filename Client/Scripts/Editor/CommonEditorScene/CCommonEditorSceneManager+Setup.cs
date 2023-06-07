@@ -97,24 +97,6 @@ public static partial class CCommonEditorSceneManager {
 		EditorSceneManager.sceneOpened += CCommonEditorSceneManager.OnOpenScene;
 	}
 
-	/** 광선 추적자를 설정한다 */
-	private static void SetupRaycasters() {
-		CAccess.EnumerateComponents<GraphicRaycaster>((a_oRaycaster) => {
-			a_oRaycaster.ignoreReversedGraphics = true;
-			a_oRaycaster.blockingMask = a_oRaycaster.blockingMask.ExGetLayerMask(KCDefine.B_VAL_0_INT);
-			a_oRaycaster.blockingObjects = GraphicRaycaster.BlockingObjects.None;
-
-			return true;
-		});
-
-		CAccess.EnumerateComponents<PhysicsRaycaster>((a_oRaycaster) => {
-			a_oRaycaster.eventMask = a_oRaycaster.eventMask.ExGetLayerMask(int.MaxValue);
-			a_oRaycaster.maxRayIntersections = KCDefine.B_VAL_0_INT;
-
-			return true;
-		});
-	}
-
 	/** 광원 옵션을 설정한다 */
 	private static void SetupLightOpts() {
 		var oLightingSettingsPathDict = new Dictionary<EQualityLevel, string>() {
@@ -145,6 +127,24 @@ public static partial class CCommonEditorSceneManager {
 				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty)));
 			}
 		}
+	}
+
+	/** 광선 추적자를 설정한다 */
+	private static void SetupRaycasters() {
+		CAccess.EnumerateComponents<GraphicRaycaster>((a_oRaycaster) => {
+			a_oRaycaster.ignoreReversedGraphics = true;
+			a_oRaycaster.blockingMask = a_oRaycaster.blockingMask.ExGetLayerMask(KCDefine.B_VAL_0_INT);
+			a_oRaycaster.blockingObjects = GraphicRaycaster.BlockingObjects.None;
+
+			return true;
+		});
+
+		CAccess.EnumerateComponents<PhysicsRaycaster>((a_oRaycaster) => {
+			a_oRaycaster.eventMask = a_oRaycaster.eventMask.ExGetLayerMask(int.MaxValue);
+			a_oRaycaster.maxRayIntersections = KCDefine.B_VAL_0_INT;
+
+			return true;
+		});
 	}
 
 	/** 지역화 정보를 설정한다 */

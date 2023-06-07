@@ -31,7 +31,7 @@ namespace SetupScene {
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 
 		[Header("=====> Fields <=====")]
-		private Tween m_oAni = null;
+		private Tween m_oGaugeAni = null;
 		private Stopwatch m_oStopwatch = new Stopwatch();
 
 		private System.Text.StringBuilder m_oStrBuilder01 = new System.Text.StringBuilder();
@@ -134,7 +134,7 @@ namespace SetupScene {
 
 		/** 애니메이션을 리셋한다 */
 		public virtual void ResetAni() {
-			m_oAni?.Kill();
+			m_oGaugeAni?.Kill();
 		}
 
 		/** 제거 되었을 경우 */
@@ -226,7 +226,7 @@ namespace SetupScene {
 		/** 설정 씬 이벤트를 수신했을 경우 */
 		private void OnReceiveSetupSceneEvent(ESetupSceneEvent a_eEvent) {
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)ESetupSceneEvent.MAX_VAL);
-			CAccess.AssignVal(ref m_oAni, this.StartLoadingGaugeAni(m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER], (a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
+			CAccess.AssignVal(ref m_oGaugeAni, this.StartLoadingGaugeAni(m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER], (a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
 
 #if DEBUG || DEVELOPMENT
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);

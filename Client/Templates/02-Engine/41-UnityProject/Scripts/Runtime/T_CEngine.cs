@@ -64,7 +64,6 @@ namespace NSEngine {
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 
 		[Header("=====> Fields <=====")]
-		private float m_fSkipTime = 0.0f;
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
 		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
 		#endregion // 변수

@@ -25,7 +25,7 @@ namespace InitScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		public override Color ClearColor => KDefine.IS_COLOR_CLEAR;
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
 		#region 함수
 		/** 초기화 */
@@ -39,7 +39,7 @@ namespace InitScene {
 			}, m_oImgDict);
 
 			m_oImgDict[EKey.SPLASH_IMG].sprite = Resources.Load<Sprite>(KCDefine.U_TEX_P_SPLASH);
-			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, this.ScreenHeight / (KCDefine.B_VAL_5_REAL * KCDefine.B_VAL_8_REAL), KCDefine.B_VAL_0_REAL);
+			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, this.ScreenHeight / (KCDefine.B_UNIT_DIGITS_TEN * KCDefine.B_VAL_4_REAL), KCDefine.B_VAL_0_REAL);
 			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
 			// 이미지를 설정한다 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

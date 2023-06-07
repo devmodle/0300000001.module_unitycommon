@@ -85,8 +85,8 @@ namespace PlayScene {
 				this.SetupRewardAdsUIs();
 
 				// 아이템 종류를 설정한다
-				CGameInfoStorage.Inst.SelItemKindsList.Sort((a_eLhs, a_eRhs) => a_eLhs.CompareTo(a_eRhs));
-				CGameInfoStorage.Inst.FreeSelItemKindsList.Sort((a_eLhs, a_eRhs) => a_eLhs.CompareTo(a_eRhs));
+				CGameInfoStorage.Inst.SelItemKindsList.ExStableSort((a_eLhs, a_eRhs) => a_eLhs.CompareTo(a_eRhs));
+				CGameInfoStorage.Inst.FreeSelItemKindsList.ExStableSort((a_eLhs, a_eRhs) => a_eLhs.CompareTo(a_eRhs));
 
 				// 객체를 설정한다
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {

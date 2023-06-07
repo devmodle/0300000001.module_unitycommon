@@ -21,13 +21,11 @@ public static partial class CCommonEditorSceneManager {
 	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 
 	private static GUIStyle m_oTextGUIStyle = new GUIStyle() {
-		alignment = TextAnchor.MiddleRight,
-		fontStyle = FontStyle.Bold
+		alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Bold
 	};
 
 	private static GUIStyle m_oOutlineGUIStyle = new GUIStyle() {
-		alignment = TextAnchor.MiddleRight,
-		fontStyle = FontStyle.Bold
+		alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Bold
 	};
 
 	private static List<string> m_oSampleSceneNameList = new List<string>();
@@ -100,20 +98,20 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.m_bIsEnableSetup = false;
 				CSceneImporter.ImportAllScenes();
 
+				CPlatformOptsSetter.SetupProjOpts();
 				CPlatformOptsSetter.SetupPlayerOpts();
 				CPlatformOptsSetter.SetupEditorOpts();
-				CPlatformOptsSetter.SetupProjOpts();
 				CPlatformOptsSetter.SetupPluginProjs();
 			}
 
 			// 갱신 주기가 지났을 경우
-			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_5_REAL)) {
+			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_3_REAL)) {
 				CCommonEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
 				CAccess.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupTags();
-				CCommonEditorSceneManager.SetupRaycasters();
 				CCommonEditorSceneManager.SetupLightOpts();
+				CCommonEditorSceneManager.SetupRaycasters();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
 
 #if ADAPTIVE_PERFORMANCE_ENABLE

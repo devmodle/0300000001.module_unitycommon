@@ -57,11 +57,11 @@ namespace NSEngine {
 		/** 등장 상태를 처리한다 */
 		protected override void HandleAppearState(float a_fDeltaTime) {
 			base.HandleAppearState(a_fDeltaTime);
-			m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
+			m_fUpdateSkipTime += a_fDeltaTime;
 
 			// 일정 시간이 지났을 경우
-			if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
-				m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
+			if(m_fUpdateSkipTime.ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+				m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 				this.SetState(EState.IDLE);
 			}
 		}

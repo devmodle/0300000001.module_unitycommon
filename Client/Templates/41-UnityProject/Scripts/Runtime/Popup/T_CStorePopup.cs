@@ -89,7 +89,7 @@ public partial class CStorePopup : CSubPopup {
 		this.Params = a_stParams;
 
 		// 상품 교환 정보를 설정한다
-		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
+		a_stParams.m_oProductTradeInfoList.ExStableSort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
 
 		// 상점 UI 처리자가 존재 할 경우
 		if(m_oStoreUIsHandler[EKey.STORE_UIS_HANDLER] != null) {
