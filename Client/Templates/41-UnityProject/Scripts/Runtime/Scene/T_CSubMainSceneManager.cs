@@ -17,8 +17,6 @@ namespace MainScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			SEL_ID_INFO,
-
 			LEVEL_SCROLLER_INFO,
 			STAGE_SCROLLER_INFO,
 			CHAPTER_SCROLLER_INFO,
@@ -28,16 +26,15 @@ namespace MainScene {
 		}
 
 		#region 변수
-		private Dictionary<EKey, STIDInfo> m_oIDInfoDict = new Dictionary<EKey, STIDInfo>() {
-			[EKey.SEL_ID_INFO] = STIDInfo.INVALID
-		};
-
 		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
 
 		[Header("=====> Objs <=====")]
 		[SerializeField] private List<Button> m_oContentsTapBtnList = new List<Button>();
+
+		[Header("=====> Fields <=====")]
+		private STIDInfo m_stSelIDInfo = STIDInfo.INVALID;
 		#endregion // 변수
 
 		#region IEnhancedScrollerDelegate
@@ -200,7 +197,7 @@ namespace MainScene {
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
 			var ePlayMode = CGameInfoStorage.Inst.PlayMode;
-			m_oIDInfoDict[EKey.SEL_ID_INFO] = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) ? CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo : new STIDInfo(KCDefine.B_VAL_0_INT);
+			m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) ? CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo : new STIDInfo(KCDefine.B_VAL_0_INT);
 
 			// 버튼을 설정한다 {
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -236,8 +233,8 @@ namespace MainScene {
 		/** 씬을 설정한다 */
 		private void SetupStart() {
 			// 스크롤 뷰를 갱신한다
-			m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].m_oScroller?.ExReloadData((Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW) - KCDefine.B_VAL_1_INT);
-			m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].m_oScroller?.ExReloadData((Access.GetNumStageClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW) - KCDefine.B_VAL_1_INT);
+			m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].m_oScroller?.ExReloadData((Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_stSelIDInfo.m_nID02, m_stSelIDInfo.m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW) - KCDefine.B_VAL_1_INT);
+			m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].m_oScroller?.ExReloadData((Access.GetNumStageClearInfos(CGameInfoStorage.Inst.PlayCharacterID, m_stSelIDInfo.m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW) - KCDefine.B_VAL_1_INT);
 			m_oScrollerInfoDict[EKey.CHAPTER_SCROLLER_INFO].m_oScroller?.ExReloadData((Access.GetNumChapterClearInfos(CGameInfoStorage.Inst.PlayCharacterID) / KDefine.MS_MAX_NUM_CHAPTERS_IN_ROW) - KCDefine.B_VAL_1_INT);
 
 			// 캐릭터 게임 정보가 존재 할 경우
@@ -411,14 +408,14 @@ namespace MainScene {
 		#region 함수
 		/** 레벨 스크롤러 셀 개수를 반환한다 */
 		private int GetNumLevelScrollerCells(EnhancedScroller a_oSender) {
-			int nNumExtraCells = (CLevelInfoTable.Inst.GetNumLevelInfos(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
-			return (CLevelInfoTable.Inst.GetNumLevelInfos(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW) + nNumExtraCells;
+			int nNumExtraCells = (CLevelInfoTable.Inst.GetNumLevelInfos(m_stSelIDInfo.m_nID02, m_stSelIDInfo.m_nID03) % KDefine.MS_MAX_NUM_LEVELS_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (CLevelInfoTable.Inst.GetNumLevelInfos(m_stSelIDInfo.m_nID02, m_stSelIDInfo.m_nID03) / KDefine.MS_MAX_NUM_LEVELS_IN_ROW) + nNumExtraCells;
 		}
 
 		/** 스테이지 스크롤러 셀 개수를 반환한다 */
 		private int GetNumStageScrollerCells(EnhancedScroller a_oSender) {
-			int nNumExtraCells = (CLevelInfoTable.Inst.GetNumStageInfos(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) % KDefine.MS_MAX_NUM_STAGES_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
-			return (CLevelInfoTable.Inst.GetNumStageInfos(m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW) + nNumExtraCells;
+			int nNumExtraCells = (CLevelInfoTable.Inst.GetNumStageInfos(m_stSelIDInfo.m_nID03) % KDefine.MS_MAX_NUM_STAGES_IN_ROW > KCDefine.B_VAL_0_INT) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			return (CLevelInfoTable.Inst.GetNumStageInfos(m_stSelIDInfo.m_nID03) / KDefine.MS_MAX_NUM_STAGES_IN_ROW) + nNumExtraCells;
 		}
 
 		/** 챕터 스크롤러 셀 개수를 반환한다 */
@@ -430,7 +427,7 @@ namespace MainScene {
 		/** 레벨 스크롤러 셀 뷰를 생성한다 */
 		private EnhancedScrollerCellView CreateLevelScrollerCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict) {
 			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].m_oScrollerCellView) as CLevelScrollerCellView;
-			oScrollerCellView.Init(CLevelScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeULevelID(a_nDataIdx * KDefine.MS_MAX_NUM_LEVELS_IN_ROW, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID02, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03), a_oSender, a_oCallbackDict));
+			oScrollerCellView.Init(CLevelScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeULevelID(a_nDataIdx * KDefine.MS_MAX_NUM_LEVELS_IN_ROW, m_stSelIDInfo.m_nID02, m_stSelIDInfo.m_nID03), a_oSender, a_oCallbackDict));
 
 			return oScrollerCellView;
 		}
@@ -438,7 +435,7 @@ namespace MainScene {
 		/** 스테이지 스크롤러 셀 뷰를 생성한다 */
 		private EnhancedScrollerCellView CreateStageScrollerCellView(EnhancedScroller a_oSender, int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict) {
 			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict[EKey.STAGE_SCROLLER_INFO].m_oScrollerCellView) as CStageScrollerCellView;
-			oScrollerCellView.Init(CStageScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeUStageID(a_nDataIdx * KDefine.MS_MAX_NUM_STAGES_IN_ROW, m_oIDInfoDict[EKey.SEL_ID_INFO].m_nID03), a_oSender, a_oCallbackDict));
+			oScrollerCellView.Init(CStageScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeUStageID(a_nDataIdx * KDefine.MS_MAX_NUM_STAGES_IN_ROW, m_stSelIDInfo.m_nID03), a_oSender, a_oCallbackDict));
 
 			return oScrollerCellView;
 		}

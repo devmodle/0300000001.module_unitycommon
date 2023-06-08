@@ -14,11 +14,6 @@ namespace PlayScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
-			SEL_REWARD_ADS_UIS,
-
-			CONTINUE_TIMES,
-			ADS_CONTINUE_TIMES,
-
 			BG_SPRITE,
 			UP_BG_SPRITE,
 			DOWN_BG_SPRITE,
@@ -49,21 +44,17 @@ namespace PlayScene {
 		}
 
 		#region 변수
-		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>() {
-			[EKey.CONTINUE_TIMES] = KCDefine.B_VAL_0_INT,
-			[EKey.ADS_CONTINUE_TIMES] = KCDefine.B_VAL_0_INT
-		};
-
-		private Dictionary<EKey, ERewardAdsUIs> m_oRewardAdsUIsDict = new Dictionary<EKey, ERewardAdsUIs>() {
-			[EKey.SEL_REWARD_ADS_UIS] = ERewardAdsUIs.NONE
-		};
-
-		private NSEngine.CEngine m_oEngine = null;
-		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
-
 		[Header("=====> Objs <=====")]
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
+
+		[Header("=====> Fields <=====")]
+		private int m_nContinueTimes = 0;
+		private int m_nAdsContinueTimes = 0;
+		private ERewardAdsUIs m_eSelRewardAdsUIs = ERewardAdsUIs.NONE;
+
+		private NSEngine.CEngine m_oEngine = null;
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 		#endregion // 변수
 
 		#region 함수
@@ -372,7 +363,7 @@ namespace PlayScene {
 		/** 클리어 실패 콜백을 수신했을 경우 */
 		private void OnReceiveClearFailCallback(NSEngine.CEngine a_oSender) {
 			// 이어하기가 가능 할 경우
-			if(m_oIntDict[EKey.CONTINUE_TIMES] < KDefine.PS_MAX_TIMES_CONTINUE) {
+			if(m_nContinueTimes < KDefine.PS_MAX_TIMES_CONTINUE) {
 				this.ShowContinuePopup();
 			} else {
 				this.ShowResultPopup(false);
@@ -398,7 +389,7 @@ namespace PlayScene {
 
 		/** 광고 버튼을 눌렀을 경우 */
 		private void OnTouchAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {
-			m_oRewardAdsUIsDict[EKey.SEL_REWARD_ADS_UIS] = a_eRewardAdsUIs;
+			m_eSelRewardAdsUIs = a_eRewardAdsUIs;
 
 #if ADS_MODULE_ENABLE
 			Func.ShowRewardAds(this.OnCloseRewardAds);
@@ -453,7 +444,7 @@ namespace PlayScene {
 		/** 이어하기 팝업을 출력한다 */
 		private void ShowContinuePopup() {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict[EKey.CONTINUE_TIMES], m_oIntDict[EKey.ADS_CONTINUE_TIMES], new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
+				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_nContinueTimes, m_nAdsContinueTimes, new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
 					[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.RETRY),
 					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.CONTINUE),
 					[CContinuePopup.ECallback.FINISH] = (a_oPopupSender) => this.OnReceivePopupCallback(a_oPopupSender, EPopupCallback.FINISH)

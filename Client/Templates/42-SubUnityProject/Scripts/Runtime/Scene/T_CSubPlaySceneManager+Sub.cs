@@ -123,8 +123,8 @@ namespace PlayScene {
 		private void HandleContinuePopupCallback(CPopup a_oPopup) {
 			var oContinuePopup = a_oPopup as CContinuePopup;
 
-			m_oIntDict[EKey.CONTINUE_TIMES] += (oContinuePopup != null && oContinuePopup.IsWatchRewardAds) ? KCDefine.B_VAL_0_INT : KCDefine.B_VAL_1_INT;
-			m_oIntDict[EKey.ADS_CONTINUE_TIMES] += (oContinuePopup != null && oContinuePopup.IsWatchRewardAds) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
+			m_nContinueTimes += (oContinuePopup != null && oContinuePopup.IsWatchRewardAds) ? KCDefine.B_VAL_0_INT : KCDefine.B_VAL_1_INT;
+			m_nAdsContinueTimes += (oContinuePopup != null && oContinuePopup.IsWatchRewardAds) ? KCDefine.B_VAL_1_INT : KCDefine.B_VAL_0_INT;
 		}
 
 		/** 그만두기 팝업 콜백을 처리한다 */

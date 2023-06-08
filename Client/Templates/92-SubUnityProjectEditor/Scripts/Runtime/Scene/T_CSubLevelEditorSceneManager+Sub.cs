@@ -103,7 +103,7 @@ namespace LevelEditorScene {
 			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
 
 			// 인덱스가 유효 할 경우
-			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
+			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_stPrevCellIdx)) {
 				bool bIsValid01 = this.TryGetCellObjInfo(stIdx, EObjKinds.NONE, out STCellObjInfo stCellObjInfo);
 				bool bIsValid02 = Input.GetKey(CAccess.CmdKeyCode) && Input.GetMouseButtonDown((int)EMouseBtn.LEFT);
 
@@ -123,14 +123,14 @@ namespace LevelEditorScene {
 			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
 
 			// 인덱스가 유효 할 경우
-			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
-				switch(m_oEditorModeDict[EKey.SEL_EDITOR_MODE]) {
+			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_stPrevCellIdx)) {
+				switch(m_eSelEditorMode) {
 					case EEditorMode.DRAW: this.HandleDrawEditorModeTouchMoveEvent(a_oSender, a_oEventData); break;
 					case EEditorMode.PAINT: this.HandlePaintEditorModeTouchMoveEvent(a_oSender, a_oEventData); break;
 				}
 
 				this.UpdateUIsState();
-				m_oVec3IntDict[EKey.PREV_CELL_IDX] = stIdx;
+				m_stPrevCellIdx = stIdx;
 			}
 		}
 
@@ -140,11 +140,11 @@ namespace LevelEditorScene {
 			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
 
 			// 인덱스가 유효 할 경우
-			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
+			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_stPrevCellIdx)) {
 				// Do Something
 			}
 
-			m_oVec3IntDict[EKey.PREV_CELL_IDX] = KCDefine.B_IDX_INVALID_3D;
+			m_stPrevCellIdx = KCDefine.B_IDX_INVALID_3D;
 		}
 
 		/** 그리기 에디터 모드 터치 이동 이벤트를 처리한다 */
@@ -155,12 +155,12 @@ namespace LevelEditorScene {
 			var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
 
 			// 객체 추가가 가능 할 경우
-			if(Input.GetMouseButton((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-				this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx);
+			if(Input.GetMouseButton((int)EMouseBtn.LEFT) && m_eSelObjKinds.ExIsValid()) {
+				this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_eSelObjKinds, this.GetEditorObjSize(), stIdx), stIdx);
 			}
 			// 객체 제거가 가능 할 경우
 			else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
-				this.RemoveCellObjInfo(stIdx, Input.GetKey(CAccess.CmdKeyCode) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE);
+				this.RemoveCellObjInfo(stIdx, Input.GetKey(CAccess.CmdKeyCode) ? m_eSelObjKinds : EObjKinds.NONE);
 			}
 		}
 
@@ -180,14 +180,14 @@ namespace LevelEditorScene {
 					oIdxList.ExRemoveValAt(KCDefine.B_VAL_0_INT);
 
 					var stSize = this.GetEditorObjSize();
-					var eObjKinds = Input.GetKey(CAccess.CmdKeyCode) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : stCellObjInfo.ObjKinds;
+					var eObjKinds = Input.GetKey(CAccess.CmdKeyCode) ? m_eSelObjKinds : stCellObjInfo.ObjKinds;
 
-					bool bIsValid01 = this.IsEnableAddCellObjInfo(stIdx, stSize, m_oObjKindsDict[EKey.SEL_OBJ_KINDS], false);
+					bool bIsValid01 = this.IsEnableAddCellObjInfo(stIdx, stSize, m_eSelObjKinds, false);
 					bool bIsValid02 = this.IsEnableRemoveCellObjInfo(stIdx, eObjKinds);
 
 					// 객체 추가가 가능 할 경우
-					if(Input.GetMouseButton((int)EMouseBtn.LEFT) && bIsValid01 && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], stSize, stIdx), stIdx, false);
+					if(Input.GetMouseButton((int)EMouseBtn.LEFT) && bIsValid01 && m_eSelObjKinds.ExIsValid()) {
+						this.AddCellObjInfo(this.MakeEditorCellObjInfo(m_eSelObjKinds, stSize, stIdx), stIdx, false);
 
 						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y - stSize.y, stIdx.z));
 						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y + stSize.y, stIdx.z));
