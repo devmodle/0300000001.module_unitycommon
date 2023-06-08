@@ -28,13 +28,13 @@ namespace OverlayScene {
 		}
 
 		#region 변수
-		[Header("=====> UIs <=====")]
-		private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
-		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-
 #if PURCHASE_MODULE_ENABLE
 		private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 #endif // #if PURCHASE_MODULE_ENABLE
+
+		[Header("=====> UIs <=====")]
+		private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
+		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 		#endregion // 변수
 
 		#region 프로퍼티

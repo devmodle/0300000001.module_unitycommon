@@ -9,22 +9,13 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 적 객체 제어자 */
 	public partial class CEEnemyObjController : CEObjController {
-		/** 식별자 */
-		private enum EKey {
-			NONE = -1,
-			UPDATE_SKIP_TIME,
-			[HideInInspector] MAX_VAL
-		}
-
 		/** 매개 변수 */
 		public new struct STParams {
 			public CEObjController.STParams m_stBaseParams;
 		}
 
 		#region 변수
-		private Dictionary<EKey, float> m_oRealDict = new Dictionary<EKey, float>() {
-			[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL
-		};
+		private float m_fUpdateSkipTime = 0.0f;
 		#endregion // 변수
 
 		#region 프로퍼티

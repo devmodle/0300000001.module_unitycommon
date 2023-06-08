@@ -21,10 +21,6 @@ public partial class CResumePopup : CSubPopup {
 		public Dictionary<ECallback, System.Action<CResumePopup>> m_oCallbackDict;
 	}
 
-	#region 변수
-
-	#endregion // 변수
-
 	#region 프로퍼티
 	public STParams Params { get; private set; }
 	#endregion // 프로퍼티

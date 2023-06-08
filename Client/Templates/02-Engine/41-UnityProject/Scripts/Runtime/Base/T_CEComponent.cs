@@ -15,10 +15,6 @@ namespace NSEngine {
 			public CEngine m_oEngine;
 		}
 
-		#region 변수
-
-		#endregion // 변수
-
 		#region 프로퍼티
 		public STParams Params { get; private set; }
 		public CEngine Engine => this.Params.m_oEngine;

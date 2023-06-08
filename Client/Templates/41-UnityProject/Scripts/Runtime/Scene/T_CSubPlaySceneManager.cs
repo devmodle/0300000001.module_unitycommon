@@ -44,17 +44,16 @@ namespace PlayScene {
 		}
 
 		#region 변수
-		[Header("=====> Objs <=====")]
-		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
-		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
-
-		[Header("=====> Fields <=====")]
 		private int m_nContinueTimes = 0;
 		private int m_nAdsContinueTimes = 0;
 		private ERewardAdsUIs m_eSelRewardAdsUIs = ERewardAdsUIs.NONE;
 
 		private NSEngine.CEngine m_oEngine = null;
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
+
+		[Header("=====> Objs <=====")]
+		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 함수

@@ -10,7 +10,6 @@ namespace SetupScene {
 	/** 서브 설정 씬 관리자 */
 	public partial class CSubSetupSceneManager : CSetupSceneManager {
 		#region 변수
-		[Header("=====> Fields <=====")]
 		[SerializeField] private SystemLanguage m_eSystemLanguage = SystemLanguage.Unknown;
 		#endregion // 변수
 

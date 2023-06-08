@@ -40,10 +40,6 @@ namespace NSEngine {
 			public CEComponent.STParams m_stBaseParams;
 		}
 
-		#region 변수
-
-		#endregion // 변수
-
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
 

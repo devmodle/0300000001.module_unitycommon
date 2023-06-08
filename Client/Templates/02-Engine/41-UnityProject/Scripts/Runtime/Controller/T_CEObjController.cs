@@ -15,7 +15,6 @@ namespace NSEngine {
 		}
 
 		#region 변수
-		[Header("=====> Fields <=====")]
 		private float m_fUpdateSkipTime = 0.0f;
 		#endregion // 변수
 

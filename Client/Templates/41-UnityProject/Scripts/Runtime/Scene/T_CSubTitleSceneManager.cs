@@ -18,7 +18,6 @@ namespace TitleScene {
 		private enum EKey {
 			NONE = -1,
 			TOUCH_TEXT,
-
 			PLAY_BTN,
 			GUEST_LOGIN_BTN,
 			APPLE_LOGIN_BTN,
@@ -27,11 +26,6 @@ namespace TitleScene {
 		}
 
 		#region 변수
-		[Header("=====> UIs <=====")]
-		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
-		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-
-		[Header("=====> Fields <=====")]
 		private bool m_bIsTouch = false;
 		private Tween m_oTouchAni = null;
 
@@ -39,6 +33,10 @@ namespace TitleScene {
 		private SimpleJSON.JSONNode m_oVerInfos = null;
 		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetLoadHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+
+		[Header("=====> UIs <=====")]
+		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
+		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 		#endregion // 변수
 
 		#region 함수

@@ -14,11 +14,7 @@ namespace ResultScene {
 			NONE = -1,
 			[HideInInspector] MAX_VAL
 		}
-
-		#region 변수
-
-		#endregion // 변수
-
+		
 		#region 프로퍼티
 		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.U_SORTING_OI_RESULT_UIS_CANVAS;
 		#endregion // 프로퍼티

@@ -23,15 +23,14 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	}
 
 	#region 변수
+	private long m_nPrevNumCoinsBoxCoins = 0;
+
 	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 
 	[Header("=====> Objs <=====")]
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
-
-	[Header("=====> Fields <=====")]
-	private long m_nPrevNumCoinsBoxCoins = 0;
 	#endregion // 변수
 
 	#region 프로퍼티

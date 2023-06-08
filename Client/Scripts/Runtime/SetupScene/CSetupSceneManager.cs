@@ -23,22 +23,22 @@ namespace SetupScene {
 		}
 
 		#region 변수
+		private Tween m_oGaugeAni = null;
+		private Stopwatch m_oStopwatch = new Stopwatch();
+
+		private System.Text.StringBuilder m_oStrBuilder01 = new System.Text.StringBuilder();
+		private System.Text.StringBuilder m_oStrBuilder02 = new System.Text.StringBuilder();
+		
 		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, CGaugeHandler> m_oGaugeHandlerDict = new Dictionary<EKey, CGaugeHandler>();
 
 		[Header("=====> Objs <=====")]
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-
-		[Header("=====> Fields <=====")]
-		private Tween m_oGaugeAni = null;
-		private Stopwatch m_oStopwatch = new Stopwatch();
-
-		private System.Text.StringBuilder m_oStrBuilder01 = new System.Text.StringBuilder();
-		private System.Text.StringBuilder m_oStrBuilder02 = new System.Text.StringBuilder();
 		#endregion // 변수
 
 		#region 클래스 변수
+		[Header("=====> Objs <=====")]
 		private static GameObject m_oPopupUIs = null;
 		private static GameObject m_oTopmostUIs = null;
 		private static GameObject m_oAbsUIs = null;

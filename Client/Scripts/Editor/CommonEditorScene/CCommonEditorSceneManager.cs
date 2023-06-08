@@ -14,12 +14,6 @@ using UnityEditor.SceneManagement;
 [InitializeOnLoad]
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 변수
-	private static bool m_bIsEnableSetup = false;
-	private static bool m_bIsEnableBuild = false;
-
-	private static double m_dblUpdateSkipTime = 0.0;
-	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
-
 	private static GUIStyle m_oTextGUIStyle = new GUIStyle() {
 		alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Bold
 	};
@@ -27,9 +21,6 @@ public static partial class CCommonEditorSceneManager {
 	private static GUIStyle m_oOutlineGUIStyle = new GUIStyle() {
 		alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Bold
 	};
-
-	private static List<string> m_oSampleSceneNameList = new List<string>();
-	private static List<GameObject> m_oPrefabMissingObjList = new List<GameObject>();
 
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
 		[KCDefine.U_SORTING_L_ABS] = "A",
@@ -56,6 +47,16 @@ public static partial class CCommonEditorSceneManager {
 		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO",
 		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
 	};
+
+	private static bool m_bIsEnableSetup = false;
+	private static bool m_bIsEnableBuild = false;
+
+	private static double m_dblUpdateSkipTime = 0.0;
+	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
+	private static List<string> m_oSampleSceneNameList = new List<string>();
+
+	[Header("=====> Objs <=====")]
+	private static List<GameObject> m_oPrefabMissingObjList = new List<GameObject>();
 	#endregion // 클래스 변수
 
 	#region 클래스 함수
@@ -105,7 +106,7 @@ public static partial class CCommonEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_3_REAL)) {
+			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
 				CCommonEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
 				CAccess.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 

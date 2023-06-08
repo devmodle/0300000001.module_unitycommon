@@ -20,11 +20,7 @@ public partial class CPausePopup : CSettingsPopup {
 	public struct STParams {
 		public Dictionary<ECallback, System.Action<CPausePopup>> m_oCallbackDict;
 	}
-
-	#region 변수
-
-	#endregion // 변수
-
+	
 	#region 프로퍼티
 	public STParams Params { get; private set; }
 	#endregion // 프로퍼티

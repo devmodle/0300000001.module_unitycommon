@@ -59,13 +59,12 @@ namespace NSEngine {
 		}
 
 		#region 변수
+		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
+		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
+
 		[Header("=====> Objs <=====")]
 		private List<GameObject> m_oCellObjRootList = new List<GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
-
-		[Header("=====> Fields <=====")]
-		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
-		private Dictionary<ESubState, System.Func<bool>> m_oSubStateCheckerDict = new Dictionary<ESubState, System.Func<bool>>();
 		#endregion // 변수
 
 		#region 프로퍼티

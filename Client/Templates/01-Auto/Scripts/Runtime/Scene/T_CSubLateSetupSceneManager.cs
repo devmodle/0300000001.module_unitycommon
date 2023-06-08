@@ -32,7 +32,6 @@ namespace LateSetupScene {
 		}
 
 		#region 변수
-		[Header("=====> Fields <=====")]
 		[SerializeField] private EUserType m_eUserType = EUserType.NONE;
 		private Dictionary<ECallback, System.Action<CPopup>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPopup>>();
 		#endregion // 변수
@@ -99,8 +98,8 @@ namespace LateSetupScene {
 			base.Setup();
 
 #if ADS_MODULE_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			CAdsManager.Inst.IsEnableBannerAds = !CUserInfoStorage.Inst.IsPurchaseRemoveAds;
-			CAdsManager.Inst.IsEnableFullscreenAds = !CUserInfoStorage.Inst.IsPurchaseRemoveAds;
+			CAdsManager.Inst.SetEnableBannerAds(!CUserInfoStorage.Inst.IsPurchaseRemoveAds);
+			CAdsManager.Inst.SetEnableFullscreenAds(!CUserInfoStorage.Inst.IsPurchaseRemoveAds);
 #endif // #if ADS_MODULE_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 

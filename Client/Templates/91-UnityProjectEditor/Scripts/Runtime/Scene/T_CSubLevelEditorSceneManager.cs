@@ -122,29 +122,6 @@ namespace LevelEditorScene {
 		}
 
 		#region 변수
-		[Header("=====> UIs <=====")]
-		private EnhancedScroller m_oSelScroller = null;
-
-		private List<InputField> m_oInputList01 = new List<InputField>();
-		private List<InputField> m_oInputList02 = new List<InputField>();
-
-		private List<Button> m_oGridLineBtnHList = new List<Button>();
-		private List<Button> m_oGridLineBtnVList = new List<Button>();
-
-		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
-		private Dictionary<EKey, Dropdown> m_oDropDict = new Dictionary<EKey, Dropdown>();
-		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
-		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
-		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-		private Dictionary<EKey, Toggle> m_oToggleDict = new Dictionary<EKey, Toggle>();
-		private Dictionary<EKey, Scrollbar> m_oScrollBarDict = new Dictionary<EKey, Scrollbar>();
-		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
-		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
-
-		[Header("=====> Objs <=====")]
-		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-
-		[Header("=====> Fields <=====")]
 		private bool m_bIsResetNumViewCells = false;
 		private int m_nSelGridInfoIdx = 0;
 
@@ -180,6 +157,28 @@ namespace LevelEditorScene {
 		private List<STObjSpriteInfo>[,] m_oObjSpriteInfoLists = null;
 		private List<NSEngine.STGridInfo> m_oGridInfoList = new List<NSEngine.STGridInfo>();
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+
+		[Header("=====> UIs <=====")]
+		private EnhancedScroller m_oSelScroller = null;
+
+		private List<InputField> m_oInputList01 = new List<InputField>();
+		private List<InputField> m_oInputList02 = new List<InputField>();
+
+		private List<Button> m_oGridLineBtnHList = new List<Button>();
+		private List<Button> m_oGridLineBtnVList = new List<Button>();
+
+		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
+		private Dictionary<EKey, Dropdown> m_oDropDict = new Dictionary<EKey, Dropdown>();
+		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
+		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
+		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
+		private Dictionary<EKey, Toggle> m_oToggleDict = new Dictionary<EKey, Toggle>();
+		private Dictionary<EKey, Scrollbar> m_oScrollBarDict = new Dictionary<EKey, Scrollbar>();
+		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
+		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
+
+		[Header("=====> Objs <=====")]
+		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 프로퍼티

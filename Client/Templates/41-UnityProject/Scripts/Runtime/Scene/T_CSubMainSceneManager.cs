@@ -26,15 +26,14 @@ namespace MainScene {
 		}
 
 		#region 변수
+		private STIDInfo m_stSelIDInfo = STIDInfo.INVALID;
+		
 		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
 
 		[Header("=====> Objs <=====")]
 		[SerializeField] private List<Button> m_oContentsTapBtnList = new List<Button>();
-
-		[Header("=====> Fields <=====")]
-		private STIDInfo m_stSelIDInfo = STIDInfo.INVALID;
 		#endregion // 변수
 
 		#region IEnhancedScrollerDelegate
