@@ -115,7 +115,7 @@ namespace MainScene {
 		/** 선택 콜백을 수신했을 경우 */
 		private void OnReceiveSelCallback(CScrollerCellView a_oSender, ulong a_nID) {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-#if NEVER_USE_THIS
+#if DISABLE_THIS
 			// 레벨 스크롤러 일 경우
 			if(a_oSender.Params.m_oScroller == m_oScrollerInfoDict[EKey.LEVEL_SCROLLER_INFO].m_oScroller) {
 				Func.ShowReadyPopup(this.PopupUIs, (a_oSender) => {
@@ -124,7 +124,7 @@ namespace MainScene {
 					}));
 				});
 			}
-#endif // #if NEVER_USE_THIS
+#endif // #if DISABLE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 		}
 		#endregion // 함수

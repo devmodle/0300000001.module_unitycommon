@@ -82,9 +82,9 @@ namespace NSEngine {
 				this.IsFinish = true;
 
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-#if NEVER_USE_THIS
+#if DISABLE_THIS
 				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
-#endif // #if NEVER_USE_THIS
+#endif // #if DISABLE_THIS
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 			}
 		}
@@ -96,9 +96,9 @@ namespace NSEngine {
 				this.IsFinish = true;
 
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-#if NEVER_USE_THIS
+#if DISABLE_THIS
 				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
-#endif // #if NEVER_USE_THIS
+#endif // #if DISABLE_THIS
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 			}
 		}
@@ -265,9 +265,9 @@ namespace NSEngine {
 		/** 클리어 여부를 검사한다 */
 		public bool IsClear() {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-#if NEVER_USE_THIS
+#if DISABLE_THIS
 			bool bIsClear01 = this.ClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT);
-#endif // #if NEVER_USE_THIS
+#endif // #if DISABLE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 
 			return false;
@@ -276,9 +276,9 @@ namespace NSEngine {
 		/** 클리어 실패 여부를 검사한다 */
 		public bool IsClearFail() {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
-#if NEVER_USE_THIS
+#if DISABLE_THIS
 			bool bIsClearFail01 = this.SelPlayerObj != null && this.SelPlayerObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_HP_01) <= KCDefine.B_VAL_0_INT;
-#endif // #if NEVER_USE_THIS
+#endif // #if DISABLE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 
 			return false;
