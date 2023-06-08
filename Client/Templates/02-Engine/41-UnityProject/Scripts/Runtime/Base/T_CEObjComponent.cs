@@ -9,14 +9,6 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 객체 컴포넌트 */
 	public abstract partial class CEObjComponent : CEComponent {
-		/** 식별자 */
-		private enum EKey {
-			NONE = -1,
-			TARGET_SPRITE,
-			TARGET_PARTICLE_FX,
-			[HideInInspector] MAX_VAL
-		}
-
 		/** 콜백 */
 		public enum ECallback {
 			NONE = -1,
@@ -36,18 +28,14 @@ namespace NSEngine {
 		[Header("=====> Objs <=====")]
 		[SerializeField] private List<GameObject> m_oTargetList = new List<GameObject>();
 		[SerializeField] private List<GameObject> m_oExtraTargetList = new List<GameObject>();
-
-		[Header("=====> Fields <=====")]
-		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
-		private Dictionary<EKey, ParticleSystem> m_oParticleFXDict = new Dictionary<EKey, ParticleSystem>();
 		#endregion // 변수
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
 		public CDictWrapper<EAbilityKinds, decimal> AbilityValDictWrapper { get; } = new CDictWrapper<EAbilityKinds, decimal>();
 
-		public SpriteRenderer TargetSprite => m_oSpriteDict[EKey.TARGET_SPRITE];
-		public ParticleSystem TargetParticleFX => m_oParticleFXDict[EKey.TARGET_PARTICLE_FX];
+		public SpriteRenderer TargetSprite { get; private set; } = null;
+		public ParticleSystem TargetParticleFX { get; private set; } = null;
 
 		public List<GameObject> TargetList => m_oTargetList;
 		public List<GameObject> ExtraTargetList => m_oExtraTargetList;
@@ -58,15 +46,9 @@ namespace NSEngine {
 		public override void Awake() {
 			base.Awake();
 
-			// 스프라이트를 설정한다
-			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
-				(EKey.TARGET_SPRITE, $"{EKey.TARGET_SPRITE}", this.gameObject)
-			}, m_oSpriteDict);
-
-			// 파티클 효과를 설정한다
-			CFunc.SetupParticleFXs(new List<(EKey, string, GameObject)>() {
-				(EKey.TARGET_PARTICLE_FX, $"{EKey.TARGET_PARTICLE_FX}", this.gameObject)
-			}, m_oParticleFXDict);
+			// 타겟 컴포넌트를 설정한다
+			this.TargetSprite = this.gameObject.ExFindComponent<SpriteRenderer>(KCDefine.U_OBJ_N_TARGET_SPRITE);
+			this.TargetParticleFX = this.gameObject.ExFindComponent<ParticleSystem>(KCDefine.U_OBJ_N_TARGET_PARTICLE_FX);
 
 			this.SubAwake();
 		}
@@ -77,12 +59,12 @@ namespace NSEngine {
 			this.Params = a_stParams;
 
 			// 스프라이트를 설정한다
-			m_oSpriteDict[EKey.TARGET_SPRITE]?.gameObject.ExSetLocalPos(Vector3.zero, false);
-			m_oSpriteDict[EKey.TARGET_SPRITE]?.ExSetColor<SpriteRenderer>(Color.white, false);
+			this.TargetSprite?.gameObject.ExSetLocalPos(Vector3.zero, false);
+			this.TargetSprite?.ExSetColor<SpriteRenderer>(Color.white, false);
 
 			// 파티클 효과를 설정한다
-			m_oParticleFXDict[EKey.TARGET_PARTICLE_FX]?.gameObject.ExSetLocalPos(Vector3.zero, false);
-			m_oParticleFXDict[EKey.TARGET_PARTICLE_FX]?.Stop(true);
+			this.TargetParticleFX?.gameObject.ExSetLocalPos(Vector3.zero, false);
+			this.TargetParticleFX?.Stop(true);
 
 			this.SubInit();
 		}
