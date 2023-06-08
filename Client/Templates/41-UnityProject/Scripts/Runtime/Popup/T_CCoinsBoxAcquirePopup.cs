@@ -13,7 +13,6 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	/** 식별자 */
 	private enum EKey {
 		NONE = -1,
-		PREV_NUM_COINS_BOX_COINS,
 		NUM_COINS_TEXT,
 		[HideInInspector] MAX_VAL
 	}
@@ -24,16 +23,15 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	}
 
 	#region 변수
-	private Dictionary<EKey, long> m_oIntDict = new Dictionary<EKey, long>() {
-		[EKey.PREV_NUM_COINS_BOX_COINS] = KCDefine.B_VAL_0_INT
-	};
-
 	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 
 	[Header("=====> Objs <=====")]
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
+
+	[Header("=====> Fields <=====")]
+	private long m_nPrevNumCoinsBoxCoins = 0;
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -59,7 +57,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 		this.Params = a_stParams;
 
 		var stValInfo = new STValInfo(EValType.INT, a_stParams.m_nNumCoinsBoxCoins);
-		m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] = (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_BOX_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS);
+		m_nPrevNumCoinsBoxCoins = (long)Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_BOX_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS);
 
 		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)EItemKinds.GOODS_ITEM_COINS_BOX_COINS_01, stValInfo), true);
 		this.SubInit();
@@ -74,11 +72,11 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	/** UI 상태를 변경한다 */
 	private void UpdateUIsState() {
 		// 객체를 갱신한다
-		m_oSaveUIs?.SetActive(m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] < KDefine.G_MAX_NUM_COINS_BOX_COINS);
-		m_oFullUIs?.SetActive(m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS] >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
+		m_oSaveUIs?.SetActive(m_nPrevNumCoinsBoxCoins < KDefine.G_MAX_NUM_COINS_BOX_COINS);
+		m_oFullUIs?.SetActive(m_nPrevNumCoinsBoxCoins >= KDefine.G_MAX_NUM_COINS_BOX_COINS);
 
 		// 텍스트를 갱신한다
-		m_oTMPTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_oIntDict[EKey.PREV_NUM_COINS_BOX_COINS]}", EFontSet._1, false);
+		m_oTMPTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{m_nPrevNumCoinsBoxCoins}", EFontSet._1, false);
 
 		this.SubUpdateUIsState();
 	}

@@ -9,60 +9,27 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 객체 제어자 */
 	public partial class CEObjController : CEController {
-		/** 식별자 */
-		private enum EKey {
-			NONE = -1,
-			IS_AUTO_CONTROL,
-			UPDATE_SKIP_TIME,
-
-			MOVE_POS,
-			MOVE_DIRECTION,
-
-			APPLY_SKILL_INFO,
-			APPLY_FX_INFO,
-			[HideInInspector] MAX_VAL
-		}
-
 		/** 매개 변수 */
 		public new struct STParams {
 			public CEController.STParams m_stBaseParams;
 		}
 
 		#region 변수
-		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
-			[EKey.IS_AUTO_CONTROL] = false
-		};
-
-		private Dictionary<EKey, float> m_oRealDict = new Dictionary<EKey, float>() {
-			[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL
-		};
-
-		private Dictionary<EKey, Vector3> m_oVec3Dict = new Dictionary<EKey, Vector3>() {
-			[EKey.MOVE_POS] = Vector3.zero,
-			[EKey.MOVE_DIRECTION] = Vector3.zero
-		};
-
-		private Dictionary<EKey, STFXInfo> m_oFXInfoDict = new Dictionary<EKey, STFXInfo>() {
-			[EKey.APPLY_FX_INFO] = STFXInfo.INVALID
-		};
-
-		private Dictionary<EKey, (STSkillInfo, CSkillTargetInfo)> m_oSkillInfoDict = new Dictionary<EKey, (STSkillInfo, CSkillTargetInfo)>() {
-			[EKey.APPLY_SKILL_INFO] = (STSkillInfo.INVALID, null)
-		};
+		[Header("=====> Fields <=====")]
+		private float m_fUpdateSkipTime = 0.0f;
 		#endregion // 변수
 
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
 		public Dictionary<ESkillKinds, System.DateTime> ApplySkillTimeDict { get; } = new Dictionary<ESkillKinds, System.DateTime>();
 
-		public bool IsAutoControl => m_oBoolDict[EKey.IS_AUTO_CONTROL];
+		public bool IsAutoControl { get; private set; } = false;
 
-		public Vector3 MovePos => m_oVec3Dict[EKey.MOVE_POS];
-		public Vector3 MoveDirection => m_oVec3Dict[EKey.MOVE_DIRECTION];
+		public Vector3 MovePos { get; private set; } = Vector3.zero;
+		public Vector3 MoveDirection { get; private set; } = Vector3.zero;
 
-		public STFXInfo ApplyFXInfo => m_oFXInfoDict[EKey.APPLY_FX_INFO];
-		public STSkillInfo ApplySkillInfo => m_oSkillInfoDict[EKey.APPLY_SKILL_INFO].Item1;
-		public CSkillTargetInfo ApplySkillTargetInfo => m_oSkillInfoDict[EKey.APPLY_SKILL_INFO].Item2;
+		public STFXInfo ApplyFXInfo { get; private set; } = STFXInfo.INVALID;
+		public (STSkillInfo, CSkillTargetInfo) ApplySkillInfo { get; private set; } = (STSkillInfo.INVALID, null);
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -88,7 +55,7 @@ namespace NSEngine {
 
 		/** 적용 스킬 정보를 리셋한다 */
 		public virtual void ResetApplySkillInfo() {
-			m_oSkillInfoDict[EKey.APPLY_SKILL_INFO] = (STSkillInfo.INVALID, null);
+			this.ApplySkillInfo = (STSkillInfo.INVALID, null);
 		}
 
 		/** 제거 되었을 경우 */
@@ -111,11 +78,11 @@ namespace NSEngine {
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning && this.IsActive) {
-				m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
+				m_fUpdateSkipTime += a_fDeltaTime;
 
 				// 일정 시간이 지났을 경우
-				if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(KCDefine.U_DELAY_DEF)) {
-					m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
+				if(m_fUpdateSkipTime.ExIsGreateEquals(KCDefine.U_DELAY_DEF)) {
+					m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 					var oAbilityKindsInfoList = CCollectionManager.Inst.SpawnList<(EAbilityKinds, EAbilityKinds)>();
 
 					try {
@@ -128,7 +95,7 @@ namespace NSEngine {
 							decimal dmMaxVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict02.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
 							decimal dmRecoveryVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(oAbilityKindsInfoList[i].Item2);
 
-							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)m_oRealDict[EKey.UPDATE_SKIP_TIME]), KCDefine.B_VAL_0_INT, dmMaxVal));
+							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)m_fUpdateSkipTime), KCDefine.B_VAL_0_INT, dmMaxVal));
 						}
 					} finally {
 						CCollectionManager.Inst.DespawnList(oAbilityKindsInfoList);
@@ -183,7 +150,7 @@ namespace NSEngine {
 				var oTargetList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
 
 				try {
-					m_oSkillInfoDict[EKey.APPLY_SKILL_INFO] = (a_stSkillInfo, a_oSkillTargetInfo);
+					this.ApplySkillInfo = (a_stSkillInfo, a_oSkillTargetInfo);
 
 					switch(a_stSkillInfo.SkillApplyType) {
 						case EApplyType.MULTI: this.SetupMultiSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetList); break;
@@ -203,7 +170,7 @@ namespace NSEngine {
 			var oTargetList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
 
 			try {
-				m_oFXInfoDict[EKey.APPLY_FX_INFO] = a_stFXInfo;
+				this.ApplyFXInfo = a_stFXInfo;
 
 				switch(a_stFXInfo.FXApplyType) {
 					// Do Something
@@ -228,7 +195,7 @@ namespace NSEngine {
 		private void DoApplyFX(STFXInfo a_stFXInfo, List<CEObjComponent> a_oTargetList) {
 			var oFX = this.CreateFX(a_stFXInfo);
 			a_oTargetList.ExCopyTo(oFX.GetController<CEFXController>().EObjComponentList, (a_oTargetObj) => a_oTargetObj);
-			
+
 			this.Engine.FXListWrapper.ExAddVal(oFX);
 			oFX.GetController<CEFXController>().Apply();
 		}
@@ -260,23 +227,23 @@ namespace NSEngine {
 				this.SetState(EState.IDLE);
 			}
 
-			m_oBoolDict[EKey.IS_AUTO_CONTROL] = a_bIsEnable;
+			this.IsAutoControl = a_bIsEnable;
 		}
 
 		/** 이동 위치를 변경한다 */
 		public void SetMovePos(Vector3 a_stPos) {
-			m_oVec3Dict[EKey.MOVE_POS] = a_stPos;
+			this.MovePos = a_stPos;
 		}
 
 		/** 이동 방향을 변경한다 */
 		public void SetMoveDirection(Vector3 a_stDirection) {
-			m_oVec3Dict[EKey.MOVE_DIRECTION] = a_stDirection.normalized;
+			this.MoveDirection = a_stDirection.normalized;
 		}
 
 		/** 스킬 적용 가능 여부를 검사한다 */
 		protected virtual bool IsEnableApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 적용 스킬 타겟 정보가 없을 경우
-			if(m_oSkillInfoDict[EKey.APPLY_SKILL_INFO].Item1.m_eSkillKinds == ESkillKinds.NONE) {
+			if(this.ApplySkillInfo.Item1.m_eSkillKinds == ESkillKinds.NONE) {
 				return true;
 			}
 
