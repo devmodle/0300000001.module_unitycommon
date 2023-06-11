@@ -165,11 +165,11 @@ public static partial class KEditorDefine {
 		["com.unity.feature.mobile"] = "1.0.0",
 		["com.unity.feature.worldbuilding"] = "1.0.1",
 
-		["com.unity.inputsystem"] = "1.5.1",
+		["com.unity.inputsystem"] = "1.6.1",
 		["com.unity.ads.ios-support"] = "1.0.0",
 		["com.unity.localization"] = "1.3.2",
-		["com.unity.render-pipelines.universal"] = "14.0.7",
-		["com.unity.visualeffectgraph"] = "14.0.7",
+		["com.unity.render-pipelines.universal"] = "14.0.8",
+		["com.unity.visualeffectgraph"] = "14.0.8",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.2",
 
 #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
