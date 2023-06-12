@@ -187,39 +187,39 @@ public static partial class KEditorDefine {
 
 #if DEVELOPMENT_PROJ
 #if ADS_ENABLE || ADS_MODULE_ENABLE
-		["module.unitycommonads"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads.git#3.1.0",
+		["module.unitycommonads"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads.git#3.1.1",
 #endif // #if ADS_ENABLE || ADS_MODULE_ENABLE
 
 #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
-		["module.unitycommonflurry"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonflurry.git#3.1.0",
+		["module.unitycommonflurry"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonflurry.git#3.1.1",
 #endif // #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
-		["module.unitycommonfacebook"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfacebook.git#3.1.0",
+		["module.unitycommonfacebook"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfacebook.git#3.1.1",
 #endif // #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["module.unitycommonfirebase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfirebase.git#3.1.0",
+		["module.unitycommonfirebase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfirebase.git#3.1.1",
 #endif // #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
-		["module.unitycommonappsflyer"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonappsflyer.git#3.1.0",
+		["module.unitycommonappsflyer"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonappsflyer.git#3.1.1",
 #endif // #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
-		["module.unitycommongamecenter"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommongamecenter.git#3.1.0",
+		["module.unitycommongamecenter"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommongamecenter.git#3.1.1",
 #endif // #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["module.unitycommonpurchase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase.git#3.1.0",
+		["module.unitycommonpurchase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase.git#3.1.1",
 #endif // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["module.unitycommonnotification"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnotification.git#3.1.0",
+		["module.unitycommonnotification"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnotification.git#3.1.1",
 #endif // #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 
 #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
-		["module.unitycommonplayfab"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab.git#3.1.0"
+		["module.unitycommonplayfab"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab.git#3.1.1"
 #endif // #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 #endif // #if DEVELOPMENT_PROJ
 	};
