@@ -267,7 +267,7 @@ namespace NSEngine {
 
 					// 선택 플레이어가 존재 할 경우
 					if(this.SelPlayerObj != null) {
-						var oAcquireTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+						var oAcquireTargetInfoDict = CCollectionPoolManager.Inst.SpawnDict<ulong, STTargetInfo>();
 
 						try {
 							this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
@@ -285,7 +285,7 @@ namespace NSEngine {
 							}
 						} finally {
 							this.RemoveEObjComponent(a_oSender);
-							CCollectionManager.Inst.DespawnDict(oAcquireTargetInfoDict);
+							CCollectionPoolManager.Inst.DespawnDict(oAcquireTargetInfoDict);
 						}
 					}
 				}
@@ -562,12 +562,12 @@ namespace NSEngine {
 
 		/** 최상단 셀 객체를 탐색한다 */
 		public CEObj FindTopCellObj(Vector3Int a_stIdx, EObjKinds a_eObjKinds) {
-			var oCellObjList = CCollectionManager.Inst.SpawnList<CEObj>();
+			var oCellObjList = CCollectionPoolManager.Inst.SpawnList<CEObj>();
 
 			try {
 				return (a_eObjKinds != EObjKinds.NONE) ? this.FindCellObjs(a_stIdx, a_eObjKinds, oCellObjList)?.LastOrDefault() : this.SelCellObjLists.ExGetVal(a_stIdx, null)?.LastOrDefault();
 			} finally {
-				CCollectionManager.Inst.DespawnList(oCellObjList);
+				CCollectionPoolManager.Inst.DespawnList(oCellObjList);
 			}
 		}
 
@@ -577,7 +577,7 @@ namespace NSEngine {
 
 			for(int i = 0; i < this.SelCellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
 				for(int j = 0; j < this.SelCellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
-					var oCellObjList = CCollectionManager.Inst.SpawnList<CEObj>();
+					var oCellObjList = CCollectionPoolManager.Inst.SpawnList<CEObj>();
 
 					try {
 						var stIdx = new Vector3Int(j, i, this.SelGridInfoIdx);
@@ -591,7 +591,7 @@ namespace NSEngine {
 							a_oOutCellObjList.ExAddVals(oFindCellObjList);
 						}
 					} finally {
-						CCollectionManager.Inst.DespawnList(oCellObjList);
+						CCollectionPoolManager.Inst.DespawnList(oCellObjList);
 					}
 				}
 			}

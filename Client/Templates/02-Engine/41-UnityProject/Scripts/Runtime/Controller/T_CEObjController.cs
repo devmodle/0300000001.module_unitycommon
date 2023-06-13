@@ -82,7 +82,7 @@ namespace NSEngine {
 				// 일정 시간이 지났을 경우
 				if(m_fUpdateSkipTime.ExIsGreateEquals(KCDefine.U_DELAY_DEF)) {
 					m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
-					var oAbilityKindsInfoList = CCollectionManager.Inst.SpawnList<(EAbilityKinds, EAbilityKinds)>();
+					var oAbilityKindsInfoList = CCollectionPoolManager.Inst.SpawnList<(EAbilityKinds, EAbilityKinds)>();
 
 					try {
 						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_ABILITY_HP_01, EAbilityKinds.STAT_ABILITY_HP_RECOVERY_01));
@@ -97,7 +97,7 @@ namespace NSEngine {
 							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)m_fUpdateSkipTime), KCDefine.B_VAL_0_INT, dmMaxVal));
 						}
 					} finally {
-						CCollectionManager.Inst.DespawnList(oAbilityKindsInfoList);
+						CCollectionPoolManager.Inst.DespawnList(oAbilityKindsInfoList);
 					}
 				}
 
@@ -107,7 +107,7 @@ namespace NSEngine {
 
 		/** 공격을 처리한다 */
 		public virtual void Attack(CEObj a_oTargetObj, CESkill a_oSkill) {
-			var oAbilityValDict = CCollectionManager.Inst.SpawnDict<EAbilityKinds, decimal>();
+			var oAbilityValDict = CCollectionPoolManager.Inst.SpawnDict<EAbilityKinds, decimal>();
 
 			try {
 				float fPercent = Random.Range(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_1_REAL);
@@ -131,7 +131,7 @@ namespace NSEngine {
 					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, fPercent.ExIsLessEquals(fCriticalRate) ? EEngineObjEvent.CRITICAL_DAMAGE : EEngineObjEvent.DAMAGE, $"{dmTotalDamage:0}");
 				}
 			} finally {
-				CCollectionManager.Inst.DespawnDict(oAbilityValDict);
+				CCollectionPoolManager.Inst.DespawnDict(oAbilityValDict);
 			}
 		}
 
@@ -146,7 +146,7 @@ namespace NSEngine {
 		public virtual void ApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			// 스킬 적용이 가능 할 경우
 			if(this.IsEnableSkillState() && this.IsEnableApplySkill(a_stSkillInfo, a_oSkillTargetInfo)) {
-				var oTargetList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
+				var oTargetList = CCollectionPoolManager.Inst.SpawnList<CEObjComponent>();
 
 				try {
 					this.ApplySkillInfo = (a_stSkillInfo, a_oSkillTargetInfo);
@@ -159,14 +159,14 @@ namespace NSEngine {
 					this.SetState(EState.SKILL);
 					this.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo, oTargetList);
 				} finally {
-					CCollectionManager.Inst.DespawnList(oTargetList);
+					CCollectionPoolManager.Inst.DespawnList(oTargetList);
 				}
 			}
 		}
 
 		/** 효과를 적용한다 */
 		public virtual void ApplyFX(STFXInfo a_stFXInfo) {
-			var oTargetList = CCollectionManager.Inst.SpawnList<CEObjComponent>();
+			var oTargetList = CCollectionPoolManager.Inst.SpawnList<CEObjComponent>();
 
 			try {
 				this.ApplyFXInfo = a_stFXInfo;
@@ -177,7 +177,7 @@ namespace NSEngine {
 
 				this.DoApplyFX(a_stFXInfo, oTargetList);
 			} finally {
-				CCollectionManager.Inst.DespawnList(oTargetList);
+				CCollectionPoolManager.Inst.DespawnList(oTargetList);
 			}
 		}
 
@@ -246,7 +246,7 @@ namespace NSEngine {
 				return true;
 			}
 
-			var oAbilityValDict = CCollectionManager.Inst.SpawnDict<EAbilityKinds, decimal>();
+			var oAbilityValDict = CCollectionPoolManager.Inst.SpawnDict<EAbilityKinds, decimal>();
 
 			try {
 				global::Func.SetupAbilityVals(a_stSkillInfo, a_oSkillTargetInfo, oAbilityValDict);
@@ -254,7 +254,7 @@ namespace NSEngine {
 
 				return (decimal)dblDeltaTime >= this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal((a_stSkillInfo.SkillType == ESkillType.ACTION) ? EAbilityKinds.STAT_ABILITY_ATK_DELAY_01 : EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01, (a_stSkillInfo.SkillType == ESkillType.ACTION) ? this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_ATK_DELAY_01) : oAbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01));
 			} finally {
-				CCollectionManager.Inst.DespawnDict(oAbilityValDict);
+				CCollectionPoolManager.Inst.DespawnDict(oAbilityValDict);
 			}
 		}
 		#endregion // 함수

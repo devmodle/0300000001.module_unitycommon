@@ -188,7 +188,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 
 	/** 미션 정보 값을 생성한다 */
 	public Dictionary<string, List<List<string>>> MakeMissionInfoVals() {
-		var oCommonKeyInfoList = CCollectionManager.Inst.SpawnList<STKeyInfo>();
+		var oCommonKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
 		var oMissionInfoValDictContainer = new Dictionary<string, List<List<string>>>();
 
 		try {
@@ -197,7 +197,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 
 			oMissionInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.MissionTableInfo)[KCDefine.B_KEY_COMMON], oCommonInfos.AsArray.ExToInfoVals(oCommonKeyInfoList));
 		} finally {
-			CCollectionManager.Inst.DespawnList(oCommonKeyInfoList);
+			CCollectionPoolManager.Inst.DespawnList(oCommonKeyInfoList);
 		}
 
 		return oMissionInfoValDictContainer;

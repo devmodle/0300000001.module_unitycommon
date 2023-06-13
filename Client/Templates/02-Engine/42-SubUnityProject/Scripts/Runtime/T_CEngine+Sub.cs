@@ -114,7 +114,7 @@ namespace NSEngine {
 
 			// 실행 중 일 경우
 			if(this.IsRunning) {
-				var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
+				var oNumEnemyObjsDict = CCollectionPoolManager.Inst.SpawnDict<EObjKinds, int>();
 
 				try {
 					for(int i = 0; i < this.EnemyObjListWrapper.Count; ++i) {
@@ -135,7 +135,7 @@ namespace NSEngine {
 						}
 					}
 				} finally {
-					CCollectionManager.Inst.DespawnDict(oNumEnemyObjsDict);
+					CCollectionPoolManager.Inst.DespawnDict(oNumEnemyObjsDict);
 				}
 			}
 		}

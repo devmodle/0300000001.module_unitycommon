@@ -190,7 +190,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 
 	/** 효과 정보 값을 생성한다 */
 	public void MakeFXInfoVals(SimpleJSON.JSONNode a_oFXInfos, Dictionary<string, List<List<string>>> a_oOutFXInfoValDictContainer) {
-		var oCommonKeyInfoList = CCollectionManager.Inst.SpawnList<STKeyInfo>();
+		var oCommonKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
 
 		try {
 			this.SetupKeyInfos(oCommonKeyInfoList);
@@ -198,7 +198,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 
 			a_oOutFXInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.FXTableInfo)[KCDefine.B_KEY_COMMON], oCommonInfos.AsArray.ExToInfoVals(oCommonKeyInfoList));
 		} finally {
-			CCollectionManager.Inst.DespawnList(oCommonKeyInfoList);
+			CCollectionPoolManager.Inst.DespawnList(oCommonKeyInfoList);
 		}
 	}
 

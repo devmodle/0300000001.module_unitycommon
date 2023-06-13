@@ -87,7 +87,7 @@ public partial class CStoreUIsHandler : CComponent {
 
 	/** 상품 구입 UI 상태를 갱신한다 */
 	private void UpdateProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
-		var oPriceUIsDict = CCollectionManager.Inst.SpawnDict<EPurchaseType, GameObject>();
+		var oPriceUIsDict = CCollectionPoolManager.Inst.SpawnDict<EPurchaseType, GameObject>();
 
 		try {
 			// 객체를 갱신한다 {
@@ -149,7 +149,7 @@ public partial class CStoreUIsHandler : CComponent {
 				this.UpdateSingleProductBuyUIsState(a_oProductBuyUIs, a_stProductTradeInfo);
 			}
 		} finally {
-			CCollectionManager.Inst.DespawnDict(oPriceUIsDict);
+			CCollectionPoolManager.Inst.DespawnDict(oPriceUIsDict);
 		}
 	}
 

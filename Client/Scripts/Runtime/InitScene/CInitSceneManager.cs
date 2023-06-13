@@ -174,7 +174,7 @@ namespace InitScene {
 			CScheduleManager.Create();
 			CNavStackManager.Create();
 			CIndicatorManager.Create();
-			CCollectionManager.Create();
+			CCollectionPoolManager.Create();
 
 #if ADS_MODULE_ENABLE
 			CAdsManager.Create();

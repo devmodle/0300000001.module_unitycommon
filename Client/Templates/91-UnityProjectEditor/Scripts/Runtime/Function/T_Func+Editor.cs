@@ -62,8 +62,8 @@ public static partial class Func {
 		int nTryTimes = KCDefine.B_VAL_0_INT;
 
 		do {
-			var oIdxVDictContainer = CCollectionManager.Inst.SpawnDict<int, List<Vector3Int>>();
-			var oIdxHDictContainer = CCollectionManager.Inst.SpawnDict<int, List<Vector3Int>>();
+			var oIdxVDictContainer = CCollectionPoolManager.Inst.SpawnDict<int, List<Vector3Int>>();
+			var oIdxHDictContainer = CCollectionPoolManager.Inst.SpawnDict<int, List<Vector3Int>>();
 
 			try {
 				for(int i = 0; i < a_oLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
@@ -101,8 +101,8 @@ public static partial class Func {
 
 				Func.SetupEditorCellInfos(a_oLevelInfo, a_oCreateInfo, oIdxVDictContainer, oIdxHDictContainer);
 			} finally {
-				CCollectionManager.Inst.DespawnDict(oIdxVDictContainer);
-				CCollectionManager.Inst.DespawnDict(oIdxHDictContainer);
+				CCollectionPoolManager.Inst.DespawnDict(oIdxVDictContainer);
+				CCollectionPoolManager.Inst.DespawnDict(oIdxHDictContainer);
 			}
 		} while(nTryTimes++ < KDefine.LES_MAX_TIMES_TRY_SETUP_CELL_INFOS && !Func.IsSetupEditorCellInfos(a_oLevelInfo, a_oCreateInfo));
 

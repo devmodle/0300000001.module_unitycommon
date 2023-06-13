@@ -111,7 +111,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 #endif // #if ADS_MODULE_ENABLE
 
 		this.IsWatchRewardAds = a_bIsWatchRewardAds;
-		var oRewardTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+		var oRewardTargetInfoDict = CCollectionPoolManager.Inst.SpawnDict<ulong, STTargetInfo>();
 
 		try {
 			foreach(var stKeyVal in this.Params.m_oRewardTargetInfoDict) {
@@ -122,7 +122,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oRewardTargetInfoDict, true);
 			this.OnTouchCloseBtn();
 		} finally {
-			CCollectionManager.Inst.DespawnDict(oRewardTargetInfoDict);
+			CCollectionPoolManager.Inst.DespawnDict(oRewardTargetInfoDict);
 		}
 	}
 	#endregion // 함수

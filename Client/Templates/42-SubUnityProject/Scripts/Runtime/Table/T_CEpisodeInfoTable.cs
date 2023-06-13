@@ -317,9 +317,9 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 	/** 에피소드 정보 값을 설정한다 */
 	public void MakeEpisodeInfoVals(SimpleJSON.JSONNode a_oEpisodeInfos, Dictionary<string, List<List<string>>> a_oOutEpisodeInfoValDictContainer) {
-		var oLevelEpisodeKeyInfoList = CCollectionManager.Inst.SpawnList<STKeyInfo>();
-		var oStageEpisodeKeyInfoList = CCollectionManager.Inst.SpawnList<STKeyInfo>();
-		var oChapterEpisodeKeyInfoList = CCollectionManager.Inst.SpawnList<STKeyInfo>();
+		var oLevelEpisodeKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
+		var oStageEpisodeKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
+		var oChapterEpisodeKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
 
 		try {
 			this.SetupKeyInfos(oLevelEpisodeKeyInfoList, oStageEpisodeKeyInfoList, oChapterEpisodeKeyInfoList);
@@ -329,9 +329,9 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 			a_oOutEpisodeInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.EpisodeTableInfo)[KCDefine.U_KEY_STAGE_EPISODE], oStageEpisodeInfos.AsArray.ExToInfoVals(oStageEpisodeKeyInfoList));
 			a_oOutEpisodeInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.EpisodeTableInfo)[KCDefine.U_KEY_CHAPTER_EPISODE], oChapterEpisodeInfos.AsArray.ExToInfoVals(oChapterEpisodeKeyInfoList));
 		} finally {
-			CCollectionManager.Inst.DespawnList(oLevelEpisodeKeyInfoList);
-			CCollectionManager.Inst.DespawnList(oStageEpisodeKeyInfoList);
-			CCollectionManager.Inst.DespawnList(oChapterEpisodeKeyInfoList);
+			CCollectionPoolManager.Inst.DespawnList(oLevelEpisodeKeyInfoList);
+			CCollectionPoolManager.Inst.DespawnList(oStageEpisodeKeyInfoList);
+			CCollectionPoolManager.Inst.DespawnList(oChapterEpisodeKeyInfoList);
 		}
 	}
 
