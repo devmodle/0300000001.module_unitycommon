@@ -19,7 +19,7 @@ public partial class CSyncPopup : CSubPopup {
 	#region 변수
 	private bool m_bIsLoadUserInfo = false;
 
-	[Header("=====> Objs <=====")]
+	[Header("=====> Game Objects <=====")]
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 	#endregion // 변수
 

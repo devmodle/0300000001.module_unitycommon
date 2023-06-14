@@ -11,7 +11,7 @@ namespace NSEngine {
 	public abstract partial class CEComponent : CComponent {
 		/** 매개 변수 */
 		public struct STParams {
-			public string m_oObjsPoolKey;
+			public string m_oGameObjsPoolKey;
 			public CEngine m_oEngine;
 		}
 
@@ -39,9 +39,9 @@ namespace NSEngine {
 	public abstract partial class CEComponent : CComponent {
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(CEngine a_oEngine, string a_oObjsPoolKey) {
+		public static STParams MakeParams(CEngine a_oEngine, string a_oGameObjsPoolKey) {
 			return new STParams() {
-				m_oObjsPoolKey = a_oObjsPoolKey, m_oEngine = a_oEngine
+				m_oGameObjsPoolKey = a_oGameObjsPoolKey, m_oEngine = a_oEngine
 			};
 		}
 		#endregion // 클래스 함수

@@ -33,12 +33,12 @@ namespace SetupScene {
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		private Dictionary<EKey, CGaugeHandler> m_oGaugeHandlerDict = new Dictionary<EKey, CGaugeHandler>();
 
-		[Header("=====> Objs <=====")]
+		[Header("=====> Game Objects <=====")]
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 클래스 변수
-		[Header("=====> Objs <=====")]
+		[Header("=====> Game Objects <=====")]
 		private static GameObject m_oPopupUIs = null;
 		private static GameObject m_oTopmostUIs = null;
 		private static GameObject m_oAbsUIs = null;

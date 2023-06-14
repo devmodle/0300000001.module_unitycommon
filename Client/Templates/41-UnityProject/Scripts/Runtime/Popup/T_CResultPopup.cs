@@ -50,7 +50,7 @@ public partial class CResultPopup : CSubPopup {
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
-	[Header("=====> Objs <=====")]
+	[Header("=====> Game Objects <=====")]
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 	#endregion // 변수
 

@@ -18,7 +18,7 @@ namespace PlayScene {
 		}
 
 		#region 변수
-		[Header("=====> Objs <=====")]
+		[Header("=====> Game Objects <=====")]
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 

@@ -20,7 +20,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
-	[Header("=====> Objs <=====")]
+	[Header("=====> Game Objects <=====")]
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
 	#endregion // 변수
 

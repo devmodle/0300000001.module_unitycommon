@@ -30,7 +30,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
-	[Header("=====> Objs <=====")]
+	[Header("=====> Game Objects <=====")]
 	[SerializeField] private GameObject m_oRewardUIs = null;
 	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
 	#endregion // 변수

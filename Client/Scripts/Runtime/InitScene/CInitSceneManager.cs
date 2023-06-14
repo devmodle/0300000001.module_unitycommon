@@ -19,7 +19,7 @@ namespace InitScene {
 		#endregion // 추상
 
 		#region 클래스 변수
-		[Header("=====> Objs <=====")]
+		[Header("=====> Game Objects <=====")]
 		private static GameObject m_oBlindUIs = null;
 		#endregion // 클래스 변수
 
@@ -160,7 +160,7 @@ namespace InitScene {
 
 		/** 블라인드 이미지를 생성한다 */
 		protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
-			return CFactory.CreateCloneObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
+			return CFactory.CreateCloneGameObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
 
 		/** 초기화 */
@@ -256,7 +256,7 @@ namespace InitScene {
 		private void SetupBlindUIs() {
 			// 블라인드 UI 가 없을 경우
 			if(CInitSceneManager.m_oBlindUIs == null) {
-				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
+				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
 
 				try {
 					CSceneManager.SetScreenBlindUIs(CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS));

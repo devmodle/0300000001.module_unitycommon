@@ -32,7 +32,7 @@ namespace MainScene {
 		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
 
-		[Header("=====> Objs <=====")]
+		[Header("=====> Game Objects <=====")]
 		[SerializeField] private List<Button> m_oContentsTapBtnList = new List<Button>();
 		#endregion // 변수
 

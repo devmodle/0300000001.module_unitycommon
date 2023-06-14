@@ -28,7 +28,7 @@ public partial class CCoinsBoxAcquirePopup : CSubPopup {
 	[Header("=====> UIs <=====")]
 	private Dictionary<EKey, TMP_Text> m_oTMPTextDict = new Dictionary<EKey, TMP_Text>();
 
-	[Header("=====> Objs <=====")]
+	[Header("=====> Game Objects <=====")]
 	[SerializeField] private GameObject m_oSaveUIs = null;
 	[SerializeField] private GameObject m_oFullUIs = null;
 	#endregion // 변수

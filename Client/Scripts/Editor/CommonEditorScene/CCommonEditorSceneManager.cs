@@ -55,7 +55,7 @@ public static partial class CCommonEditorSceneManager {
 	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
 	private static List<string> m_oSampleSceneNameList = new List<string>();
 
-	[Header("=====> Objs <=====")]
+	[Header("=====> Game Objects <=====")]
 	private static List<GameObject> m_oPrefabMissingObjList = new List<GameObject>();
 	#endregion // 클래스 변수
 

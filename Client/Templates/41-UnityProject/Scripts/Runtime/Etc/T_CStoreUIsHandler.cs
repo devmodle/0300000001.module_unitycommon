@@ -45,7 +45,7 @@ public partial class CStoreUIsHandler : CComponent {
 	private List<Product> m_oRestoreProductList = new List<Product>();
 #endif // #if PURCHASE_MODULE_ENABLE
 
-	[Header("=====> Objs <=====")]
+	[Header("=====> Game Objects <=====")]
 	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
 	#endregion // 변수
 

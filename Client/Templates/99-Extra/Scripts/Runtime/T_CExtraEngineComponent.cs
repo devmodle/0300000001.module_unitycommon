@@ -43,9 +43,9 @@ namespace NSEngine {
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public new static STParams MakeParams(CEngine a_oEngine, string a_oObjsPoolKey) {
+		public new static STParams MakeParams(CEngine a_oEngine, string a_oGameObjsPoolKey) {
 			return new STParams() {
-				m_stBaseParams = CEComponent.MakeParams(a_oEngine, a_oObjsPoolKey)
+				m_stBaseParams = CEComponent.MakeParams(a_oEngine, a_oGameObjsPoolKey)
 			};
 		}
 		#endregion // 클래스 함수

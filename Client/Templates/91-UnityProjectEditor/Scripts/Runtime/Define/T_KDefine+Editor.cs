@@ -32,17 +32,15 @@ public static partial class KDefine {
 /** 레벨 에디터 씬 상수 */
 public static partial class KDefine {
 	#region 기본
-	// 개수
+	// 단위
 	public const int LES_MAX_NUM_OBJ_KINDS_IN_ROW = 4;
-
-	// 횟수
 	public const int LES_MAX_TIMES_TRY_SETUP_CELL_INFOS = byte.MaxValue;
 
 	// 식별자 {
-	public const string LES_KEY_SPRITE_OBJS_POOL = "SpriteObjsPool";
-	public const string LES_KEY_LINE_FX_OBJS_POOL = "LineFXObjsPool";
+	public const string LES_KEY_BTN_GAME_OBJS_POOL = "BtnGameObjsPool";
 
-	public const string LES_KEY_BTN_OBJS_POOL = "BtnObjsPool";
+	public const string LES_KEY_SPRITE_GAME_OBJS_POOL = "SpriteGameObjsPool";
+	public const string LES_KEY_LINE_FX_GAME_OBJS_POOL = "LineFXGameObjsPool";
 	// 식별자 }
 
 	// 이름 {
@@ -62,12 +60,12 @@ public static partial class KDefine {
 	#endregion // 기본
 
 	#region 런타임 상수
+	// 단위
+	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(2.5f, 2.5f, 2.5f);
+
 	// 색상
 	public static readonly Color LES_COLOR_GRID_LINE_FX = new Color(0.0f, 0.35f, 0.35f, 1.0f);
 	public static readonly Color LES_COLOR_VIEW_GRID_LINE_FX = new Color(0.35f, 0.0f, 0.0f, 1.0f);
-
-	// 비율
-	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(2.5f, 2.5f, 2.5f);
 
 	// 간격
 	public static readonly Vector3 LES_OFFSET_H_GRID_LINE_BTN = new Vector3(0.0f, 20.0f, 0.0f);

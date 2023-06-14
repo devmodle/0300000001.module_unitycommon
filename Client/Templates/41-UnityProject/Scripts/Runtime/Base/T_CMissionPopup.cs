@@ -14,7 +14,7 @@ public abstract partial class CMissionPopup : CSubPopup {
 	}
 
 	#region 변수
-	[Header("=====> Objs <=====")]
+	[Header("=====> Game Objects <=====")]
 	[SerializeField] private List<GameObject> m_oMissionUIsList = new List<GameObject>();
 	#endregion // 변수
 
