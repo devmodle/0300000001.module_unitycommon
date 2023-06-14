@@ -27,7 +27,6 @@
 	- *Simple Scroll Snap (2.0.0 - Mar 3, 2022)*
 	- *Smart Timers Manager (1.0.0 - Jul 6, 2016)*
 	- *Text to TextMesh Pro (1.1.1 - Mar 21, 2023)*
-	- *UniRx (7.1.0 - Jul 4, 2019)*
 3. **추가 에셋 스토어 리스트**
 	- *Apple Sign In (1.4.2 - Jul 18, 2021)*
 	- *2D Toolkit (2.5.8.16 - Apr 30, 2019)*
@@ -39,6 +38,7 @@
 	- *Ultimate Status Bar (2.6.0 - Jun 3, 2020)*
 4. **외부 에셋 및 플러그인 리스트**
 	- *Msg Pack (2.5.108)*
+	- *Uni Task (2.3.3 - Nov 1, 2022)*
 	- *UI Effect (3.2.0 - Jul 17, 2019)*
 	- *Particle for GUI (4.1.7 - Aug 30, 2022)*
 	- *Soft Mask for GUI (1.0.2 - May 15, 2022)*

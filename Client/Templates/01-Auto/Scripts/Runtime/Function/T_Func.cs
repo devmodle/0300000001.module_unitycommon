@@ -450,7 +450,7 @@ public static partial class Func {
 		// 배너 광고 출력이 가능 할 경우
 		if(CAdsManager.Inst.IsLoadBannerAds(a_eAdsPlatform)) {
 			Func.m_oAdsCallbackDict01.ExReplaceVal(ECallback.SHOW_BANNER_ADS, a_oCallback);
-			CUSingleton.Inst.ExLateCallFunc((a_oSender) => CAdsManager.Inst.ShowBannerAds(a_eAdsPlatform, Func.OnShowBannerAds));
+			CGSingleton.Inst.ExLateCallFunc((a_oSender) => CAdsManager.Inst.ShowBannerAds(a_eAdsPlatform, Func.OnShowBannerAds));
 		} else {
 			CFunc.Invoke(ref a_oCallback, CAdsManager.Inst, false);
 		}
@@ -487,7 +487,7 @@ public static partial class Func {
 		if(CAdsManager.Inst.IsLoadRewardAds(a_eAdsPlatform)) {
 			CIndicatorManager.Inst.Show();
 
-			CUSingleton.Inst.ExLateCallFunc((a_oSender) => {
+			CGSingleton.Inst.ExLateCallFunc((a_oSender) => {
 				Func.m_bIsWatchRewardAds = false;
 				Func.m_stWatchAdsRewardInfo = STAdsRewardInfo.INVALID;
 				Func.m_oAdsCallbackDict02.ExReplaceVal(ECallback.SHOW_REWARD_ADS, a_oCallback);
@@ -520,7 +520,7 @@ public static partial class Func {
 		if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(a_eAdsPlatform)) {
 			CIndicatorManager.Inst.Show();
 
-			CUSingleton.Inst.ExLateCallFunc((a_oSender) => {
+			CGSingleton.Inst.ExLateCallFunc((a_oSender) => {
 				CIndicatorManager.Inst.Close();
 
 				// 전면 광고 출력이 가능 할 경우
@@ -1117,7 +1117,7 @@ public static partial class Func {
 
 			CServicesManager.Inst.LoadGoogleSheet(a_oID, a_oInfoList[KCDefine.B_VAL_0_INT].Item1, Func.OnLoadGoogleSheet, KCDefine.B_VAL_0_INT, a_oInfoList[KCDefine.B_VAL_0_INT].Item2);
 		} else {
-			CUSingleton.Inst.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, STGoogleSheetLoadInfo.INVALID, null, false));
+			CGSingleton.Inst.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, STGoogleSheetLoadInfo.INVALID, null, false));
 		}
 	}
 
@@ -1140,7 +1140,7 @@ public static partial class Func {
 		if(a_oLoadGoogleSheetInfoList.ExIsValid()) {
 			Func.LoadGoogleSheet(a_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].m_oID, a_oLoadGoogleSheetInfoList[KCDefine.B_VAL_0_INT].m_oSheetInfoList, Func.OnLoadGoogleSheets);
 		} else {
-			CUSingleton.Inst.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, true));
+			CGSingleton.Inst.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, true));
 		}
 	}
 
@@ -1168,7 +1168,7 @@ public static partial class Func {
 
 			CServicesManager.Inst.SaveGoogleSheet(a_oID, a_oInfoListContainer[KCDefine.B_VAL_0_INT].Item1, a_oInfoListContainer[KCDefine.B_VAL_0_INT].Item2, Func.OnSaveGoogleSheet, KCDefine.B_VAL_0_INT, a_oInfoListContainer[KCDefine.B_VAL_0_INT].Item2.Count);
 		} else {
-			CUSingleton.Inst.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, STGoogleSheetSaveInfo.INVALID, false));
+			CGSingleton.Inst.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, STGoogleSheetSaveInfo.INVALID, false));
 		}
 	}
 
@@ -1191,7 +1191,7 @@ public static partial class Func {
 		if(a_oSaveGoogleSheetInfoList.ExIsValid()) {
 			Func.SaveGoogleSheet(a_oSaveGoogleSheetInfoList[KCDefine.B_VAL_0_INT].m_oID, a_oSaveGoogleSheetInfoList[KCDefine.B_VAL_0_INT].m_oSheetInfoListContainer, Func.OnSaveGoogleSheets);
 		} else {
-			CUSingleton.Inst.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, true));
+			CGSingleton.Inst.ExLateCallFunc((a_oSender) => a_oCallback?.Invoke(CServicesManager.Inst, true));
 		}
 	}
 

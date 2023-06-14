@@ -206,7 +206,7 @@ namespace InitScene {
 			// 관리자를 생성한다 }
 
 			// 전역 객체를 생성한다
-			CUSingleton.Create();
+			CGSingleton.Create();
 			CSceneLoader.Create();
 			CUnityMsgSender.Create();
 			CDeviceMsgReceiver.Create();

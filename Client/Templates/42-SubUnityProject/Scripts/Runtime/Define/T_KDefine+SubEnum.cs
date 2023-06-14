@@ -32,8 +32,8 @@ public static partial class KEnumVal {
 
 	#region 클래스 함수
 	/** 열거형 값을 생성한다 */
-	public static int MakeEnumVal(int a_nType, int a_nSubType, int a_nKindsType, int a_nSubKindsType) {
-		return ((int)EEnumVal.T * a_nType) + ((int)EEnumVal.ST * a_nSubType) + ((int)EEnumVal.KT * a_nKindsType) + ((int)EEnumVal.SKT * a_nSubKindsType);
+	public static int MakeEnumVal(int a_nType, int a_nSubType, int a_nKindsType, int a_nSubKindsType, int a_nDetailSubKindsType = KCDefine.B_VAL_0_INT) {
+		return ((int)EEnumVal.T * a_nType) + ((int)EEnumVal.ST * a_nSubType) + ((int)EEnumVal.KT * a_nKindsType) + ((int)EEnumVal.SKT * a_nSubKindsType) + a_nDetailSubKindsType;
 	}
 	#endregion // 클래스 함수
 }
