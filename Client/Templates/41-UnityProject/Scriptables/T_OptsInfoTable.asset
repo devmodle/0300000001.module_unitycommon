@@ -36,9 +36,15 @@ MonoBehaviour:
     m_bIsEnableRealtimeReflectionProbes: 0
     m_bIsEnableRealtimeEnvironmentLighting: 0
     m_eQualityLevel: 2
-    m_eMixedLightingMode: 1
+    m_eMixedLightingMode: 2
     m_eLightmapEncodingQuality: 1
     m_stNormQualityRenderingOptsInfo:
+      m_stURPOptsInfo:
+        m_eLightCookieResolution: 256
+        m_eMainLightShadowResolution: 1024
+        m_eAdditionalLightsShadowResolution: 1024
+        m_eMSAAQuality: 0
+        m_eDownsampling: 0
       m_stLightOptsInfo:
         m_eLightmapMaxSize: 1024
         m_eLightmapMode: 0
@@ -47,14 +53,14 @@ MonoBehaviour:
         m_eShadowResolution: 1
         m_eSoftShadowQuality: 0
         m_eShadowCascadesOpts: 0
-      m_stUniversalRPOptsInfo:
-        m_eLightCookieResolution: 256
-        m_eMainLightShadowResolution: 1024
-        m_eAdditionalLightsShadowResolution: 1024
-        m_eMSAAQuality: 0
-        m_eDownsampling: 0
       m_eAAQuality: 0
     m_stHighQualityRenderingOptsInfo:
+      m_stURPOptsInfo:
+        m_eLightCookieResolution: 512
+        m_eMainLightShadowResolution: 2048
+        m_eAdditionalLightsShadowResolution: 2048
+        m_eMSAAQuality: 0
+        m_eDownsampling: 0
       m_stLightOptsInfo:
         m_eLightmapMaxSize: 2048
         m_eLightmapMode: 1
@@ -63,14 +69,14 @@ MonoBehaviour:
         m_eShadowResolution: 2
         m_eSoftShadowQuality: 0
         m_eShadowCascadesOpts: 0
-      m_stUniversalRPOptsInfo:
+      m_eAAQuality: 0
+    m_stUltraQualityRenderingOptsInfo:
+      m_stURPOptsInfo:
         m_eLightCookieResolution: 512
         m_eMainLightShadowResolution: 2048
         m_eAdditionalLightsShadowResolution: 2048
         m_eMSAAQuality: 0
         m_eDownsampling: 0
-      m_eAAQuality: 0
-    m_stUltraQualityRenderingOptsInfo:
       m_stLightOptsInfo:
         m_eLightmapMaxSize: 2048
         m_eLightmapMode: 1
@@ -79,10 +85,4 @@ MonoBehaviour:
         m_eShadowResolution: 3
         m_eSoftShadowQuality: 0
         m_eShadowCascadesOpts: 0
-      m_stUniversalRPOptsInfo:
-        m_eLightCookieResolution: 512
-        m_eMainLightShadowResolution: 2048
-        m_eAdditionalLightsShadowResolution: 2048
-        m_eMSAAQuality: 0
-        m_eDownsampling: 0
       m_eAAQuality: 0
