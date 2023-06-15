@@ -104,9 +104,9 @@ namespace TitleScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				// 업데이트가 가능 할 경우
-				if(!CAppInfoStorage.Inst.IsIgnoreUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
-					CAppInfoStorage.Inst.SetIgnoreUpdate(true);
+				// 앱 업데이트가 가능 할 경우
+				if(!CAppInfoStorage.Inst.IsIgnoreAppUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+					CAppInfoStorage.Inst.SetIgnoreAppUpdate(true);
 					this.ExLateCallFunc((a_oSender) => Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), this.OnReceiveUpdatePopupResult));
 				}
 

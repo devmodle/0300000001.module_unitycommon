@@ -81,7 +81,7 @@ public partial class CAppInfo : CBaseInfo {
 /** 앱 정보 저장소 */
 public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 프로퍼티
-	public bool IsIgnoreUpdate { get; private set; } = false;
+	public bool IsIgnoreAppUpdate { get; private set; } = false;
 	public CAppInfo AppInfo { get; private set; } = new CAppInfo();
 
 #if ADS_MODULE_ENABLE
@@ -138,9 +138,9 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 /** 앱 정보 저장소 - 접근 */
 public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 함수
-	/** 업데이트 무시 여부를 변경한다 */
-	public void SetIgnoreUpdate(bool a_bIsIgnore) {
-		this.IsIgnoreUpdate = a_bIsIgnore;
+	/** 앱 업데이트 무시 여부를 변경한다 */
+	public void SetIgnoreAppUpdate(bool a_bIsIgnore) {
+		this.IsIgnoreAppUpdate = a_bIsIgnore;
 	}
 	#endregion // 함수
 
