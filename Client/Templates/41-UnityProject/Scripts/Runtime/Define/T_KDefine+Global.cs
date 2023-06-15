@@ -8,6 +8,12 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 전역 상수 */
 public static partial class KDefine {
+	#region 프로퍼티
+	public static string G_DATA_P_APP_INFO => $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
+	public static string G_DATA_P_USER_INFO => $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
+	public static string G_DATA_P_GAME_INFO => $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
+	#endregion // 프로퍼티
+
 	#region 기본
 	// 개수
 	public const int G_MAX_NUM_VALS = 10;
@@ -53,11 +59,6 @@ public static partial class KDefine {
 	public static readonly System.Version G_VER_CHARACTER_OBJ_TARGET_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_CHARACTER_GAME_INFO = new System.Version(1, 0, 0);
 	// 버전 }
-
-	// 경로
-	public static readonly string G_DATA_P_APP_INFO = $"{KCDefine.B_DIR_P_WRITABLE}AppInfo.bytes";
-	public static readonly string G_DATA_P_USER_INFO = $"{KCDefine.B_DIR_P_WRITABLE}UserInfo.bytes";
-	public static readonly string G_DATA_P_GAME_INFO = $"{KCDefine.B_DIR_P_WRITABLE}GameInfo.bytes";
 
 	// 이름
 	public static readonly string G_TABLE_N_VER_INFO = KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false);

@@ -270,7 +270,7 @@ namespace LevelEditorScene {
 				m_oGridBoundsTex2D?.ExSetPixels(Color.white);
 
 				// 스프라이트를 설정한다 {
-				var oObjSprite = this.ObjRoot.ExFindComponent<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE) ?? CFactory.CreateCloneGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE, this.ObjRoot, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE));
+				var oObjSprite = this.ObjRoot.ExFindComponent<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE) ?? CFactory.CreateCloneGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE), this.ObjRoot);
 				oObjSprite.gameObject.SetActive(false);
 				oObjSprite.ExSetSortingOrder(KCDefine.U_SORTING_OI_OVERGROUND);
 

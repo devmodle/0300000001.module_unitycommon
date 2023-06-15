@@ -160,7 +160,7 @@ public static partial class KEditorDefine {
 	// 유니티 패키지 {
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본 {
-		["com.unity.feature.2d"] = "1.0.0",
+		["com.unity.feature.2d"] = "2.0.0",
 		["com.unity.feature.characters-animation"] = "1.0.0",
 		["com.unity.feature.cinematic"] = "1.0.0",
 		["com.unity.feature.development"] = "1.0.1",
