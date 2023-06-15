@@ -70,7 +70,7 @@ namespace TitleScene {
 					oItemKindsList.ExAddVal(EItemKinds.NON_CONSUMABLE_ITEM_WATCH_ADS_01);
 
 					for(int i = 0; i < oItemKindsList.Count; ++i) {
-						// 아이템이 없을 경우
+						// 기본 아이템이 없을 경우
 						if(Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, oItemKindsList[i], ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS) <= KCDefine.B_VAL_0_INT) {
 							var stValInfo = new STValInfo(EValType.INT, int.MaxValue);
 							Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, new STTargetInfo(ETargetKinds.ITEM_TARGET_NUMS, (int)oItemKindsList[i], stValInfo));

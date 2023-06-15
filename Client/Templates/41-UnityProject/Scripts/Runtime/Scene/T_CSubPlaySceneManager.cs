@@ -465,7 +465,6 @@ namespace PlayScene {
 			});
 
 			m_oEngine.SetEnableRunning(false);
-			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_RESULT);
 		}
 		#endregion // 함수
 
