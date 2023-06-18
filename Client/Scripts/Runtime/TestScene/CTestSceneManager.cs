@@ -20,11 +20,11 @@ namespace TestScene {
 		#endregion // 변수
 
 		#region 프로퍼티
+		public override string SceneName => KCDefine.B_SCENE_N_TEST;
+
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
 		public override bool IsIgnoreBGTouchResponder => false;
-
-		public override string SceneName => KCDefine.B_SCENE_N_TEST;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -36,7 +36,7 @@ namespace TestScene {
 			if(CSceneManager.IsAppInit) {
 				// 버튼을 설정한다 {
 				CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>() {
-					(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.UpLeftUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
+					(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
 				}, m_oBtnDict);
 
 				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;

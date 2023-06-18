@@ -20,11 +20,12 @@ namespace TitleScene {
 		#endregion // 변수
 
 		#region 프로퍼티
+		public override string SceneName => KCDefine.B_SCENE_N_TITLE;
+
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;
 		public override bool IsIgnoreBGTouchResponder => false;
 
-		public override string SceneName => KCDefine.B_SCENE_N_TITLE;
 		public Text VerText => m_oTextDict[EKey.VER_TEXT];
 		#endregion // 프로퍼티
 

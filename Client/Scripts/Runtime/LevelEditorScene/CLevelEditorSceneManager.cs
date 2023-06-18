@@ -32,6 +32,8 @@ namespace LevelEditorScene {
 		#endregion // 변수
 
 		#region 프로퍼티
+		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
+
 		public override bool IsIgnoreBlindH => true;
 		public override bool IsIgnoreBlindV => true;
 		public override bool IsIgnoreBGTouchResponder => false;
@@ -39,7 +41,6 @@ namespace LevelEditorScene {
 		public override float ScreenWidth => KCDefine.B_DESIGN_P_SCREEN_WIDTH;
 		public override float ScreenHeight => KCDefine.B_DESIGN_P_SCREEN_HEIGHT * KCDefine.ES_SCALE_DESIGN_SCREEN_HEIGHT;
 
-		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
 		public override EProjection MainCameraProjection => EProjection._3D;
 		public override Vector3 ObjRootPivotPos => (this.UIsBase != null && this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS) != null) ? Vector3.zero.ExToWorld(this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS)).ExToLocal(this.UIs) : Vector3.zero;
 		
