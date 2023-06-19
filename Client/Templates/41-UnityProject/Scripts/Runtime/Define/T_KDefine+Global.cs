@@ -490,7 +490,7 @@ public static partial class KDefine {
 		}, new Dictionary<System.Type, Dictionary<string, List<string>>>() {
 			[typeof(CProductTradeInfoTable)] = new Dictionary<string, List<string>>() {
 				[KCDefine.B_KEY_COMMON] = new List<string>() {
-					KCDefine.B_KEY_COMMON, KCDefine.B_PLATFORM_N_IOS_APPLE, KCDefine.B_PLATFORM_N_ANDROID_GOOGLE, KCDefine.B_PLATFORM_N_ANDROID_AMAZON
+					KCDefine.B_KEY_COMMON, KCDefine.B_PLATFORM_IOS_APPLE, KCDefine.B_PLATFORM_ANDROID_GOOGLE, KCDefine.B_PLATFORM_ANDROID_AMAZON
 				}
 			}
 		}, new Dictionary<System.Type, Dictionary<string, List<STKeyInfo>>>() {

@@ -66,7 +66,7 @@ public static partial class CEditorSceneManager {
 			}
 
 			// 갱신 주기가 지났을 경우
-			if((EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+			if((EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblUpdateSkipTime).ExIsGreateEquals(KCDefine.B_VAL_3_REAL)) {
 				CEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
 
 #if UIS_ROOT_PREFAB_ENABLE
@@ -190,7 +190,7 @@ public static partial class CEditorSceneManager {
 			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.Result != null && CEditorSceneManager.m_oListRequest.IsCompleted);
 
 			// 갱신 주기가 지났을 경우
-			if(bIsEnableSetup && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDependencySkipTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+			if(bIsEnableSetup && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDependencySkipTime).ExIsGreateEquals(KCDefine.B_VAL_3_REAL)) {
 				CEditorSceneManager.m_dblDependencySkipTime = EditorApplication.timeSinceStartup;
 				CEditorSceneManager.m_bIsEnableSetupDependencies = false;
 
