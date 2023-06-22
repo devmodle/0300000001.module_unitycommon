@@ -89,7 +89,7 @@ public partial class CSyncPopup : CSubPopup {
 #if FIREBASE_MODULE_ENABLE
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-				a_oSender.SetIgnoreAni(true);
+				a_oSender.SetIsIgnoreAni(true);
 				Func.LoadUserInfo(this.OnLoadUserInfo);
 			}
 #endif // #if FIREBASE_MODULE_ENABLE
@@ -102,7 +102,7 @@ public partial class CSyncPopup : CSubPopup {
 #if FIREBASE_MODULE_ENABLE
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-				a_oSender.SetIgnoreAni(true);
+				a_oSender.SetIsIgnoreAni(true);
 				Func.SaveUserInfo(this.OnSaveUserInfo);
 			}
 #endif // #if FIREBASE_MODULE_ENABLE
@@ -155,8 +155,8 @@ public partial class CSyncPopup : CSubPopup {
 			if(CUserInfoStorage.Inst.IsPurchaseRemoveAds) {
 				Func.CloseBannerAds(null);
 
-				CAdsManager.Inst.SetEnableBannerAds(false);
-				CAdsManager.Inst.SetEnableFullscreenAds(false);
+				CAdsManager.Inst.SetIsEnableBannerAds(false);
+				CAdsManager.Inst.SetIsEnableFullscreenAds(false);
 			}
 #endif // #if ADS_MODULE_ENABLE
 		}
@@ -164,7 +164,7 @@ public partial class CSyncPopup : CSubPopup {
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
 
 		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
-		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.SetIgnoreNavStackEvent(m_bIsLoadUserInfo); return true; });
+		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.SetIsIgnoreNavStackEvent(m_bIsLoadUserInfo); return true; });
 	}
 
 	/** 유저 정보가 저장 되었을 경우 */

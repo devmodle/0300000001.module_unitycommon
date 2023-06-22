@@ -153,7 +153,7 @@ namespace PlayScene {
 				this.UpdateUIsState();
 
 				this.ExLateCallFunc((a_oSender) => {
-					m_oEngine.SetEnableRunning(true);
+					m_oEngine.SetIsRunning(true);
 					m_oEngine.SetState(NSEngine.CEngine.EState.IDLE);
 					m_oEngine.SetSubState(NSEngine.CEngine.ESubState.PLAY);
 
@@ -336,12 +336,12 @@ namespace PlayScene {
 				case EPopupCallback.LEAVE: this.HandleLeavePopupCallback(a_oSender); break;
 			}
 
-			this.SetEnableSaveInfo(true);
-			this.SetEnableUpdateState(true);
+			this.SetIsEnableSaveInfo(true);
+			this.SetIsEnableUpdateState(true);
 
-			m_oEngine.SetEnableRunning(a_eCallback == EPopupCallback.RESUME || a_eCallback == EPopupCallback.CONTINUE);
+			m_oEngine.SetIsRunning(a_eCallback == EPopupCallback.RESUME || a_eCallback == EPopupCallback.CONTINUE);
 
-			a_oSender?.SetIgnoreAni(a_eCallback != EPopupCallback.RESUME && a_eCallback != EPopupCallback.CONTINUE);
+			a_oSender?.SetIsIgnoreAni(a_eCallback != EPopupCallback.RESUME && a_eCallback != EPopupCallback.CONTINUE);
 			a_oSender?.Close();
 		}
 
@@ -464,7 +464,7 @@ namespace PlayScene {
 				}));
 			});
 
-			m_oEngine.SetEnableRunning(false);
+			m_oEngine.SetIsRunning(false);
 		}
 		#endregion // 함수
 

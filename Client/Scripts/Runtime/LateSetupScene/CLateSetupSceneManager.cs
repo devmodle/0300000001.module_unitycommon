@@ -79,36 +79,6 @@ namespace LateSetupScene {
 			// Do Something
 		}
 
-		/** 초기화 */
-		private IEnumerator CoStart() {
-			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
-			this.SetupActiveScene();
-
-#if ROBO_TEST_ENABLE
-			this.OnCloseAgreePopup(null);
-#else
-			// 약관 동의 상태 일 경우
-			if(CCommonAppInfoStorage.Inst.AppInfo.IsAgree || !CCommonAppInfoStorage.Inst.IsNeedsAgree(CCommonAppInfoStorage.Inst.CountryCode)) {
-				this.OnCloseAgreePopup(null);
-			} else {
-				// 한국 일 경우
-				if(CCommonAppInfoStorage.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE)) {
-					var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY);
-					var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES);
-
-					try {
-						this.ShowKRAgreePopup(oPrivacy.text, oServices.text, this.OnCloseAgreePopup);
-					} finally {
-						CResManager.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY, true);
-						CResManager.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES, true);
-					}
-				} else {
-					this.ShowEUAgreePopup(CProjInfoTable.Inst.CompanyInfo.m_oPrivacyURL, CProjInfoTable.Inst.CompanyInfo.m_oServicesURL, this.OnCloseAgreePopup);
-				}
-			}
-#endif // #if ROBO_TEST_ENABLE
-		}
-
 		/** 약관 동의 팝업이 닫혔을 경우 */
 		private void OnCloseAgreePopup(CPopup a_oSender) {
 			CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
@@ -146,7 +116,7 @@ namespace LateSetupScene {
 					[CAdsManager.ECallback.INIT] = CLateSetupSceneManager.OnInitAdsManager
 				});
 
-				CUnityMsgSender.Inst.SendSetEnableAdsTrackingMsg(true);
+				CUnityMsgSender.Inst.SendSetIsEnableAdsTrackingMsg(true);
 
 #if ADMOB_ADS_ENABLE
 				stAdsParams.m_oAdmobTestDeviceIDList.ExAddVals(CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobTestDeviceIDList);
@@ -465,25 +435,60 @@ namespace LateSetupScene {
 		#region 조건부 접근자 클래스 함수
 #if ADS_MODULE_ENABLE
 		/** 광고 제거 결제 여부를 변경한다 */
-		public static void SetPurchaseRemoveAds(bool a_bIsPurchase) {
+		public static void SetIsPurchaseRemoveAds(bool a_bIsPurchase) {
 			CLateSetupSceneManager.IsPurchaseRemoveAds = a_bIsPurchase;
 		}
 
 		/** 배너 광고 자동 로드 여부를 변경한다 */
-		public static void SetAutoLoadBannerAds(bool a_bIsAutoLoad) {
+		public static void SetIsAutoLoadBannerAds(bool a_bIsAutoLoad) {
 			CLateSetupSceneManager.IsAutoLoadBannerAds = a_bIsAutoLoad;
 		}
 
 		/** 보상 광고 자동 로드 여부를 변경한다 */
-		public static void SetAutoLoadRewardAds(bool a_bIsAutoLoad) {
+		public static void SetIsAutoLoadRewardAds(bool a_bIsAutoLoad) {
 			CLateSetupSceneManager.IsAutoLoadRewardAds = a_bIsAutoLoad;
 		}
 
 		/** 전면 광고 자동 로드 여부를 변경한다 */
-		public static void SetAutoLoadFullscreenAds(bool a_bIsAutoLoad) {
+		public static void SetIsAutoLoadFullscreenAds(bool a_bIsAutoLoad) {
 			CLateSetupSceneManager.IsAutoLoadFullscreenAds = a_bIsAutoLoad;
 		}
 #endif // #if ADS_MODULE_ENABLE
 		#endregion // 조건부 접근자 클래스 함수
+	}
+
+	/** 지연 설정 씬 관리자 - 코루틴 */
+	public abstract partial class CLateSetupSceneManager : CSceneManager {
+		#region 함수
+		/** 초기화 */
+		private IEnumerator CoStart() {
+			yield return CAccess.CoGetWaitForSecs(KCDefine.U_DELAY_INIT);
+			this.SetupActiveScene();
+
+#if ROBO_TEST_ENABLE
+			this.OnCloseAgreePopup(null);
+#else
+			// 약관 동의 상태 일 경우
+			if(CCommonAppInfoStorage.Inst.AppInfo.IsAgree || !CCommonAppInfoStorage.Inst.IsNeedsAgree(CCommonAppInfoStorage.Inst.CountryCode)) {
+				this.OnCloseAgreePopup(null);
+			} else {
+				// 한국 일 경우
+				if(CCommonAppInfoStorage.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE)) {
+					var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY);
+					var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES);
+
+					try {
+						this.ShowKRAgreePopup(oPrivacy.text, oServices.text, this.OnCloseAgreePopup);
+					} finally {
+						CResManager.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY, true);
+						CResManager.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES, true);
+					}
+				} else {
+					this.ShowEUAgreePopup(CProjInfoTable.Inst.CompanyInfo.m_oPrivacyURL, CProjInfoTable.Inst.CompanyInfo.m_oServicesURL, this.OnCloseAgreePopup);
+				}
+			}
+#endif // #if ROBO_TEST_ENABLE
+		}
+		#endregion // 함수
 	}
 }

@@ -79,31 +79,31 @@ namespace InitScene {
 
 			// 사운드 관리자를 설정한다 {
 #if MODE_2D_ENABLE
-			CSndManager.Inst.SetIgnoreBGSndEffects(true);
-			CSndManager.Inst.SetIgnoreFXSndsEffects(true);
+			CSndManager.Inst.SetIsIgnoreBGSndEffects(true);
+			CSndManager.Inst.SetIsIgnoreFXSndsEffects(true);
 
-			CSndManager.Inst.SetIgnoreBGSndReverbZones(true);
-			CSndManager.Inst.SetIgnoreFXSndsReverbZones(true);
+			CSndManager.Inst.SetIsIgnoreBGSndReverbZones(true);
+			CSndManager.Inst.SetIsIgnoreFXSndsReverbZones(true);
 
-			CSndManager.Inst.SetIgnoreBGSndListenerEffects(true);
-			CSndManager.Inst.SetIgnoreFXSndsListenerEffects(true);
+			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(true);
+			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(true);
 #else
-			CSndManager.Inst.SetIgnoreBGSndEffects(false);
-			CSndManager.Inst.SetIgnoreFXSndsEffects(false);
+			CSndManager.Inst.SetIsIgnoreBGSndEffects(false);
+			CSndManager.Inst.SetIsIgnoreFXSndsEffects(false);
 
-			CSndManager.Inst.SetIgnoreBGSndReverbZones(false);
-			CSndManager.Inst.SetIgnoreFXSndsReverbZones(false);
+			CSndManager.Inst.SetIsIgnoreBGSndReverbZones(false);
+			CSndManager.Inst.SetIsIgnoreFXSndsReverbZones(false);
 
-			CSndManager.Inst.SetIgnoreBGSndListenerEffects(false);
-			CSndManager.Inst.SetIgnoreFXSndsListenerEffects(false);
+			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(false);
+			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(false);
 #endif // #if MODE_2D_ENABLE
 
 			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
 			CSndManager.Inst.SetFXSndsVolume(CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume);
 
-			CSndManager.Inst.SetMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
-			CSndManager.Inst.SetMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
-			CSndManager.Inst.SetDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
+			CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
+			CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
+			CSndManager.Inst.SetIsDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
 			// 사운드 관리자를 설정한다 }
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
@@ -163,9 +163,43 @@ namespace InitScene {
 			return CFactory.CreateCloneGameObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
 
+		/** 블라인드 UI 를 설정한다 */
+		private void SetupBlindUIs() {
+			// 블라인드 UI 가 없을 경우
+			if(CInitSceneManager.m_oBlindUIs == null) {
+				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
+
+				try {
+					CSceneManager.SetScreenBlindUIs(CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS));
+
+					// 블라인드 이미지를 설정한다 {
+					var oImgList = new List<Image>() {
+						this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+						this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+						this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+						this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
+					};
+
+					for(int i = 0; i < oImgList.Count; ++i) {
+						oImgList[i].color = KCDefine.U_COLOR_TRANSPARENT;
+						oImgList[i].raycastTarget = false;
+					}
+					// 블라인드 이미지를 설정한다 }
+				} finally {
+					DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
+					CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.U_SORTING_O_SCREEN_BLIND_UIS);
+				}
+			}
+		}
+		#endregion // 함수
+	}
+
+	/** 초기화 씬 관리자 - 코루틴 */
+	public abstract partial class CInitSceneManager : CSceneManager {
+		#region 함수
 		/** 초기화 */
 		private IEnumerator CoStart() {
-			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			yield return CAccess.CoGetWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			// 관리자를 생성한다 {
 			CSndManager.Create();
@@ -246,39 +280,10 @@ namespace InitScene {
 			// 디바이스를 설정한다 }
 
 			this.Setup();
-			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			yield return CAccess.CoGetWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			this.ShowSplash();
 			CSceneManager.SetEnableInit(true);
-		}
-
-		/** 블라인드 UI 를 설정한다 */
-		private void SetupBlindUIs() {
-			// 블라인드 UI 가 없을 경우
-			if(CInitSceneManager.m_oBlindUIs == null) {
-				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
-
-				try {
-					CSceneManager.SetScreenBlindUIs(CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS));
-
-					// 블라인드 이미지를 설정한다 {
-					var oImgList = new List<Image>() {
-						this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-						this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-						this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-						this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
-					};
-
-					for(int i = 0; i < oImgList.Count; ++i) {
-						oImgList[i].color = KCDefine.U_COLOR_TRANSPARENT;
-						oImgList[i].raycastTarget = false;
-					}
-					// 블라인드 이미지를 설정한다 }
-				} finally {
-					DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
-					CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.U_SORTING_O_SCREEN_BLIND_UIS);
-				}
-			}
 		}
 		#endregion // 함수
 	}

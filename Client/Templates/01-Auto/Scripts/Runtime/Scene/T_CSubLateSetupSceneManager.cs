@@ -81,13 +81,13 @@ namespace LateSetupScene {
 
 #if ADS_MODULE_ENABLE
 #if(EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
-				CLateSetupSceneManager.SetPurchaseRemoveAds(CUserInfoStorage.Inst.IsPurchaseRemoveAds);
+				CLateSetupSceneManager.SetIsPurchaseRemoveAds(CUserInfoStorage.Inst.IsPurchaseRemoveAds);
 #endif // #if(EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 
 #if(!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
-				CLateSetupSceneManager.SetAutoLoadBannerAds(true);
-				CLateSetupSceneManager.SetAutoLoadRewardAds(true);
-				CLateSetupSceneManager.SetAutoLoadFullscreenAds(true);
+				CLateSetupSceneManager.SetIsAutoLoadBannerAds(true);
+				CLateSetupSceneManager.SetIsAutoLoadRewardAds(true);
+				CLateSetupSceneManager.SetIsAutoLoadFullscreenAds(true);
 #endif // #if(!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
 #endif // #if ADS_MODULE_ENABLE
 			}
@@ -98,8 +98,8 @@ namespace LateSetupScene {
 			base.Setup();
 
 #if ADS_MODULE_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			CAdsManager.Inst.SetEnableBannerAds(!CUserInfoStorage.Inst.IsPurchaseRemoveAds);
-			CAdsManager.Inst.SetEnableFullscreenAds(!CUserInfoStorage.Inst.IsPurchaseRemoveAds);
+			CAdsManager.Inst.SetIsEnableBannerAds(!CUserInfoStorage.Inst.IsPurchaseRemoveAds);
+			CAdsManager.Inst.SetIsEnableFullscreenAds(!CUserInfoStorage.Inst.IsPurchaseRemoveAds);
 #endif // #if ADS_MODULE_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 

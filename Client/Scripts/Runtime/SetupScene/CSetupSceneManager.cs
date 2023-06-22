@@ -245,10 +245,15 @@ namespace SetupScene {
 			CAccess.Assert(a_oGaugeHandler != null);
 			return CFactory.MakeSequence(CFactory.MakeAni(() => a_oGaugeHandler.Percent, (a_fVal) => a_oGaugeHandler.SetPercent(a_fVal), () => a_oGaugeHandler.SetPercent(a_fStartVal), a_oCallback, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => CFunc.Invoke(ref a_oCompleteCallback, a_oGaugeHandler, a_oAniSender), a_fDelay, a_bIsRealtime: a_bIsRealtime);
 		}
+		#endregion // 함수
+	}
 
+	/** 설정 씬 관리자 - 코루틴 */
+	public abstract partial class CSetupSceneManager : CSceneManager {
+		#region 함수
 		/** 초기화 */
 		private IEnumerator CoStart() {
-			yield return CFactory.CoCreateWaitForSecs(KCDefine.U_DELAY_INIT);
+			yield return CAccess.CoGetWaitForSecs(KCDefine.U_DELAY_INIT);
 			this.Setup();
 
 			CUnityMsgSender.Inst.SendGetDeviceIDMsg(this.OnReceiveDeviceMsg);

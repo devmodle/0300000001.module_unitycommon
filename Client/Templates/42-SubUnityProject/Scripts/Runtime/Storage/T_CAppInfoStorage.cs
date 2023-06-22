@@ -139,7 +139,7 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 	#region 함수
 	/** 앱 업데이트 무시 여부를 변경한다 */
-	public void SetIgnoreAppUpdate(bool a_bIsIgnore) {
+	public void SetIsIgnoreAppUpdate(bool a_bIsIgnore) {
 		this.IsIgnoreAppUpdate = a_bIsIgnore;
 	}
 	#endregion // 함수

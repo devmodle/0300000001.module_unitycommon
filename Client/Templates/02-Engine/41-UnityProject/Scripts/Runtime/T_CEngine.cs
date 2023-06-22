@@ -299,7 +299,7 @@ namespace NSEngine {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 
 			this.Params.m_oCallbackDict03.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);
-			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetEnableUpdateState(true);
+			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetIsEnableUpdateState(true);
 		}
 		#endregion // 함수
 	}
@@ -463,13 +463,13 @@ namespace NSEngine {
 		}
 
 		/** 구동 여부를 변경한다 */
-		public void SetEnableRunning(bool a_bIsEnable) {
-			this.IsRunning = a_bIsEnable;
+		public void SetIsRunning(bool a_bIsRunning) {
+			this.IsRunning = a_bIsRunning;
 		}
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
-		public void SetEnablePlayerObjAutoControl(bool a_bIsEnable) {
-			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsEnable);
+		public void SetIsAutoControlPlayerObj(bool a_bIsAutoControl) {
+			this.SelPlayerObj.GetController<CEPlayerObjController>().SetIsAutoControl(a_bIsAutoControl);
 		}
 
 		/** 시간 간격 비율을 변경한다 */

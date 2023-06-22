@@ -53,7 +53,7 @@ public partial class CContinuePopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.SetIgnoreNavStackEvent(true);
+		this.SetIsIgnoreNavStackEvent(true);
 
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {

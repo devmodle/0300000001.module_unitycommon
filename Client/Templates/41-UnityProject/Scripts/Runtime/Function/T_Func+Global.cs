@@ -494,8 +494,8 @@ public static partial class Func {
 #if ADS_MODULE_ENABLE
 				Func.CloseBannerAds(null);
 
-				CAdsManager.Inst.SetEnableBannerAds(false);
-				CAdsManager.Inst.SetEnableFullscreenAds(false);
+				CAdsManager.Inst.SetIsEnableBannerAds(false);
+				CAdsManager.Inst.SetIsEnableFullscreenAds(false);
 #endif // #if ADS_MODULE_ENABLE
 			}
 		}
