@@ -178,17 +178,17 @@ public static partial class Access {
 
 	/** 무료 보상 획득 가능 여부를 검사한다 */
 	public static bool IsEnableGetFreeReward(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevFreeRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevFreeRewardTime).ExIsGreatEquals(KCDefine.B_VAL_1_REAL) : false;
 	}
 
 	/** 일일 보상 획득 가능 여부를 검사한다 */
 	public static bool IsEnableGetDailyReward(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyRewardTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyRewardTime).ExIsGreatEquals(KCDefine.B_VAL_1_REAL) : false;
 	}
 
 	/** 일일 미션 리셋 가능 여부를 검사한다 */
 	public static bool IsEnableResetDailyMission(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyMissionTime).ExIsGreatEquals(KCDefine.B_VAL_1_REAL) : false;
 	}
 
 	/** 교환 가능 여부를 검사한다 */

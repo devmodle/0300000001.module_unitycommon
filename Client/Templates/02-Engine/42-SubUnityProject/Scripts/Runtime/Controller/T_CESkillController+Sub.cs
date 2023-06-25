@@ -41,7 +41,7 @@ namespace NSEngine {
 			m_fUpdateSkipTime += a_fDeltaTime;
 
 			// 딜레이 시간이 지났을 경우
-			if(m_fUpdateSkipTime.ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDelay)) {
+			if(m_fUpdateSkipTime.ExIsGreatEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDelay)) {
 				this.SetState(EState.SKILL);
 				this.SetSubState(ESubState.APPLY);
 
@@ -94,7 +94,7 @@ namespace NSEngine {
 			m_fUpdateSkipTime += a_fDeltaTime;
 
 			// 적용 간격이 지났을 경우
-			if(m_nApplyTimes < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_fUpdateSkipTime.ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (m_nApplyTimes - KCDefine.B_VAL_1_INT))) {
+			if(m_nApplyTimes < this.GetOwner<CESkill>().Params.m_stSkillInfo.m_nMaxApplyTimes && m_fUpdateSkipTime.ExIsGreatEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDeltaTime * (m_nApplyTimes - KCDefine.B_VAL_1_INT))) {
 				m_nApplyTimes += KCDefine.B_VAL_1_INT;
 
 				switch((EApplyType)((int)this.GetOwner<CESkill>().Params.m_stSkillInfo.m_eSkillApplyKinds).ExKindsToType()) {
@@ -104,7 +104,7 @@ namespace NSEngine {
 			}
 
 			// 적용 시간이 지났을 경우
-			if(m_fUpdateSkipTime.ExIsGreateEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
+			if(m_fUpdateSkipTime.ExIsGreatEquals(this.GetOwner<CESkill>().Params.m_stSkillInfo.m_stTimeInfo.m_fDuration)) {
 				this.SetSubState(ESubState.COMPLETE);
 			}
 		}

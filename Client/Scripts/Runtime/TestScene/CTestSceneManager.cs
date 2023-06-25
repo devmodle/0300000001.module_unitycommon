@@ -42,6 +42,7 @@ namespace TestScene {
 				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;
 				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
 				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchoredPosition = Vector3.zero;
 				// 버튼을 설정한다 }
 			}
 		}

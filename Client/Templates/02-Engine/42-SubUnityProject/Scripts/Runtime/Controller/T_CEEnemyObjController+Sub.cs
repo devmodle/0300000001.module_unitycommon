@@ -60,7 +60,7 @@ namespace NSEngine {
 			m_fUpdateSkipTime += a_fDeltaTime;
 
 			// 일정 시간이 지났을 경우
-			if(m_fUpdateSkipTime.ExIsGreateEquals(KCDefine.B_VAL_1_REAL)) {
+			if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.B_VAL_1_REAL)) {
 				m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 				this.SetState(EState.IDLE);
 			}

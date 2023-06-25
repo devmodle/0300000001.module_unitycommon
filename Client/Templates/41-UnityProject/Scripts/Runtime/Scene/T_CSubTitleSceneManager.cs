@@ -178,7 +178,7 @@ namespace TitleScene {
 			double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(CSceneManager.ActiveSceneAwakeTime);
 
 			// 배경 터치 전달자 일 경우
-			if(this.BGTouchDispatcher == a_oSender && dblDeltaTime.ExIsGreate(KCDefine.B_VAL_1_REAL)) {
+			if(this.BGTouchDispatcher == a_oSender && dblDeltaTime.ExIsGreat(KCDefine.B_VAL_1_REAL)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;

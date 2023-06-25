@@ -387,7 +387,7 @@ namespace LevelEditorScene {
 				}
 
 				// 일정 시간이 지났을 경우
-				if(m_fUpdateSkipTime.ExIsGreateEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL)) {
+				if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL)) {
 					m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 					this.OnTouchMEUIsSaveBtn();
 				}
@@ -1160,7 +1160,7 @@ namespace LevelEditorScene {
 				nMinID = Mathf.Clamp(nMinID, KCDefine.B_VAL_1_INT, nNumLevelInfos);
 				nMaxID = Mathf.Clamp(nMaxID, KCDefine.B_VAL_1_INT, nNumLevelInfos);
 
-				CFunc.LessCorrectSwap(ref nMinID, ref nMaxID);
+				CAccess.Swap(ref nMinID, ref nMaxID, ESwapType.LESS);
 				var stIDInfo = new STIDInfo(nMinID - KCDefine.B_VAL_1_INT, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
 
 				for(int i = 0; i <= nMaxID - nMinID; ++i) {
@@ -1597,12 +1597,12 @@ namespace LevelEditorScene {
 			m_fGridScrollDeltaY = Mathf.Clamp(a_fDeltaY, -fHeight, KCDefine.B_VAL_0_REAL);
 
 			// 수평 그리드 스크롤 바가 존재 할 경우
-			if(fWidth.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_H, out Scrollbar oScrollbarH)) {
+			if(fWidth.ExIsGreat(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_H, out Scrollbar oScrollbarH)) {
 				oScrollbarH.SetValueWithoutNotify(Mathf.Abs(m_fGridScrollDeltaX / fWidth));
 			}
 
 			// 수직 그리드 스크롤 바가 존재 할 경우
-			if(fHeight.ExIsGreate(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_V, out Scrollbar oScrollbarV)) {
+			if(fHeight.ExIsGreat(KCDefine.B_VAL_0_REAL) && m_oScrollBarDict.TryGetValue(EKey.ME_UIS_GRID_SCROLL_BAR_V, out Scrollbar oScrollbarV)) {
 				oScrollbarV.SetValueWithoutNotify(Mathf.Abs(m_fGridScrollDeltaY / fHeight));
 			}
 

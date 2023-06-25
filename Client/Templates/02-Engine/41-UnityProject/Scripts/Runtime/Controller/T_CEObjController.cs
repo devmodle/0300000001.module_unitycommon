@@ -80,7 +80,7 @@ namespace NSEngine {
 				m_fUpdateSkipTime += a_fDeltaTime;
 
 				// 일정 시간이 지났을 경우
-				if(m_fUpdateSkipTime.ExIsGreateEquals(KCDefine.U_DELAY_DEF)) {
+				if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.U_DELAY_DEF)) {
 					m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 					var oAbilityKindsInfoList = CCollectionPoolManager.Inst.SpawnList<(EAbilityKinds, EAbilityKinds)>();
 

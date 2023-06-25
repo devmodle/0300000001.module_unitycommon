@@ -54,7 +54,7 @@ namespace NSEngine {
 			m_fUpdateSkipTime += a_fDeltaTime;
 
 			// 딜레이 시간이 지났을 경우
-			if(m_fUpdateSkipTime.ExIsGreateEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDelay)) {
+			if(m_fUpdateSkipTime.ExIsGreatEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDelay)) {
 				this.SetState(EState.FX);
 				this.SetSubState(ESubState.APPLY);
 
@@ -137,7 +137,7 @@ namespace NSEngine {
 			m_fUpdateSkipTime += a_fDeltaTime;
 
 			// 적용 간격이 지났을 경우
-			if(m_nApplyTimes < this.GetOwner<CEFX>().Params.m_stFXInfo.m_nMaxApplyTimes && m_fUpdateSkipTime.ExIsGreateEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDeltaTime * (m_nApplyTimes - KCDefine.B_VAL_1_INT))) {
+			if(m_nApplyTimes < this.GetOwner<CEFX>().Params.m_stFXInfo.m_nMaxApplyTimes && m_fUpdateSkipTime.ExIsGreatEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDeltaTime * (m_nApplyTimes - KCDefine.B_VAL_1_INT))) {
 				m_nApplyTimes += KCDefine.B_VAL_1_INT;
 
 				switch(this.GetOwner<CEFX>().Params.m_stFXInfo.FXApplyType) {
@@ -149,7 +149,7 @@ namespace NSEngine {
 			}
 
 			// 적용 시간이 지났을 경우
-			if(m_fUpdateSkipTime.ExIsGreateEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDuration)) {
+			if(m_fUpdateSkipTime.ExIsGreatEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDuration)) {
 				this.SetSubState(ESubState.COMPLETE);
 			}
 		}
