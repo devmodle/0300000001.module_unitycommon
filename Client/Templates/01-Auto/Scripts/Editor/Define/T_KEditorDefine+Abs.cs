@@ -22,26 +22,26 @@ public static partial class KEditorDefine {
 	#region 런타임 상수
 	// 스크립트 순서
 	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
-		[typeof(CValTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CStrTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CValTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CStrTable)] = KCDefine.U_SCRIPT_O_LATE,
 
-		[typeof(CSndManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CResManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CTaskManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CSndManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CResManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CTaskManager)] = KCDefine.U_SCRIPT_O_LATE,
 		
-		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_LATE,
 
-		[typeof(CObjsPoolManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CCollectionPoolManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CObjsPoolManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CCollectionPoolManager)] = KCDefine.U_SCRIPT_O_LATE,
 
-		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_O_LATE,
 
-		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CCommonGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CCommonGameInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
 		[typeof(InitScene.CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
@@ -54,26 +54,26 @@ public static partial class KEditorDefine {
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		[typeof(CEtcInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CEtcInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
 
-		[typeof(CCalcInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CMissionInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CRewardInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CEpisodeInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CTutorialInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CResInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CCalcInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CMissionInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CRewardInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CEpisodeInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CTutorialInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CResInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
 
-		[typeof(CItemInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CSkillInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CObjInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CFXInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CAbilityInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CProductTradeInfoTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CItemInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CSkillInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CObjInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CFXInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CAbilityInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CProductTradeInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
 
-		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
 
 		[typeof(MainScene.CSubMainSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
 		[typeof(PlayScene.CSubPlaySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
@@ -90,42 +90,42 @@ public static partial class KEditorDefine {
 #endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 
 #if ADS_MODULE_ENABLE
-		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
-		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_O_ADS_CORRECTOR,
-		[typeof(CBannerAdsSizeCorrector)] = KCDefine.U_SCRIPT_O_ADS_CORRECTOR,
-		[typeof(CRewardAdsTouchInteractable)] = KCDefine.U_SCRIPT_O_ADS_INTERACTABLE,
+		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_O_LATEST,
+		[typeof(CBannerAdsSizeCorrector)] = KCDefine.U_SCRIPT_O_LATEST,
+		[typeof(CRewardAdsTouchInteractable)] = KCDefine.U_SCRIPT_O_LATEST,
 #endif // #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_O_LATE,
 #endif // #if FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_O_LATE,
 #endif // #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_O_LATE,
 #endif // #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
-		[typeof(CAppsFlyerManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CAppsFlyerManager)] = KCDefine.U_SCRIPT_O_LATE,
 #endif // #if APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-		[typeof(CGameCenterManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CGameCenterManager)] = KCDefine.U_SCRIPT_O_LATE,
 #endif // #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_O_LATE,
 #endif // #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
-		[typeof(CNotiManager)] = KCDefine.U_SCRIPT_O_SINGLETON,
+		[typeof(CNotiManager)] = KCDefine.U_SCRIPT_O_LATE,
 #endif // #if NOTI_MODULE_ENABLE
 
 #if PLAYFAB_MODULE_ENABLE
-		[typeof(CPlayfabManager)] = KCDefine.U_SCRIPT_O_SINGLETON
+		[typeof(CPlayfabManager)] = KCDefine.U_SCRIPT_O_LATE
 #endif // #if PLAYFAB_MODULE_ENABLE
 	};
 
