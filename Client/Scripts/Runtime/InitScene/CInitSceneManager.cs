@@ -118,9 +118,13 @@ namespace InitScene {
 				[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
 				[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
 
-				// 데스크 탑
+				// 데스크 탑 {
+				[RuntimePlatform.OSXEditor] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
 				[RuntimePlatform.OSXPlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
+
+				[RuntimePlatform.WindowsEditor] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
 				[RuntimePlatform.WindowsPlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
+				// 데스크 탑 }
 
 				// 콘솔
 				[RuntimePlatform.PS4] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
@@ -133,8 +137,8 @@ namespace InitScene {
 
 			bool bIsValid = oTargetFrameInfoDict.TryGetValue(Application.platform, out (long, long) stTargetFrameInfo);
 			long nTargetFrameRate = bIsValid ? stTargetFrameInfo.Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
+			long nDefTargetFrameRate = Application.isEditor ? KCDefine.B_EDITOR_TARGET_FRAME_RATE : KCDefine.B_DEF_TARGET_FRAME_RATE;
 
-			int nDefTargetFrameRate = Application.isEditor ? KCDefine.B_EDITOR_TARGET_FRAME_RATE : KCDefine.B_MIN_TARGET_FRAME_RATE;
 			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate)));
 
 #if MULTI_TOUCH_ENABLE
