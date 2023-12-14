@@ -57,11 +57,11 @@ namespace TestScene {
 
 		/** 백 버튼을 눌렀을 경우 */
 		protected virtual void OnTouchBackBtn() {
-#if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
+#if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
-#endif // #if STUDY_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
+#endif // #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 		}
 		#endregion // 함수
 	}

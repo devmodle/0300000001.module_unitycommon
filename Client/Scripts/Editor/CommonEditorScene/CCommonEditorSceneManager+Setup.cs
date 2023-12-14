@@ -213,7 +213,7 @@ public static partial class CCommonEditorSceneManager {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_EDITOR_SAMPLE_SCENE_TEMPLATE));
 		}
 
-#if STUDY_MODULE_ENABLE
+#if RESEARCH_MODULE_ENABLE
 		// 메뉴 샘플 씬 템플릿이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE)) {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE));
@@ -223,7 +223,7 @@ public static partial class CCommonEditorSceneManager {
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE)) {
 			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_STUDY_SAMPLE_SCENE_TEMPLATE));
 		}
-#endif // #if STUDY_MODULE_ENABLE
+#endif // #if RESEARCH_MODULE_ENABLE
 	}
 
 	/** 레이어를 설정한다 */

@@ -84,11 +84,11 @@ namespace LateSetupScene {
 				CLateSetupSceneManager.SetIsPurchaseRemoveAds(CUserInfoStorage.Inst.IsPurchaseRemoveAds);
 #endif // #if(EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 
-#if(!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
+#if(!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !RESEARCH_MODULE_ENABLE)
 				CLateSetupSceneManager.SetIsAutoLoadBannerAds(true);
 				CLateSetupSceneManager.SetIsAutoLoadRewardAds(true);
 				CLateSetupSceneManager.SetIsAutoLoadFullscreenAds(true);
-#endif // #if(!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !STUDY_MODULE_ENABLE)
+#endif // #if(!SAMPLE_PROJ && !EDITOR_DIST_BUILD && !CREATIVE_DIST_BUILD && !RESEARCH_MODULE_ENABLE)
 #endif // #if ADS_MODULE_ENABLE
 			}
 		}

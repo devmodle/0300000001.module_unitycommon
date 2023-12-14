@@ -48,9 +48,9 @@ public static partial class KEditorDefine {
 		[typeof(SetupScene.CSubSetupSceneManager)] = KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER,
 		[typeof(LateSetupScene.CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
 
-#if STUDY_MODULE_ENABLE
+#if RESEARCH_MODULE_ENABLE
 		[typeof(MenuScene.CSSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-#endif // #if STUDY_MODULE_ENABLE
+#endif // #if RESEARCH_MODULE_ENABLE
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -136,9 +136,9 @@ public static partial class KEditorDefine {
 		[KCDefine.B_SCENE_N_SETUP] = typeof(SetupScene.CSubSetupSceneManager),
 		[KCDefine.B_SCENE_N_LATE_SETUP] = typeof(LateSetupScene.CSubLateSetupSceneManager),
 
-#if STUDY_MODULE_ENABLE
+#if RESEARCH_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_MENU] = typeof(MenuScene.CSSubMenuSceneManager),
-#endif // #if STUDY_MODULE_ENABLE
+#endif // #if RESEARCH_MODULE_ENABLE
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
