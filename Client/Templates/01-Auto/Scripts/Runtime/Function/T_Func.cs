@@ -147,7 +147,7 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetCallbackDict03 = new Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>> m_oGoogleSheetCallbackDict04 = new Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>>();
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 클래스 변수
+#endregion // 클래스 변수
 
 	#region 클래스 함수
 	/** 문자열 테이블을 설정한다 */
@@ -159,24 +159,31 @@ public static partial class Func {
 	public static void SetupStrTable(string a_oCountryCode, SystemLanguage a_eSystemLanguage, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oCountryCode.ExIsValid());
 
-		// 국가 코드가 존재 할 경우
-		if(a_oCountryCode.ExIsValid()) {
-			CStrTable.Inst.LoadStrsFromRes(CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR, KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oCountryCode, a_eSystemLanguage.ToString()));
+		// 국가 코드가 없을 경우
+		if(!a_oCountryCode.ExIsValid()) {
+			return;
 		}
+
+		string oTableFilePath = CFactory.MakeLocalizePath(KCDefine.U_BASE_TABLE_P_G_LOCALIZE_COMMON_STR, 
+			KCDefine.U_TABLE_P_G_ENGLISH_COMMON_STR, a_oCountryCode, a_eSystemLanguage.ToString());
+
+		CStrTable.Inst.LoadStrsFromRes(oTableFilePath);
 	}
 
 	/** 드래그 전달자를 설정한다 */
 	public static void SetupDragDispatchers(List<(GameObject, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetBeginCallback(a_oKeyInfoList[i].Item2);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetDragCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetEndCallback(a_oKeyInfoList[i].Item4);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetScrollCallback(a_oKeyInfoList[i].Item5);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetBeginCallback(a_oKeyInfoList[i].Item2);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetDragCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetEndCallback(a_oKeyInfoList[i].Item4);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CDragDispatcher>()?.SetScrollCallback(a_oKeyInfoList[i].Item5);
 		}
 	}
 
@@ -184,14 +191,16 @@ public static partial class Func {
 	public static void SetupDragDispatchers(List<(string, GameObject, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetDragCallback(a_oKeyInfoList[i].Item4);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetScrollCallback(a_oKeyInfoList[i].Item6);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetDragCallback(a_oKeyInfoList[i].Item4);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CDragDispatcher>(a_oKeyInfoList[i].Item1)?.SetScrollCallback(a_oKeyInfoList[i].Item6);
 		}
 	}
 
@@ -199,12 +208,14 @@ public static partial class Func {
 	public static void SetupEventDispatchers(List<(GameObject, System.Action<CEventDispatcher, string>, System.Action<CEventDispatcher, string>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CEventDispatcher>()?.SetAniCallback(a_oKeyInfoList[i].Item2);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CEventDispatcher>()?.SetParticleFXCallback(a_oKeyInfoList[i].Item3);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CEventDispatcher>()?.SetAniCallback(a_oKeyInfoList[i].Item2);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CEventDispatcher>()?.SetParticleFXCallback(a_oKeyInfoList[i].Item3);
 		}
 	}
 
@@ -212,12 +223,14 @@ public static partial class Func {
 	public static void SetupEventDispatchers(List<(string, GameObject, System.Action<CEventDispatcher, string>, System.Action<CEventDispatcher, string>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CEventDispatcher>(a_oKeyInfoList[i].Item1)?.SetAniCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CEventDispatcher>(a_oKeyInfoList[i].Item1)?.SetParticleFXCallback(a_oKeyInfoList[i].Item4);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CEventDispatcher>(a_oKeyInfoList[i].Item1)?.SetAniCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CEventDispatcher>(a_oKeyInfoList[i].Item1)?.SetParticleFXCallback(a_oKeyInfoList[i].Item4);
 		}
 	}
 
@@ -225,13 +238,15 @@ public static partial class Func {
 	public static void SetupTouchDispatchers(List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetBeginCallback(a_oKeyInfoList[i].Item2);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetMoveCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetEndCallback(a_oKeyInfoList[i].Item4);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetBeginCallback(a_oKeyInfoList[i].Item2);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetMoveCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTouchDispatcher>()?.SetEndCallback(a_oKeyInfoList[i].Item4);
 		}
 	}
 
@@ -239,13 +254,15 @@ public static partial class Func {
 	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item4);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetBeginCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetMoveCallback(a_oKeyInfoList[i].Item4);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTouchDispatcher>(a_oKeyInfoList[i].Item1)?.SetEndCallback(a_oKeyInfoList[i].Item5);
 		}
 	}
 
@@ -253,13 +270,15 @@ public static partial class Func {
 	public static void SetupTriggerDispatchers(List<(GameObject, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
 		}
 	}
 
@@ -267,13 +286,15 @@ public static partial class Func {
 	public static void SetupTriggerDispatchers(List<(GameObject, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CTriggerDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
 		}
 	}
 
@@ -281,13 +302,15 @@ public static partial class Func {
 	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
 		}
 	}
 
@@ -295,13 +318,15 @@ public static partial class Func {
 	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CTriggerDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
 		}
 	}
 
@@ -309,13 +334,15 @@ public static partial class Func {
 	public static void SetupCollisionDispatchers(List<(GameObject, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
 		}
 	}
 
@@ -323,13 +350,15 @@ public static partial class Func {
 	public static void SetupCollisionDispatchers(List<(GameObject, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetEnterCallback(a_oKeyInfoList[i].Item2);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetStayCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item1?.GetComponentInChildren<CCollisionDispatcher>()?.SetExitCallback(a_oKeyInfoList[i].Item4);
 		}
 	}
 
@@ -337,13 +366,15 @@ public static partial class Func {
 	public static void SetupCollisionDispatchers(List<(string, GameObject, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
 		}
 	}
 
@@ -351,28 +382,40 @@ public static partial class Func {
 	public static void SetupCollisionDispatchers(List<(string, GameObject, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
 
-		// 키 정보가 존재 할 경우
-		if(a_oKeyInfoList.ExIsValid()) {
-			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
-				a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
-			}
+		// 키 정보가 없을 경우
+		if(!a_oKeyInfoList.ExIsValid()) {
+			return;
+		}
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetEnterCallback(a_oKeyInfoList[i].Item3);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetStayCallback(a_oKeyInfoList[i].Item4);
+			a_oKeyInfoList[i].Item2?.ExFindComponent<CCollisionDispatcher>(a_oKeyInfoList[i].Item1)?.SetExitCallback(a_oKeyInfoList[i].Item5);
 		}
 	}
 
 	/** 단일 씬 UI 상태를 갱신한다 */
 	public static void UpdateSingleSceneUIsState() {
-		CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
-		CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
-		CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
-		CSceneManager.GetSceneManager<LoadingScene.CSubLoadingSceneManager>(KCDefine.B_SCENE_N_LOADING)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+		CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, 
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+
+		CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY)?.gameObject.ExSendMsg(string.Empty, 
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+
+		CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, 
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+
+		CSceneManager.GetSceneManager<LoadingScene.CSubLoadingSceneManager>(KCDefine.B_SCENE_N_LOADING)?.gameObject.ExSendMsg(string.Empty, 
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 	}
 
 	/** 중첩 씬 UI 상태를 갱신한다 */
 	public static void UpdateOverlaySceneUIsState() {
-		CSceneManager.GetSceneManager<ResultScene.CSubResultSceneManager>(KCDefine.B_SCENE_N_RESULT)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
-		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+		CSceneManager.GetSceneManager<ResultScene.CSubResultSceneManager>(KCDefine.B_SCENE_N_RESULT)?.gameObject.ExSendMsg(string.Empty, 
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+
+		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.gameObject.ExSendMsg(string.Empty, 
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 	}
 
 	/** 배경음을 재생한다 */
@@ -419,12 +462,14 @@ public static partial class Func {
 		CUserInfoStorage.Inst.SaveUserInfo();
 		CGameInfoStorage.Inst.SaveGameInfo();
 
-		// 공용 저장소 저장 모드 일 경우
-		if(a_bIsSaveCommonInfoStorages) {
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
-			CCommonUserInfoStorage.Inst.SaveUserInfo();
-			CCommonGameInfoStorage.Inst.SaveGameInfo();
+		// 공용 저장소 저장 모드가 아닐 경우
+		if(!a_bIsSaveCommonInfoStorages) {
+			return;
 		}
+
+		CCommonAppInfoStorage.Inst.SaveAppInfo();
+		CCommonUserInfoStorage.Inst.SaveUserInfo();
+		CCommonGameInfoStorage.Inst.SaveGameInfo();
 	}
 	#endregion // 클래스 함수
 
@@ -832,7 +877,7 @@ public static partial class Func {
 	}
 #endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
-#if(UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
+#if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
 	/** 페이스 북에 로그인 되었을 경우 */
 	private static void OnFirebaseFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
@@ -1033,7 +1078,7 @@ public static partial class Func {
 	}
 #endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
-#if(UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
+#if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
 	/** 페이스 북에 로그인 되었을 경우 */
 	private static void OnPlayfabFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
