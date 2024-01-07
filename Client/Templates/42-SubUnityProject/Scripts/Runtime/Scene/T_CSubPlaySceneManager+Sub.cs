@@ -86,8 +86,8 @@ namespace PlayScene {
 
 		/** 획득 콜백을 수신했을 경우 */
 		private void OnReceiveAcquireCallback(NSEngine.CEngine a_oSender, Dictionary<ulong, STTargetInfo> a_oAcquireTargetInfoDict) {
-			this.SetIsEnableSaveInfo(true);
-			this.SetIsEnableUpdateState(true);
+			this.SetIsDirtySaveInfo(true);
+			this.SetIsDirtyUpdateState(true);
 		}
 
 		/** 엔진 객체 이벤트 콜백을 수신했을 경우 */

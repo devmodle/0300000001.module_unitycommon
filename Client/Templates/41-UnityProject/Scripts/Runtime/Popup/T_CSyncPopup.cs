@@ -162,9 +162,12 @@ public partial class CSyncPopup : CSubPopup {
 		}
 
 		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
-
 		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
-		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => { a_oPopupSender.SetIsIgnoreNavStackEvent(m_bIsLoadUserInfo); return true; });
+
+		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => {
+			a_oPopupSender.SetIsIgnoreNavStackEvent(m_bIsLoadUserInfo);
+			return true;
+		});
 	}
 
 	/** 유저 정보가 저장 되었을 경우 */

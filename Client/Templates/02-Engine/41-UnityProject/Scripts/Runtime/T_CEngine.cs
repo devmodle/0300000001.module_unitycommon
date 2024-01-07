@@ -299,7 +299,7 @@ namespace NSEngine {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 
 			this.Params.m_oCallbackDict03.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);
-			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetIsEnableUpdateState(true);
+			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetIsDirtyUpdateState(true);
 		}
 		#endregion // 함수
 	}

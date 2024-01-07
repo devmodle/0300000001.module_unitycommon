@@ -336,8 +336,8 @@ namespace PlayScene {
 				case EPopupCallback.LEAVE: this.HandleLeavePopupCallback(a_oSender); break;
 			}
 
-			this.SetIsEnableSaveInfo(true);
-			this.SetIsEnableUpdateState(true);
+			this.SetIsDirtySaveInfo(true);
+			this.SetIsDirtyUpdateState(true);
 
 			m_oEngine.SetIsRunning(a_eCallback == EPopupCallback.RESUME || a_eCallback == EPopupCallback.CONTINUE);
 
