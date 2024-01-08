@@ -530,11 +530,8 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
 	}
 	#endregion // 함수
-}
 
-/** 유저 정보 저장소 - 접근 */
-public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
-	#region 함수
+	#region 접근 함수
 	/** 아이템 타겟 정보를 반환한다 */
 	public CItemTargetInfo GetItemTargetInfo(int a_nCharacterID, EItemKinds a_eItemKinds) {
 		bool bIsValid = this.TryGetItemTargetInfo(a_nCharacterID, a_eItemKinds, out CItemTargetInfo oItemTargetInfo);
@@ -610,7 +607,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		a_oOutTargetInfo = (this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo) && oCharacterUserInfo.m_oTargetInfoList.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo)) ? oTargetInfo : null;
 		return a_oOutTargetInfo != null;
 	}
-	#endregion // 함수
+	#endregion // 접근 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

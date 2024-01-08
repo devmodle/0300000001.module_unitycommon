@@ -308,11 +308,8 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo, true);
 	}
 	#endregion // 함수
-}
 
-/** 게임 정보 저장소 - 접근 */
-public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
-	#region 함수
+	#region 접근 함수
 	/** 캐릭터 게임 정보를 반환한다 */
 	public CCharacterGameInfo GetCharacterGameInfo(int a_nCharacterID) {
 		bool bIsValid = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
@@ -392,7 +389,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void SetPlayLevelInfo(CLevelInfo a_oLevelInfo) {
 		this.PlayLevelInfo = a_oLevelInfo;
 	}
-	#endregion // 함수
+	#endregion // 접근 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY
