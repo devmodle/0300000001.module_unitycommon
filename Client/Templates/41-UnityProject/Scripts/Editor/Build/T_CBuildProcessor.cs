@@ -44,7 +44,7 @@ public static partial class CBuildProcessor {
 	public static void OnLatePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
 		string oPodsPath = string.Format(KCEditorDefine.B_DATA_P_FMT_COCOA_PODS, a_oPath);
-		string oPlistPath = string.Format(KCEditorDefine.B_PLIST_P_FMT_IOS, a_oPath);
+		string oPlistPath = string.Format(KCEditorDefine.B_DATA_P_FMT_INFO_IOS, a_oPath);
 		string oPBXProjPath = string.Format(KCEditorDefine.B_PROJ_P_FMT_COCOA_PODS, a_oPath);
 
 		// Plist 파일이 존재 할 경우
@@ -89,7 +89,7 @@ public static partial class CBuildProcessor {
 	/** iOS 빌드 완료를 처리한다 */
 	private static void HandleiOSPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 #if UNITY_IOS
-		string oPlistPath = string.Format(KCEditorDefine.B_PLIST_P_FMT_IOS, a_oPath);
+		string oPlistPath = string.Format(KCEditorDefine.B_DATA_P_FMT_INFO_IOS, a_oPath);
 		string oPBXProjPath = PBXProject.GetPBXProjectPath(a_oPath);
 
 		// Plist 파일이 존재 할 경우
