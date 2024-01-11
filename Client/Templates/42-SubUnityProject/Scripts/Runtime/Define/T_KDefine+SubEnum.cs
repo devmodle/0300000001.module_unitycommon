@@ -87,7 +87,7 @@ public enum EApplyType {
 }
 
 /** 적용 종류 */
-public enum EApplyKinds : long {
+public enum EApplyKinds {
 	NONE = -1,
 
 	#region 다중
@@ -118,7 +118,7 @@ public enum EFXApplyType {
 }
 
 /** 효과 적용 종류 */
-public enum EFXApplyKinds : long {
+public enum EFXApplyKinds {
 	NONE = -1,
 
 	#region 애니메이션
@@ -155,7 +155,7 @@ public enum ETargetType {
 }
 
 /** 타겟 종류 */
-public enum ETargetKinds : long {
+public enum ETargetKinds {
 	NONE = -1,
 
 	#region 아이템
@@ -205,7 +205,7 @@ public enum ECalcType {
 }
 
 /** 수식 종류 */
-public enum ECalcKinds : long {
+public enum ECalcKinds {
 	NONE = -1,
 
 	#region 어빌리티
@@ -227,7 +227,7 @@ public enum EMissionType {
 }
 
 /** 미션 종류 */
-public enum EMissionKinds : long {
+public enum EMissionKinds {
 	NONE = -1,
 
 	#region 메인
@@ -266,7 +266,7 @@ public enum ERewardType {
 }
 
 /** 보상 종류 */
-public enum ERewardKinds : long {
+public enum ERewardKinds {
 	NONE = -1,
 
 	#region 무료
@@ -313,7 +313,7 @@ public enum EEpisodeType {
 }
 
 /** 에피소드 종류 */
-public enum EEpisodeKinds : long {
+public enum EEpisodeKinds {
 	NONE = -1,
 
 	#region 챕터
@@ -352,7 +352,7 @@ public enum ETutorialType {
 }
 
 /** 튜토리얼 종류 */
-public enum ETutorialKinds : long {
+public enum ETutorialKinds {
 	NONE = -1,
 
 	#region 플레이
@@ -379,7 +379,7 @@ public enum EResType {
 }
 
 /** 리소스 종류 */
-public enum EResKinds : long {
+public enum EResKinds {
 	NONE = -1,
 
 	#region 폰트
@@ -433,7 +433,7 @@ public enum EItemType {
 }
 
 /** 아이템 종류 */
-public enum EItemKinds : long {
+public enum EItemKinds {
 	NONE = -1,
 
 	#region 재화
@@ -492,7 +492,7 @@ public enum ESkillType {
 }
 
 /** 스킬 종류 */
-public enum ESkillKinds : long {
+public enum ESkillKinds {
 	NONE = -1,
 
 	#region 액션
@@ -534,7 +534,7 @@ public enum EObjType {
 }
 
 /** 객체 종류 */
-public enum EObjKinds : long {
+public enum EObjKinds {
 	NONE = -1,
 
 	#region 배경
@@ -585,7 +585,7 @@ public enum EFXType {
 }
 
 /** 효과 종류 */
-public enum EFXKinds : long {
+public enum EFXKinds {
 	NONE = -1,
 
 	#region 타격
@@ -617,7 +617,7 @@ public enum EAbilityType {
 }
 
 /** 어빌리티 종류 */
-public enum EAbilityKinds : long {
+public enum EAbilityKinds {
 	NONE = -1,
 
 	#region 스탯
@@ -772,7 +772,7 @@ public enum EProductType {
 }
 
 /** 상품 종류 */
-public enum EProductKinds : long {
+public enum EProductKinds {
 	NONE = -1,
 
 	#region 패키지
