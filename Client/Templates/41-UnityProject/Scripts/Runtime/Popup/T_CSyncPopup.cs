@@ -29,7 +29,7 @@ public partial class CSyncPopup : CSubPopup {
 		base.Awake();
 
 		// 객체를 설정한다
-		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+		CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
 			(EKey.LOGIN_UIS, $"{EKey.LOGIN_UIS}", this.ContentsUIs),
 			(EKey.LOGOUT_UIS, $"{EKey.LOGIN_UIS}", this.ContentsUIs)
 		}, m_oUIsDict);

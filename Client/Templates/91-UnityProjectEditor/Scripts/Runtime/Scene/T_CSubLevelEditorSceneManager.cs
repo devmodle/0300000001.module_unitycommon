@@ -1622,7 +1622,7 @@ namespace LevelEditorScene {
 
 			try {
 				// 스크롤 뷰를 설정한다 {
-				CFunc.SetupObjs(new List<(string, string, GameObject)>() {
+				CFunc.SetupGameObjs(new List<(string, string, GameObject)>() {
 					(KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, this.LeftEditorUIs),
 					(KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, this.LeftEditorUIs)
 				}, oScrollViewDict);

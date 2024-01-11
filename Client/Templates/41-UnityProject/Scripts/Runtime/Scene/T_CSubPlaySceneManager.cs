@@ -79,7 +79,7 @@ namespace PlayScene {
 				CGameInfoStorage.Inst.FreeSelItemKindsList.ExStableSort((a_eLhs, a_eRhs) => a_eLhs.CompareTo(a_eRhs));
 
 				// 객체를 설정한다
-				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.BG_SPRITE_ROOT, $"{EKey.BG_SPRITE_ROOT}", this.Objs, null)
 				}, m_oObjDict);
 

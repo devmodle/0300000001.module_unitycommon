@@ -81,7 +81,7 @@ namespace SetupScene {
 				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.OnReceiveGetCountryCodeMsg);
 
 				// 객체를 설정한다 {
-				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 				}, m_oUIsDict);
 

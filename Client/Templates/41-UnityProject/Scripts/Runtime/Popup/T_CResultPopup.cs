@@ -66,7 +66,7 @@ public partial class CResultPopup : CSubPopup {
 		this.SetIsIgnoreNavStackEvent(true);
 
 		// 객체를 설정한다
-		CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+		CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
 			(EKey.CLEAR_UIS, $"{EKey.CLEAR_UIS}", this.ContentsUIs),
 			(EKey.REWARD_UIS, $"{EKey.REWARD_UIS}", this.ContentsUIs),
 			(EKey.CLEAR_FAIL_UIS, $"{EKey.CLEAR_FAIL_UIS}", this.ContentsUIs)

@@ -65,24 +65,24 @@ namespace LevelEditorScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 				// 객체를 설정한다 {
-				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+				CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
 					(EKey.MID_EDITOR_UIS, $"{EKey.MID_EDITOR_UIS}", this.UIsBase),
 					(EKey.LEFT_EDITOR_UIS, $"{EKey.LEFT_EDITOR_UIS}", this.UIsBase),
 					(EKey.RIGHT_EDITOR_UIS, $"{EKey.RIGHT_EDITOR_UIS}", this.UIsBase)
 				}, m_oUIsDict);
 
-				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
+				CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
 					(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
 					(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
 					(EKey.ME_UIS_EDITOR_MODE_UIS, $"{EKey.ME_UIS_EDITOR_MODE_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
 					(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict[EKey.LEFT_EDITOR_UIS])
 				}, m_oUIsDict);
 
-				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 				}, m_oObjDict);
 
-				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", m_oObjDict[EKey.EDITOR_OBJ_ROOT], null)
 				}, m_oObjDict);
 

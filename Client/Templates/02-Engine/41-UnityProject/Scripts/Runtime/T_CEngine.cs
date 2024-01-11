@@ -330,7 +330,7 @@ namespace NSEngine {
 			Factory.MakeGridInfos(CGameInfoStorage.Inst.PlayLevelInfo, this.GridInfoList);
 
 			// 객체를 설정한다 {
-			CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.CELL_OBJ_ROOT, $"{EKey.CELL_OBJ_ROOT}", this.Params.m_oObjRoot, null),
 				(EKey.PLAYER_OBJ_ROOT, $"{EKey.PLAYER_OBJ_ROOT}", this.Params.m_oObjRoot, null),
 				(EKey.ENEMY_OBJ_ROOT, $"{EKey.ENEMY_OBJ_ROOT}", this.Params.m_oObjRoot, null)

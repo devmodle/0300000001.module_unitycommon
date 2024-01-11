@@ -124,7 +124,7 @@ public partial class CStorePopup : CSubPopup {
 
 		try {
 			// 객체를 갱신한다 {
-			CFunc.SetupObjs(new List<(EPurchaseType, string, GameObject)>() {
+			CFunc.SetupGameObjs(new List<(EPurchaseType, string, GameObject)>() {
 				(EPurchaseType.ADS, KCDefine.U_OBJ_N_ADS_PRICE_UIS, a_oProductBuyUIs),
 				(EPurchaseType.IN_APP_PURCHASE, KCDefine.U_OBJ_N_PURCHASE_PRICE_UIS, a_oProductBuyUIs)
 			}, oPriceUIsDict);

@@ -43,7 +43,7 @@ namespace PlayScene {
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 				// 객체를 설정한다
-				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.ITEM_ROOT, $"{EKey.ITEM_ROOT}", this.Objs, null),
 					(EKey.SKILL_ROOT, $"{EKey.SKILL_ROOT}", this.Objs, null),
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null),
