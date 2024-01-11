@@ -174,11 +174,7 @@ public static partial class KEditorDefine {
 		["com.unity.render-pipelines.universal"] = "14.0.8",
 		["com.unity.visualeffectgraph"] = "14.0.8",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.2",
-
-#if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
-		["com.unity.ml-agents"] = "2.0.1",
-#endif // #if ML_AGENTS_ENABLE || ML_AGENTS_MODULE_ENABLE
-
+		
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 		["com.unity.postprocessing"] = "3.2.2",
 #endif // #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
