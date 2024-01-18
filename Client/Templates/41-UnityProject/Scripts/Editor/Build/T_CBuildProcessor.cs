@@ -126,6 +126,11 @@ public static partial class CBuildProcessor {
 		string oPlistPath = string.Format(KCEditorDefine.B_DATA_P_FMT_INFO_IOS, a_oPath);
 		string oPBXProjPath = string.Format(KCEditorDefine.B_PROJ_P_FMT_COCOA_PODS, a_oPath);
 
+		// 코코아 포드 파일이 존재 할 경우
+		if(File.Exists(oPodsPath)) {
+			CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
+		}
+
 		// Plist 파일이 존재 할 경우
 		if(File.Exists(oPlistPath)) {
 			var oDoc = new PlistDocument();
@@ -156,11 +161,10 @@ public static partial class CBuildProcessor {
 
 			// 코코아 포드 파일이 존재 할 경우
 			if(File.Exists(oPodsPath)) {
-				CEditorFunc.ExecuteCmdLine(string.Format(KCEditorDefine.B_BUILD_CMD_FMT_IOS_COCOA_PODS, a_oPath), false);
-				oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
-				
 				oPBXProj.SetBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_FALSE);
 				oPBXProj.SetBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES, KCEditorDefine.B_TEXT_IOS_FALSE);
+
+				oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
 			}
 
 			oPBXProj.WriteToFile(oPBXProjPath);
