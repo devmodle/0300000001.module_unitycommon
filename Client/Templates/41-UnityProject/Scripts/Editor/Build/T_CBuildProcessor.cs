@@ -70,6 +70,9 @@ public static partial class CBuildProcessor {
 
 			var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_REQUIRED_DEVICE_CAPABILITIES);
 			oDeviceCapabilityList.values.Clear();
+
+			var oAppTransportSecurityDict = oDoc.ExGetDict(KCEditorDefine.B_KEY_IOS_APP_TRANSPORT_SECURITY);
+			oAppTransportSecurityDict.values.Clear();
 			
 			for(int i = 0; i < KEditorDefine.B_IOS_ADS_NETWORK_ID_LIST.Count; ++i) {
 				var oAdsNetworkItemList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_ADS_NETWORK_ITEMS);
@@ -132,8 +135,8 @@ public static partial class CBuildProcessor {
 			oDeviceCapabilityList.ExAddVal(KCEditorDefine.B_TEXT_IOS_METAL);
 			oDeviceCapabilityList.ExAddVal(KCEditorDefine.B_TEXT_IOS_ARM_64);
 
-			var oAppTransportSecurityDict = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_APP_TRANSPORT_SECURITY);
-			oAppTransportSecurityDict.ExRemoveVal(KCEditorDefine.B_KEY_IOS_ALLOWS_ARBITRARY_LOADS_IN_WEB_CONTENT);
+			var oAppTransportSecurityDict = oDoc.ExGetDict(KCEditorDefine.B_KEY_IOS_APP_TRANSPORT_SECURITY);
+			oAppTransportSecurityDict.ExAddVal(KCEditorDefine.B_KEY_IOS_ALLOWS_ARBITRARY_LOADS, true);
 
 			oDoc.WriteToFile(oPlistPath);
 		}
