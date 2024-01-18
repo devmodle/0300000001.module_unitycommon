@@ -63,10 +63,10 @@ public static partial class CBuildProcessor {
 		if(File.Exists(oPlistPath)) {
 			var oDoc = new PlistDocument();
 			oDoc.ReadFromFile(oPlistPath);
-			oDoc.root.SetBoolean(KCEditorDefine.B_KEY_IOS_FIREBASE_APP_STORE_RECEIPT_URL_CHECK_ENABLE, false);
+			oDoc.root.ExAddVal(KCEditorDefine.B_KEY_IOS_FIREBASE_APP_STORE_RECEIPT_URL_CHECK_ENABLE, false);
 			
-			oDoc.root.SetString(KCEditorDefine.B_KEY_IOS_APP_USES_NON_EXEMPT_ENCRYPTION_ENABLE, KCEditorDefine.B_TEXT_IOS_FALSE);
-			oDoc.root.SetString(KCEditorDefine.B_KEY_IOS_USER_TRACKING_USAGE_DESC, KEditorDefine.B_IOS_USER_TRACKING_USAGE_DESC);
+			oDoc.root.ExAddVal(KCEditorDefine.B_KEY_IOS_APP_USES_NON_EXEMPT_ENCRYPTION_ENABLE, KCEditorDefine.B_TEXT_IOS_FALSE);
+			oDoc.root.ExAddVal(KCEditorDefine.B_KEY_IOS_USER_TRACKING_USAGE_DESC, KEditorDefine.B_IOS_USER_TRACKING_USAGE_DESC);
 
 			var oDeviceCapabilityList = oDoc.ExGetArray(KCEditorDefine.B_KEY_IOS_REQUIRED_DEVICE_CAPABILITIES);
 			oDeviceCapabilityList.values.Clear();
