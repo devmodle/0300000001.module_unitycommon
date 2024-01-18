@@ -154,17 +154,18 @@ public static partial class CBuildProcessor {
 			string oMainGUID = oPBXProj.GetUnityMainTargetGuid();
 			string oFrameworkGUID = oPBXProj.GetUnityFrameworkTargetGuid();
 
+			oPBXProj.SetBuildProperty(oPBXProj.ProjectGuid(), 
+				KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_FALSE);
+
+			oPBXProj.SetBuildProperty(oPBXProj.ProjectGuid(), 
+				KCEditorDefine.B_PROPERTY_N_IOS_ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES, KCEditorDefine.B_TEXT_IOS_FALSE);
+
+			oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), 
+				KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
+
 			for(int i = 0; i < KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST.Count; ++i) {
 				oPBXProj.RemoveFrameworkFromProject(oMainGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST[i]);
 				oPBXProj.RemoveFrameworkFromProject(oFrameworkGUID, KEditorDefine.B_IOS_REMOVE_FRAMEWORK_LIST[i]);
-			}
-
-			// 코코아 포드 파일이 존재 할 경우
-			if(File.Exists(oPodsPath)) {
-				oPBXProj.SetBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_ENABLE_BITCODE, KCEditorDefine.B_TEXT_IOS_FALSE);
-				oPBXProj.SetBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES, KCEditorDefine.B_TEXT_IOS_FALSE);
-
-				oPBXProj.AddBuildProperty(oPBXProj.ProjectGuid(), KCEditorDefine.B_PROPERTY_N_IOS_USER_HEADER_SEARCH_PATHS, KCEditorDefine.B_SEARCH_P_IOS_PODS);
 			}
 
 			oPBXProj.WriteToFile(oPBXProjPath);
