@@ -37,7 +37,7 @@ public static partial class CBuildProcessor {
 
 	#region 클래스 함수
 	/** 빌드가 완료 되었을 경우 */
-	[PostProcessBuild]
+	[PostProcessBuild(int.MaxValue)]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		// 배치 모드가 아닐 경우
 		if(!Application.isBatchMode) {

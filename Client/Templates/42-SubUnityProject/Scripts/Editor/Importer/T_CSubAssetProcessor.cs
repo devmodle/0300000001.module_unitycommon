@@ -8,9 +8,9 @@ using UnityEngine.Events;
 #if UNITY_EDITOR
 using UnityEditor;
 
-/** 서브 에셋 임포터 */
+/** 서브 에셋 처리자 */
 [InitializeOnLoad]
-public partial class CSubAssetImporter : CAssetImporter {
+public partial class CSubAssetProcessor : CAssetProcessor {
 #region 함수
 	/** 에셋을 추가 할 경우 */
 	public override void OnPreprocessAsset() {
