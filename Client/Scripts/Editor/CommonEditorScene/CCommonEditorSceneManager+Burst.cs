@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-#if UNITY_EDITOR && BURST_COMPILER_MODULE_ENABLE
+#if UNITY_EDITOR
 using System.IO;
 using System.Linq;
 
@@ -17,8 +17,8 @@ using Newtonsoft.Json.Linq;
 public static partial class CCommonEditorSceneManager {
 	#region 클래스 함수
 	/** 버스트 컴파일러를 설정한다 */
-	private static void SetupBurstCompiler() {
-#if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+	private static void SetupBurst() {
+#if BURST_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		var oSettingsPathList = new List<string>() {
 			KCEditorDefine.B_DATA_P_IOS_BURST_AOT_SETTINGS, 
 			KCEditorDefine.B_DATA_P_ANDROID_BURST_AOT_SETTINGS, 
@@ -32,7 +32,8 @@ public static partial class CCommonEditorSceneManager {
 				continue;
 			}
 
-			var oBurstAOTSettingsDatas = JsonConvert.DeserializeObject<JObject>(CFunc.ReadStr(oSettingsPathList[i], false));
+			string oJSONStr = CFunc.ReadStr(oSettingsPathList[i], false);
+			var oBurstAOTSettingsDatas = JsonConvert.DeserializeObject<JObject>(oJSONStr);
 
 			// 데이터가 없을 경우
 			if(oBurstAOTSettingsDatas == null || !oBurstAOTSettingsDatas.TryGetValue(KCEditorDefine.B_KEY_BURST_AS_MONO_BEHAVIOUR, out JToken oMonoBehaviourDatas)) {
@@ -65,8 +66,8 @@ public static partial class CCommonEditorSceneManager {
 			oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR] = (int)EBurstCompilerOptimization.SIZE;
 			CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(oBurstAOTSettingsDatas, Formatting.Indented), false);
 		}
-#endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+#endif // #if BURST_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	}
 	#endregion // 클래스 함수
 }
-#endif // #if UNITY_EDITOR && BURST_COMPILER_MODULE_ENABLE
+#endif // #if UNITY_EDITOR

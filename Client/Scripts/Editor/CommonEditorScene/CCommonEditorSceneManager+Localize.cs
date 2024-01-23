@@ -32,11 +32,11 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-#if LOCALIZE_MODULE_ENABLE
 	/** 지역화를 설정한다 */
 	private static void SetupLocalize() {
+#if LOCALIZE_MODULE_ENABLE
 		// 지역화 설정이 없을 경우
-		if(!EditorBuildSettings.TryGetConfigObject<LocalizationSettings>(KCEditorDefine.B_MODULE_N_LOCALIZE_SETTINGS, out LocalizationSettings oLocalizeSettings)) {
+		if(!EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_LOCALIZE_SETTINGS, out LocalizationSettings oLocalizeSettings)) {
 			oLocalizeSettings = AssetDatabase.LoadAssetAtPath<LocalizationSettings>(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
 			oLocalizeSettings = oLocalizeSettings ?? CEditorFactory.CreateScriptableObj<LocalizationSettings>(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
 
@@ -54,9 +54,10 @@ public static partial class CCommonEditorSceneManager {
 			return;
 		}
 
-		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY, (a_oProperty) => a_oProperty.boolValue = true);
-	}
+		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY, 
+			(a_oProperty) => a_oProperty.boolValue = true);
 #endif // #if LOCALIZE_MODULE_ENABLE
+	}
 	#endregion // 클래스 함수
 }
 #endif // #if UNITY_EDITOR

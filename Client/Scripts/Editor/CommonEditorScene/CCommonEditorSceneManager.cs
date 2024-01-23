@@ -131,9 +131,9 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupInputSystem();
 #endif // #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if BURST_COMPILER_MODULE_ENABLE
-				CCommonEditorSceneManager.SetupBurstCompiler();
-#endif // #if BURST_COMPILER_MODULE_ENABLE
+#if BURST_MODULE_ENABLE
+				CCommonEditorSceneManager.SetupBurst();
+#endif // #if BURST_MODULE_ENABLE
 
 				CAccess.EnumerateRootObjs((a_oObj) => {
 					// 최상단 UI 일 경우
