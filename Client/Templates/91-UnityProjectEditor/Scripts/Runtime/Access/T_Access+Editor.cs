@@ -21,7 +21,7 @@ public static partial class Access {
 		try {
 			// 에디터 무시 모드가 아닐 경우
 			if(!a_bIsIgnoreEditor) {
-				NSEngine.KDefine.E_IMG_P_OBJ_DICT.ExCopyTo(oImgPathDict, (a_oImgPath) => a_oImgPath);
+				NSEngine.KDefine.E_IMG_P_OBJ_DICT.ExCopyTo(oImgPathDict, (_, a_oImgPath) => a_oImgPath);
 			}
 
 			string oStr = CStrTable.Inst.GetEnumStr(typeof(EObjKinds), ((int)a_eObjKinds).ExKindsToDetailSubKindsType());

@@ -110,7 +110,7 @@ public partial class CProductBuyPopup : CSubPopup {
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STProductTradeInfo a_stProductTradeInfo) {
 #if PURCHASE_MODULE_ENABLE
-		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
+		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>()?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion // 함수

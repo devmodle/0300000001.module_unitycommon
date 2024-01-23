@@ -141,7 +141,7 @@ public partial class CContinuePopup : CSubPopup {
 
 		// 교환이 불가능 할 경우
 		if(!Access.IsEnableTrade(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo.m_oPayTargetInfoDict)) {
-			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>()?.ShowStorePopup();
 		} else {
 			Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo);
 			Func.SaveInfoStorages();

@@ -322,7 +322,7 @@ namespace MainScene {
 
 		/** 상점 버튼을 눌렀을 경우 */
 		private void OnTouchStoreBtn() {
-			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>()?.ShowStorePopup();
 		}
 
 		/** 평가 버튼을 눌렀을 경우 */

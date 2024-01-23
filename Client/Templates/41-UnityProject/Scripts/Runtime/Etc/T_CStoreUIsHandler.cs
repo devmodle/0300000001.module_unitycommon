@@ -178,7 +178,7 @@ public partial class CStoreUIsHandler : CComponent {
 			}
 			case EPurchaseType.IN_APP_PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
-				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
+				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>()?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
 #endif // #if PURCHASE_MODULE_ENABLE
 
 				break;

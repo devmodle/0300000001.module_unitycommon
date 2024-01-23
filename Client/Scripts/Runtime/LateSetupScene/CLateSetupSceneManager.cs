@@ -60,7 +60,7 @@ namespace LateSetupScene {
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				CSceneManager.GetSceneManager<SetupScene.CSetupSceneManager>(KCDefine.B_SCENE_N_SETUP)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT, ESetupSceneEvent.LOAD_LATE_SETUP_SCENE, false);
+				CSceneManager.GetSceneManager<SetupScene.CSetupSceneManager>()?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT, ESetupSceneEvent.LOAD_LATE_SETUP_SCENE, false);
 			}
 		}
 
@@ -214,7 +214,7 @@ namespace LateSetupScene {
 		/** 다음 씬을 로드한다 */
 		private void LoadNextScene() {
 			CSceneManager.SetEnableLateSetup(true);
-			CSceneManager.GetSceneManager<SetupScene.CSetupSceneManager>(KCDefine.B_SCENE_N_SETUP)?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT, ESetupSceneEvent.LOAD_NEXT_SCENE, false);
+			CSceneManager.GetSceneManager<SetupScene.CSetupSceneManager>()?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT, ESetupSceneEvent.LOAD_NEXT_SCENE, false);
 
 			CCommonAppInfoStorage.Inst.SetupStoreVer();
 

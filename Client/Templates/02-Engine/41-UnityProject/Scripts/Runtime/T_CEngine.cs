@@ -299,7 +299,7 @@ namespace NSEngine {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 
 			this.Params.m_oCallbackDict03.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);
-			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY).SetIsDirtyUpdateState(true);
+			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>().SetIsDirtyUpdateState(true);
 		}
 		#endregion // 함수
 	}
@@ -323,7 +323,7 @@ namespace NSEngine {
 				}
 			}
 
-			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(this.ClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(this.ClearTargetInfoDict, (_, a_stTargetInfo) => a_stTargetInfo);
 
 			// 그리드 정보를 설정한다
 			this.GridInfoList.Clear();
@@ -418,11 +418,11 @@ namespace NSEngine {
 		private void SetupAcquireTargetInfos(CEObjComponent a_oEObjComponent, Dictionary<ulong, STTargetInfo> a_oOutAcquireTargetInfos) {
 			// 아이템 일 경우
 			if(a_oEObjComponent.Params.m_stBaseParams.m_oGameObjsPoolKey.Equals(KDefine.E_KEY_ITEM_OBJS_POOL)) {
-				(a_oEObjComponent as CEItem).Params.m_stItemInfo.m_oAcquireTargetInfoDict.ExCopyTo(a_oOutAcquireTargetInfos, (a_stTargetInfo) => a_stTargetInfo);
+				(a_oEObjComponent as CEItem).Params.m_stItemInfo.m_oAcquireTargetInfoDict.ExCopyTo(a_oOutAcquireTargetInfos, (_, a_stTargetInfo) => a_stTargetInfo);
 			}
 			// 적 객체 일 경우
 			else if(a_oEObjComponent.Params.m_stBaseParams.m_oGameObjsPoolKey.Equals(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL)) {
-				(a_oEObjComponent as CEObj).Params.m_stObjInfo.m_oAcquireTargetInfoDict.ExCopyTo(a_oOutAcquireTargetInfos, (a_stTargetInfo) => a_stTargetInfo);
+				(a_oEObjComponent as CEObj).Params.m_stObjInfo.m_oAcquireTargetInfoDict.ExCopyTo(a_oOutAcquireTargetInfos, (_, a_stTargetInfo) => a_stTargetInfo);
 			}
 		}
 		#endregion // 함수

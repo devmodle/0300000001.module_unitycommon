@@ -396,25 +396,25 @@ public static partial class Func {
 
 	/** 단일 씬 UI 상태를 갱신한다 */
 	public static void UpdateSingleSceneUIsState() {
-		CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, 
+		CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
 			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 
-		CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>(KCDefine.B_SCENE_N_PLAY)?.gameObject.ExSendMsg(string.Empty, 
+		CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>()?.gameObject.ExSendMsg(string.Empty, 
 			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 
-		CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, 
+		CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
 			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 
-		CSceneManager.GetSceneManager<LoadingScene.CSubLoadingSceneManager>(KCDefine.B_SCENE_N_LOADING)?.gameObject.ExSendMsg(string.Empty, 
+		CSceneManager.GetSceneManager<LoadingScene.CSubLoadingSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
 			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 	}
 
 	/** 중첩 씬 UI 상태를 갱신한다 */
 	public static void UpdateOverlaySceneUIsState() {
-		CSceneManager.GetSceneManager<ResultScene.CSubResultSceneManager>(KCDefine.B_SCENE_N_RESULT)?.gameObject.ExSendMsg(string.Empty, 
+		CSceneManager.GetSceneManager<ResultScene.CSubResultSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
 			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 
-		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.gameObject.ExSendMsg(string.Empty, 
+		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>()?.gameObject.ExSendMsg(string.Empty, 
 			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 	}
 
@@ -1176,7 +1176,7 @@ public static partial class Func {
 
 	/** 구글 시트를 로드한다 */
 	public static void LoadGoogleSheets(List<STLoadGoogleSheetInfo> a_oLoadGoogleSheetInfoList, Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> a_oHandlerDict, System.Action<CServicesManager, bool> a_oCallback) {
-		a_oHandlerDict.ExCopyTo(Func.m_oGoogleSheetLoadHandlerDict, (a_oHandler) => a_oHandler);
+		a_oHandlerDict.ExCopyTo(Func.m_oGoogleSheetLoadHandlerDict, (_, a_oHandler) => a_oHandler);
 		a_oLoadGoogleSheetInfoList.ExCopyTo(Func.m_oLoadGoogleSheetInfoList, (a_stLoadGoogleSheetInfo) => a_stLoadGoogleSheetInfo);
 
 		Func.m_oGoogleSheetCallbackDict01.ExReplaceVal(ECallback.LOAD_GOOGLE_SHEETS, a_oCallback);
@@ -1227,7 +1227,7 @@ public static partial class Func {
 
 	/** 구글 시트를 저장한다 */
 	public static void SaveGoogleSheets(List<STSaveGoogleSheetInfo> a_oSaveGoogleSheetInfoList, Dictionary<string, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>> a_oHandlerDict, System.Action<CServicesManager, bool> a_oCallback) {
-		a_oHandlerDict.ExCopyTo(Func.m_oGoogleSheetSaveHandlerDict, (a_oHandler) => a_oHandler);
+		a_oHandlerDict.ExCopyTo(Func.m_oGoogleSheetSaveHandlerDict, (_, a_oHandler) => a_oHandler);
 		a_oSaveGoogleSheetInfoList.ExCopyTo(Func.m_oSaveGoogleSheetInfoList, (a_stLoadGoogleSheetInfo) => a_stLoadGoogleSheetInfo);
 
 		Func.m_oGoogleSheetCallbackDict01.ExReplaceVal(ECallback.SAVE_GOOGLE_SHEETS, a_oCallback);

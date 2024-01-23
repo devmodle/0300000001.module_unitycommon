@@ -106,7 +106,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 					oTargetInfoDict.TryAdd(stKeyVal.Key, new STTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, stValInfo));
 				}
 				
-				oTargetInfoDict.ExCopyTo(stRewardInfo.m_oAcquireTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+				oTargetInfoDict.ExCopyTo(stRewardInfo.m_oAcquireTargetInfoDict, (_, a_stTargetInfo) => a_stTargetInfo);
 				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(stRewardInfo.m_eRewardQuality, ERewardAcquirePopupType.DAILY, stRewardInfo.m_oAcquireTargetInfoDict));
 			} finally {
 				CCollectionPoolManager.Inst.DespawnDict(oTargetInfoDict);

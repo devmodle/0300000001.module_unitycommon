@@ -52,7 +52,7 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 
 	/** 사본 객체를 설정한다 */
 	private void SetupCloneInst(ref STBaseInfo a_stOutBaseInfo) {
-		m_oStrDict.ExCopyTo(a_stOutBaseInfo.m_oStrDict, (a_oStr) => a_oStr);
+		m_oStrDict.ExCopyTo(a_stOutBaseInfo.m_oStrDict, (_, a_oStr) => a_oStr);
 	}
 	#endregion // 함수
 
