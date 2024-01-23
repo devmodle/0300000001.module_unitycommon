@@ -14,11 +14,6 @@ using UnityEditor.iOS.Xcode;
 
 /** 에디터 상수 */
 public static partial class KEditorDefine {
-	#region 기본
-	// 유니티 패키지
-	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
-	#endregion // 기본
-
 	#region 런타임 상수
 	// 스크립트 순서
 	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
@@ -168,19 +163,19 @@ public static partial class KEditorDefine {
 		["com.unity.feature.mobile"] = "1.0.0",
 		["com.unity.feature.worldbuilding"] = "1.0.1",
 
-		["com.unity.inputsystem"] = "1.6.1",
+		["com.unity.inputsystem"] = "1.7.0",
 		["com.unity.ads.ios-support"] = "1.0.0",
-		["com.unity.localization"] = "1.3.2",
-		["com.unity.render-pipelines.universal"] = "14.0.8",
-		["com.unity.visualeffectgraph"] = "14.0.8",
+		["com.unity.localization"] = "1.4.5",
+		["com.unity.render-pipelines.universal"] = "14.0.10",
+		["com.unity.visualeffectgraph"] = "14.0.10",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.2",
 		
 #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
-		["com.unity.postprocessing"] = "3.2.2",
+		["com.unity.postprocessing"] = "3.4.0",
 #endif // #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.8.0",
+		["com.unity.purchasing"] = "4.10.0",
 		["com.unity.purchasing.udp"] = "2.2.5",
 #endif // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
@@ -354,7 +349,7 @@ public static partial class KEditorDefine {
 	};
 
 	// 프레임워크 {
-	public static readonly List<string> B_IOS_EXTRA_FRAMEWORK_LIST = new List<string>() {
+	public static readonly List<string> B_IOS_ADD_FRAMEWORK_LIST = new List<string>() {
 		"libz.tbd",
 		"libsqlite3.0.tbd",
 		
@@ -363,6 +358,7 @@ public static partial class KEditorDefine {
 		"GameKit.framework",
 		"Security.framework",
 		"StoreKit.framework",
+
 		"MessageUI.framework",
 		"AdSupport.framework",
 		"UserNotifications.framework",
@@ -374,25 +370,6 @@ public static partial class KEditorDefine {
 		"AppTrackingTransparency.framework"
 	};
 	// 프레임워크 }
-
-	// 호환성 타입
-	public static readonly List<PBXCapabilityType> B_IOS_EXTRA_CAPABILITY_TYPE_LIST = new List<PBXCapabilityType>() {
-#if APPLE_LOGIN_ENABLE
-		PBXCapabilityType.SignInWithApple,
-#endif // #if APPLE_LOGIN_ENABLE
-
-#if FIREBASE_MODULE_ENABLE && FIREBASE_MSG_ENABLE
-		PBXCapabilityType.BackgroundModes, PBXCapabilityType.PushNotifications,
-#endif // #if FIREBASE_MODULE_ENABLE && FIREBASE_MSG_ENABLE
-
-#if GAME_CENTER_MODULE_ENABLE
-		PBXCapabilityType.GameCenter,
-#endif // #if GAME_CENTER_MODULE_ENABLE
-
-#if PURCHASE_MODULE_ENABLE
-		PBXCapabilityType.InAppPurchase
-#endif // #if PURCHASE_MODULE_ENABLE
-	};
 #endif // #if UNITY_IOS
 	#endregion // 조건부 런타임 상수
 }

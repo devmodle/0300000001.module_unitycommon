@@ -106,9 +106,9 @@ public static partial class CBuildProcessor {
 			oPBXProj.SetBuildProperty(oMainGUID, KCEditorDefine.B_PROPERTY_N_IOS_ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES, KCEditorDefine.B_TEXT_IOS_FALSE);
 			oPBXProj.SetBuildProperty(oFrameworkGUID, KCEditorDefine.B_PROPERTY_N_IOS_ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES, KCEditorDefine.B_TEXT_IOS_FALSE);
 
-			for(int i = 0; i < KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST.Count; ++i) {
-				oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
-				oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_EXTRA_FRAMEWORK_LIST[i], false);
+			for(int i = 0; i < KEditorDefine.B_IOS_ADD_FRAMEWORK_LIST.Count; ++i) {
+				oPBXProj.AddFrameworkToProject(oMainGUID, KEditorDefine.B_IOS_ADD_FRAMEWORK_LIST[i], false);
+				oPBXProj.AddFrameworkToProject(oFrameworkGUID, KEditorDefine.B_IOS_ADD_FRAMEWORK_LIST[i], false);
 			}
 
 			// 전처리기 심볼 정보 테이블이 존재 할 경우

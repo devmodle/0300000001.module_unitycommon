@@ -113,7 +113,7 @@ namespace NSEngine {
 				float fPercent = Random.Range(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_1_REAL);
 				float fCriticalRate = (float)a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_CRITICAL_RATE_01);
 
-				this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExCopyTo(oAbilityValDict, (a_dmAbilityVal) => a_dmAbilityVal);
+				this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExCopyTo(oAbilityValDict, (_, a_dmAbilityVal) => a_dmAbilityVal);
 				global::Func.SetupAbilityVals(a_oSkill.Params.m_stSkillInfo, a_oSkill.Params.m_oSkillTargetInfo, oAbilityValDict);
 
 				// 공격을 회피했을 경우

@@ -82,7 +82,7 @@ namespace NSEngine {
 
 			// 리셋 모드 일 경우
 			if(a_bIsReset) {
-				this.AbilityValDictWrapper.m_oDict02.ExCopyTo(this.AbilityValDictWrapper.m_oDict01, (a_dmAbilityVal) => a_dmAbilityVal);
+				this.AbilityValDictWrapper.m_oDict02.ExCopyTo(this.AbilityValDictWrapper.m_oDict01, (_, a_dmAbilityVal) => a_dmAbilityVal);
 			} else {
 				foreach(var stKeyVal in this.AbilityValDictWrapper.m_oDict02) {
 					decimal dmAbilityVal = this.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(stKeyVal.Key);

@@ -257,7 +257,7 @@ public static partial class CEditorSceneManager {
 			if(!oPkgsInfoList.ExIsValidIdx(nIdx)) {
 				// 버전이 유효 할 경우
 				if(stKeyVal.Value.ExIsValidBuildVer()) {
-					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(string.Format(KEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value)));
+					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(string.Format(KCEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value)));
 				} else {
 #if DEVELOPMENT_PROJ
 					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));

@@ -21,11 +21,6 @@ using UnityEngine.AdaptivePerformance;
 using UnityEditor.AdaptivePerformance.Editor;
 #endif // #if ADAPTIVE_PERFORMANCE_ENABLE
 
-#if LOCALIZE_MODULE_ENABLE
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
-#endif // #if LOCALIZE_MODULE_ENABLE
-
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
 
@@ -145,21 +140,6 @@ public static partial class CCommonEditorSceneManager {
 
 			return true;
 		});
-	}
-
-	/** 지역화 정보를 설정한다 */
-	private static void SetupLocalizeInfos() {
-		// 지역화 정보 테이블이 존재 할 경우
-		if(CPlatformOptsSetter.LocalizeInfoTable != null) {
-			for(int i = 0; i < CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList.Count; ++i) {
-				for(int j = 0; j < CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList[i].m_oFontSetInfoList.Count; ++j) {
-					var stFontSetInfo = CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList[i].m_oFontSetInfoList[j];
-					stFontSetInfo.m_eSet = EFontSet._1 + j;
-
-					CPlatformOptsSetter.LocalizeInfoTable.LocalizeInfoList[i].m_oFontSetInfoList[j] = stFontSetInfo;
-				}
-			}
-		}
 	}
 
 	/** 미리 로드 할 에셋을 설정한다 */
@@ -372,7 +352,7 @@ public static partial class CCommonEditorSceneManager {
 			string oMsg = string.Format(KCEditorDefine.B_MSG_FMT_ALERT_P_MISSING_PREFAB, CCommonEditorSceneManager.m_oPrefabMissingObjList[i].name);
 
 			// 확인 버튼을 눌렀을 경우
-			if(CEditorFunc.ShowOKCancelAlertPopup(KCEditorDefine.B_TEXT_ALERT_P_TITLE, oMsg)) {
+			if(CEditorFunc.ShowOKCancelAlertPopup(KCEditorDefine.B_TEXT_ALERT, oMsg)) {
 				CFactory.RemoveObj(CCommonEditorSceneManager.m_oPrefabMissingObjList[i]);
 			} else {
 				PrefabUtility.UnpackPrefabInstance(CCommonEditorSceneManager.m_oPrefabMissingObjList[i], PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
@@ -437,141 +417,6 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 #endif // #if ADAPTIVE_PERFORMANCE_ENABLE
-
-#if LOCALIZE_MODULE_ENABLE
-	/** 지역화를 설정한다 */
-	private static void SetupLocalize() {
-		// 지역화 설정이 없을 경우
-		if(!EditorBuildSettings.TryGetConfigObject<LocalizationSettings>(KCEditorDefine.B_MODULE_N_LOCALIZE_SETTINGS, out LocalizationSettings oLocalizeSettings)) {
-			oLocalizeSettings = AssetDatabase.LoadAssetAtPath<LocalizationSettings>(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
-			oLocalizeSettings = oLocalizeSettings ?? CEditorFactory.CreateScriptableObj<LocalizationSettings>(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
-
-			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_LOCALIZE_SETTINGS, oLocalizeSettings, true);
-		}
-
-		var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
-
-		var oIsSetupOptsList = new List<bool>() {
-			oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY).boolValue
-		};
-
-		// 설정 갱신이 필요 할 경우
-		if(oIsSetupOptsList.Contains(false)) {
-			oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY, (a_oProperty) => a_oProperty.boolValue = true);
-		}
-	}
-#endif // #if LOCALIZE_MODULE_ENABLE
-
-#if INPUT_SYSTEM_MODULE_ENABLE
-	/** 입력 시스템을 설정한다 */
-	private static void SetupInputSystem() {
-		// 옵션 정보 테이블이 존재 할 경우
-		if(CPlatformOptsSetter.OptsInfoTable != null) {
-			// 입력 시스템 설정이 없을 경우
-			if(!EditorBuildSettings.TryGetConfigObject<InputSettings>(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, out InputSettings oInputSettings)) {
-				oInputSettings = AssetDatabase.LoadAssetAtPath<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
-				oInputSettings = oInputSettings ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
-
-				InputSystem.settings = oInputSettings;
-				EditorUtility.SetDirty(oInputSettings);
-				EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, oInputSettings, true);
-			}
-
-			var oIsSetupOptsList = new List<bool>() {
-				oInputSettings.compensateForScreenOrientation,
-				oInputSettings.updateMode == InputSettings.UpdateMode.ProcessEventsInDynamicUpdate,
-				oInputSettings.editorInputBehaviorInPlayMode == InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus,
-
-#if UNITY_IOS
-				oInputSettings.iOS.motionUsage.enabled == CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion,
-				oInputSettings.iOS.motionUsage.usageDescription.ExIsEquals(CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc)
-#endif // #if UNITY_IOS
-			};
-
-			// 설정 갱신이 필요 할 경우
-			if(oIsSetupOptsList.Contains(false)) {
-				oInputSettings.compensateForScreenOrientation = true;
-				oInputSettings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
-				oInputSettings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus;
-
-#if UNITY_IOS
-				oInputSettings.iOS.motionUsage.enabled = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion;
-				oInputSettings.iOS.motionUsage.usageDescription = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc;
-#endif // #if UNITY_IOS
-			}
-		}
-	}
-#endif // #if INPUT_SYSTEM_MODULE_ENABLE
-
-#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-	/** 렌더링 파이프라인을 설정한다 */
-	private static void SetupRenderingPipeline() {
-		// 렌더링 파이프라인 설정이 존재 할 경우
-		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_URP_SETTINGS)) {
-			var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_URP_SETTINGS);
-
-			var oIsSetupOptsList = new List<bool>() {
-				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_URP_STRIP_DEBUG_VARIANTS).boolValue,
-				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_URP_STRIP_UNUSED_VARIANTS).boolValue,
-				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_URP_STRIP_UNUSED_POST_PROCESSING_VARIANTS).boolValue,
-
-				oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_URP_SHADER_VARIANT_LOG_LEVEL).intValue == (int)EShaderVariantLogLevel.ALL_SHADERS
-			};
-
-			// 설정 갱신이 필요 할 경우
-			if(oIsSetupOptsList.Contains(false)) {
-				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_URP_STRIP_DEBUG_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_URP_STRIP_UNUSED_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_URP_STRIP_UNUSED_POST_PROCESSING_VARIANTS, (a_oProperty) => a_oProperty.boolValue = true);
-
-				oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_URP_SHADER_VARIANT_LOG_LEVEL, (a_oProperty) => a_oProperty.intValue = (int)EShaderVariantLogLevel.ALL_SHADERS);
-			}
-		}
-	}
-#endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-
-#if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	/** 버스트 컴파일러를 설정한다 */
-	private static void SetupBurstCompiler() {
-		var oSettingsPathList = new List<string>() {
-			KCEditorDefine.B_DATA_P_IOS_BURST_AOT_SETTINGS, KCEditorDefine.B_DATA_P_ANDROID_BURST_AOT_SETTINGS, KCEditorDefine.B_DATA_P_MAC_BURST_AOT_SETTINGS, KCEditorDefine.B_DATA_P_WNDS_BURST_AOT_SETTINGS
-		};
-
-		for(int i = 0; i < oSettingsPathList.Count; ++i) {
-			// 설정 파일이 존재 할 경우
-			if(File.Exists(oSettingsPathList[i])) {
-				var oBurstAOTSettingsDatas = JsonConvert.DeserializeObject<JObject>(CFunc.ReadStr(oSettingsPathList[i], false));
-
-				// 데이터가 존재 할 경우
-				if(oBurstAOTSettingsDatas != null && oBurstAOTSettingsDatas.TryGetValue(KCEditorDefine.B_KEY_BURST_AS_MONO_BEHAVIOUR, out JToken oMonoBehaviourDatas)) {
-					var oIsSetupOptsList = new List<bool>() {
-						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_ENABLE_OPTIMISATIONS) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_OPTIMISATIONS] : false,
-						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_ENABLE_BURST_COMPILATION) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_BURST_COMPILATION] : false,
-
-						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_ENABLE_SAFETY_CHECKS) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_SAFETY_CHECKS] == false : false,
-						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_ENABLE_DEBUG_IN_ALL_BUILDS) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_DEBUG_IN_ALL_BUILDS] == false : false,
-						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_USE_PLATFORM_SDK_LINKER) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_USE_PLATFORM_SDK_LINKER] == false : false,
-
-						oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR) ? (int)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR] == (int)EBurstCompilerOptimization.SIZE : false
-					};
-
-					// 설정 갱신이 필요 할 경우
-					if(oIsSetupOptsList.Contains(false)) {
-						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_OPTIMISATIONS] = true;
-						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_BURST_COMPILATION] = true;
-
-						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_SAFETY_CHECKS] = false;
-						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_DEBUG_IN_ALL_BUILDS] = false;
-						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_USE_PLATFORM_SDK_LINKER] = false;
-
-						oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_OPTIMIZE_FOR] = (int)EBurstCompilerOptimization.SIZE;
-						CFunc.WriteStr(oSettingsPathList[i], JsonConvert.SerializeObject(oBurstAOTSettingsDatas, Formatting.Indented), false);
-					}
-				}
-			}
-		}
-	}
-#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 클래스 조건부 함수
 }
 #endif // #if UNITY_EDITOR

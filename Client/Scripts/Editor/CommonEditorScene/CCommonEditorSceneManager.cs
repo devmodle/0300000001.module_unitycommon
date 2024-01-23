@@ -119,6 +119,10 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupAdaptivePerformance();
 #endif // #if ADAPTIVE_PERFORMANCE_ENABLE
 
+#if URP_MODULE_ENABLE
+				CCommonEditorSceneManager.SetupURP();
+#endif // #if URP_MODULE_ENABLE
+
 #if LOCALIZE_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupLocalize();
 #endif // #if LOCALIZE_MODULE_ENABLE
@@ -127,13 +131,9 @@ public static partial class CCommonEditorSceneManager {
 				CCommonEditorSceneManager.SetupInputSystem();
 #endif // #if INPUT_SYSTEM_MODULE_ENABLE
 
-#if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-				CCommonEditorSceneManager.SetupRenderingPipeline();
-#endif // #if UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
-
-#if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+#if BURST_COMPILER_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupBurstCompiler();
-#endif // #if BURST_COMPILER_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
+#endif // #if BURST_COMPILER_MODULE_ENABLE
 
 				CAccess.EnumerateRootObjs((a_oObj) => {
 					// 최상단 UI 일 경우
