@@ -15,7 +15,7 @@ MonoBehaviour:
   m_stJenkinsInfo:
     m_oUserID: 9tap
     m_oBranch: main
-    m_oSrc: 0000000000.Common/0300010101.Module_Unity
+    m_oSrc: 0000000000.Common/0300000201.Module_Unity
     m_oProjRoot: 
     m_oWorkspace: /Volumes/LaCie/Workspace/Jenkins/workspace
     m_oBuildToken: JenkinsBuild

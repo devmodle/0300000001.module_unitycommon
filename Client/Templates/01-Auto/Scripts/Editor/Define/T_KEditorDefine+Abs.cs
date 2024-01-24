@@ -152,7 +152,7 @@ public static partial class KEditorDefine {
 #endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 	};
 
-	// 유니티 패키지 {
+	// 패키지
 	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
 		// 기본 {
 		["com.unity.feature.2d"] = "2.0.0",
@@ -178,6 +178,10 @@ public static partial class KEditorDefine {
 		["com.unity.purchasing"] = "4.10.0",
 		["com.unity.purchasing.udp"] = "2.2.5",
 #endif // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
+
+#if UNI_TASK_ENABLE || UNI_TASK_MODULE_ENABLE
+		["com.cysharp.unitask"] = "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+#endif // #if UNI_TASK_ENABLE || UNI_TASK_MODULE_ENABLE
 
 #if DEVELOPMENT_PROJ
 #if ADS_ENABLE || ADS_MODULE_ENABLE
@@ -217,7 +221,6 @@ public static partial class KEditorDefine {
 #endif // #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 #endif // #if DEVELOPMENT_PROJ
 	};
-	// 유니티 패키지 }
 	#endregion // 런타임 상수
 
 	#region 조건부 상수

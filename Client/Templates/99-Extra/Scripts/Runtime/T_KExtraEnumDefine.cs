@@ -8,26 +8,26 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE
 /** 추가 열거형 값 */
 public static partial class KExtraEnumVal {
-	#region 기본
+	#region 컴파일 상수
 
-	#endregion // 기본
+	#endregion // 컴파일 상수
 }
 
-#region 기본
+#region 열거형
 
-#endregion // 기본
+#endregion // 열거형
 
 namespace NSEngine {
 	/** 엔진 추가 열거형 값 */
 	public static partial class KExtraEnumVal {
-		#region 기본
+		#region 컴파일 상수
 
-		#endregion // 기본
+		#endregion // 컴파일 상수
 	}
 
-	#region 기본
+	#region 열거형
 
-	#endregion // 기본
+	#endregion // 열거형
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

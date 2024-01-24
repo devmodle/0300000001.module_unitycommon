@@ -18,27 +18,27 @@ public static partial class CExtraEditorSceneManager {
 	#region 클래스 함수
 	/** 생성자 */
 	static CExtraEditorSceneManager() {
-		// 플레이 모드가 아닐 경우
-		if(!EditorApplication.isPlaying) {
-			// Do Something
+		// 플레이 모드 일 경우
+		if(EditorApplication.isPlaying) {
+			return;
 		}
-
+		
 		CExtraEditorSceneManager.SetupCallbacks();
 	}
 
 	/** 상태를 갱신한다 */
 	private static void Update() {
-		// 상태 갱신이 가능 할 경우
+		// 상태 갱신이 불가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			// Do Something
+			return;
 		}
 	}
 
 	/** 상태를 갱신한다 */
 	private static void LateUpdate() {
-		// 상태 갱신이 가능 할 경우
+		// 상태 갱신이 불가능 할 경우
 		if(CEditorAccess.IsEnableUpdateState) {
-			// Do Something
+			return;
 		}
 	}
 

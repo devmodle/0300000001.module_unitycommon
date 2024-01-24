@@ -27,9 +27,9 @@ public partial class CExtraSceneManager : CSceneManager {
 	public override void Awake() {
 		base.Awake();
 
-		// 앱이 초기화 되었을 경우
-		if(CSceneManager.IsAppInit) {
-			// Do Something
+		// 앱 초기화가 필요 할 경우
+		if(!CSceneManager.IsAppInit) {
+			return;
 		}
 	}
 
@@ -37,10 +37,12 @@ public partial class CExtraSceneManager : CSceneManager {
 	public override void Start() {
 		base.Start();
 
-		// 앱이 초기화 되었을 경우
-		if(CSceneManager.IsAppInit) {
-			this.UpdateUIsState();
+		// 앱 초기화가 필요 할 경우
+		if(!CSceneManager.IsAppInit) {
+			return;
 		}
+
+		this.UpdateUIsState();
 	}
 
 	/** 제거 되었을 경우 */
@@ -48,9 +50,9 @@ public partial class CExtraSceneManager : CSceneManager {
 		base.OnDestroy();
 
 		try {
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
-				// Do Something
+			// 앱이 종료 되었을 경우
+			if(!CSceneManager.IsAppRunning) {
+				return;
 			}
 		} catch(System.Exception oException) {
 			CFunc.ShowLogWarning($"CExtraSceneManager.OnDestroy Exception: {oException.Message}");
@@ -61,9 +63,9 @@ public partial class CExtraSceneManager : CSceneManager {
 	public override void OnUpdate(float a_fDeltaTime) {
 		base.OnUpdate(a_fDeltaTime);
 
-		// 앱이 실행 중 일 경우
-		if(CSceneManager.IsAppRunning) {
-			// Do Something
+		// 앱이 종료 되었을 경우
+		if(!CSceneManager.IsAppRunning) {
+			return;
 		}
 	}
 
@@ -71,9 +73,10 @@ public partial class CExtraSceneManager : CSceneManager {
 	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
 		base.OnReceiveNavStackEvent(a_eEvent);
 
-		// 백 키 눌림 이벤트 일 경우
-		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
-			// Do Something
+		switch(a_eEvent) {
+			case ENavStackEvent.BACK_KEY_DOWN:
+
+				break;
 		}
 	}
 
