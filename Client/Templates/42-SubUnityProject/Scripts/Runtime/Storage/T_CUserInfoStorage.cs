@@ -7,7 +7,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.IO;
-
 using MessagePack;
 
 /** 타겟 정보 */
@@ -116,7 +115,6 @@ public partial class CItemTargetInfo : CTargetInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); }
 	}
 
-	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	[IgnoreMember] public override int Kinds => (int)this.ItemKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.ITEM;
 	#endregion // 프로퍼티
@@ -166,7 +164,6 @@ public partial class CSkillTargetInfo : CTargetInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); }
 	}
 
-	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	[IgnoreMember] public override int Kinds => (int)this.SkillKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.SKILL;
 	#endregion // 프로퍼티
@@ -217,7 +214,6 @@ public partial class CObjTargetInfo : CTargetInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 
-	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	[IgnoreMember] public override int Kinds => (int)this.ObjKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.OBJ;
 	#endregion // 프로퍼티
@@ -267,7 +263,6 @@ public partial class CAbilityTargetInfo : CTargetInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_ABILITY_KINDS, $"{(int)value}"); }
 	}
 
-	[IgnoreMember] public override bool IsIgnoreSaveTime => true;
 	[IgnoreMember] public override int Kinds => (int)this.AbilityKinds;
 	[IgnoreMember] public override ETargetType TargetType => ETargetType.ABILITY;
 	#endregion // 프로퍼티

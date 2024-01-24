@@ -88,7 +88,6 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 
 	#region 상수
 	private const string KEY_VER = "Ver";
-	private const string KEY_SAVE_TIME = "SaveTime";
 	#endregion // 상수
 
 	#region 프로퍼티
@@ -100,18 +99,7 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 		set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-	[JsonIgnore]
-	[IgnoreMember]
-	public System.DateTime SaveTime {
-		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
-		set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); }
-	}
-
-	[JsonIgnore] [IgnoreMember] public virtual bool IsIgnoreVer => false;
-	[JsonIgnore] [IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
-
-	[JsonIgnore] [IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(KEY_SAVE_TIME, string.Empty);
-	[JsonIgnore] [IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[JsonIgnore][IgnoreMember] public virtual bool IsEnableVer => false;
 #else
 	[IgnoreMember]
 	public System.Version Ver {
@@ -119,34 +107,19 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 		set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-	[IgnoreMember]
-	public System.DateTime SaveTime {
-		get { return this.SaveTimeStr.ExIsValid() ? this.CorrectSaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Now; }
-		set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); }
-	}
-
-	[IgnoreMember] public virtual bool IsIgnoreVer => false;
-	[IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
-
-	[IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(KEY_SAVE_TIME, string.Empty);
-	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] public virtual bool IsEnableVer => false;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public virtual void OnBeforeSerialize() {
-		// 버전 무시 모드 일 경우
-		if(this.IsIgnoreVer) {
-			m_oStrDict.ExRemoveVal(KEY_VER);
+		// 버전 유지 모드 일 경우
+		if(this.IsEnableVer) {
+			return;
 		}
 
-		// 저장 시간 무시 모드가 아닐 경우
-		if(!this.IsIgnoreSaveTime) {
-			this.SaveTime = System.DateTime.Now;
-		} else {
-			m_oStrDict.ExRemoveVal(KEY_SAVE_TIME);
-		}
+		m_oStrDict.ExRemoveVal(KEY_VER);
 	}
 
 	/** 역직렬화 되었을 경우 */
