@@ -200,6 +200,10 @@ public static partial class KEditorDefine {
 		["module.unitycommonfirebase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfirebase.git#4.0.0",
 #endif // #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
+#if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
+		["module.unitycommonsingular"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonsingular.git#4.0.0",
+#endif // #if SINGULAR_ENABLE || SINGULAR_MODULE_ENABLE
+
 #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
 		["module.unitycommonappsflyer"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonappsflyer.git#4.0.0",
 #endif // #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
