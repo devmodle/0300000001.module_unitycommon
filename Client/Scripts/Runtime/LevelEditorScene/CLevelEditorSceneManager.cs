@@ -32,8 +32,6 @@ namespace LevelEditorScene {
 		#endregion // 변수
 
 		#region 프로퍼티
-		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
-
 		public override bool IsIgnoreBlindH => true;
 		public override bool IsIgnoreBlindV => true;
 		public override bool IsIgnoreBGTouchResponder => false;

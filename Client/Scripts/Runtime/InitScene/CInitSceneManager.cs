@@ -24,7 +24,6 @@ namespace InitScene {
 		#endregion // 클래스 변수
 
 		#region 프로퍼티
-		public override string SceneName => KCDefine.B_SCENE_N_INIT;
 		protected List<string> SpriteAtlasPathList { get; } = new List<string>();
 
 #if UNITY_EDITOR
@@ -139,7 +138,8 @@ namespace InitScene {
 			long nTargetFrameRate = bIsValid ? stTargetFrameInfo.Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
 			long nDefTargetFrameRate = Application.isEditor ? KCDefine.B_EDITOR_TARGET_FRAME_RATE : KCDefine.B_DEF_TARGET_FRAME_RATE;
 
-			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate)));
+			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, 
+				Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate)));
 
 #if MULTI_TOUCH_ENABLE
 			Input.multiTouchEnabled = true;
@@ -150,7 +150,8 @@ namespace InitScene {
 #if UNITY_EDITOR
 			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eQualityLevel, true);
 #else
-			CSceneManager.SetupQuality(bIsValid ? (EQualityLevel)stTargetFrameInfo.Item1 : (EQualityLevel)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
+			CSceneManager.SetupQuality(bIsValid ? 
+				(EQualityLevel)stTargetFrameInfo.Item1 : (EQualityLevel)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
 #endif // #if UNITY_EDITOR
 			// 디바이스 정보를 설정한다 }
 		}
@@ -164,14 +165,16 @@ namespace InitScene {
 
 		/** 블라인드 이미지를 생성한다 */
 		protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent) {
-			return CFactory.CreateCloneGameObj<Image>(a_oName, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
+			return CFactory.CreateCloneGameObj<Image>(a_oName, 
+				CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
 
 		/** 블라인드 UI 를 설정한다 */
 		private void SetupBlindUIs() {
 			// 블라인드 UI 가 없을 경우
 			if(CInitSceneManager.m_oBlindUIs == null) {
-				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_BLIND_UIS, CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
+				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_BLIND_UIS, 
+					CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
 
 				try {
 					CSceneManager.SetScreenBlindUIs(CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS));

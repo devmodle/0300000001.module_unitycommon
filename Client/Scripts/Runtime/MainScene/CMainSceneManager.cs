@@ -20,8 +20,6 @@ namespace MainScene {
 		#endregion // 변수
 
 		#region 프로퍼티
-		public override string SceneName => KCDefine.B_SCENE_N_MAIN;
-
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsIgnoreABTestUIs => false;
 		public override bool IsIgnoreOverlayScene => false;

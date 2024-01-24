@@ -30,7 +30,6 @@ namespace LateSetupScene {
 		#endregion // 추상
 
 		#region 프로퍼티
-		public override string SceneName => KCDefine.B_SCENE_N_LATE_SETUP;
 		public virtual bool IsAutoInitManager => false;
 
 #if UNITY_EDITOR

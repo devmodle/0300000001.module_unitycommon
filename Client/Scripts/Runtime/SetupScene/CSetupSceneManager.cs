@@ -47,8 +47,6 @@ namespace SetupScene {
 		#endregion // 클래스 변수
 
 		#region 프로퍼티
-		public override string SceneName => KCDefine.B_SCENE_N_SETUP;
-
 		public virtual bool IsIgnoreLoadingText => false;
 		public virtual bool IsIgnoreLoadingGauge => false;
 
@@ -68,58 +66,64 @@ namespace SetupScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
-				var oLoadingText = this.UIs.ExFindChild($"{EKey.LOADING_TEXT}");
-				var oLoadingGauge = this.UIs.ExFindChild($"{EKey.LOADING_GAUGE}");
-				
-				CCommonAppInfoStorage.Inst.IncrAppRunningTimes(KCDefine.B_VAL_1_INT);
-				CCommonAppInfoStorage.Inst.SaveAppInfo();
+			// 초기화가 필요 할 경우
+			if(!CSceneManager.IsInit) {
+				return;
+			}
 
-				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.OnReceiveGetDeviceIDMsg);
-				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_TYPE, this.OnReceiveGetDeviceTypeMsg);
-				this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.OnReceiveGetCountryCodeMsg);
+			var oLoadingText = this.UIs.ExFindChild($"{EKey.LOADING_TEXT}");
+			var oLoadingGauge = this.UIs.ExFindChild($"{EKey.LOADING_GAUGE}");
+			
+			CCommonAppInfoStorage.Inst.IncrAppRunningTimes(KCDefine.B_VAL_1_INT);
+			CCommonAppInfoStorage.Inst.SaveAppInfo();
 
-				// 객체를 설정한다 {
-				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
-				}, m_oUIsDict);
+			this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.OnReceiveGetDeviceIDMsg);
+			this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_TYPE, this.OnReceiveGetDeviceTypeMsg);
+			this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.OnReceiveGetCountryCodeMsg);
 
-				m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = (oLoadingGauge != null) ? m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition : this.LoadingGaugePos;
-				m_oUIsDict[EKey.LOADING_GAUGE].SetActive(!this.IsIgnoreLoadingGauge);
-				// 객체를 설정한다 }
+			// 객체를 설정한다 {
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
+			}, m_oUIsDict);
 
-				// 텍스트를 설정한다 {
-				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
-				}, m_oTextDict);
+			m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = (oLoadingGauge != null) ? 
+				m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition : this.LoadingGaugePos;
 
-				m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = (oLoadingText != null) ? m_oTextDict[EKey.LOADING_TEXT].transform.localPosition : this.LoadingTextPos;
-				m_oTextDict[EKey.LOADING_TEXT].gameObject.SetActive(!this.IsIgnoreLoadingText);
-				// 텍스트를 설정한다 }
+			m_oUIsDict[EKey.LOADING_GAUGE].SetActive(!this.IsIgnoreLoadingGauge);
+			// 객체를 설정한다 }
 
-				// 게이지 처리자를 설정한다
-				CFunc.SetupComponents(new List<(EKey, GameObject)>() {
-					(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
-				}, m_oGaugeHandlerDict);
+			// 텍스트를 설정한다 {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
+			}, m_oTextDict);
+
+			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = (oLoadingText != null) ? 
+				m_oTextDict[EKey.LOADING_TEXT].transform.localPosition : this.LoadingTextPos;
+
+			m_oTextDict[EKey.LOADING_TEXT].gameObject.SetActive(!this.IsIgnoreLoadingText);
+			// 텍스트를 설정한다 }
+
+			// 게이지 처리자를 설정한다
+			CFunc.SetupComponents(new List<(EKey, GameObject)>() {
+				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
+			}, m_oGaugeHandlerDict);
 
 #if DEBUG || DEVELOPMENT
-				// 텍스트를 설정한다 {
-				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.SCENE_INFO_TEXT, $"{EKey.SCENE_INFO_TEXT}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
-				}, m_oTextDict);
+			// 텍스트를 설정한다 {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.SCENE_INFO_TEXT, $"{EKey.SCENE_INFO_TEXT}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
+			}, m_oTextDict);
 
-				m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchoredPosition = Vector3.zero;
-				// 텍스트를 설정한다 }
+			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.anchoredPosition = Vector3.zero;
+			// 텍스트를 설정한다 }
 
-				m_oStopwatch.Start();
+			m_oStopwatch.Start();
 #endif // #if DEBUG || DEVELOPMENT
 
-				this.OnReceiveSetupSceneEvent(ESetupSceneEvent.LOAD_SETUP_SCENE);
-			}
+			this.OnReceiveSetupSceneEvent(ESetupSceneEvent.LOAD_SETUP_SCENE);
 		}
 
 		/** 초기화 */

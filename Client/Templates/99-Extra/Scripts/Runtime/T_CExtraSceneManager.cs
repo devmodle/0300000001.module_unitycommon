@@ -19,7 +19,7 @@ public partial class CExtraSceneManager : CSceneManager {
 	#endregion // 변수
 
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_N_EXTRA;
+	
 	#endregion // 프로퍼티
 
 	#region 함수

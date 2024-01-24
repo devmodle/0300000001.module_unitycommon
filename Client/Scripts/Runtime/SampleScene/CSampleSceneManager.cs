@@ -12,10 +12,11 @@ using UnityEditor.SceneManagement;
 /** 샘플 씬 관리자 */
 public partial class CSampleSceneManager : CSceneManager {
 	#region 프로퍼티
-	public override string SceneName => KCDefine.B_SCENE_N_SAMPLE;
+	public override float ScreenWidth => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? 
+		KCDefine.B_DESIGN_P_SCREEN_WIDTH : base.ScreenWidth;
 
-	public override float ScreenWidth => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? KCDefine.B_DESIGN_P_SCREEN_WIDTH : base.ScreenWidth;
-	public override float ScreenHeight => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? KCDefine.B_DESIGN_P_SCREEN_HEIGHT : base.ScreenHeight;
+	public override float ScreenHeight => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ? 
+		KCDefine.B_DESIGN_P_SCREEN_HEIGHT : base.ScreenHeight;
 	#endregion // 프로퍼티
 
 	#region 조건부 클래스 함수
