@@ -33,8 +33,8 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDict01;
-		public Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDict02;
+		public Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oPurchaseCallbackDictA;
+		public Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>> m_oPurchaseCallbackDictB;
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
 
@@ -87,12 +87,12 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			stHandlerParams.m_oPurchaseCallbackDict01.TryAdd(CStoreUIsHandler.ECallback.PURCHASE, (a_oSender, a_oProductID, a_bIsSuccess) => {
-				a_stParams.m_oPurchaseCallbackDict01?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+			stHandlerParams.m_oPurchaseCallbackDictA.TryAdd(CStoreUIsHandler.ECallback.PURCHASE, (a_oSender, a_oProductID, a_bIsSuccess) => {
+				a_stParams.m_oPurchaseCallbackDictA?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 			});
 
-			stHandlerParams.m_oPurchaseCallbackDict02.TryAdd(CStoreUIsHandler.ECallback.RESTORE, (a_oSender, a_oProductList, a_bIsSuccess) => {
-				a_stParams.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+			stHandlerParams.m_oPurchaseCallbackDictB.TryAdd(CStoreUIsHandler.ECallback.RESTORE, (a_oSender, a_oProductList, a_bIsSuccess) => {
+				a_stParams.m_oPurchaseCallbackDictB?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 			});
 #endif // #if PURCHASE_MODULE_ENABLE
 
@@ -250,7 +250,7 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if FIREBASE_MODULE_ENABLE
 
 		this.UpdateUIsState();
-		this.Params.m_oPurchaseCallbackDict02?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
+		this.Params.m_oPurchaseCallbackDictB?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 
 	/** 상품이 결제 되었을 경우 */
@@ -261,7 +261,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		this.Params.m_oPurchaseCallbackDict01?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		this.Params.m_oPurchaseCallbackDictA?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 
 #if FIREBASE_MODULE_ENABLE
@@ -302,8 +302,8 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			m_oPurchaseCallbackDict01 = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>(),
-			m_oPurchaseCallbackDict02 = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>()
+			m_oPurchaseCallbackDictA = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>(),
+			m_oPurchaseCallbackDictB = new Dictionary<ECallback, System.Action<CPurchaseManager, List<Product>, bool>>()
 #endif // #if PURCHASE_MODULE_ENABLE
 		};
 	}

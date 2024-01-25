@@ -107,8 +107,8 @@ namespace OverlayScene {
 #endif // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-				stParams.m_oPurchaseCallbackDict01.TryAdd(CStorePopup.ECallback.PURCHASE, (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState());
-				stParams.m_oPurchaseCallbackDict02.TryAdd(CStorePopup.ECallback.RESTORE, (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState());
+				stParams.m_oPurchaseCallbackDictA.TryAdd(CStorePopup.ECallback.PURCHASE, (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState());
+				stParams.m_oPurchaseCallbackDictB.TryAdd(CStorePopup.ECallback.RESTORE, (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState());
 #endif // #if PURCHASE_MODULE_ENABLE
 
 				(a_oSender as CStorePopup).Init(stParams);
