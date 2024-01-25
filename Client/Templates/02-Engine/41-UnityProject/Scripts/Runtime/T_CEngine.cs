@@ -53,9 +53,9 @@ namespace NSEngine {
 			public GameObject m_oObjRoot;
 			public GameObject m_oFXRoot;
 
-			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict01;
-			public Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> m_oCallbackDict02;
-			public Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>> m_oCallbackDict03;
+			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDictA;
+			public Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> m_oCallbackDictB;
+			public Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>> m_oCallbackDictC;
 		}
 
 		#region 변수
@@ -271,7 +271,7 @@ namespace NSEngine {
 
 						try {
 							this.SetupAcquireTargetInfos(a_oSender, oAcquireTargetInfoDict);
-							this.Params.m_oCallbackDict02.GetValueOrDefault(ECallback.ACQUIRE)?.Invoke(this, oAcquireTargetInfoDict);
+							this.Params.m_oCallbackDictB.GetValueOrDefault(ECallback.ACQUIRE)?.Invoke(this, oAcquireTargetInfoDict);
 
 							global::Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oAcquireTargetInfoDict, this.SelPlayerObj.Params.m_oObjTargetInfo, true);
 
@@ -298,7 +298,7 @@ namespace NSEngine {
 #endif // #if DISABLE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 
-			this.Params.m_oCallbackDict03.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);
+			this.Params.m_oCallbackDictC.GetValueOrDefault(ECallback.E_OBJ_EVENT)?.Invoke(this, a_oSender, a_eEvent, a_oParams);
 			CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>().SetIsDirtyUpdateState(true);
 		}
 		#endregion // 함수
@@ -830,9 +830,9 @@ namespace NSEngine {
 				m_oSkillRoot = a_oSkillRoot,
 				m_oObjRoot = a_oObjRoot,
 				m_oFXRoot = a_oFXRoot,
-				m_oCallbackDict01 = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(),
-				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>(),
-				m_oCallbackDict03 = a_oCallbackDict03 ?? new Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>>()
+				m_oCallbackDictA = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(),
+				m_oCallbackDictB = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>(),
+				m_oCallbackDictC = a_oCallbackDict03 ?? new Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>>()
 			};
 		}
 		#endregion // 클래스 함수

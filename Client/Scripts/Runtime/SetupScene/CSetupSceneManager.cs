@@ -194,8 +194,11 @@ namespace SetupScene {
 
 		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */
 		private void OnReceiveGetDeviceIDMsg(string a_oMsg) {
-			// 디바이스 식별자 설정이 필요 할 경우
-			if(!CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid() || CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN)) {
+			bool bIsValidDeviceIDA = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid();
+			bool bIsValidDeviceIDB = !CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN);
+
+			// 디바이스 식별자 갱신이 필요 할 경우
+			if(!bIsValidDeviceIDA || !bIsValidDeviceIDB) {
 				CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? a_oMsg : KCDefine.B_TEXT_UNKNOWN;
 			}
 

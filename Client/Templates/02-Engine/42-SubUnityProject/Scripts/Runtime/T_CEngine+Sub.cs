@@ -83,7 +83,7 @@ namespace NSEngine {
 
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 #if DISABLE_THIS
-				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
+				this.Params.m_oCallbackDictA.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
 #endif // #if DISABLE_THIS
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 			}
@@ -97,7 +97,7 @@ namespace NSEngine {
 
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 #if DISABLE_THIS
-				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
+				this.Params.m_oCallbackDictA.GetValueOrDefault(ECallback.CLEAR_FAIL)?.Invoke(this);
 #endif // #if DISABLE_THIS
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 			}
