@@ -247,13 +247,13 @@ namespace PlayScene {
 		}
 
 		/** 정보를 저장한다 */
-		protected override void SaveInfo() {
+		public override void SaveInfo() {
 			base.SaveInfo();
 			Func.SaveInfoStorages();
 		}
 
 		/** 상태를 갱신한다 */
-		protected override void UpdateState() {
+		public override void UpdateState() {
 			base.UpdateState();
 			this.UpdateUIsState();
 		}
