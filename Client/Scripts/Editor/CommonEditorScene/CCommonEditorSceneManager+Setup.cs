@@ -210,7 +210,7 @@ public static partial class CCommonEditorSceneManager {
 	private static void SetupLayers(GameObject a_oObj) {
 		foreach(var oObj in a_oObj.DescendantsAndSelf()) {
 			// 레이어 설정이 가능 할 경우
-			if(oObj.layer != KCDefine.U_LAYER_UIS && !oObj.name.Contains(KCDefine.B_NAME_PATTERN_IGNORE_SETUP_LAYER)) {
+			if(oObj.layer != KCDefine.U_LAYER_UIS && !oObj.name.Contains(KCDefine.B_NAME_PATTERN_FILTER_SETUP_LAYER)) {
 				oObj.ExSetLayer(KCDefine.U_LAYER_UIS, false, false);
 			}
 		}
@@ -222,7 +222,7 @@ public static partial class CCommonEditorSceneManager {
 			bool bIsValid = KCEditorDefine.B_OBJ_N_STATIC_OBJ_LIST.Contains(oObj.name) && GameObjectUtility.GetStaticEditorFlags(oObj) != (StaticEditorFlags)int.MaxValue;
 
 			// 정적 플래그 설정이 가능 할 경우
-			if(bIsValid && !oObj.name.Contains(KCDefine.B_NAME_PATTERN_IGNORE_SETUP_STATIC_FLAGS)) {
+			if(bIsValid && !oObj.name.Contains(KCDefine.B_NAME_PATTERN_FILTER_SETUP_STATIC_FLAGS)) {
 				oObj.ExSetStaticEditorFlags((StaticEditorFlags)int.MaxValue, false, false);
 			}
 		}
@@ -288,7 +288,7 @@ public static partial class CCommonEditorSceneManager {
 		for(int i = 0; i < a_oDirPathList.Count; ++i) {
 			int nIdx01 = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false).Replace(KCDefine.B_NAME_PATTERN_FIX_REPEAT_WRAP, string.Empty)));
 			int nIdx02 = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false).Replace(KCDefine.B_NAME_PATTERN_FIX_POINT_FILTER, string.Empty)));
-			int nIdx03 = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false).Replace(KCDefine.B_NAME_PATTERN_IGNORE_TEX_COMPRESS, string.Empty)));
+			int nIdx03 = KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.FindIndex((a_oSpriteAtlasPath) => a_oSpriteAtlasPath.Contains(a_oDirPathList[i].ExGetFileName(false).Replace(KCDefine.B_NAME_PATTERN_FILTER_SETUP_TEX_COMPRESS, string.Empty)));
 
 			// 스프라이트 아틀라스 경로가 존재 할 경우
 			if(KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx01) || KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx02) || KCEditorDefine.B_ASSET_P_SPRITE_ATLAS_LIST.ExIsValidIdx(nIdx03)) {
