@@ -44,7 +44,7 @@ namespace TitleScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 				var oItemKindsList = CCollectionPoolManager.Inst.SpawnList<EItemKinds>();
 
@@ -102,7 +102,7 @@ namespace TitleScene {
 		public override void Start() {
 			base.Start();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 				// 앱 업데이트가 가능 할 경우
 				if(!CAppInfoStorage.Inst.IsIgnoreAppUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
@@ -127,7 +127,7 @@ namespace TitleScene {
 				if(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene) {
 					Func.PlayBGSnd(EResKinds.SND_RES_BG_SCENE_TITLE_01);
 
-					// 로그인 되었을 경우
+					// 로그인되었을 경우
 					if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
 						this.OnLogin(CUserInfoStorage.Inst.UserInfo.LoginType, true);
 					}
@@ -137,7 +137,7 @@ namespace TitleScene {
 			}
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 
@@ -201,7 +201,7 @@ namespace TitleScene {
 			};
 
 			for(int i = 0; i < oLoginBtnKeyList.Count; ++i) {
-				// 로그인 되었을 경우
+				// 로그인되었을 경우
 				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
 					m_oBtnDict.GetValueOrDefault(oLoginBtnKeyList[i])?.gameObject.SetActive(false);
 				}
@@ -266,9 +266,9 @@ namespace TitleScene {
 #endif // #if FACEBOOK_MODULE_ENABLE
 		}
 
-		/** 로그인 되었을 경우 */
+		/** 로그인되었을 경우 */
 		private void OnLogin(ELoginType a_eLoginType, bool a_bIsSuccess) {
-			// 로그인 되었을 경우
+			// 로그인되었을 경우
 			if(a_bIsSuccess) {
 				CUserInfoStorage.Inst.UserInfo.LoginType = a_eLoginType;
 				CUserInfoStorage.Inst.SaveUserInfo();
@@ -285,7 +285,7 @@ namespace TitleScene {
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 		/** 구글 시트를 로드했을 경우 */
 		private void OnLoadGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
+			// 로드되었을 경우
 			if(a_bIsSuccess) {
 				var oHandlerDict = new Dictionary<string, System.Action>() {
 					[KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false)] = () => CEtcInfoTable.Inst.SaveEtcInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString()),
@@ -307,7 +307,7 @@ namespace TitleScene {
 
 		/** 구글 시트를 로드했을 경우 */
 		private void OnLoadGoogleSheets(CServicesManager a_oSender, bool a_bIsSuccess) {
-			// 로드 되었을 경우
+			// 로드되었을 경우
 			if(a_bIsSuccess) {
 				Func.OnLoadGoogleSheets(m_oVerInfos);
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
@@ -320,7 +320,7 @@ namespace TitleScene {
 
 		/** 버전 정보 구글 시트를 로드했을 경우 */
 		private void OnLoadVerInfoGoogleSheet(CServicesManager a_oSender, SimpleJSON.JSONNode a_oVerInfos, Dictionary<string, STLoadGoogleSheetInfo> a_oLoadGoogleSheetInfoDict, bool a_bIsSuccess) {
-			// 로드 되었을 경우
+			// 로드되었을 경우
 			if(a_bIsSuccess) {
 				m_oVerInfos = a_oVerInfos;
 				Func.LoadGoogleSheets(a_oLoadGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetLoadHandlerDict, this.OnLoadGoogleSheets);

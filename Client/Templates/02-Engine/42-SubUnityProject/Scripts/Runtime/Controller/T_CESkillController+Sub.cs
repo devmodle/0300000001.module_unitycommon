@@ -59,7 +59,7 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		private void SubOnDestroy() {
 			try {
 				// 앱이 실행 중 일 경우

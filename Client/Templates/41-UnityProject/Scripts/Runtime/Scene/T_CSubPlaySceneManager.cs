@@ -61,7 +61,7 @@ namespace PlayScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 #if DEBUG || DEVELOPMENT_BUILD
 				// 플레이 레벨 정보가 없을 경우
@@ -147,7 +147,7 @@ namespace PlayScene {
 		public override void Start() {
 			base.Start();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 				this.SubStart();
 				this.UpdateUIsState();
@@ -166,7 +166,7 @@ namespace PlayScene {
 			}
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 
@@ -180,11 +180,11 @@ namespace PlayScene {
 			}
 		}
 
-		/** 앱이 정지 되었을 경우 */
+		/** 앱이 정지되었을 경우 */
 		public override void OnApplicationPause(bool a_bIsPause) {
 			base.OnApplicationPause(a_bIsPause);
 
-			// 재개 되었을 경우
+			// 재개되었을 경우
 			if(CSceneManager.IsAppRunning && !a_bIsPause) {
 #if ADS_MODULE_ENABLE
 				// 광고 출력이 가능 할 경우

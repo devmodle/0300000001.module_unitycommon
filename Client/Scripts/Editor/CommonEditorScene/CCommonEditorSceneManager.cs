@@ -83,7 +83,7 @@ public static partial class CCommonEditorSceneManager {
 		CCommonEditorSceneManager.SetupCallbacks();
 	}
 
-	/** 스크립트가 로드 되었을 경우 */
+	/** 스크립트가 로드되었을 경우 */
 	[UnityEditor.Callbacks.DidReloadScripts]
 	public static void OnLoadScript() {
 		CCommonEditorSceneManager.m_bIsEnableSetup = true;
@@ -228,7 +228,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	/** 플레이 모드 상태가 갱신 되었을 경우 */
+	/** 플레이 모드 상태가 갱신되었을 경우 */
 	private static void OnUpdatePlayModeState(PlayModeStateChange a_ePlayMode) {
 		// 에디터 모드 일 경우
 		if(a_ePlayMode == PlayModeStateChange.EnteredEditMode) {
@@ -236,7 +236,7 @@ public static partial class CCommonEditorSceneManager {
 		}
 	}
 
-	/** 프로젝트 상태가 갱신 되었을 경우 */
+	/** 프로젝트 상태가 갱신되었을 경우 */
 	private static void OnUpdateProjectState() {
 		CCommonEditorSceneManager.SetupPreloadAssets();
 		CCommonEditorSceneManager.SetupSpriteAtlases();

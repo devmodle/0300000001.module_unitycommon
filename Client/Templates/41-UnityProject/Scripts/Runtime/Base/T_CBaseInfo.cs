@@ -38,7 +38,7 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 		// Do Something
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public void OnAfterDeserialize() {
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 	}
@@ -64,7 +64,7 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 		this.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	[OnDeserialized]
 	private void OnDeserializedMethod(StreamingContext a_oContext) {
 		this.OnAfterDeserialize();
@@ -122,7 +122,7 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 		m_oStrDict.ExRemoveVal(KEY_VER);
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public virtual void OnAfterDeserialize() {
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 	}
@@ -143,7 +143,7 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 		this.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	[OnDeserialized]
 	private void OnDeserializedMethod(StreamingContext a_oContext) {
 		this.OnAfterDeserialize();

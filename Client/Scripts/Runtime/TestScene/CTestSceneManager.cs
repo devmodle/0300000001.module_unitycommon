@@ -30,7 +30,7 @@ namespace TestScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 				// 버튼을 설정한다 {
 				CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>() {

@@ -112,9 +112,9 @@ public partial class CSyncPopup : CSubPopup {
 
 	#region 조건부 함수
 #if FIREBASE_MODULE_ENABLE
-	/** 로그인 되었을 경우 */
+	/** 로그인되었을 경우 */
 	private void OnLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(a_bIsSuccess) {
 			// Do Something
 		}
@@ -122,14 +122,14 @@ public partial class CSyncPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 
-	/** 로그아웃 되었을 경우 */
+	/** 로그아웃되었을 경우 */
 	private void OnLogout(CFirebaseManager a_oSender) {
 		this.UpdateUIsState();
 	}
 
-	/** 유저 정보가 로드 되었을 경우 */
+	/** 유저 정보가 로드되었을 경우 */
 	private void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
-		// 로드 되었을 경우
+		// 로드되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
 			var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
 
@@ -170,9 +170,9 @@ public partial class CSyncPopup : CSubPopup {
 		});
 	}
 
-	/** 유저 정보가 저장 되었을 경우 */
+	/** 유저 정보가 저장되었을 경우 */
 	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		// 저장 되었을 경우
+		// 저장되었을 경우
 		if(a_bIsSuccess) {
 			// Do Something
 		}

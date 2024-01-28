@@ -147,7 +147,7 @@ namespace NSEngine {
 			this.SetState(EState.NONE);
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 

@@ -44,7 +44,7 @@ namespace NSEngine {
 			this.SubResetObjInfo(a_stObjInfo, a_stCellObjInfo);
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 

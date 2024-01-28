@@ -204,13 +204,13 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
-	/** 스크립트가 로드 되었을 경우 */
+	/** 스크립트가 로드되었을 경우 */
 	[UnityEditor.Callbacks.DidReloadScripts]
 	private static void OnLoadScript() {
 		CEditorSceneManager.m_bIsEnableSetup = true;
 	}
 
-	/** 프로젝트 상태가 갱신 되었을 경우 */
+	/** 프로젝트 상태가 갱신되었을 경우 */
 	private static void OnUpdateProjectState() {
 		CEditorSceneManager.SetupExtraPreloadAssets();
 	}

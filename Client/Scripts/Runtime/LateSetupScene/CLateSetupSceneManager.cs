@@ -203,11 +203,11 @@ namespace LateSetupScene {
 			this.ApplyUserPermissions();
 		}
 
-		/** 서비스 관리자가 초기화 되었을 경우 */
+		/** 서비스 관리자가 초기화되었을 경우 */
 		private static void OnInitServicesManager(CServicesManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitServicesManager: {a_bIsSuccess}");
 
-			// 초기화 되었을 경우
+			// 초기화되었을 경우
 			if(a_bIsSuccess) {
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
 				CServicesManager.Inst.UpdateAppleLoginState(CLateSetupSceneManager.OnUpdateAppleLoginState);
@@ -260,7 +260,7 @@ namespace LateSetupScene {
 			ATTrackingStatusBinding.RequestAuthorizationTracking();
 
 			this.ExRepeatCallFunc((a_oSender, a_bIsComplete) => {
-				// 완료 되었을 경우
+				// 완료되었을 경우
 				if(a_bIsComplete) {
 					var eStatus = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
 					this.OnCloseTrackingConsentView(eStatus != ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED && eStatus != ATTrackingStatusBinding.AuthorizationTrackingStatus.DENIED);
@@ -293,14 +293,14 @@ namespace LateSetupScene {
 
 		#region 조건부 클래스 함수
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-		/** 애플 로그인 상태가 갱신 되었을 경우 */
+		/** 애플 로그인 상태가 갱신되었을 경우 */
 		private static void OnUpdateAppleLoginState(CServicesManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnUpdateAppleLoginState: {a_bIsSuccess}");
 		}
 #endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
 #if ADS_MODULE_ENABLE
-		/** 광고 관리자가 초기화 되었을 경우 */
+		/** 광고 관리자가 초기화되었을 경우 */
 		private static void OnInitAdsManager(CAdsManager a_oSender, EAdsPlatform a_eAdsPlatform, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitAdsManager: {a_eAdsPlatform}, {a_bIsSuccess}");
 
@@ -335,11 +335,11 @@ namespace LateSetupScene {
 #endif // #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-		/** 플러리 관리자가 초기화 되었을 경우 */
+		/** 플러리 관리자가 초기화되었을 경우 */
 		private static void OnInitFlurryManager(CFlurryManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitFlurryManager: {a_bIsSuccess}");
 
-			// 초기화 되었을 경우
+			// 초기화되었을 경우
 			if(a_bIsSuccess) {
 				CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 
@@ -352,18 +352,18 @@ namespace LateSetupScene {
 #endif // #if FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-		/** 페이스 북 관리자가 초기화 되었을 경우 */
+		/** 페이스 북 관리자가 초기화되었을 경우 */
 		private static void OnInitFacebookManager(CFacebookManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitFacebookManager: {a_bIsSuccess}");
 		}
 #endif // #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-		/** 파이어 베이스 관리자가 초기화 되었을 경우 */
+		/** 파이어 베이스 관리자가 초기화되었을 경우 */
 		private static void OnInitFirebaseManager(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitFirebaseManager: {a_bIsSuccess}");
 
-			// 초기화 되었을 경우
+			// 초기화되었을 경우
 			if(a_bIsSuccess) {
 				CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 				CFirebaseManager.Inst.SetCrashlyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
@@ -393,11 +393,11 @@ namespace LateSetupScene {
 #endif // #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
-		/** 앱스 플라이어 관리자가 초기화 되었을 경우 */
+		/** 앱스 플라이어 관리자가 초기화되었을 경우 */
 		private static void OnInitAppsFlyerManager(CAppsFlyerManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitAppsFlyerManager: {a_bIsSuccess}");
 			
-			// 초기화 되었을 경우
+			// 초기화되었을 경우
 			if(a_bIsSuccess) {
 				CAppsFlyerManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 
@@ -410,32 +410,32 @@ namespace LateSetupScene {
 #endif // #if APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-		/** 게임 센터 관리자가 초기화 되었을 경우 */
+		/** 게임 센터 관리자가 초기화되었을 경우 */
 		private static void OnInitGameCenterManager(CGameCenterManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitGameCenterManager: {a_bIsSuccess}");
 		}
 #endif // #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-		/** 결제 관리자가 초기화 되었을 경우 */
+		/** 결제 관리자가 초기화되었을 경우 */
 		private static void OnInitPurchaseManager(CPurchaseManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitPurchaseManager: {a_bIsSuccess}");
 		}
 #endif // #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
-		/** 알림 관리자가 초기화 되었을 경우 */
+		/** 알림 관리자가 초기화되었을 경우 */
 		private static void OnInitNotiManager(CNotiManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitNotiManager: {a_bIsSuccess}");
 		}
 #endif // #if NOTI_MODULE_ENABLE
 
 #if PLAYFAB_MODULE_ENABLE
-		/** 플레이 팹 관리자가 초기화 되었을 경우 */
+		/** 플레이 팹 관리자가 초기화되었을 경우 */
 		private static void OnInitPlayfabManager(CPlayfabManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitPlayfabManager: {a_bIsSuccess}");
 
-			// 초기화 되었을 경우
+			// 초기화되었을 경우
 			if(a_bIsSuccess && CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
 				CPlayfabManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict);
 			}

@@ -139,7 +139,7 @@ namespace SetupScene {
 		public sealed override void Start() {
 			base.Start();
 
-			// 초기화 되었을 경우
+			// 초기화되었을 경우
 			if(CSceneManager.IsInit) {
 				StartCoroutine(this.CoStart());
 			}
@@ -150,7 +150,7 @@ namespace SetupScene {
 			m_oGaugeAni?.Kill();
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 

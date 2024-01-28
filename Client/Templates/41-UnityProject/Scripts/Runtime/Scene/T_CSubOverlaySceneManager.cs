@@ -46,7 +46,7 @@ namespace OverlayScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 				// 텍스트를 설정한다
 				CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
@@ -66,14 +66,14 @@ namespace OverlayScene {
 		public override void Start() {
 			base.Start();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 				this.SubStart();
 				this.UpdateUIsState();
 			}
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 
@@ -143,9 +143,9 @@ namespace OverlayScene {
 			Func.PurchaseProduct(a_eProductKinds, this.OnPurchaseProduct);
 		}
 
-		/** 상품이 결제 되었을 경우 */
+		/** 상품이 결제되었을 경우 */
 		private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
-			// 결제 되었을 경우
+			// 결제되었을 경우
 			if(a_bIsSuccess) {
 				Func.AcquireProduct(a_oProductID);
 				m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;

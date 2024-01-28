@@ -584,7 +584,7 @@ public static partial class Func {
 		}
 	}
 
-	/** 배너 광고가 출력 되었을 경우 */
+	/** 배너 광고가 출력되었을 경우 */
 	private static void OnShowBannerAds(CAdsManager a_oSender, bool a_bIsSuccess) {
 		Func.m_oAdsCallbackDictA.GetValueOrDefault(ECallback.SHOW_BANNER_ADS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
@@ -635,13 +635,13 @@ public static partial class Func {
 		CServicesManager.Inst.LogoutWithApple(Func.OnAppleLogout);
 	}
 
-	/** 애플에 로그인 되었을 경우 */
+	/** 애플에 로그인되었을 경우 */
 	private static void OnAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oServicesCallbackDictB.GetValueOrDefault(ECallback.APPLE_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 애플에서 로그아웃 되었을 경우 */
+	/** 애플에서 로그아웃되었을 경우 */
 	private static void OnAppleLogout(CServicesManager a_oSender) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oServicesCallbackDictA.GetValueOrDefault(ECallback.APPLE_LOGOUT)?.Invoke(a_oSender);
@@ -665,13 +665,13 @@ public static partial class Func {
 		CFacebookManager.Inst.Logout(Func.OnFacebookLogout);
 	}
 
-	/** 페이스 북에 로그인 되었을 경우 */
+	/** 페이스 북에 로그인되었을 경우 */
 	private static void OnFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFacebookCallbackDictB.GetValueOrDefault(ECallback.FACEBOOK_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 페이스 북에서 로그아웃 되었을 경우 */
+	/** 페이스 북에서 로그아웃되었을 경우 */
 	private static void OnFacebookLogout(CFacebookManager a_oSender) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFacebookCallbackDictA.GetValueOrDefault(ECallback.FACEBOOK_LOGOUT)?.Invoke(a_oSender);
@@ -712,7 +712,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oFirebaseCallbackDictC.ExReplaceVal(ECallback.LOAD_USER_INFO, a_oCallback);
 
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
 			CFirebaseManager.Inst.LoadDatas(Factory.MakeUserInfoNodes(), Func.OnLoadUserInfo);
 		} else {
@@ -725,7 +725,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oFirebaseCallbackDictC.ExReplaceVal(ECallback.LOAD_TARGET_INFOS, a_oCallback);
 
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
 			CFirebaseManager.Inst.LoadDatas(Factory.MakeTargetInfoNodes(), Func.OnLoadTargetInfos);
 		} else {
@@ -738,7 +738,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oFirebaseCallbackDictC.ExReplaceVal(ECallback.LOAD_PURCHASE_INFOS, a_oCallback);
 
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
 			CFirebaseManager.Inst.LoadDatas(Factory.MakePurchaseInfoNodes(), Func.OnLoadPurchaseInfos);
 		} else {
@@ -751,7 +751,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oFirebaseCallbackDictB.ExReplaceVal(ECallback.SAVE_USER_INFO, a_oCallback);
 
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(CFirebaseManager.Inst.IsLogin) {
 			var oJSONNode = new SimpleJSON.JSONClass();
 			oJSONNode.Add(KCDefine.B_KEY_JSON_USER_INFO_DATA, CUserInfoStorage.Inst.UserInfo.ExToMsgPackBase64Str());
@@ -774,7 +774,7 @@ public static partial class Func {
 			CIndicatorManager.Inst.Show();
 			Func.m_oFirebaseCallbackDictB.ExReplaceVal(ECallback.SAVE_TARGET_INFOS, a_oCallback);
 
-			// 로그인 되었을 경우
+			// 로그인되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 				CFirebaseManager.Inst.SaveDatas(Factory.MakeTargetInfoNodes(), a_oTargetInfoDict.ExToJSONStr(true), Func.OnSaveTargetInfos);
@@ -796,7 +796,7 @@ public static partial class Func {
 			CIndicatorManager.Inst.Show();
 			Func.m_oFirebaseCallbackDictB.ExReplaceVal(ECallback.SAVE_PURCHASE_INFOS, a_oCallback);
 
-			// 로그인 되었을 경우
+			// 로그인되었을 경우
 			if(CFirebaseManager.Inst.IsLogin) {
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 				CFirebaseManager.Inst.SaveDatas(Factory.MakePurchaseInfoNodes(), a_oPurchaseInfoList.ExToJSONStr(true), Func.OnSavePurchaseInfos);
@@ -809,60 +809,60 @@ public static partial class Func {
 		}
 	}
 
-	/** 파이어 베이스에 로그인 되었을 경우 */
+	/** 파이어 베이스에 로그인되었을 경우 */
 	private static void OnFirebaseLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDictB.GetValueOrDefault(ECallback.FIREBASE_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 파이어 베이스에서 로그아웃 되었을 경우 */
+	/** 파이어 베이스에서 로그아웃되었을 경우 */
 	private static void OnFirebaseLogout(CFirebaseManager a_oSender) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDictA.GetValueOrDefault(ECallback.FIREBASE_LOGOUT)?.Invoke(a_oSender);
 	}
 
-	/** 유저 정보가 로드 되었을 경우 */
+	/** 유저 정보가 로드되었을 경우 */
 	private static void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDictC.GetValueOrDefault(ECallback.LOAD_USER_INFO)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
-	/** 타겟 정보가 로드 되었을 경우 */
+	/** 타겟 정보가 로드되었을 경우 */
 	private static void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDictC.GetValueOrDefault(ECallback.LOAD_TARGET_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
-	/** 결제 정보가 로드 되었을 경우 */
+	/** 결제 정보가 로드되었을 경우 */
 	private static void OnLoadPurchaseInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDictC.GetValueOrDefault(ECallback.LOAD_PURCHASE_INFOS)?.Invoke(a_oSender, a_oJSONStr, a_bIsSuccess);
 	}
 
-	/** 유저 정보가 저장 되었을 경우 */
+	/** 유저 정보가 저장되었을 경우 */
 	private static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDictB.GetValueOrDefault(ECallback.SAVE_USER_INFO)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 타겟 정보가 저장 되었을 경우 */
+	/** 타겟 정보가 저장되었을 경우 */
 	private static void OnSaveTargetInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDictB.GetValueOrDefault(ECallback.SAVE_TARGET_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 결제 정보가 저장 되었을 경우 */
+	/** 결제 정보가 저장되었을 경우 */
 	private static void OnSavePurchaseInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oFirebaseCallbackDictB.GetValueOrDefault(ECallback.SAVE_PURCHASE_INFOS)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-	/** 애플에 로그인 되었을 경우 */
+	/** 애플에 로그인되었을 경우 */
 	private static void OnFirebaseAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(a_bIsSuccess) {
 			CIndicatorManager.Inst.Show();
 			CFirebaseManager.Inst.LoginWithApple(a_oSender.AppleUserID, a_oSender.AppleIDToken, Func.OnFirebaseLogin);
@@ -871,18 +871,18 @@ public static partial class Func {
 		}
 	}
 
-	/** 애플에서 로그아웃 되었을 경우 */
+	/** 애플에서 로그아웃되었을 경우 */
 	private static void OnFirebaseAppleLogout(CServicesManager a_oSender) {
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 	}
 #endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
 #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-	/** 페이스 북에 로그인 되었을 경우 */
+	/** 페이스 북에 로그인되었을 경우 */
 	private static void OnFirebaseFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(a_bIsSuccess) {
 			CIndicatorManager.Inst.Show();
 			CFirebaseManager.Inst.LoginWithFacebook(a_oSender.AccessToken, Func.OnFirebaseLogin);
@@ -891,7 +891,7 @@ public static partial class Func {
 		}
 	}
 
-	/** 페이스 북에서 로그아웃 되었을 경우 */
+	/** 페이스 북에서 로그아웃되었을 경우 */
 	private static void OnFirebaseFacebookLogout(CFacebookManager a_oSender) {
 		CFirebaseManager.Inst.Logout(Func.OnFirebaseLogout);
 	}
@@ -931,25 +931,25 @@ public static partial class Func {
 		CGameCenterManager.Inst.UpdateAchievement(a_oAchievementID, a_dblPercent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT, Func.OnUpdateAchievement);
 	}
 
-	/** 게임 센터에 로그인 되었을 경우 */
+	/** 게임 센터에 로그인되었을 경우 */
 	private static void OnGameCenterLogin(CGameCenterManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oGameCenterCallbackDictB.GetValueOrDefault(ECallback.GAME_CENTER_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 게임 센터에서 로그아웃 되었을 경우 */
+	/** 게임 센터에서 로그아웃되었을 경우 */
 	private static void OnGameCenterLogout(CGameCenterManager a_oSender) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oGameCenterCallbackDictA.GetValueOrDefault(ECallback.GAME_CENTER_LOGOUT)?.Invoke(a_oSender);
 	}
 	
-	/** 기록이 갱신 되었을 경우 */
+	/** 기록이 갱신되었을 경우 */
 	private static void OnUpdateRecord(CGameCenterManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oGameCenterCallbackDictB.GetValueOrDefault(ECallback.UPDATE_RECORD)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 업적이 갱신 되었을 경우 */
+	/** 업적이 갱신되었을 경우 */
 	private static void OnUpdateAchievement(CGameCenterManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oGameCenterCallbackDictB.GetValueOrDefault(ECallback.UPDATE_ACHIEVEMENT)?.Invoke(a_oSender, a_bIsSuccess);
@@ -994,15 +994,15 @@ public static partial class Func {
 		}
 	}
 
-	/** 상품이 복원 되었을 경우 */
+	/** 상품이 복원되었을 경우 */
 	private static void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oPurchaseCallbackDictB.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 
-	/** 상품이 결제 되었을 경우 */
+	/** 상품이 결제되었을 경우 */
 	private static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
-		// 결제 되었을 경우
+		// 결제되었을 경우
 		if(a_bIsSuccess) {
 			CPurchaseManager.Inst.ConfirmPurchase(a_oProductID, Func.OnConfirmProduct);
 		} else {
@@ -1010,7 +1010,7 @@ public static partial class Func {
 		}
 	}
 
-	/** 상품이 결제 되었을 경우 */
+	/** 상품이 결제되었을 경우 */
 	private static void OnConfirmProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oPurchaseCallbackDictA.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
@@ -1046,24 +1046,24 @@ public static partial class Func {
 #endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
 	}
 
-	/** 플레이 팹에 로그인 되었을 경우 */
+	/** 플레이 팹에 로그인되었을 경우 */
 	private static void OnPlayfabLogin(CPlayfabManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oPlayfabCallbackDictB.GetValueOrDefault(ECallback.PLAYFAB_LOGIN)?.Invoke(a_oSender, a_bIsSuccess);
 	}
 
-	/** 플레이 팹에서 로그아웃 되었을 경우 */
+	/** 플레이 팹에서 로그아웃되었을 경우 */
 	private static void OnPlayfabLogout(CPlayfabManager a_oSender) {
 		CIndicatorManager.Inst.Close();
 		Func.m_oPlayfabCallbackDictA.GetValueOrDefault(ECallback.PLAYFAB_LOGOUT)?.Invoke(a_oSender);
 	}
 
 #if UNITY_IOS && APPLE_LOGIN_ENABLE
-	/** 애플에 로그인 되었을 경우 */
+	/** 애플에 로그인되었을 경우 */
 	private static void OnPlayfabAppleLogin(CServicesManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(a_bIsSuccess) {
 			CIndicatorManager.Inst.Show();
 			CPlayfabManager.Inst.LoginWithApple(a_oSender.AppleUserID, a_oSender.AppleIDToken, Func.OnPlayfabLogin);
@@ -1072,18 +1072,18 @@ public static partial class Func {
 		}
 	}
 
-	/** 애플에서 로그아웃 되었을 경우 */
+	/** 애플에서 로그아웃되었을 경우 */
 	private static void OnPlayfabAppleLogout(CServicesManager a_oSender) {
 		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
 	}
 #endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
 
 #if (UNITY_IOS || UNITY_ANDROID) && FACEBOOK_MODULE_ENABLE
-	/** 페이스 북에 로그인 되었을 경우 */
+	/** 페이스 북에 로그인되었을 경우 */
 	private static void OnPlayfabFacebookLogin(CFacebookManager a_oSender, bool a_bIsSuccess) {
 		CIndicatorManager.Inst.Close();
 
-		// 로그인 되었을 경우
+		// 로그인되었을 경우
 		if(a_bIsSuccess) {
 			CIndicatorManager.Inst.Show();
 			CPlayfabManager.Inst.LoginWithFacebook(a_oSender.AccessToken, Func.OnPlayfabLogin);
@@ -1092,7 +1092,7 @@ public static partial class Func {
 		}
 	}
 
-	/** 페이스 북에서 로그아웃 되었을 경우 */
+	/** 페이스 북에서 로그아웃되었을 경우 */
 	private static void OnPlayfabFacebookLogout(CFacebookManager a_oSender) {
 		CPlayfabManager.Inst.Logout(Func.OnPlayfabLogout);
 	}
@@ -1301,7 +1301,7 @@ public static partial class Func {
 		Func.m_oLoadGoogleSheetInfoList.ExRemoveValAt(KCDefine.B_VAL_0_INT);
 		Func.m_oGoogleSheetLoadHandlerDict.GetValueOrDefault(stResult.Item2)?.Invoke(a_oSender, a_stGoogleSheetLoadInfo, a_oJSONNodeInfoDict, a_bIsSuccess);
 
-		// 구글 시트 로드가 완료 되었을 경우 */
+		// 구글 시트 로드가 완료되었을 경우 */
 		if(!a_bIsSuccess || !Func.m_oLoadGoogleSheetInfoList.ExIsValid()) {
 			Func.m_oGoogleSheetCallbackDictA.GetValueOrDefault(ECallback.LOAD_GOOGLE_SHEETS)?.Invoke(a_oSender, a_bIsSuccess && !Func.m_oLoadGoogleSheetInfoList.ExIsValid());
 		} else {
@@ -1317,7 +1317,7 @@ public static partial class Func {
 		var oLoadGoogleSheetInfoDict = new Dictionary<string, STLoadGoogleSheetInfo>();
 		SimpleJSON.JSONNode oVerInfos = null;
 
-		// 로드 되었을 경우
+		// 로드되었을 경우
 		if(a_bIsSuccess) {
 #if AB_TEST_ENABLE
 			oVerInfos = a_oJSONNodeInfoDict.ExToJSONNode()[(CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? $"{EUserType.B}" : $"{EUserType.A}"];
@@ -1376,7 +1376,7 @@ public static partial class Func {
 		Func.m_oSaveGoogleSheetInfoList.ExRemoveValAt(KCDefine.B_VAL_0_INT);
 		Func.m_oGoogleSheetSaveHandlerDict.GetValueOrDefault(stResult.Item2)?.Invoke(a_oSender, a_stGoogleSheetSaveInfo, a_bIsSuccess);
 
-		// 구글 시트 저장이 완료 되었을 경우 */
+		// 구글 시트 저장이 완료되었을 경우 */
 		if(!a_bIsSuccess || !Func.m_oSaveGoogleSheetInfoList.ExIsValid()) {
 			Func.m_oGoogleSheetCallbackDictA.GetValueOrDefault(ECallback.SAVE_GOOGLE_SHEETS)?.Invoke(a_oSender, a_bIsSuccess && !Func.m_oSaveGoogleSheetInfoList.ExIsValid());
 		} else {

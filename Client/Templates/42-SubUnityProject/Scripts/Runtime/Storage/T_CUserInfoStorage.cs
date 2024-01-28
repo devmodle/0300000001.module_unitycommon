@@ -67,7 +67,7 @@ public abstract partial class CTargetInfo : CBaseInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		this.SetupGUID();
@@ -125,7 +125,7 @@ public partial class CItemTargetInfo : CTargetInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 
@@ -174,7 +174,7 @@ public partial class CSkillTargetInfo : CTargetInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 
@@ -224,7 +224,7 @@ public partial class CObjTargetInfo : CTargetInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 
@@ -273,7 +273,7 @@ public partial class CAbilityTargetInfo : CTargetInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 
@@ -332,7 +332,7 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		m_oTargetInfoList = m_oTargetInfoList ?? new List<CTargetInfo>();
@@ -399,7 +399,7 @@ public partial class CUserInfo : CBaseInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		m_oCharacterUserInfoDict = m_oCharacterUserInfoDict ?? new Dictionary<int, CCharacterUserInfo>();

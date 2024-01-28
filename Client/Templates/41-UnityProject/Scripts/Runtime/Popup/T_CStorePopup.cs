@@ -235,9 +235,9 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-	/** 상품이 복원 되었을 경우 */
+	/** 상품이 복원되었을 경우 */
 	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
-		// 복원 되었을 경우
+		// 복원되었을 경우
 		if(a_bIsSuccess) {
 			m_oRestoreProductList = a_oProductList;
 			Func.AcquireRestoreProducts(a_oProductList);
@@ -253,9 +253,9 @@ public partial class CStorePopup : CSubPopup {
 		this.Params.m_oPurchaseCallbackDictB?.GetValueOrDefault(ECallback.RESTORE)?.Invoke(a_oSender, a_oProductList, a_bIsSuccess);
 	}
 
-	/** 상품이 결제 되었을 경우 */
+	/** 상품이 결제되었을 경우 */
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
-		// 결제 되었을 경우
+		// 결제되었을 경우
 		if(a_bIsSuccess) {
 			// Do Something
 		}
@@ -267,7 +267,7 @@ public partial class CStorePopup : CSubPopup {
 #if FIREBASE_MODULE_ENABLE
 	/** 타겟 정보를 로드했을 경우 */
 	private void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
-		// 로드 되었을 경우
+		// 로드되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
 			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oTargetInfoDict, true);

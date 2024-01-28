@@ -36,13 +36,13 @@ public static partial class CBuildProcessor {
 	#endregion // 변수
 
 	#region 클래스 함수
-	/** 빌드가 완료 되었을 경우 */
+	/** 빌드가 완료되었을 경우 */
 	[PostProcessBuild(byte.MaxValue * 10)]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		CBuildProcessor.m_oLatePostProcessHandlerDict.GetValueOrDefault(a_eTarget)?.Invoke(a_eTarget, a_oPath);
 	}
 
-	/** 빌드가 완료 되었을 경우 */
+	/** 빌드가 완료되었을 경우 */
 	[PostProcessBuild(byte.MaxValue * 20)]
 	public static void OnLatePostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
 		// 배치 모드가 아닐 경우

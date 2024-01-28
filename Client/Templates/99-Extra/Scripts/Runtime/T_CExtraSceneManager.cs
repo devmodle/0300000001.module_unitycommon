@@ -45,12 +45,12 @@ public partial class CExtraSceneManager : CSceneManager {
 		this.UpdateUIsState();
 	}
 
-	/** 제거 되었을 경우 */
+	/** 제거되었을 경우 */
 	public override void OnDestroy() {
 		base.OnDestroy();
 
 		try {
-			// 앱이 종료 되었을 경우
+			// 앱이 종료되었을 경우
 			if(!CSceneManager.IsAppRunning) {
 				return;
 			}
@@ -63,7 +63,7 @@ public partial class CExtraSceneManager : CSceneManager {
 	public override void OnUpdate(float a_fDeltaTime) {
 		base.OnUpdate(a_fDeltaTime);
 
-		// 앱이 종료 되었을 경우
+		// 앱이 종료되었을 경우
 		if(!CSceneManager.IsAppRunning) {
 			return;
 		}

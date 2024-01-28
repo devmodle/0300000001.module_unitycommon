@@ -611,9 +611,9 @@ public static partial class Func {
 #endif // #if ADS_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-	/** 로그인 되었을 경우 */
+	/** 로그인되었을 경우 */
 	public static void OnLogin(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
-		// 로그아웃 되었을 경우
+		// 로그아웃되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_LOGIN_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
 		} else {
@@ -621,9 +621,9 @@ public static partial class Func {
 		}
 	}
 
-	/** 로그아웃 되었을 경우 */
+	/** 로그아웃되었을 경우 */
 	public static void OnLogout(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
-		// 로그아웃 되었을 경우
+		// 로그아웃되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_LOGOUT_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
 		} else {
@@ -631,9 +631,9 @@ public static partial class Func {
 		}
 	}
 
-	/** 유저 정보가 로드 되었을 경우 */
+	/** 유저 정보가 로드되었을 경우 */
 	public static void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
-		// 로드 되었을 경우
+		// 로드되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_LOAD_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
 		} else {
@@ -641,9 +641,9 @@ public static partial class Func {
 		}
 	}
 
-	/** 유저 정보가 저장 되었을 경우 */
+	/** 유저 정보가 저장되었을 경우 */
 	public static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
-		// 저장 되었을 경우
+		// 저장되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_SAVE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
 		} else {
@@ -653,9 +653,9 @@ public static partial class Func {
 #endif // #if FIREBASE_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-	/** 상품이 복원 되었을 경우 */
+	/** 상품이 복원되었을 경우 */
 	public static void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
-		// 복원 되었을 경우
+		// 복원되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_RESTORE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
 		} else {
@@ -663,9 +663,9 @@ public static partial class Func {
 		}
 	}
 
-	/** 상품이 결제 되었을 경우 */
+	/** 상품이 결제되었을 경우 */
 	public static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
-		// 결제 되었을 경우
+		// 결제되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_PURCHASE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
 		} else {

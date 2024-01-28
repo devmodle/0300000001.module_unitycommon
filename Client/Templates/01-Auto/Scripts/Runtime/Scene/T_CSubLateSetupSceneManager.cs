@@ -45,7 +45,7 @@ namespace LateSetupScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 초기화 되었을 경우
+			// 초기화되었을 경우
 			if(CSceneManager.IsInit) {
 				CFunc.ShowLog($"Country Code: {CCommonAppInfoStorage.Inst.CountryCode}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
 				CFunc.ShowLog($"System Language: {CCommonAppInfoStorage.Inst.SystemLanguage}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);

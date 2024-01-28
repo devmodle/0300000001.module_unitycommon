@@ -40,7 +40,7 @@ public partial class CClearInfo : CBaseInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 
@@ -144,7 +144,7 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 
@@ -193,7 +193,7 @@ public partial class CGameInfo : CBaseInfo {
 		base.OnBeforeSerialize();
 	}
 
-	/** 역직렬화 되었을 경우 */
+	/** 역직렬화되었을 경우 */
 	public override void OnAfterDeserialize() {
 		base.OnAfterDeserialize();
 		m_oCharacterGameInfoDict = m_oCharacterGameInfoDict ?? new Dictionary<int, CCharacterGameInfo>();

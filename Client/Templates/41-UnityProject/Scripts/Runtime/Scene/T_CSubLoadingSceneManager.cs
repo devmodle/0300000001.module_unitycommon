@@ -25,7 +25,7 @@ namespace LoadingScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 				this.SubAwake();
 			}
@@ -35,14 +35,14 @@ namespace LoadingScene {
 		public override void Start() {
 			base.Start();
 
-			// 앱이 초기화 되었을 경우
+			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsAppInit) {
 				this.SubStart();
 				this.UpdateUIsState();
 			}
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 
@@ -71,7 +71,7 @@ namespace LoadingScene {
 			this.SubUpdateUIsState();
 		}
 
-		/** 비동기 씬 로딩 수치가 변경 되었을 경우 */
+		/** 비동기 씬 로딩 수치가 변경되었을 경우 */
 		protected override void OnChangeAsyncSceneLoadingPercent(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
 			base.OnChangeAsyncSceneLoadingPercent(a_oAsyncOperation, a_bIsComplete);
 		}

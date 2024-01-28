@@ -33,7 +33,7 @@ namespace NSEngine {
 			this.SubInit();
 		}
 
-		/** 제거 되었을 경우 */
+		/** 제거되었을 경우 */
 		public override void OnDestroy() {
 			base.OnDestroy();
 
