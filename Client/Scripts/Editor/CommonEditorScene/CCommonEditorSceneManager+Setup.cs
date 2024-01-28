@@ -229,8 +229,8 @@ public static partial class CCommonEditorSceneManager {
 	}
 
 	/** 광원 옵션을 설정한다 */
-	private static void DoSetupLightOpts(EQualityLevel a_eQualityLevel, LightingSettings a_oSettings, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSettings != null);
+	private static void DoSetupLightOpts(EQualityLevel a_eQualityLevel, LightingSettings a_oSettings, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oSettings != null);
 
 		// 광원 설정이 존재 할 경우
 		if(a_oSettings != null && CPlatformOptsSetter.OptsInfoTable != null) {

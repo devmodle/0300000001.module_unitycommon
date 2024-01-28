@@ -118,7 +118,7 @@ namespace OverlayScene {
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 			// 텍스트를 갱신한다
-			m_oTMPTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS)}", a_bIsEnableAssert: false);
+			m_oTMPTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS)}", a_bIsAssert: false);
 
 			this.SubUpdateUIsState();
 			Func.UpdateSingleSceneUIsState();

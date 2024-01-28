@@ -57,20 +57,25 @@ namespace LateSetupScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
-				CSceneManager.GetSceneManager<SetupScene.CSetupSceneManager>()?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT, ESetupSceneEvent.LOAD_LATE_SETUP_SCENE, false);
+			// 초기화가 필요 할 경우
+			if(!CSceneManager.IsInit) {
+				return;
 			}
+
+			CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT,
+				global::SetupScene.CSetupSceneManager.ESetupSceneEvent.LOAD_LATE_SETUP_SCENE, false);
 		}
 
 		/** 초기화 */
 		public sealed override void Start() {
 			base.Start();
 
-			// 초기화 되었을 경우
-			if(CSceneManager.IsInit) {
-				StartCoroutine(this.CoStart());
+			// 초기화가 필요 할 경우
+			if(!CSceneManager.IsInit) {
+				return;
 			}
+
+			StartCoroutine(this.CoStart());
 		}
 
 		/** 씬을 설정한다 */
@@ -212,9 +217,10 @@ namespace LateSetupScene {
 
 		/** 다음 씬을 로드한다 */
 		private void LoadNextScene() {
-			CSceneManager.SetEnableLateSetup(true);
-			CSceneManager.GetSceneManager<SetupScene.CSetupSceneManager>()?.gameObject.ExSendMsg(string.Empty, KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT, ESetupSceneEvent.LOAD_NEXT_SCENE, false);
+			CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT, 
+				global::SetupScene.CSetupSceneManager.ESetupSceneEvent.LOAD_NEXT_SCENE, false);
 
+			CSceneManager.SetEnableLateSetup(true);
 			CCommonAppInfoStorage.Inst.SetupStoreVer();
 
 #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE

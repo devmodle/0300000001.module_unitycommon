@@ -23,6 +23,7 @@ public static partial class KEditorDefine {
 		[typeof(CSndManager)] = KCDefine.U_SCRIPT_O_LATE,
 		[typeof(CResManager)] = KCDefine.U_SCRIPT_O_LATE,
 		[typeof(CTaskManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CNetworkManager)] = KCDefine.U_SCRIPT_O_LATE,
 		
 		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_O_LATE,
 		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_O_LATE,
@@ -37,6 +38,14 @@ public static partial class KEditorDefine {
 		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
 		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
 		[typeof(CCommonGameInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
+
+		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CEditorSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+
+#if RESEARCH_MODULE_ENABLE
+		[typeof(CRMenuSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CRResearchSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+#endif // #if RESEARCH_MODULE_ENABLE
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
 		[typeof(InitScene.CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
@@ -232,7 +241,7 @@ public static partial class KEditorDefine {
 	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif // #if UNITY_IOS
-	#endregion // 조건부 상수
+#endregion // 조건부 상수
 
 	#region 조건부 런타임 상수
 #if UNITY_IOS

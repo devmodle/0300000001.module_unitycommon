@@ -105,8 +105,8 @@ public static partial class AccessExtension {
 	}
 
 	/** 소유자 타겟 정보를 변경한다 */
-	public static void ExSetOwnerTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oOwnerTargetInfo, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+	public static void ExSetOwnerTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oOwnerTargetInfo, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oSender != null);
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null) {

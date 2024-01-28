@@ -156,8 +156,8 @@ public static partial class Func {
 	}
 
 	/** 문자열 테이블을 설정한다 */
-	public static void SetupStrTable(string a_oCountryCode, SystemLanguage a_eSystemLanguage, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oCountryCode.ExIsValid());
+	public static void SetupStrTable(string a_oCountryCode, SystemLanguage a_eSystemLanguage, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oCountryCode.ExIsValid());
 
 		// 국가 코드가 없을 경우
 		if(!a_oCountryCode.ExIsValid()) {
@@ -171,8 +171,8 @@ public static partial class Func {
 	}
 
 	/** 드래그 전달자를 설정한다 */
-	public static void SetupDragDispatchers(List<(GameObject, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupDragDispatchers(List<(GameObject, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -188,8 +188,8 @@ public static partial class Func {
 	}
 
 	/** 드래그 전달자를 설정한다 */
-	public static void SetupDragDispatchers(List<(string, GameObject, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupDragDispatchers(List<(string, GameObject, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>, System.Action<CDragDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -205,8 +205,8 @@ public static partial class Func {
 	}
 
 	/** 이벤트 전달자를 설정한다 */
-	public static void SetupEventDispatchers(List<(GameObject, System.Action<CEventDispatcher, string>, System.Action<CEventDispatcher, string>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupEventDispatchers(List<(GameObject, System.Action<CEventDispatcher, string>, System.Action<CEventDispatcher, string>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -220,8 +220,8 @@ public static partial class Func {
 	}
 
 	/** 이벤트 전달자를 설정한다 */
-	public static void SetupEventDispatchers(List<(string, GameObject, System.Action<CEventDispatcher, string>, System.Action<CEventDispatcher, string>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupEventDispatchers(List<(string, GameObject, System.Action<CEventDispatcher, string>, System.Action<CEventDispatcher, string>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -235,8 +235,8 @@ public static partial class Func {
 	}
 
 	/** 터치 전달자를 설정한다 */
-	public static void SetupTouchDispatchers(List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupTouchDispatchers(List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -251,8 +251,8 @@ public static partial class Func {
 	}
 
 	/** 터치 전달자를 설정한다 */
-	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -267,8 +267,8 @@ public static partial class Func {
 	}
 
 	/** 충돌 전달자를 설정한다 */
-	public static void SetupTriggerDispatchers(List<(GameObject, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupTriggerDispatchers(List<(GameObject, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -283,8 +283,8 @@ public static partial class Func {
 	}
 
 	/** 충돌 전달자를 설정한다 */
-	public static void SetupTriggerDispatchers(List<(GameObject, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupTriggerDispatchers(List<(GameObject, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -299,8 +299,8 @@ public static partial class Func {
 	}
 
 	/** 충돌 전달자를 설정한다 */
-	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>, System.Action<CTriggerDispatcher, Collider>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -315,8 +315,8 @@ public static partial class Func {
 	}
 
 	/** 충돌 전달자를 설정한다 */
-	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupTouchDispatchers(List<(string, GameObject, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>, System.Action<CTriggerDispatcher, Collider2D>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -331,8 +331,8 @@ public static partial class Func {
 	}
 
 	/** 충돌 전달자를 설정한다 */
-	public static void SetupCollisionDispatchers(List<(GameObject, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupCollisionDispatchers(List<(GameObject, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -347,8 +347,8 @@ public static partial class Func {
 	}
 
 	/** 충돌 전달자를 설정한다 */
-	public static void SetupCollisionDispatchers(List<(GameObject, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupCollisionDispatchers(List<(GameObject, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -363,8 +363,8 @@ public static partial class Func {
 	}
 
 	/** 충돌 전달자를 설정한다 */
-	public static void SetupCollisionDispatchers(List<(string, GameObject, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupCollisionDispatchers(List<(string, GameObject, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>, System.Action<CCollisionDispatcher, Collision>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -379,8 +379,8 @@ public static partial class Func {
 	}
 
 	/** 충돌 전달자를 설정한다 */
-	public static void SetupCollisionDispatchers(List<(string, GameObject, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+	public static void SetupCollisionDispatchers(List<(string, GameObject, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>, System.Action<CCollisionDispatcher, Collision2D>)> a_oKeyInfoList, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oKeyInfoList.ExIsValid());
 
 		// 키 정보가 없을 경우
 		if(!a_oKeyInfoList.ExIsValid()) {
@@ -397,33 +397,33 @@ public static partial class Func {
 	/** 단일 씬 UI 상태를 갱신한다 */
 	public static void UpdateSingleSceneUIsState() {
 		CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
-			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsAssert: false);
 
 		CSceneManager.GetSceneManager<PlayScene.CSubPlaySceneManager>()?.gameObject.ExSendMsg(string.Empty, 
-			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsAssert: false);
 
 		CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
-			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsAssert: false);
 
 		CSceneManager.GetSceneManager<LoadingScene.CSubLoadingSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
-			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsAssert: false);
 	}
 
 	/** 중첩 씬 UI 상태를 갱신한다 */
 	public static void UpdateOverlaySceneUIsState() {
 		CSceneManager.GetSceneManager<ResultScene.CSubResultSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
-			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsAssert: false);
 
 		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>()?.gameObject.ExSendMsg(string.Empty, 
-			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsAssert: false);
 	}
 
 	/** 배경음을 재생한다 */
-	public static CSnd PlayBGSnd(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
+	public static CSnd PlayBGSnd(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = true, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_eResKinds.ExIsValid());
 
 		try {
-			return Func.PlayBGSnd(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+			return Func.PlayBGSnd(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsAssert);
 		} catch(System.Exception oException) {
 			CFunc.ShowLog($"Func.PlayBGSnd Exception: {oException.Message}");
 		}
@@ -432,17 +432,17 @@ public static partial class Func {
 	}
 
 	/** 배경음을 재생한다 */
-	public static CSnd PlayBGSnd(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = true, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
-		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayBGSnd(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
+	public static CSnd PlayBGSnd(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = true, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_eResKinds.ExIsValid());
+		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayBGSnd(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsAssert) : null;
 	}
 
 	/** 효과음을 재생한다 */
-	public static CSnd PlayFXSnds(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
+	public static CSnd PlayFXSnds(EResKinds a_eResKinds, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = false, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_eResKinds.ExIsValid());
 
 		try {
-			return Func.PlayFXSnds(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsEnableAssert);
+			return Func.PlayFXSnds(a_eResKinds, CSceneManager.ActiveSceneMainCamera.transform.position, a_fVolume, a_bIsLoop, a_bIsAssert);
 		} catch(System.Exception oException) {
 			CFunc.ShowLog($"Func.PlayFXSnds Exception: {oException.Message}");
 		}
@@ -451,9 +451,9 @@ public static partial class Func {
 	}
 
 	/** 효과음을 재생한다 */
-	public static CSnd PlayFXSnds(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = false, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
-		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
+	public static CSnd PlayFXSnds(EResKinds a_eResKinds, Vector3 a_stPos, float a_fVolume = KCDefine.B_VAL_0_REAL, bool a_bIsLoop = false, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_eResKinds.ExIsValid());
+		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsAssert) : null;
 	}
 
 	/** 저장소를 저장한다 */
@@ -766,8 +766,8 @@ public static partial class Func {
 	}
 
 	/** 타겟 정보를 저장한다 */
-	public static void SaveTargetInfos(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oTargetInfoDict != null);
+	public static void SaveTargetInfos(Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oTargetInfoDict != null);
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oTargetInfoDict != null) {
@@ -788,8 +788,8 @@ public static partial class Func {
 	}
 
 	/** 결제 정보를 저장한다 */
-	public static void SavePurchaseInfos(List<STPurchaseInfo> a_oPurchaseInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oPurchaseInfoList != null);
+	public static void SavePurchaseInfos(List<STPurchaseInfo> a_oPurchaseInfoList, System.Action<CFirebaseManager, bool> a_oCallback, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oPurchaseInfoList != null);
 
 		// 결제 정보가 존재 할 경우
 		if(a_oPurchaseInfoList != null) {
@@ -966,24 +966,24 @@ public static partial class Func {
 	}
 
 	/** 상품을 결제한다 */
-	public static void PurchaseProduct(int a_nProductIdx, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		Func.PurchaseProduct(CProductInfoTable.Inst.GetProductInfo(a_nProductIdx).m_oID, a_oCallback, a_bIsEnableAssert);
+	public static void PurchaseProduct(int a_nProductIdx, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsAssert = true) {
+		Func.PurchaseProduct(CProductInfoTable.Inst.GetProductInfo(a_nProductIdx).m_oID, a_oCallback, a_bIsAssert);
 	}
 
 	/** 상품을 결제한다 */
-	public static void PurchaseProduct(EProductKinds a_eProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
+	public static void PurchaseProduct(EProductKinds a_eProductKinds, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsAssert = true) {
 		bool bIsValid = CProductTradeInfoTable.Inst.TryGetBuyProductTradeInfo(a_eProductKinds, out STProductTradeInfo stProductTradeInfo);
-		CAccess.Assert(!a_bIsEnableAssert || bIsValid);
+		CAccess.Assert(!a_bIsAssert || bIsValid);
 
 		// 상품이 존재 할 경우
 		if(bIsValid) {
-			Func.PurchaseProduct(stProductTradeInfo.m_nProductIdx, a_oCallback, a_bIsEnableAssert);
+			Func.PurchaseProduct(stProductTradeInfo.m_nProductIdx, a_oCallback, a_bIsAssert);
 		}
 	}
 
 	/** 상품을 결제한다 */
-	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oID.ExIsValid());
+	public static void PurchaseProduct(string a_oID, System.Action<CPurchaseManager, string, bool> a_oCallback, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oID.ExIsValid());
 
 		// 식별자가 유효 할 경우
 		if(a_oID.ExIsValid()) {
@@ -1114,8 +1114,8 @@ public static partial class Func {
 	}
 
 	/** 로드 구글 시트 정보를 설정한다 */
-	public static void SetupLoadGoogleSheetInfos(Dictionary<string, STLoadGoogleSheetInfo> a_oOutLoadGoogleSheetInfoDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oOutLoadGoogleSheetInfoDict != null);
+	public static void SetupLoadGoogleSheetInfos(Dictionary<string, STLoadGoogleSheetInfo> a_oOutLoadGoogleSheetInfoDict, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oOutLoadGoogleSheetInfoDict != null);
 
 		// 로드 구글 시트 정보 설정이 가능 할 경우
 		if(a_oOutLoadGoogleSheetInfoDict != null) {
@@ -1124,15 +1124,15 @@ public static partial class Func {
 			for(int i = 0; i < oKeyList.Count; ++i) {
 				// 버전 정보 테이블이 아닐 경우
 				if(!oKeyList[i].Equals(KDefine.G_TABLE_N_VER_INFO)) {
-					Func.DoSetupLoadGoogleSheetInfos(Access.GoogleSheetTableInfo[oKeyList[i]], a_oOutLoadGoogleSheetInfoDict, KDefine.G_TABLE_INFO_NUM_ROWS_DICT.GetValueOrDefault(oKeyList[i]), a_bIsEnableAssert);
+					Func.DoSetupLoadGoogleSheetInfos(Access.GoogleSheetTableInfo[oKeyList[i]], a_oOutLoadGoogleSheetInfoDict, KDefine.G_TABLE_INFO_NUM_ROWS_DICT.GetValueOrDefault(oKeyList[i]), a_bIsAssert);
 				}
 			}
 		}
 	}
 
 	/** 저장 구글 시트 정보를 설정한다 */
-	public static void SetupSaveGoogleSheetInfos(Dictionary<string, STSaveGoogleSheetInfo> a_oOutSaveGoogleSheetInfoDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oOutSaveGoogleSheetInfoDict != null);
+	public static void SetupSaveGoogleSheetInfos(Dictionary<string, STSaveGoogleSheetInfo> a_oOutSaveGoogleSheetInfoDict, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oOutSaveGoogleSheetInfoDict != null);
 
 		// 저장 구글 시트 정보 설정이 가능 할 경우
 		if(a_oOutSaveGoogleSheetInfoDict != null) {
@@ -1141,7 +1141,7 @@ public static partial class Func {
 			for(int i = 0; i < oKeyList.Count; ++i) {
 				// 버전 정보 테이블이 아닐 경우
 				if(!oKeyList[i].Equals(KDefine.G_TABLE_N_VER_INFO)) {
-					Func.DoSetupSaveGoogleSheetInfos(Access.GoogleSheetTableInfo[oKeyList[i]], a_oOutSaveGoogleSheetInfoDict, a_bIsEnableAssert);
+					Func.DoSetupSaveGoogleSheetInfos(Access.GoogleSheetTableInfo[oKeyList[i]], a_oOutSaveGoogleSheetInfoDict, a_bIsAssert);
 				}
 			}
 		}
@@ -1388,8 +1388,8 @@ public static partial class Func {
 	}
 
 	/** 로드 구글 시트 정보를 설정한다 */
-	private static void DoSetupLoadGoogleSheetInfos(STTableInfo a_stTableInfo, Dictionary<string, STLoadGoogleSheetInfo> a_oOutLoadGoogleSheetInfoDict, int a_nMaxNumRows = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_stTableInfo.m_oSheetNameDictContainer.ExIsValid());
+	private static void DoSetupLoadGoogleSheetInfos(STTableInfo a_stTableInfo, Dictionary<string, STLoadGoogleSheetInfo> a_oOutLoadGoogleSheetInfoDict, int a_nMaxNumRows = KCDefine.U_MAX_NUM_GOOGLE_SHEET_ROWS, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_stTableInfo.m_oSheetNameDictContainer.ExIsValid());
 
 		// 구글 시트 정보 설정이 가능 할 경우
 		if(a_stTableInfo.m_oSheetNameDictContainer.ExIsValid()) {
@@ -1415,8 +1415,8 @@ public static partial class Func {
 	}
 
 	/** 저장 구글 시트 정보를 설정한다 */
-	private static void DoSetupSaveGoogleSheetInfos(STTableInfo a_stTableInfo, Dictionary<string, STSaveGoogleSheetInfo> a_oOutSaveGoogleSheetInfoDict, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_stTableInfo.m_oSheetNameDictContainer.ExIsValid());
+	private static void DoSetupSaveGoogleSheetInfos(STTableInfo a_stTableInfo, Dictionary<string, STSaveGoogleSheetInfo> a_oOutSaveGoogleSheetInfoDict, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_stTableInfo.m_oSheetNameDictContainer.ExIsValid());
 
 		// 구글 시트 정보 설정이 가능 할 경우
 		if(a_stTableInfo.m_oSheetNameDictContainer.ExIsValid()) {

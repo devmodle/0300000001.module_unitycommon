@@ -12,8 +12,8 @@ using DG.Tweening;
 public static partial class Extension {
 	#region 클래스 함수
 	/** 타겟 정보를 추가한다 */
-	public static void ExAddTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
+	public static void ExAddTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
@@ -27,19 +27,19 @@ public static partial class Extension {
 	}
 
 	/** 소유 타겟 정보를 추가한다 */
-	public static void ExAddOwnedTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
+	public static void ExAddOwnedTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
-			a_oSender.m_oOwnedTargetInfoList.ExAddTargetInfo(a_oTargetInfo, true, a_bIsEnableAssert);
-			a_oTargetInfo.ExSetOwnerTargetInfo(a_oSender, a_bIsEnableAssert);
+			a_oSender.m_oOwnedTargetInfoList.ExAddTargetInfo(a_oTargetInfo, true, a_bIsAssert);
+			a_oTargetInfo.ExSetOwnerTargetInfo(a_oSender, a_bIsAssert);
 		}
 	}
 
 	/** 타겟 정보를 제거한다 */
-	public static void ExRemoveTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null && a_oSender.Contains(a_oTargetInfo)));
+	public static void ExRemoveTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null && a_oSender.Contains(a_oTargetInfo)));
 
 		// 타겟 정보가 존재 할 경우
 		if((a_oSender != null && a_oTargetInfo != null && a_oSender.Contains(a_oTargetInfo))) {
@@ -48,19 +48,19 @@ public static partial class Extension {
 	}
 
 	/** 소유 타겟 정보를 제거한다 */
-	public static void ExRemoveOwnedTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
+	public static void ExRemoveOwnedTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
-			a_oSender.m_oOwnedTargetInfoList.ExRemoveTargetInfo(a_oTargetInfo, a_bIsEnableAssert);
-			a_oTargetInfo.ExSetOwnerTargetInfo(null, a_bIsEnableAssert);
+			a_oSender.m_oOwnedTargetInfoList.ExRemoveTargetInfo(a_oTargetInfo, a_bIsAssert);
+			a_oTargetInfo.ExSetOwnerTargetInfo(null, a_bIsAssert);
 		}
 	}
 
 	/** 어빌리티 값을 증가시킨다 */
-	public static void ExIncrAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds, decimal a_dmVal, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eAbilityKinds != EAbilityKinds.NONE));
+	public static void ExIncrAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds, decimal a_dmVal, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eAbilityKinds != EAbilityKinds.NONE));
 
 		// 어빌리티 값 설정이 가능 할 경우
 		if(a_oSender != null && a_eAbilityKinds != EAbilityKinds.NONE) {
@@ -70,14 +70,14 @@ public static partial class Extension {
 	}
 
 	/** 타겟 값을 증가시킨다 */
-	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
-		a_oSender.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds) + a_dmVal, a_bIsEnableAssert);
+	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
+		a_oSender.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds) + a_dmVal, a_bIsAssert);
 	}
 
 	/** 타겟 값을 대체한다 */
-	public static void ExReplaceTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
+	public static void ExReplaceTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_eTargetKinds.ExIsValid()) {
@@ -92,10 +92,10 @@ public static partial class Extension {
 	}
 
 	/** 효과를 실행한다 */
-	public static void ExPlay(this ParticleSystem a_oSender, System.Action<CEventDispatcher, string> a_oCallback, bool a_bIsPlayChildren = true, bool a_bIsStopChildren = true, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
+	public static void ExPlay(this ParticleSystem a_oSender, System.Action<CEventDispatcher, string> a_oCallback, bool a_bIsPlayChildren = true, bool a_bIsStopChildren = true, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oSender != null);
 
-		a_oSender?.ExPlay(a_bIsPlayChildren, a_bIsStopChildren, a_bIsEnableAssert);
+		a_oSender?.ExPlay(a_bIsPlayChildren, a_bIsStopChildren, a_bIsAssert);
 		a_oSender?.GetComponentInChildren<CEventDispatcher>()?.SetParticleFXCallback(a_oCallback);
 	}
 

@@ -121,8 +121,8 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	}
 
 	/** 보상 정보를 저장한다 */
-	public void SaveRewardInfos(string a_oJSONStr, bool a_bIsEnableAssert = true) {
-		CAccess.Assert(!a_bIsEnableAssert || a_oJSONStr != null);
+	public void SaveRewardInfos(string a_oJSONStr, bool a_bIsAssert = true) {
+		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {

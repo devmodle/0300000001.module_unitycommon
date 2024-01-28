@@ -60,7 +60,7 @@ namespace NSEngine {
 
 			// 스프라이트를 설정한다
 			this.TargetSprite?.gameObject.ExSetLocalPos(Vector3.zero, false);
-			this.TargetSprite?.ExSetColor<SpriteRenderer>(Color.white, false);
+			this.TargetSprite?.ExSetPropertyVal<SpriteRenderer>(KCDefine.U_PROPERTY_N_COLOR, Color.white, a_bIsAssert: false);
 
 			// 파티클 효과를 설정한다
 			this.TargetParticleFX?.gameObject.ExSetLocalPos(Vector3.zero, false);

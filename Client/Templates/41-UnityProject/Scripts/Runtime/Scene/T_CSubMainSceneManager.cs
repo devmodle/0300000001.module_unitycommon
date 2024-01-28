@@ -223,7 +223,7 @@ namespace MainScene {
 				(EKey.CONTENTS_SCROLL_SNAP, KCDefine.U_OBJ_N_PAGE_VIEW, this.UIs, (a_nCenterIdx, a_nSelIdx) => this.UpdateUIsState())
 			}, m_oScrollSnapDict);
 
-			m_oScrollSnapDict[EKey.CONTENTS_SCROLL_SNAP]?.ExAddListener(this.OnChangeScrollSnapPage, a_bIsEnableAssert: false);
+			m_oScrollSnapDict[EKey.CONTENTS_SCROLL_SNAP]?.ExAddListener(this.OnChangeScrollSnapPage, a_bIsAssert: false);
 			// 스크롤 뷰를 설정한다 }
 
 			this.SubAwake();

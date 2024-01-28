@@ -146,8 +146,8 @@ public partial class CResultPopup : CSubPopup {
 		// 객체를 갱신한다 }
 
 		// 텍스트를 갱신한다
-		m_oTMPTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", a_bIsEnableAssert: false);
-		m_oTMPTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((oLevelClearInfo != null) ? $"{oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, a_bIsEnableAssert: false);
+		m_oTMPTextDict[EKey.RECORD_TEXT]?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", a_bIsAssert: false);
+		m_oTMPTextDict[EKey.BEST_RECORD_TEXT]?.ExSetText((oLevelClearInfo != null) ? $"{oLevelClearInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, a_bIsAssert: false);
 
 		this.SubUpdateUIsState();
 	}

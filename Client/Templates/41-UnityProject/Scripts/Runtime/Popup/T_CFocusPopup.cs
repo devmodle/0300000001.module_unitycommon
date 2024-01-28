@@ -90,7 +90,7 @@ public partial class CFocusPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		// 이미지를 갱신한다
-		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetColor<Image>(KCDefine.U_COLOR_POPUP_BLIND, false);
+		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, KCDefine.U_COLOR_POPUP_BLIND, a_bIsAssert: false);
 
 		this.SubUpdateUIsState();
 	}

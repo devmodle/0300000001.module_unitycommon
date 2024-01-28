@@ -187,7 +187,7 @@ namespace LevelEditorScene {
 		public SpriteRenderer SelObjSprite => m_oSelObjSpriteList.FirstOrDefault();
 		public NSEngine.STGridInfo SelGridInfo => m_oGridInfoList[m_nSelGridInfoIdx];
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 		#region IEnhancedScrollerDelegate
 		/** 셀 개수를 반환한다 */
@@ -380,7 +380,7 @@ namespace LevelEditorScene {
 
 						this.SelObjSprite?.gameObject.SetActive(bIsValid01 && bIsValid02);
 						this.SelObjSprite?.gameObject.ExSetLocalPos(this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize));
-						this.SelObjSprite?.ExSetColor<SpriteRenderer>(stColor.ExGetAlphaColor(KCDefine.B_VAL_0_5_REAL));
+						this.SelObjSprite?.ExSetPropertyVal<SpriteRenderer>(KCDefine.U_PROPERTY_N_COLOR, stColor.ExGetAlphaColor(KCDefine.B_VAL_0_5_REAL));
 					} else {
 						this.SelObjSprite?.gameObject.SetActive(false);
 					}
@@ -676,7 +676,7 @@ namespace LevelEditorScene {
 				}
 			}
 
-			this.SelObjSprite?.ExSetSprite<SpriteRenderer>(Access.GetEditorSprite(m_eSelObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+			this.SelObjSprite?.ExSetPropertyVal<SpriteRenderer>(KCDefine.U_PROPERTY_N_SPRITE, Access.GetEditorSprite(m_eSelObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 			// 객체 스프라이트를 설정한다 }
 
 			// 에디터 객체 스프라이트를 설정한다 {
@@ -1122,7 +1122,7 @@ namespace LevelEditorScene {
 			this.CloseNoti();
 			this.MEUIsMsgUIs?.SetActive(true);
 
-			m_oTextDict[EKey.ME_UIS_MSG_TEXT]?.ExSetText<Text>(a_oMsg, false);
+			m_oTextDict[EKey.ME_UIS_MSG_TEXT]?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, a_oMsg, a_bIsAssert: false);
 			CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_1_INT, () => this.CloseNoti());
 		}
 
@@ -1241,7 +1241,7 @@ namespace LevelEditorScene {
 		}
 #endif // #if GOOGLE_SHEET_ENABLE
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -1345,7 +1345,7 @@ namespace LevelEditorScene {
 			CGameInfoStorage.Inst.SetPlayLevelInfo(a_oLevelInfo);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 접근자 함수
+#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 중앙 에디터 UI */
@@ -1414,12 +1414,12 @@ namespace LevelEditorScene {
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
 
 			// 텍스트를 갱신한다
-			m_oTextDict[EKey.ME_UIS_LEVEL_TEXT]?.ExSetText<Text>(string.Format(KCDefine.LES_TEXT_FMT_LEVEL, this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT), false);
-			m_oTextDict[EKey.ME_UIS_OBJ_SIZE_TEXT]?.ExSetText<Text>(string.Format(KCDefine.LES_TEXT_FMT_SIZE, m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.text), false);
+			m_oTextDict[EKey.ME_UIS_LEVEL_TEXT]?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, string.Format(KCDefine.LES_TEXT_FMT_LEVEL, this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT), a_bIsAssert: false);
+			m_oTextDict[EKey.ME_UIS_OBJ_SIZE_TEXT]?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, string.Format(KCDefine.LES_TEXT_FMT_SIZE, m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.text), a_bIsAssert: false);
 
 			// 이미지를 갱신한다
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.gameObject.SetActive(m_eSelObjKinds.ExIsValid());
-			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorSprite(m_eSelObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_SPRITE, Access.GetEditorSprite(m_eSelObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 
 			// 버튼을 갱신한다 {
 			m_oBtnDict[EKey.ME_UIS_PREV_GRID_BTN]?.ExSetInteractable(m_oGridInfoList.ExIsValidIdx(m_nSelGridInfoIdx - KCDefine.B_VAL_1_INT));
@@ -1574,7 +1574,7 @@ namespace LevelEditorScene {
 			this.SetMEUIsGridScrollDelta(a_fVal * -fWidth, a_fVal * -fHeight);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -1609,7 +1609,7 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 접근자 함수
+#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 왼쪽 에디터 UI */
@@ -1687,8 +1687,8 @@ namespace LevelEditorScene {
 
 			// 버튼을 설정한다 {
 #if AB_TEST_ENABLE
-			m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.yellow : Color.white, false);
-			m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.image.ExSetColor<Image>((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.yellow : Color.white, false);
+			m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.yellow : Color.white, a_bIsAssert: false);
+			m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.yellow : Color.white, a_bIsAssert: false);
 #endif // #if AB_TEST_ENABLE
 			// 버튼을 설정한다 }
 		}
@@ -1737,7 +1737,7 @@ namespace LevelEditorScene {
 		}
 #endif // #if AB_TEST_ENABLE
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 오른쪽 에디터 UI */
@@ -1907,7 +1907,7 @@ namespace LevelEditorScene {
 		private void UpdateRightEditorUIsState() {
 			// 텍스트를 설정한다
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
-			m_oTextDict[EKey.RE_UIS_TITLE_TEXT]?.ExSetText<Text>(string.Format(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LEVEL_PAGE_TEXT_FMT), this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT, nNumLevelInfos), false);
+			m_oTextDict[EKey.RE_UIS_TITLE_TEXT]?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, string.Format(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LEVEL_PAGE_TEXT_FMT), this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT, nNumLevelInfos), a_bIsAssert: false);
 
 			// 버튼을 설정한다 {
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_REMOVE_ALL_LEVELS_BTN]?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT, false);
@@ -1924,7 +1924,7 @@ namespace LevelEditorScene {
 			// 페이지 스크롤 스냅이 존재 할 경우
 			if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
 				// 텍스트를 설정한다
-				m_oTextDict[EKey.RE_UIS_PAGE_TEXT]?.ExSetText<Text>(string.Format(KCDefine.B_TEXT_FMT_2_SLASH_COMBINE, m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].CenteredPanel + KCDefine.B_VAL_1_INT, m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels), false);
+				m_oTextDict[EKey.RE_UIS_PAGE_TEXT]?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, string.Format(KCDefine.B_TEXT_FMT_2_SLASH_COMBINE, m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].CenteredPanel + KCDefine.B_VAL_1_INT, m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels), a_bIsAssert: false);
 
 				// 버튼 상태를 갱신한다
 				m_oBtnDict[EKey.RE_UIS_PREV_BTN]?.ExSetInteractable(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].CenteredPanel > KCDefine.B_VAL_0_INT, false);
@@ -2155,7 +2155,7 @@ namespace LevelEditorScene {
 			this.SetREUIsPageUIs02ObjSize(bIsValid01 ? nSizeX : KCDefine.B_VAL_1_INT, bIsValid02 ? nSizeY : KCDefine.B_VAL_1_INT);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -2230,7 +2230,7 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 접근자 함수
+#endregion // 조건부 접근자 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 스크롤러 셀 뷰 */
@@ -2301,8 +2301,8 @@ namespace LevelEditorScene {
 			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict[EKey.LE_UIS_LEVEL_SCROLLER_INFO].m_oScrollerCellView) as CEditorScrollerCellView;
 			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeULevelID(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
-			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
-			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((this.SelLevelInfo.m_stIDInfo.m_nID01 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
+			oScrollerCellView.NameText?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, oScrollerCellViewName, a_bIsAssert: false);
+			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID01 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, a_bIsAssert: false);
 
 			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
 			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
@@ -2319,8 +2319,8 @@ namespace LevelEditorScene {
 			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO].m_oScrollerCellView) as CEditorScrollerCellView;
 			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeUStageID(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
-			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
-			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((this.SelLevelInfo.m_stIDInfo.m_nID02 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
+			oScrollerCellView.NameText?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, oScrollerCellViewName, a_bIsAssert: false);
+			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID02 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, a_bIsAssert: false);
 
 			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumStageInfos(this.SelLevelInfo.m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
 			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumStageInfos(this.SelLevelInfo.m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
@@ -2337,8 +2337,8 @@ namespace LevelEditorScene {
 			var oScrollerCellView = a_oSender.GetCellView(m_oScrollerInfoDict[EKey.LE_UIS_CHAPTER_SCROLLER_INFO].m_oScrollerCellView) as CEditorScrollerCellView;
 			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeUChapterID(a_nDataIdx), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
-			oScrollerCellView.NameText?.ExSetText<Text>(oScrollerCellViewName, false);
-			oScrollerCellView.SelBtn?.image.ExSetColor<Image>((this.SelLevelInfo.m_stIDInfo.m_nID03 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, false);
+			oScrollerCellView.NameText?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, oScrollerCellViewName, a_bIsAssert: false);
+			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID03 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, a_bIsAssert: false);
 
 			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.NumChapterInfos > KCDefine.B_VAL_1_INT, false);
 			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.NumChapterInfos > KCDefine.B_VAL_1_INT, false);

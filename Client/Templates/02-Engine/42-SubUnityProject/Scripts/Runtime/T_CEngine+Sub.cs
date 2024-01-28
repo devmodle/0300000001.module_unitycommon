@@ -162,43 +162,58 @@ namespace NSEngine {
 
 		/** 터치 시작 이벤트를 처리한다 */
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 구동 모드 일 경우
-			if(this.IsRunning) {
-				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
-				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+			// 정지되었을 경우
+			if(!this.IsRunning) {
+				return;
+			}
 
-				// 인덱스가 유효 할 경우
-				if(this.CellObjListsContainer.ExIsValidIdx(stIdx)) {
-					// Do Something
-				}
+			var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot,
+				CSceneManager.ActiveSceneManager.ScreenSize);
+
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+			var oCellObjLists = this.CellObjListsContainer.ExGetVal(stIdx.z);
+
+			// 인덱스가 유효하지 않을 경우
+			if(oCellObjLists == null || oCellObjLists.ExIsValidIdx(stIdx)) {
+				return;
 			}
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 구동 모드 일 경우
-			if(this.IsRunning) {
-				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
-				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+			// 정지되었을 경우
+			if(!this.IsRunning) {
+				return;
+			}
 
-				// 인덱스가 유효 할 경우
-				if(this.CellObjListsContainer.ExIsValidIdx(stIdx)) {
-					// Do Something
-				}
+			var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot,
+				CSceneManager.ActiveSceneManager.ScreenSize);
+
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+			var oCellObjLists = this.CellObjListsContainer.ExGetVal(stIdx.z);
+
+			// 인덱스가 유효하지 않을 경우
+			if(oCellObjLists == null || oCellObjLists.ExIsValidIdx(stIdx)) {
+				return;
 			}
 		}
 
 		/** 터치 종료 이벤트를 처리한다 */
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			// 구동 모드 일 경우
-			if(this.IsRunning) {
-				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
-				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+			// 정지되었을 경우
+			if(!this.IsRunning) {
+				return;
+			}
 
-				// 인덱스가 유효 할 경우
-				if(this.CellObjListsContainer.ExIsValidIdx(stIdx)) {
-					// Do Something
-				}
+			var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot,
+				CSceneManager.ActiveSceneManager.ScreenSize);
+
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+			var oCellObjLists = this.CellObjListsContainer.ExGetVal(stIdx.z);
+
+			// 인덱스가 유효하지 않을 경우
+			if(oCellObjLists == null || oCellObjLists.ExIsValidIdx(stIdx)) {
+				return;
 			}
 		}
 		#endregion // 함수
@@ -213,7 +228,7 @@ namespace NSEngine {
 			}
 		}
 #endif // #if UNITY_EDITOR
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 엔진 - 설정 */
@@ -237,18 +252,27 @@ namespace NSEngine {
 			int nIdx = KCDefine.B_VAL_0_INT;
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
-				// 객체 종류가 유효 할 경우
-				if(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds.ExIsValid()) {
-					var stPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Vector3.zero, Access.CellSize);
-					var stCenterPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
-
-					// 셀 객체가 존재 할 경우
-					if(this.CellObjListsContainer.ExIsValidIdx(a_stCellInfo.m_stIdx) && this.CellObjListsContainer[a_stCellInfo.m_stIdx.z][a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x].ExIsValidIdx(nIdx)) {
-						// Do Something
-					}
-
-					nIdx += KCDefine.B_VAL_1_INT;
+				// 셀 설정이 불가능 할 경우
+				if(!a_stCellInfo.m_oCellObjInfoList[i].ObjKinds.ExIsValid()) {
+					continue;
 				}
+
+				var stPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Vector3.zero, Access.CellSize);
+				var stCenterPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
+
+				// 셀 객체가 없을 경우
+				if(!this.CellObjListsContainer.ExIsValidIdx(a_stCellInfo.m_stIdx.z)) {
+					continue;
+				}
+
+				var oCellObjList = this.CellObjListsContainer[a_stCellInfo.m_stIdx.z].ExGetVal(a_stCellInfo.m_stIdx);
+
+				// 셀 객체가 없을 경우
+				if(!oCellObjList.ExIsValidIdx(nIdx)) {
+					continue;
+				}
+
+				nIdx += KCDefine.B_VAL_1_INT;
 			}
 		}
 

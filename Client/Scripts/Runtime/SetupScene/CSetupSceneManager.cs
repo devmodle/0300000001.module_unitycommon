@@ -22,6 +22,15 @@ namespace SetupScene {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 설정 씬 이벤트 */
+		public enum ESetupSceneEvent {
+			NONE = -1,
+			LOAD_SETUP_SCENE,
+			LOAD_LATE_SETUP_SCENE,
+			LOAD_NEXT_SCENE,
+			[HideInInspector] MAX_VAL
+		}
+
 		#region 변수
 		private Tween m_oGaugeAni = null;
 		private Stopwatch m_oStopwatch = new Stopwatch();
@@ -233,7 +242,9 @@ namespace SetupScene {
 		/** 설정 씬 이벤트를 수신했을 경우 */
 		private void OnReceiveSetupSceneEvent(ESetupSceneEvent a_eEvent) {
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)ESetupSceneEvent.MAX_VAL);
-			CAccess.AssignVal(ref m_oGaugeAni, this.StartLoadingGaugeAni(m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER], (a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
+
+			CAccess.AssignVal(ref m_oGaugeAni, 
+				this.StartLoadingGaugeAni(m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER], (a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
 
 #if DEBUG || DEVELOPMENT
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
