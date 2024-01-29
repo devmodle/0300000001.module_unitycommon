@@ -22,7 +22,7 @@ using PlayFab.SharedModels;
 using GoogleSheetsToUnity;
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 
-/** 기본 함수 */
+/** 함수 */
 public static partial class Func {
 	/** 콜백 */
 	private enum ECallback {
