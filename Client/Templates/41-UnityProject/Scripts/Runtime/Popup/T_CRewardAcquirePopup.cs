@@ -45,7 +45,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	public override void Awake() {
 		base.Awake();
 
-		this.SetIsIgnoreAni(true);
+		this.SetIsEnableAni(false);
 		this.SetIsIgnoreNavStackEvent(true);
 
 		// 버튼을 설정한다

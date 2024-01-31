@@ -339,9 +339,10 @@ namespace PlayScene {
 			this.SetIsDirtySaveInfo(true);
 			this.SetIsDirtyUpdateState(true);
 
-			m_oEngine.SetIsRunning(a_eCallback == EPopupCallback.RESUME || a_eCallback == EPopupCallback.CONTINUE);
+			bool bIsRunning = a_eCallback == EPopupCallback.RESUME || a_eCallback == EPopupCallback.CONTINUE;
+			m_oEngine.SetIsRunning(bIsRunning);
 
-			a_oSender?.SetIsIgnoreAni(a_eCallback != EPopupCallback.RESUME && a_eCallback != EPopupCallback.CONTINUE);
+			a_oSender?.SetIsEnableAni(bIsRunning);
 			a_oSender?.Close();
 		}
 

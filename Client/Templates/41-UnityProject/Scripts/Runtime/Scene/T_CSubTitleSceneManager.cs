@@ -229,7 +229,7 @@ namespace TitleScene {
 		private void OnReceiveQuitPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
-				a_oSender.SetIsIgnoreAni(true);
+				a_oSender.SetIsEnableAni(false);
 				this.ExLateCallFunc((a_oSender) => this.QuitApp());
 			}
 		}
