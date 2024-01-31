@@ -147,7 +147,7 @@ namespace SetupScene {
 
 		/** 애니메이션을 리셋한다 */
 		public virtual void ResetAni() {
-			m_oGaugeAni?.Kill();
+			CAccess.AssignVal(ref m_oGaugeAni, null);
 		}
 
 		/** 제거되었을 경우 */

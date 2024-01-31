@@ -144,7 +144,7 @@ namespace TitleScene {
 			try {
 				// 앱이 실행 중 일 경우
 				if(CSceneManager.IsAppRunning) {
-					m_oTouchAni?.Kill();
+					CAccess.AssignVal(ref m_oTouchAni, null);
 					this.SubOnDestroy();
 				}
 			} catch(System.Exception oException) {
