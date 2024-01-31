@@ -515,7 +515,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	public int NumChapterInfos => this.LevelInfoDictContainer.Count;
 #else
 	public int NumChapterInfos => this.NumLevelInfosDictContainer.Count;
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -563,7 +563,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		}
 
 		return this.LevelInfoDictContainer;
@@ -775,7 +775,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CFunc.WriteJSONObj(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON), a_oLevelInfo, false);
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 	}
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion // 조건부 함수
 }
 

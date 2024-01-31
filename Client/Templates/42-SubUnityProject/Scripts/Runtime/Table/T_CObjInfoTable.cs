@@ -262,7 +262,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 			CFunc.WriteStr(Access.ObjInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.ObjInfoTableSavePath, a_oJSONStr, true);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 			CUnityMsgSender.Inst.SendShowToastMsg($"CObjInfoTable.SaveObjInfos: {File.Exists(Access.ObjInfoTableSavePath)}");
@@ -293,7 +293,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 객체 정보를 로드한다 */

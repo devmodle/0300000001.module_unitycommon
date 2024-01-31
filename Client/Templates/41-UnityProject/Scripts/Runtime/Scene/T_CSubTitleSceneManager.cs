@@ -190,11 +190,11 @@ namespace TitleScene {
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 			// 버튼을 갱신한다 {
-#if UNITY_IOS && APPLE_LOGIN_ENABLE
+#if APPLE_LOGIN_ENABLE && UNITY_IOS
 			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(true);
 #else
 			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(false);
-#endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
+#endif // #if APPLE_LOGIN_ENABLE && UNITY_IOS
 
 			var oLoginBtnKeyList = new List<EKey>() {
 				EKey.PLAY_BTN, EKey.GUEST_LOGIN_BTN, EKey.APPLE_LOGIN_BTN, EKey.FACEBOOK_LOGIN_BTN,
@@ -254,9 +254,9 @@ namespace TitleScene {
 
 		/** 애플 로그인 버튼을 눌렀을 경우 */
 		private void OnTouchAppleLoginBtn() {
-#if UNITY_IOS && APPLE_LOGIN_ENABLE
+#if APPLE_LOGIN_ENABLE && UNITY_IOS
 			Func.AppleLogin((a_oSender, a_bIsSuccess) => this.OnLogin(ELoginType.APPLE, a_bIsSuccess));
-#endif // #if UNITY_IOS && APPLE_LOGIN_ENABLE
+#endif // #if APPLE_LOGIN_ENABLE && UNITY_IOS
 		}
 
 		/** 페이스 북 로그인 버튼을 눌렀을 경우 */

@@ -69,7 +69,7 @@ namespace MainScene {
 				if(Input.GetKey(CAccess.CmdKeyCode)) {
 					this.HandleHotKeys();
 				}
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
 		#endregion // 함수

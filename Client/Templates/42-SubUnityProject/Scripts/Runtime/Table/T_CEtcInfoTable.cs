@@ -49,7 +49,7 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, false);
 #else
 			CFunc.WriteStr(Access.EtcInfoTableSavePath, a_oJSONStr, true);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
 			CUnityMsgSender.Inst.SendShowToastMsg($"CEtcInfoTable.SaveEtcInfos: {File.Exists(Access.EtcInfoTableSavePath)}");
@@ -65,7 +65,7 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
 #else
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
-#endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 #endregion // 함수
 
