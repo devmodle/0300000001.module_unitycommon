@@ -21,7 +21,7 @@ namespace TitleScene {
 
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
-		public override bool IsIgnoreOverlayScene => false;
+		public override bool IsEnableOverlayScene => true;
 		public override bool IsIgnoreBGTouchResponder => false;
 
 		public Text VerText => m_oTextDict[EKey.VER_TEXT];
