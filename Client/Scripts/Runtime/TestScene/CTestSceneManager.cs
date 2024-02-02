@@ -22,7 +22,7 @@ namespace TestScene {
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsEnableOverlayScene => true;
-		public override bool IsIgnoreBGTouchResponder => false;
+		public override bool IsEnableBGTouchResponder => true;
 		#endregion // 프로퍼티
 
 		#region 함수

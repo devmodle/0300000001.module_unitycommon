@@ -25,7 +25,7 @@ namespace PlayScene {
 		#region 프로퍼티
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsEnableOverlayScene => true;
-		public override bool IsIgnoreBGTouchResponder => false;
+		public override bool IsEnableBGTouchResponder => true;
 		
 		protected GameObject ItemRoot => m_oObjDict[EKey.ITEM_ROOT];
 		protected GameObject SkillRoot => m_oObjDict[EKey.SKILL_ROOT];

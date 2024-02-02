@@ -19,7 +19,7 @@ public partial class CSampleSceneManager : CSceneManager {
 		KCDefine.B_DESIGN_P_SCREEN_HEIGHT : base.ScreenHeight;
 	#endregion // 프로퍼티
 
-	#region 조건부 클래스 함수
+	#region 클래스 함수
 #if UNITY_EDITOR
 	/** 씬 관리자를 설정한다 */
 	public static void SetupSceneManager(Scene a_stScene, Dictionary<string, System.Type> a_oSceneManagerTypeDict) {
@@ -53,5 +53,5 @@ public partial class CSampleSceneManager : CSceneManager {
 		}
 	}
 #endif // #if UNITY_EDITOR
-	#endregion // 조건부 클래스 함수
+	#endregion // 클래스 함수
 }
