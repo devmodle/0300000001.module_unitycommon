@@ -304,7 +304,7 @@ namespace LateSetupScene {
 		private static void OnInitAdsManager(CAdsManager a_oSender, EAdsPlatform a_eAdsPlatform, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitAdsManager: {a_eAdsPlatform}, {a_bIsSuccess}");
 
-			// 초기화 되지 않았을 경우
+			// 초기화에 실패했을 경우
 			if(!a_bIsSuccess) {
 				return;
 			}
