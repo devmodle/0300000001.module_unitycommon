@@ -28,6 +28,8 @@ namespace OverlayScene {
 		}
 
 		#region 변수
+		string m_oPurchaseProductID = string.Empty;
+
 #if PURCHASE_MODULE_ENABLE
 		private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 #endif // #if PURCHASE_MODULE_ENABLE
@@ -148,7 +150,7 @@ namespace OverlayScene {
 			// 결제되었을 경우
 			if(a_bIsSuccess) {
 				Func.AcquireProduct(a_oProductID);
-				m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
+				m_oPurchaseProductID = a_oProductID;
 
 #if FIREBASE_MODULE_ENABLE
 				this.ExLateCallFunc((a_oFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
@@ -161,7 +163,10 @@ namespace OverlayScene {
 
 			this.UpdateUIsState();
 			Func.SaveInfoStorages();
+
+#if ADS_MODULE_ENABLE
 			CAppInfoStorage.Inst.SetPrevFullscreenAdsTime(System.DateTime.Now);
+#endif // #if ADS_MODULE_ENABLE
 			
 			m_oCallbackDict.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 		}
@@ -169,7 +174,7 @@ namespace OverlayScene {
 #if FIREBASE_MODULE_ENABLE
 		/** 유저 정보를 저장했을 경우 */
 		private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-			Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oStrDict[EKey.PURCHASE_PRODUCT_ID], true, null);
+			Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oPurchaseProductID, true, null);
 		}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE

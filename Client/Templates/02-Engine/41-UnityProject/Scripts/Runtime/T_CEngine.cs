@@ -741,7 +741,7 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEEnemyObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
-			oObj.ExSetTag(KCDefine.U_TAG_ENEMY);
+			oObj.ExSetTag(KCDefine.U_TAG_NON_PLAYER);
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
 
