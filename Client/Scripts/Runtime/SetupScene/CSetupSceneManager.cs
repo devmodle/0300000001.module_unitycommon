@@ -66,7 +66,7 @@ namespace SetupScene {
 		protected Dictionary<string, System.Action<string>> DeviceMsgHandlerDict { get; } = new Dictionary<string, System.Action<string>>();
 
 #if UNITY_EDITOR
-		public override int ScriptOrder => KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER;
+		public override int ScriptOrder => KCDefine.B_SCRIPT_O_SETUP_SCENE_MANAGER;
 #endif // #if UNITY_EDITOR
 		#endregion // 프로퍼티
 

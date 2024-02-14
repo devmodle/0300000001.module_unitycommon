@@ -23,29 +23,29 @@ public static partial class CCommonEditorSceneManager {
 	};
 
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>() {
-		[KCDefine.U_SORTING_L_ABS] = "A",
-		[KCDefine.U_SORTING_L_DEF] = "D",
+		[KCDefine.B_SORTING_L_ABS] = "A",
+		[KCDefine.B_SORTING_L_DEF] = "D",
 
-		[KCDefine.U_SORTING_L_TOP] = "T",
-		[KCDefine.U_SORTING_L_TOPMOST] = "TM",
+		[KCDefine.B_SORTING_L_TOP] = "T",
+		[KCDefine.B_SORTING_L_TOPMOST] = "TM",
 
-		[KCDefine.U_SORTING_L_FOREGROUND] = "F",
-		[KCDefine.U_SORTING_L_BACKGROUND] = "B",
+		[KCDefine.B_SORTING_L_FOREGROUND] = "F",
+		[KCDefine.B_SORTING_L_BACKGROUND] = "B",
 
-		[KCDefine.U_SORTING_L_OVERGROUND] = "O",
-		[KCDefine.U_SORTING_L_UNDERGROUND] = "U",
+		[KCDefine.B_SORTING_L_OVERGROUND] = "O",
+		[KCDefine.B_SORTING_L_UNDERGROUND] = "U",
 
-		[KCDefine.U_SORTING_L_OVERLAY_ABS] = "OA",
-		[KCDefine.U_SORTING_L_OVERLAY_DEF] = "OD",
+		[KCDefine.B_SORTING_L_OVERLAY_ABS] = "OA",
+		[KCDefine.B_SORTING_L_OVERLAY_DEF] = "OD",
 
-		[KCDefine.U_SORTING_L_OVERLAY_TOP] = "OT",
-		[KCDefine.U_SORTING_L_OVERLAY_TOPMOST] = "OTM",
+		[KCDefine.B_SORTING_L_OVERLAY_TOP] = "OT",
+		[KCDefine.B_SORTING_L_OVERLAY_TOPMOST] = "OTM",
 
-		[KCDefine.U_SORTING_L_OVERLAY_FOREGROUND] = "OF",
-		[KCDefine.U_SORTING_L_OVERLAY_BACKGROUND] = "OB",
+		[KCDefine.B_SORTING_L_OVERLAY_FOREGROUND] = "OF",
+		[KCDefine.B_SORTING_L_OVERLAY_BACKGROUND] = "OB",
 
-		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO",
-		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
+		[KCDefine.B_SORTING_L_OVERLAY_OVERGROUND] = "OO",
+		[KCDefine.B_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
 	};
 
 	private static bool m_bIsEnableSetup = false;

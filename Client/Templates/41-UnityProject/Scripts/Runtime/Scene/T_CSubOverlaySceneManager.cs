@@ -40,7 +40,7 @@ namespace OverlayScene {
 		#endregion // 변수
 
 		#region 프로퍼티
-		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.U_SORTING_OI_OVERLAY_UIS_CANVAS;
+		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.B_SORTING_OI_OVERLAY_UIS_CANVAS;
 		#endregion // 프로퍼티
 
 		#region 함수

@@ -20,7 +20,7 @@ namespace SetupScene {
 					CSceneManager.SetScreenPopupUIs(CSetupSceneManager.m_oPopupUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS, false));
 				} finally {
 					DontDestroyOnLoad(CSetupSceneManager.m_oPopupUIs);
-					CFunc.SetupScreenUIs(CSetupSceneManager.m_oPopupUIs, KCDefine.U_SORTING_O_SCREEN_POPUP_UIS);
+					CFunc.SetupScreenUIs(CSetupSceneManager.m_oPopupUIs, KCDefine.B_SORTING_O_SCREEN_POPUP_UIS);
 				}
 			}
 		}
@@ -35,7 +35,7 @@ namespace SetupScene {
 					CSceneManager.SetScreenTopmostUIs(CSetupSceneManager.m_oTopmostUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS, false));
 				} finally {
 					DontDestroyOnLoad(CSetupSceneManager.m_oTopmostUIs);
-					CFunc.SetupScreenUIs(CSetupSceneManager.m_oTopmostUIs, KCDefine.U_SORTING_O_SCREEN_TOPMOST_UIS);
+					CFunc.SetupScreenUIs(CSetupSceneManager.m_oTopmostUIs, KCDefine.B_SORTING_O_SCREEN_TOPMOST_UIS);
 				}
 			}
 		}
@@ -50,7 +50,7 @@ namespace SetupScene {
 					CSceneManager.SetScreenAbsUIs(CSetupSceneManager.m_oAbsUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UIS, false));
 				} finally {
 					DontDestroyOnLoad(CSetupSceneManager.m_oAbsUIs);
-					CFunc.SetupScreenUIs(CSetupSceneManager.m_oAbsUIs, KCDefine.U_SORTING_O_SCREEN_ABS_UIS);
+					CFunc.SetupScreenUIs(CSetupSceneManager.m_oAbsUIs, KCDefine.B_SORTING_O_SCREEN_ABS_UIS);
 				}
 			}
 		}
@@ -82,7 +82,7 @@ namespace SetupScene {
 					CSceneManager.ScreenDebugInfoUIs.SetActive(false);
 				} finally {
 					DontDestroyOnLoad(CSetupSceneManager.m_oDebugUIs);
-					CFunc.SetupScreenUIs(CSetupSceneManager.m_oDebugUIs, KCDefine.U_SORTING_O_SCREEN_DEBUG_UIS);
+					CFunc.SetupScreenUIs(CSetupSceneManager.m_oDebugUIs, KCDefine.B_SORTING_O_SCREEN_DEBUG_UIS);
 				}
 			}
 		}

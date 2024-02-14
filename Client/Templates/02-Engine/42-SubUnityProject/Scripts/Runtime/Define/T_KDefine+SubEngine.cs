@@ -31,10 +31,10 @@ namespace NSEngine {
 		// 색상 }
 
 		// 정렬 순서 {
-		public static readonly STSortingOrderInfo E_SORTING_OI_ITEM_DEF = new STSortingOrderInfo(KCDefine.U_SORTING_OI_DEF.m_nOrder - (sbyte.MaxValue * 1), KCDefine.U_SORTING_OI_DEF.m_oLayer);
-		public static readonly STSortingOrderInfo E_SORTING_OI_SKILL_DEF = new STSortingOrderInfo(KCDefine.U_SORTING_OI_FOREGROUND.m_nOrder - (sbyte.MaxValue * 1), KCDefine.U_SORTING_OI_FOREGROUND.m_oLayer);
-		public static readonly STSortingOrderInfo E_SORTING_OI_OBJ_DEF = new STSortingOrderInfo(KCDefine.U_SORTING_OI_DEF.m_nOrder, KCDefine.U_SORTING_OI_DEF.m_oLayer);
-		public static readonly STSortingOrderInfo E_SORTING_OI_FX_DEF = new STSortingOrderInfo(KCDefine.U_SORTING_OI_FOREGROUND.m_nOrder, KCDefine.U_SORTING_OI_FOREGROUND.m_oLayer);
+		public static readonly STSortingOrderInfo E_SORTING_OI_ITEM_DEF = new STSortingOrderInfo(KCDefine.B_SORTING_OI_DEF.m_nOrder - (sbyte.MaxValue * 1), KCDefine.B_SORTING_OI_DEF.m_oLayer);
+		public static readonly STSortingOrderInfo E_SORTING_OI_SKILL_DEF = new STSortingOrderInfo(KCDefine.B_SORTING_OI_FOREGROUND.m_nOrder - (sbyte.MaxValue * 1), KCDefine.B_SORTING_OI_FOREGROUND.m_oLayer);
+		public static readonly STSortingOrderInfo E_SORTING_OI_OBJ_DEF = new STSortingOrderInfo(KCDefine.B_SORTING_OI_DEF.m_nOrder, KCDefine.B_SORTING_OI_DEF.m_oLayer);
+		public static readonly STSortingOrderInfo E_SORTING_OI_FX_DEF = new STSortingOrderInfo(KCDefine.B_SORTING_OI_FOREGROUND.m_nOrder, KCDefine.B_SORTING_OI_FOREGROUND.m_oLayer);
 
 		public static readonly Dictionary<EItemKinds, STSortingOrderInfo> E_SORTING_OI_ITEM_DICT = new Dictionary<EItemKinds, STSortingOrderInfo>() {
 			// Do Something
@@ -45,8 +45,8 @@ namespace NSEngine {
 		};
 
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
-			[EObjKinds.BG_OBJ_EMPTY_01] = new STSortingOrderInfo(KCDefine.U_SORTING_OI_BACKGROUND.m_nOrder, KCDefine.U_SORTING_OI_BACKGROUND.m_oLayer),
-			[EObjKinds.BG_OBJ_PLACEHOLDER_01] = new STSortingOrderInfo(KCDefine.U_SORTING_OI_UNDERGROUND.m_nOrder, KCDefine.U_SORTING_OI_UNDERGROUND.m_oLayer)
+			[EObjKinds.BG_OBJ_EMPTY_01] = new STSortingOrderInfo(KCDefine.B_SORTING_OI_BACKGROUND.m_nOrder, KCDefine.B_SORTING_OI_BACKGROUND.m_oLayer),
+			[EObjKinds.BG_OBJ_PLACEHOLDER_01] = new STSortingOrderInfo(KCDefine.B_SORTING_OI_UNDERGROUND.m_nOrder, KCDefine.B_SORTING_OI_UNDERGROUND.m_oLayer)
 		};
 
 		public static readonly Dictionary<EFXKinds, STSortingOrderInfo> E_SORTING_OI_FX_DICT = new Dictionary<EFXKinds, STSortingOrderInfo>() {

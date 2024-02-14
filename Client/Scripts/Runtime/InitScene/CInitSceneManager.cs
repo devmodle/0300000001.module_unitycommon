@@ -27,7 +27,7 @@ namespace InitScene {
 		protected List<string> SpriteAtlasPathList { get; } = new List<string>();
 
 #if UNITY_EDITOR
-		public override int ScriptOrder => KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER;
+		public override int ScriptOrder => KCDefine.B_SCRIPT_O_INIT_SCENE_MANAGER;
 #endif // #if UNITY_EDITOR
 		#endregion // 프로퍼티
 
@@ -188,13 +188,13 @@ namespace InitScene {
 					};
 
 					for(int i = 0; i < oImgList.Count; ++i) {
-						oImgList[i].color = KCDefine.U_COLOR_TRANSPARENT;
+						oImgList[i].color = KCDefine.B_COLOR_TRANSPARENT;
 						oImgList[i].raycastTarget = false;
 					}
 					// 블라인드 이미지를 설정한다 }
 				} finally {
 					DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
-					CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.U_SORTING_O_SCREEN_BLIND_UIS);
+					CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.B_SORTING_O_SCREEN_BLIND_UIS);
 				}
 			}
 		}

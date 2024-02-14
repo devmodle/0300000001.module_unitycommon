@@ -317,7 +317,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore]
 	[IgnoreMember]
 	public System.Version CellInfoVer {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER_STR)); }
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
@@ -353,7 +353,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 
 	[IgnoreMember]
 	public System.Version CellInfoVer {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER_STR)); }
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 

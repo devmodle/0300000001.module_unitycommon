@@ -272,7 +272,7 @@ namespace LevelEditorScene {
 				// 스프라이트를 설정한다 {
 				var oObjSprite = this.ObjRoot.ExFindComponent<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE) ?? CFactory.CreateCloneGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE), this.ObjRoot);
 				oObjSprite.gameObject.SetActive(false);
-				oObjSprite.ExSetSortingOrder(KCDefine.U_SORTING_OI_OVERGROUND);
+				oObjSprite.ExSetSortingOrder(KCDefine.B_SORTING_OI_OVERGROUND);
 
 				m_oSelObjSpriteList.ExAddVal(oObjSprite);
 				// 스프라이트를 설정한다 }
@@ -652,7 +652,7 @@ namespace LevelEditorScene {
 
 					oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
 					oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE_FX, KDefine.LES_COLOR_GRID_LINE_FX);
-					oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
+					oLineFX.ExSetSortingOrder(KCDefine.B_SORTING_OI_UNDERGROUND);
 
 					oLineFX.ExSetPositions(new List<Vector3>() {
 						this.SelGridInfo.m_stPivotPos + new Vector3(j * NSEngine.Access.CellSize.x, (i + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
@@ -689,7 +689,7 @@ namespace LevelEditorScene {
 			oSpriteRenderer.color = Color.white.ExGetAlphaColor(KCDefine.B_VAL_0_1_REAL);
 			oSpriteRenderer.sprite = m_oGridBoundsImg;
 
-			oSpriteRenderer.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND.ExGetExtraSortingOrderInfo(-KCDefine.B_VAL_1_INT));
+			oSpriteRenderer.ExSetSortingOrder(KCDefine.B_SORTING_OI_UNDERGROUND.ExGetExtraSortingOrderInfo(-KCDefine.B_VAL_1_INT));
 			// 에디터 객체 스프라이트를 설정한다 }
 
 			// 그리드 라인 버튼을 설정한다 {
@@ -1359,7 +1359,7 @@ namespace LevelEditorScene {
 			m_oViewGridLineFX.loop = false;
 
 			m_oViewGridLineFX.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE_FX, KDefine.LES_COLOR_VIEW_GRID_LINE_FX);
-			m_oViewGridLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_TOPMOST);
+			m_oViewGridLineFX.ExSetSortingOrder(KCDefine.B_SORTING_OI_TOPMOST);
 			// 라인 효과를 설정한다 }
 
 			// 텍스트를 설정한다
@@ -1966,7 +1966,7 @@ namespace LevelEditorScene {
 			// 탭 UI 가 존재 할 경우
 			if(oTapUIsHandler != null) {
 				for(int i = 0; i < oTapUIsHandler.TapBtnList.Count; ++i) {
-					oTapUIsHandler.TapBtnList[i].image.color = (oTapUIsHandler.SelTapBtnIdx == i) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE;
+					oTapUIsHandler.TapBtnList[i].image.color = (oTapUIsHandler.SelTapBtnIdx == i) ? KCDefine.B_COLOR_NORM : KCDefine.B_COLOR_DISABLE;
 				}
 			}
 			// 탭 UI 를 갱신한다 }
@@ -2302,7 +2302,7 @@ namespace LevelEditorScene {
 			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeULevelID(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
 			oScrollerCellView.NameText?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, oScrollerCellViewName, a_bIsAssert: false);
-			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID01 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, a_bIsAssert: false);
+			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID01 == a_nDataIdx) ? KCDefine.B_COLOR_NORM : KCDefine.B_COLOR_DISABLE, a_bIsAssert: false);
 
 			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
 			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
@@ -2320,7 +2320,7 @@ namespace LevelEditorScene {
 			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeUStageID(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID03), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
 			oScrollerCellView.NameText?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, oScrollerCellViewName, a_bIsAssert: false);
-			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID02 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, a_bIsAssert: false);
+			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID02 == a_nDataIdx) ? KCDefine.B_COLOR_NORM : KCDefine.B_COLOR_DISABLE, a_bIsAssert: false);
 
 			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumStageInfos(this.SelLevelInfo.m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
 			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.GetNumStageInfos(this.SelLevelInfo.m_stIDInfo.m_nID03) > KCDefine.B_VAL_1_INT, false);
@@ -2338,7 +2338,7 @@ namespace LevelEditorScene {
 			oScrollerCellView.Init(CEditorScrollerCellView.MakeParams(a_nDataIdx, CFactory.MakeUChapterID(a_nDataIdx), a_oSender, a_oCallbackDict01, a_oCallbackDict02));
 
 			oScrollerCellView.NameText?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, oScrollerCellViewName, a_bIsAssert: false);
-			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID03 == a_nDataIdx) ? KCDefine.U_COLOR_NORM : KCDefine.U_COLOR_DISABLE, a_bIsAssert: false);
+			oScrollerCellView.SelBtn?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (this.SelLevelInfo.m_stIDInfo.m_nID03 == a_nDataIdx) ? KCDefine.B_COLOR_NORM : KCDefine.B_COLOR_DISABLE, a_bIsAssert: false);
 
 			oScrollerCellView.MoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.NumChapterInfos > KCDefine.B_VAL_1_INT, false);
 			oScrollerCellView.RemoveBtn?.ExSetInteractable(CLevelInfoTable.Inst.NumChapterInfos > KCDefine.B_VAL_1_INT, false);

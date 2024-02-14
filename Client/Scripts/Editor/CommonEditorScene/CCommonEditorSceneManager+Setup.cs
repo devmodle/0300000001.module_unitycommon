@@ -50,9 +50,9 @@ public static partial class CCommonEditorSceneManager {
 
 				// 메인 광원 일 경우
 				if(oLights[i].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_LIGHT)) {
-					oLights[i].ExSetTag(KCDefine.U_TAG_MAIN_LIGHT);
+					oLights[i].ExSetTag(KCDefine.B_TAG_MAIN_LIGHT);
 				} else {
-					oLights[i].ExSetTag((oLights[i].CompareTag(KCDefine.U_TAG_UNTAGGED) || oLights[i].CompareTag(KCDefine.U_TAG_MAIN_LIGHT)) ? KCDefine.U_TAG_ADDITIONAL_LIGHT : oLights[i].tag);
+					oLights[i].ExSetTag((oLights[i].CompareTag(KCDefine.B_TAG_UNTAGGED) || oLights[i].CompareTag(KCDefine.B_TAG_MAIN_LIGHT)) ? KCDefine.B_TAG_ADDITIONAL_LIGHT : oLights[i].tag);
 				}
 			}
 		}
@@ -62,15 +62,15 @@ public static partial class CCommonEditorSceneManager {
 			if(!KCEditorDefine.B_OBJ_N_SCENE_EDITOR_CAMERA_LIST.Contains(oCameras[i].name)) {
 				// 메인 카메라 일 경우
 				if(oCameras[i].name.Equals(KCDefine.U_OBJ_N_SCENE_MAIN_CAMERA)) {
-					oCameras[i].ExSetTag(KCDefine.U_TAG_MAIN_CAMERA);
+					oCameras[i].ExSetTag(KCDefine.B_TAG_MAIN_CAMERA);
 				} else {
-					oCameras[i].ExSetTag((oCameras[i].CompareTag(KCDefine.U_TAG_UNTAGGED) || oCameras[i].CompareTag(KCDefine.U_TAG_MAIN_CAMERA)) ? KCDefine.U_TAG_ADDITIONAL_CAMERA : oCameras[i].tag);
+					oCameras[i].ExSetTag((oCameras[i].CompareTag(KCDefine.B_TAG_UNTAGGED) || oCameras[i].CompareTag(KCDefine.B_TAG_MAIN_CAMERA)) ? KCDefine.B_TAG_ADDITIONAL_CAMERA : oCameras[i].tag);
 				}
 			}
 		}
 
 		for(int i = 0; i < oSceneManagers.Length; ++i) {
-			oSceneManagers[i].ExSetTag(KCDefine.U_TAG_SCENE_MANAGER);
+			oSceneManagers[i].ExSetTag(KCDefine.B_TAG_SCENE_MANAGER);
 		}
 	}
 

@@ -17,119 +17,119 @@ public static partial class KEditorDefine {
 	#region 런타임 상수
 	// 스크립트 순서
 	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
-		[typeof(CValTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CStrTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CValTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CStrTable)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(CSndManager)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CResManager)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CTaskManager)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CNetworkManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CSndManager)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CResManager)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CTaskManager)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CNetworkManager)] = KCDefine.B_SCRIPT_O_LATE,
 		
-		[typeof(CScheduleManager)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CNavStackManager)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CIndicatorManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CScheduleManager)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CNavStackManager)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CIndicatorManager)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(CObjsPoolManager)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CCollectionPoolManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CObjsPoolManager)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CCollectionPoolManager)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(CUnityMsgSender)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CDeviceMsgReceiver)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CUnityMsgSender)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CDeviceMsgReceiver)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(CCommonAppInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CCommonUserInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CCommonGameInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CCommonAppInfoStorage)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CCommonUserInfoStorage)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CCommonGameInfoStorage)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(CSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CEditorSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CSampleSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CEditorSampleSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
 
 #if RESEARCH_MODULE_ENABLE
-		[typeof(CRMenuSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CRResearchSampleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CRMenuSampleSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CRResearchSampleSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
 #endif // #if RESEARCH_MODULE_ENABLE
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
-		[typeof(InitScene.CSubInitSceneManager)] = KCDefine.U_SCRIPT_O_INIT_SCENE_MANAGER,
-		[typeof(SetupScene.CSubSetupSceneManager)] = KCDefine.U_SCRIPT_O_SETUP_SCENE_MANAGER,
-		[typeof(LateSetupScene.CSubLateSetupSceneManager)] = KCDefine.U_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
+		[typeof(InitScene.CSubInitSceneManager)] = KCDefine.B_SCRIPT_O_INIT_SCENE_MANAGER,
+		[typeof(SetupScene.CSubSetupSceneManager)] = KCDefine.B_SCRIPT_O_SETUP_SCENE_MANAGER,
+		[typeof(LateSetupScene.CSubLateSetupSceneManager)] = KCDefine.B_SCRIPT_O_LATE_SETUP_SCENE_MANAGER,
 
 #if RESEARCH_MODULE_ENABLE
-		[typeof(MenuScene.CSSubMenuSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(MenuScene.CSSubMenuSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
 #endif // #if RESEARCH_MODULE_ENABLE
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		[typeof(CEtcInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CLevelInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CEtcInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CLevelInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(CCalcInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CMissionInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CRewardInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CEpisodeInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CTutorialInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CResInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CCalcInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CMissionInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CRewardInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CEpisodeInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CTutorialInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CResInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(CItemInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CSkillInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CObjInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CFXInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CAbilityInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CProductTradeInfoTable)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CItemInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CSkillInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CObjInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CFXInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CAbilityInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CProductTradeInfoTable)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(CAppInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CUserInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CGameInfoStorage)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CAppInfoStorage)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CUserInfoStorage)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CGameInfoStorage)] = KCDefine.B_SCRIPT_O_LATE,
 
-		[typeof(MainScene.CSubMainSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(PlayScene.CSubPlaySceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
-		[typeof(TitleScene.CSubTitleSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(MainScene.CSubMainSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
+		[typeof(PlayScene.CSubPlaySceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
+		[typeof(TestScene.CSubTestSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
+		[typeof(TitleScene.CSubTitleSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
 
-		[typeof(ResultScene.CSubResultSceneManager)] = KCDefine.U_SCRIPT_O_RESULT_SCENE_MANAGER,
-		[typeof(LoadingScene.CSubLoadingSceneManager)] = KCDefine.U_SCRIPT_O_LOADING_SCENE_MANAGER,
-		[typeof(OverlayScene.CSubOverlaySceneManager)] = KCDefine.U_SCRIPT_O_OVERLAY_SCENE_MANAGER,
+		[typeof(ResultScene.CSubResultSceneManager)] = KCDefine.B_SCRIPT_O_RESULT_SCENE_MANAGER,
+		[typeof(LoadingScene.CSubLoadingSceneManager)] = KCDefine.B_SCRIPT_O_LOADING_SCENE_MANAGER,
+		[typeof(OverlayScene.CSubOverlaySceneManager)] = KCDefine.B_SCRIPT_O_OVERLAY_SCENE_MANAGER,
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE)
-		[typeof(LevelEditorScene.CSubLevelEditorSceneManager)] = KCDefine.U_SCRIPT_O_SCENE_MANAGER,
+		[typeof(LevelEditorScene.CSubLevelEditorSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE)
 
 #if ADS_MODULE_ENABLE
-		[typeof(CAdsManager)] = KCDefine.U_SCRIPT_O_LATE,
-		[typeof(CBannerAdsPosCorrector)] = KCDefine.U_SCRIPT_O_LATEST,
-		[typeof(CBannerAdsSizeCorrector)] = KCDefine.U_SCRIPT_O_LATEST,
-		[typeof(CRewardAdsTouchInteractable)] = KCDefine.U_SCRIPT_O_LATEST,
+		[typeof(CAdsManager)] = KCDefine.B_SCRIPT_O_LATE,
+		[typeof(CBannerAdsPosCorrector)] = KCDefine.B_SCRIPT_O_LATEST,
+		[typeof(CBannerAdsSizeCorrector)] = KCDefine.B_SCRIPT_O_LATEST,
+		[typeof(CRewardAdsTouchInteractable)] = KCDefine.B_SCRIPT_O_LATEST,
 #endif // #if ADS_MODULE_ENABLE
 
 #if FLURRY_MODULE_ENABLE
-		[typeof(CFlurryManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CFlurryManager)] = KCDefine.B_SCRIPT_O_LATE,
 #endif // #if FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_MODULE_ENABLE
-		[typeof(CFacebookManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CFacebookManager)] = KCDefine.B_SCRIPT_O_LATE,
 #endif // #if FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_MODULE_ENABLE
-		[typeof(CFirebaseManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CFirebaseManager)] = KCDefine.B_SCRIPT_O_LATE,
 #endif // #if FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_MODULE_ENABLE
-		[typeof(CAppsFlyerManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CAppsFlyerManager)] = KCDefine.B_SCRIPT_O_LATE,
 #endif // #if APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_MODULE_ENABLE
-		[typeof(CGameCenterManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CGameCenterManager)] = KCDefine.B_SCRIPT_O_LATE,
 #endif // #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-		[typeof(CPurchaseManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CPurchaseManager)] = KCDefine.B_SCRIPT_O_LATE,
 #endif // #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
-		[typeof(CNotiManager)] = KCDefine.U_SCRIPT_O_LATE,
+		[typeof(CNotiManager)] = KCDefine.B_SCRIPT_O_LATE,
 #endif // #if NOTI_MODULE_ENABLE
 
 #if PLAYFAB_MODULE_ENABLE
-		[typeof(CPlayfabManager)] = KCDefine.U_SCRIPT_O_LATE
+		[typeof(CPlayfabManager)] = KCDefine.B_SCRIPT_O_LATE
 #endif // #if PLAYFAB_MODULE_ENABLE
 	};
 

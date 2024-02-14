@@ -388,7 +388,7 @@ public partial class CUserInfo : CBaseInfo {
 
 	[IgnoreMember]
 	public System.Version AbilityTargetInfoVer {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER)); }
+		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER_STR)); }
 		set { m_oStrDict.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 	#endregion // 프로퍼티

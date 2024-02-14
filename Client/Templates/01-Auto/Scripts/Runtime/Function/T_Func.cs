@@ -654,7 +654,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oFacebookCallbackDictB.ExReplaceVal(ECallback.FACEBOOK_LOGIN, a_oCallback);
 
-		CFacebookManager.Inst.Login(KCDefine.U_KEY_FACEBOOK_PERMISSION_LIST, Func.OnFacebookLogin);
+		CFacebookManager.Inst.Login(KCDefine.B_KEY_FACEBOOK_PERMISSION_LIST, Func.OnFacebookLogin);
 	}
 
 	/** 페이스 북 로그아웃을 처리한다 */
@@ -1326,7 +1326,7 @@ public static partial class Func {
 #endif // #if AB_TEST_ENABLE
 
 			for(int i = 0; i < oVerInfos.Count; ++i) {
-				var oVer = CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME], KCDefine.U_VER_DEF);
+				var oVer = CAppInfoStorage.Inst.AppInfo.m_oTableSysVerDict.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME], KCDefine.B_VER_INVALID);
 
 				string oFlags01Key = string.Format(KCDefine.U_KEY_FMT_FLAGS, KCDefine.B_VAL_1_INT);
 				string oFlags02Key = string.Format(KCDefine.U_KEY_FMT_FLAGS, KCDefine.B_VAL_2_INT);

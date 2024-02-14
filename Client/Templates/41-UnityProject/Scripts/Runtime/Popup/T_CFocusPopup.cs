@@ -41,7 +41,7 @@ public partial class CFocusPopup : CSubPopup {
 	public STParams Params { get; private set; }
 	
 	public override EPopupAniType PopupAniType => EPopupAniType.NONE;
-	public override Color BlindColor => KCDefine.U_COLOR_TRANSPARENT;
+	public override Color BlindColor => KCDefine.B_COLOR_TRANSPARENT;
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -89,7 +89,7 @@ public partial class CFocusPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		// 이미지를 갱신한다
-		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, KCDefine.U_COLOR_POPUP_BLIND, a_bIsAssert: false);
+		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, KCDefine.B_COLOR_POPUP_BLIND, a_bIsAssert: false);
 
 		this.SubUpdateUIsState();
 	}
