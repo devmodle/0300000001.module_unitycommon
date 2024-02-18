@@ -809,8 +809,8 @@ namespace LevelEditorScene {
 			this.SubUpdateUIsState();
 
 			// 레이아웃을 재배치한다
-			this.RebuildLayouts(this.MEUIsInfoUIs);
-			this.RebuildLayouts(this.MEUIsEditorModeUIs);
+			CGSingleton.Inst.RebuildLayouts(this.MEUIsInfoUIs);
+			CGSingleton.Inst.RebuildLayouts(this.MEUIsEditorModeUIs);
 		}
 
 		/** 에디터 리셋 팝업 결과를 수신했을 경우 */
