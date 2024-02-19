@@ -215,7 +215,6 @@ namespace InitScene {
 			CScheduleManager.Create();
 			CNavStackManager.Create();
 			CIndicatorManager.Create();
-			CCollectionPoolManager.Create();
 
 #if ADS_MODULE_ENABLE
 			CAdsManager.Create();
