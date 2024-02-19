@@ -599,15 +599,18 @@ namespace LevelEditorScene {
 		private void ResetObjSprites() {
 			// 객체를 제거한다 {
 			for(int i = 0; i < m_oGridLineBtnHList.Count; ++i) {
-				this.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, m_oGridLineBtnHList[i].gameObject);
+				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, 
+					m_oGridLineBtnHList[i].gameObject);
 			}
 
 			for(int i = 0; i < m_oGridLineBtnVList.Count; ++i) {
-				this.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, m_oGridLineBtnVList[i].gameObject);
+				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, 
+					m_oGridLineBtnVList[i].gameObject);
 			}
 
 			for(int i = 0; i < m_oGridLineFXList.Count; ++i) {
-				this.DespawnGameObj(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL, m_oGridLineFXList[i].gameObject);
+				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL, 
+					m_oGridLineFXList[i].gameObject);
 			}
 
 			m_oObjSpriteInfoLists?.ExEnumerate((oObjSpriteInfoList, a_stIdx) => {
@@ -647,7 +650,7 @@ namespace LevelEditorScene {
 
 			for(int i = 0; i < this.SelLevelInfo.NumCells.y; ++i) {
 				for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j) {
-					var oLineFX = this.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
+					var oLineFX = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
 					oLineFX.loop = true;
 
 					oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
@@ -701,7 +704,7 @@ namespace LevelEditorScene {
 				var stPos = this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(new Vector3(NSEngine.Access.CellCenterOffset.x, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL), NSEngine.Access.CellSize);
 				var stWorldPos = stPos.ExToWorld(this.ObjRoot) + new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, this.PlaneDistance);
 
-				var oBtn = this.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
+				var oBtn = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
 				oBtn.gameObject.ExAddComponent<CBtnHandler>();
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnH(stIdx.x));
 
@@ -724,7 +727,7 @@ namespace LevelEditorScene {
 				var stPos = this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(new Vector3(KCDefine.B_VAL_0_REAL, NSEngine.Access.CellCenterOffset.y, KCDefine.B_VAL_0_REAL), NSEngine.Access.CellSize);
 				var stWorldPos = stPos.ExToWorld(this.ObjRoot) + new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, this.PlaneDistance);
 
-				var oBtn = this.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
+				var oBtn = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
 				oBtn.gameObject.ExAddComponent<CBtnHandler>();
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnV(stIdx.y));
 
@@ -771,7 +774,9 @@ namespace LevelEditorScene {
 		private void ResetObjSprites(List<STObjSpriteInfo> a_oObjSpriteInfoList) {
 			for(int i = 0; i < a_oObjSpriteInfoList.Count; ++i) {
 				a_oObjSpriteInfoList[i].m_oSprite.sprite = null;
-				this.DespawnGameObj(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, a_oObjSpriteInfoList[i].m_oSprite.gameObject);
+
+				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, 
+					a_oObjSpriteInfoList[i].m_oSprite.gameObject);
 			}
 		}
 
@@ -780,7 +785,7 @@ namespace LevelEditorScene {
 			a_oOutObjSpriteInfoList = new List<STObjSpriteInfo>();
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
-				var oObjSprite = this.SpawnGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL);
+				var oObjSprite = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL);
 				this.SetupObjSprite(a_stCellInfo, a_stCellInfo.m_oCellObjInfoList[i], oObjSprite);
 
 				a_oOutObjSpriteInfoList.ExAddVal(new STObjSpriteInfo() {
@@ -1355,7 +1360,7 @@ namespace LevelEditorScene {
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SetupMidEditorUIs() {
 			// 라인 효과를 설정한다 {
-			m_oViewGridLineFX = this.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
+			m_oViewGridLineFX = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
 			m_oViewGridLineFX.loop = false;
 
 			m_oViewGridLineFX.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE_FX, KDefine.LES_COLOR_VIEW_GRID_LINE_FX);
