@@ -9,7 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
-/** 기본 접근자 확장 클래스 */
+/** 접근자 확장 클래스 */
 public static partial class AccessExtension {
 	#region 클래스 함수
 	/** 컴포넌트 상호 작용 여부를 변경한다 */

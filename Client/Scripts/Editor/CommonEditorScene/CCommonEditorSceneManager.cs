@@ -153,7 +153,7 @@ public static partial class CCommonEditorSceneManager {
 				// 유니티 패키지 정보를 설정한다 {
 				CCommonEditorSceneManager.m_oStrBuilder.Clear();
 
-				CAccess.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oDirList, a_oFileList) => {
+				CFunc.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oFileList, a_oDirList) => {
 					for(int i = 0; i < a_oFileList.Count; ++i) {
 						// DS Store 파일이 아닐 경우
 						if(!a_oFileList[i].EndsWith(KCDefine.B_FILE_EXTENSION_DS_STORE)) {
@@ -181,7 +181,7 @@ public static partial class CCommonEditorSceneManager {
 					if(oBuildMethod.ExIsValid()) {
 						typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC)?.Invoke(null, null);
 					} else {
-						CFactory.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+						CFunc.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
 					}
 				}
 			}

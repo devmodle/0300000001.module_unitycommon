@@ -10,7 +10,7 @@ using UnityEngine.Events;
 using UnityEngine.Purchasing;
 #endif // #if PURCHASE_MODULE_ENABLE
 
-/** 기본 접근자 */
+/** 접근자 */
 public static partial class Access {
 #region 클래스 프로퍼티
 	public static float BannerAdsHeight {

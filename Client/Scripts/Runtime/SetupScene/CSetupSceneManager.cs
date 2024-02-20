@@ -235,7 +235,7 @@ namespace SetupScene {
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
-			CSceneLoader.Inst.LoadAdditiveScene(KCDefine.B_SCENE_N_LATE_SETUP);
+			CSceneLoader.Inst.LoadAdditionalScene(KCDefine.B_SCENE_N_LATE_SETUP);
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
 		}
 
