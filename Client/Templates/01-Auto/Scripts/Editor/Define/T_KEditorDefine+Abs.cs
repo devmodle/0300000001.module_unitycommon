@@ -95,8 +95,8 @@ public static partial class KEditorDefine {
 
 #if ADS_MODULE_ENABLE
 		[typeof(CAdsManager)] = KCDefine.B_SCRIPT_O_LATE,
-		[typeof(CBannerAdsPosCorrector)] = KCDefine.B_SCRIPT_O_LATEST,
-		[typeof(CBannerAdsSizeCorrector)] = KCDefine.B_SCRIPT_O_LATEST,
+		[typeof(CBannerAdsPosAdjuster)] = KCDefine.B_SCRIPT_O_LATEST,
+		[typeof(CBannerAdsSizeAdjuster)] = KCDefine.B_SCRIPT_O_LATEST,
 		[typeof(CRewardAdsTouchInteractable)] = KCDefine.B_SCRIPT_O_LATEST,
 #endif // #if ADS_MODULE_ENABLE
 

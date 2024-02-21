@@ -106,7 +106,8 @@ namespace InitScene {
 			// 사운드 관리자를 설정한다 }
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			Screen.SetResolution((int)CAccess.CorrectDesktopScreenSize.x, (int)CAccess.CorrectDesktopScreenSize.y, FullScreenMode.Windowed);
+			Screen.SetResolution((int)CAccess.AdjustDesktopScreenSize.x, 
+				(int)CAccess.AdjustDesktopScreenSize.y, FullScreenMode.Windowed);
 #else
 			Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.FullScreenWindow);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
