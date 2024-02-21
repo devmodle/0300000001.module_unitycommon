@@ -90,11 +90,11 @@ namespace NSEngine {
 						oAbilityKindsInfoList.ExAddVal((EAbilityKinds.STAT_ABILITY_SP_01, EAbilityKinds.STAT_ABILITY_SP_RECOVERY_01));
 
 						for(int i = 0; i < oAbilityKindsInfoList.Count; ++i) {
-							decimal dmVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
-							decimal dmMaxVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict02.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
-							decimal dmRecoveryVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(oAbilityKindsInfoList[i].Item2);
+							decimal dmVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
+							decimal dmMaxVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictB.ExGetAbilityVal(oAbilityKindsInfoList[i].Item1);
+							decimal dmRecoveryVal = this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(oAbilityKindsInfoList[i].Item2);
 
-							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)m_fUpdateSkipTime), KCDefine.B_VAL_0_INT, dmMaxVal));
+							this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.ExReplaceVal(oAbilityKindsInfoList[i].Item1, System.Math.Clamp(dmVal + (dmRecoveryVal * (decimal)m_fUpdateSkipTime), KCDefine.B_VAL_0_INT, dmMaxVal));
 						}
 					} finally {
 						CCollectionPoolManager.Inst.DespawnList(oAbilityKindsInfoList);
@@ -111,23 +111,23 @@ namespace NSEngine {
 
 			try {
 				float fPercent = Random.Range(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_1_REAL);
-				float fCriticalRate = (float)a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_CRITICAL_RATE_01);
+				float fCriticalRate = (float)a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_CRITICAL_RATE_01);
 
-				this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExCopyTo(oAbilityValDict, (_, a_dmAbilityVal) => a_dmAbilityVal);
+				this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.ExCopyTo(oAbilityValDict, (_, a_dmAbilityVal) => a_dmAbilityVal);
 				global::Func.SetupAbilityVals(a_oSkill.Params.m_stSkillInfo, a_oSkill.Params.m_oSkillTargetInfo, oAbilityValDict);
 
 				// 공격을 회피했을 경우
-				if(fPercent.ExIsLessEquals((float)a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_AVOID_RATE_01))) {
+				if(fPercent.ExIsLessEquals((float)a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_AVOID_RATE_01))) {
 					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, EEngineObjEvent.AVOID, string.Empty);
 				} else {
-					decimal dmDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
-					decimal dmPDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_P_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_P_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
-					decimal dmMDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_M_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_M_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
+					decimal dmDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
+					decimal dmPDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_P_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_P_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
+					decimal dmMDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_M_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_M_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
 
 					decimal dmTotalDamage = dmDamage + dmPDamage + dmMDamage;
 					dmTotalDamage = fPercent.ExIsLessEquals(fCriticalRate) ? dmTotalDamage * KCDefine.B_VAL_2_INT : dmTotalDamage;
 
-					a_oTargetObj.AbilityValDictWrapper.m_oDict01.ExIncrAbilityVal(EAbilityKinds.STAT_ABILITY_HP_01, -dmTotalDamage);
+					a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExIncrAbilityVal(EAbilityKinds.STAT_ABILITY_HP_01, -dmTotalDamage);
 					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, fPercent.ExIsLessEquals(fCriticalRate) ? EEngineObjEvent.CRITICAL_DAMAGE : EEngineObjEvent.DAMAGE, $"{dmTotalDamage:0}");
 				}
 			} finally {
@@ -252,7 +252,7 @@ namespace NSEngine {
 				global::Func.SetupAbilityVals(a_stSkillInfo, a_oSkillTargetInfo, oAbilityValDict);
 				double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(this.ApplySkillTimeDict.GetValueOrDefault(a_stSkillInfo.m_eSkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)));
 
-				return (decimal)dblDeltaTime >= this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal((a_stSkillInfo.SkillType == ESkillType.ACTION) ? EAbilityKinds.STAT_ABILITY_ATK_DELAY_01 : EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01, (a_stSkillInfo.SkillType == ESkillType.ACTION) ? this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_ATK_DELAY_01) : oAbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01));
+				return (decimal)dblDeltaTime >= this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.ExGetAbilityVal((a_stSkillInfo.SkillType == ESkillType.ACTION) ? EAbilityKinds.STAT_ABILITY_ATK_DELAY_01 : EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01, (a_stSkillInfo.SkillType == ESkillType.ACTION) ? this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_ATK_DELAY_01) : oAbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01));
 			} finally {
 				CCollectionPoolManager.Inst.DespawnDict(oAbilityValDict);
 			}

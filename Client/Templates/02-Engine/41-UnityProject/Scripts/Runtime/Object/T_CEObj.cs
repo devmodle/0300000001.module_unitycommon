@@ -83,7 +83,7 @@ namespace NSEngine {
 
 			// 객체 정보가 존재 할 경우
 			if(this.Params.m_stObjInfo.m_eObjKinds.ExIsValid()) {
-				global::Func.SetupAbilityVals(this.Params.m_stObjInfo, this.Params.m_oObjTargetInfo, this.AbilityValDictWrapper.m_oDict02);
+				global::Func.SetupAbilityVals(this.Params.m_stObjInfo, this.Params.m_oObjTargetInfo, this.AbilityValDictWrapper.m_oDictB);
 			}
 		}
 		#endregion // 함수

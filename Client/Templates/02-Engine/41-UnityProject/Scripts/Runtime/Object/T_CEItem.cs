@@ -69,7 +69,7 @@ namespace NSEngine {
 
 			// 아이템 정보가 존재 할 경우
 			if(this.Params.m_stItemInfo.m_eItemKinds.ExIsValid()) {
-				global::Func.SetupAbilityVals(this.Params.m_stItemInfo, this.Params.m_oItemTargetInfo, this.AbilityValDictWrapper.m_oDict02);
+				global::Func.SetupAbilityVals(this.Params.m_stItemInfo, this.Params.m_oItemTargetInfo, this.AbilityValDictWrapper.m_oDictB);
 			}
 		}
 		#endregion // 함수

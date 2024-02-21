@@ -78,15 +78,15 @@ namespace NSEngine {
 		/** 어빌리티 값을 설정한다 */
 		public virtual void SetupAbilityVals(bool a_bIsReset = true) {
 			this.DoSetupAbilityVals(a_bIsReset);
-			global::Func.SetupAbilityVals(this.AbilityValDictWrapper.m_oDict03, this.AbilityValDictWrapper.m_oDict02);
+			global::Func.SetupAbilityVals(this.AbilityValDictWrapper.m_oDictC, this.AbilityValDictWrapper.m_oDictB);
 
 			// 리셋 모드 일 경우
 			if(a_bIsReset) {
-				this.AbilityValDictWrapper.m_oDict02.ExCopyTo(this.AbilityValDictWrapper.m_oDict01, (_, a_dmAbilityVal) => a_dmAbilityVal);
+				this.AbilityValDictWrapper.m_oDictB.ExCopyTo(this.AbilityValDictWrapper.m_oDictA, (_, a_dmAbilityVal) => a_dmAbilityVal);
 			} else {
-				foreach(var stKeyVal in this.AbilityValDictWrapper.m_oDict02) {
-					decimal dmAbilityVal = this.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(stKeyVal.Key);
-					this.AbilityValDictWrapper.m_oDict01.ExReplaceVal(stKeyVal.Key, CAbilityInfoTable.Inst.GetAbilityInfo(stKeyVal.Key).m_stCommonInfo.m_bIsFlags01 ? System.Math.Min(dmAbilityVal, stKeyVal.Value) : stKeyVal.Value);
+				foreach(var stKeyVal in this.AbilityValDictWrapper.m_oDictB) {
+					decimal dmAbilityVal = this.AbilityValDictWrapper.m_oDictA.GetValueOrDefault(stKeyVal.Key);
+					this.AbilityValDictWrapper.m_oDictA.ExReplaceVal(stKeyVal.Key, CAbilityInfoTable.Inst.GetAbilityInfo(stKeyVal.Key).m_stCommonInfo.m_bIsFlags01 ? System.Math.Min(dmAbilityVal, stKeyVal.Value) : stKeyVal.Value);
 				}
 			}
 		}
@@ -95,10 +95,10 @@ namespace NSEngine {
 		protected virtual void DoSetupAbilityVals(bool a_bIsReset = true) {
 			// 리셋 모드 일 경우
 			if(a_bIsReset) {
-				this.AbilityValDictWrapper.m_oDict01.Clear();
+				this.AbilityValDictWrapper.m_oDictA.Clear();
 			}
 
-			this.AbilityValDictWrapper.m_oDict02.Clear();
+			this.AbilityValDictWrapper.m_oDictB.Clear();
 		}
 		#endregion // 함수
 	}
@@ -108,7 +108,7 @@ namespace NSEngine {
 		#region 함수
 		/** 어빌리티 값을 반환한다 */
 		public decimal GetAbilityVal(EAbilityKinds a_eAbilityKinds) {
-			return this.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(a_eAbilityKinds);
+			return this.AbilityValDictWrapper.m_oDictA.GetValueOrDefault(a_eAbilityKinds);
 		}
 		#endregion // 함수
 

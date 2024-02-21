@@ -73,7 +73,7 @@ namespace NSEngine {
 
 			// 스킬 정보가 존재 할 경우
 			if(this.Params.m_stSkillInfo.m_eSkillKinds.ExIsValid()) {
-				global::Func.SetupAbilityVals(this.Params.m_stSkillInfo, this.Params.m_oSkillTargetInfo, this.AbilityValDictWrapper.m_oDict02);
+				global::Func.SetupAbilityVals(this.Params.m_stSkillInfo, this.Params.m_oSkillTargetInfo, this.AbilityValDictWrapper.m_oDictB);
 			}
 		}
 		#endregion // 함수

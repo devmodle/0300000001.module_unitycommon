@@ -252,7 +252,7 @@ namespace NSEngine {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 #if DISABLE_THIS
 			// 체력이 없을 경우
-			if(a_oSender.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_HP_01) <= KCDefine.B_VAL_0_INT) {
+			if(a_oSender.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_HP_01) <= KCDefine.B_VAL_0_INT) {
 				// 플레이어 객체 일 경우
 				if(this.IsClearFail() || a_oSender.Params.m_stBaseParams.m_oGameObjsPoolKey.Equals(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL)) {
 					this.HandleClearFailState();
