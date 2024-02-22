@@ -164,7 +164,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 아이템 정보를 반환한다 */
 	public STItemInfo GetItemInfo(EItemKinds a_EItemKinds) {
 		bool bIsValid = this.TryGetItemInfo(a_EItemKinds, out STItemInfo stItemInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stItemInfo;
 	}
@@ -172,7 +172,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 구입 아이템 교환 정보를 반환한다 */
 	public STItemTradeInfo GetBuyItemTradeInfo(EItemKinds a_eItemKinds) {
 		bool bIsValid = this.TryGetBuyItemTradeInfo(a_eItemKinds, out STItemTradeInfo stItemTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stItemTradeInfo;
 	}
@@ -180,7 +180,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 판매 아이템 교환 정보를 반환한다 */
 	public STItemTradeInfo GetSaleItemTradeInfo(EItemKinds a_eItemKinds) {
 		bool bIsValid = this.TryGetSaleItemTradeInfo(a_eItemKinds, out STItemTradeInfo stItemTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stItemTradeInfo;
 	}
@@ -188,7 +188,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	/** 강화 아이템 교환 정보를 반환한다 */
 	public STItemTradeInfo GetEnhanceItemTradeInfo(EItemKinds a_eItemKinds) {
 		bool bIsValid = this.TryGetEnhanceItemTradeInfo(a_eItemKinds, out STItemTradeInfo stItemTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stItemTradeInfo;
 	}
@@ -225,7 +225,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 
 	/** 아이템 정보를 저장한다 */
 	public void SaveItemInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
+		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
@@ -254,13 +254,13 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 
 	/** 아이템 정보를 로드한다 */
 	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 		return this.DoLoadItemInfos(this.LoadItemInfosJSONStr(a_oFilePath));
 	}
 
 	/** 아이템 정보 JSON 문자열을 로드한다 */
 	private string LoadItemInfosJSONStr(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -271,7 +271,7 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 
 	/** 아이템 정보를 로드한다 */
 	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) DoLoadItemInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
+		CFunc.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyItemTradeInfos, out SimpleJSON.JSONNode oSaleItemTradeInfos, out SimpleJSON.JSONNode oEnhanceItemTradeInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {

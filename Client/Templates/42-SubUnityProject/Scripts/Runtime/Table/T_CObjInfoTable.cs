@@ -191,7 +191,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 객체 정보를 반환한다 */
 	public STObjInfo GetObjInfo(EObjKinds a_eObjKinds) {
 		bool bIsValid = this.TryGetObjInfo(a_eObjKinds, out STObjInfo stObjInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stObjInfo;
 	}
@@ -199,7 +199,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 구입 객체 교환 정보를 반환한다 */
 	public STObjTradeInfo GetBuyObjTradeInfo(EObjKinds a_eObjKinds) {
 		bool bIsValid = this.TryGetBuyObjTradeInfo(a_eObjKinds, out STObjTradeInfo stObjTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stObjTradeInfo;
 	}
@@ -207,7 +207,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 판매 객체 교환 정보를 반환한다 */
 	public STObjTradeInfo GetSaleObjTradeInfo(EObjKinds a_eObjKinds) {
 		bool bIsValid = this.TryGetSaleObjTradeInfo(a_eObjKinds, out STObjTradeInfo stObjTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stObjTradeInfo;
 	}
@@ -215,7 +215,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 강화 객체 교환 정보를 반환한다 */
 	public STObjTradeInfo GetEnhanceObjTradeInfo(EObjKinds a_eObjKinds) {
 		bool bIsValid = this.TryGetEnhanceObjTradeInfo(a_eObjKinds, out STObjTradeInfo stObjTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stObjTradeInfo;
 	}
@@ -252,7 +252,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 
 	/** 객체 정보를 저장한다 */
 	public void SaveObjInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
+		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
@@ -281,13 +281,13 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 
 	/** 객체 정보를 로드한다 */
 	private (Dictionary<EObjKinds, STObjInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>) LoadObjInfos(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 		return this.DoLoadObjInfos(this.LoadObjInfosJSONStr(a_oFilePath));
 	}
 
 	/** 객체 정보 JSON 문자열을 로드한다 */
 	private string LoadObjInfosJSONStr(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -298,7 +298,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 
 	/** 객체 정보를 로드한다 */
 	private (Dictionary<EObjKinds, STObjInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>) DoLoadObjInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
+		CFunc.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyTradeInfos, out SimpleJSON.JSONNode oSaleTradeInfos, out SimpleJSON.JSONNode oEnhanceTradeInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {

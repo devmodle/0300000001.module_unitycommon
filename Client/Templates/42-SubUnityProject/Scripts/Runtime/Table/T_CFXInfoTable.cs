@@ -104,7 +104,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 	/** 효과 정보를 반환한다 */
 	public STFXInfo GetFXInfo(EFXKinds a_eFXKinds) {
 		bool bIsValid = this.TryGetFXInfo(a_eFXKinds, out STFXInfo stFXInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stFXInfo;
 	}
@@ -123,7 +123,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 
 	/** 효과 정보를 저장한다 */
 	public void SaveFXInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
+		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
@@ -139,13 +139,13 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 
 	/** 효과 정보를 로드한다 */
 	private Dictionary<EFXKinds, STFXInfo> LoadFXInfos(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 		return this.DoLoadFXInfos(this.LoadFXInfosJSONStr(a_oFilePath));
 	}
 
 	/** 효과 정보 JSON 문자열을 로드한다 */
 	private string LoadFXInfosJSONStr(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -156,7 +156,7 @@ public partial class CFXInfoTable : CSingleton<CFXInfoTable> {
 
 	/** 효과 정보를 로드한다 */
 	private Dictionary<EFXKinds, STFXInfo> DoLoadFXInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
+		CFunc.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {

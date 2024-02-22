@@ -260,7 +260,7 @@ namespace SetupScene {
 
 		/** 로딩 게이지 애니메이션을 시작한다 */
 		private Sequence StartLoadingGaugeAni(CGaugeHandler a_oGaugeHandler, System.Action<float> a_oCallback, System.Action<CGaugeHandler, Sequence> a_oCompleteCallback, float a_fStartVal, float a_fEndVal, float a_fDuration, Ease a_eEase = KCDefine.U_EASE_DEF, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsRealtime = false) {
-			CAccess.Assert(a_oGaugeHandler != null);
+			CFunc.Assert(a_oGaugeHandler != null);
 			return CFactory.MakeSequence(CFactory.MakeAni(() => a_oGaugeHandler.Percent, (a_fVal) => a_oGaugeHandler.SetPercent(a_fVal), () => a_oGaugeHandler.SetPercent(a_fStartVal), a_oCallback, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => CFunc.Invoke(ref a_oCompleteCallback, a_oGaugeHandler, a_oAniSender), a_fDelay, a_bIsRealtime: a_bIsRealtime);
 		}
 		#endregion // 함수

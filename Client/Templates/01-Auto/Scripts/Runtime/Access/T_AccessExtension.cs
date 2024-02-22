@@ -14,7 +14,7 @@ public static partial class AccessExtension {
 	#region 클래스 함수
 	/** 컴포넌트 상호 작용 여부를 변경한다 */
 	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oSender != null);
+		CFunc.Assert(!a_bIsAssert || a_oSender != null);
 
 		// 버튼이 없을 경우
 		if(a_oSender == null) {
@@ -27,7 +27,7 @@ public static partial class AccessExtension {
 
 	/** 텍스트를 변경한다 */
 	public static void ExSetText(this Text a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet._1, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
 
 		// 텍스트가 없을 경우
 		if(a_oSender == null || !a_eFontSet.ExIsValid()) {
@@ -39,7 +39,7 @@ public static partial class AccessExtension {
 
 	/** 텍스트를 변경한다 */
 	public static void ExSetText(this TMP_Text a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet._1, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
 
 		// 텍스트가 없을 경우
 		if(a_oSender == null || !a_eFontSet.ExIsValid()) {
@@ -51,7 +51,7 @@ public static partial class AccessExtension {
 
 	/** 텍스트를 변경한다 */
 	public static void ExSetText(this InputField a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet._1, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
 
 		// 텍스트가 없을 경우
 		if(a_oSender == null || !a_eFontSet.ExIsValid()) {
@@ -63,7 +63,7 @@ public static partial class AccessExtension {
 
 	/** 텍스트를 변경한다 */
 	public static void ExSetText(this TMP_InputField a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet._1, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
 
 		// 텍스트가 없을 경우
 		if(a_oSender == null || !a_eFontSet.ExIsValid()) {

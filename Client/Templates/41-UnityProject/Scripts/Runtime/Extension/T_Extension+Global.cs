@@ -13,7 +13,7 @@ public static partial class Extension {
 	#region 클래스 함수
 	/** 타겟 정보를 추가한다 */
 	public static void ExAddTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
@@ -28,7 +28,7 @@ public static partial class Extension {
 
 	/** 소유 타겟 정보를 추가한다 */
 	public static void ExAddOwnedTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
@@ -39,7 +39,7 @@ public static partial class Extension {
 
 	/** 타겟 정보를 제거한다 */
 	public static void ExRemoveTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null && a_oSender.Contains(a_oTargetInfo)));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null && a_oSender.Contains(a_oTargetInfo)));
 
 		// 타겟 정보가 존재 할 경우
 		if((a_oSender != null && a_oTargetInfo != null && a_oSender.Contains(a_oTargetInfo))) {
@@ -49,7 +49,7 @@ public static partial class Extension {
 
 	/** 소유 타겟 정보를 제거한다 */
 	public static void ExRemoveOwnedTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_oTargetInfo != null));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_oTargetInfo != null) {
@@ -60,7 +60,7 @@ public static partial class Extension {
 
 	/** 어빌리티 값을 증가시킨다 */
 	public static void ExIncrAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds, decimal a_dmVal, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eAbilityKinds != EAbilityKinds.NONE));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_eAbilityKinds != EAbilityKinds.NONE));
 
 		// 어빌리티 값 설정이 가능 할 경우
 		if(a_oSender != null && a_eAbilityKinds != EAbilityKinds.NONE) {
@@ -71,13 +71,13 @@ public static partial class Extension {
 
 	/** 타겟 값을 증가시킨다 */
 	public static void ExIncrTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
 		a_oSender.ExReplaceTargetVal(a_eTargetKinds, a_nKinds, a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds) + a_dmVal, a_bIsAssert);
 	}
 
 	/** 타겟 값을 대체한다 */
 	public static void ExReplaceTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds, decimal a_dmVal, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
+		CFunc.Assert(!a_bIsAssert || (a_oSender != null && a_eTargetKinds.ExIsValid()));
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null && a_eTargetKinds.ExIsValid()) {
@@ -93,7 +93,7 @@ public static partial class Extension {
 
 	/** 효과를 실행한다 */
 	public static void ExPlay(this ParticleSystem a_oSender, System.Action<CEventDispatcher, string> a_oCallback, bool a_bIsPlayChildren = true, bool a_bIsStopChildren = true, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oSender != null);
+		CFunc.Assert(!a_bIsAssert || a_oSender != null);
 
 		a_oSender?.ExPlay(a_bIsPlayChildren, a_bIsStopChildren, a_bIsAssert);
 		a_oSender?.GetComponentInChildren<CEventDispatcher>()?.SetParticleFXCallback(a_oCallback);
@@ -101,13 +101,13 @@ public static partial class Extension {
 
 	/** 게이지 애니메이션을 시작한다 */
 	public static Sequence ExStartGaugeAni(this CGaugeHandler a_oSender, System.Action<float> a_oCallback, System.Action<CGaugeHandler, Sequence> a_oCompleteCallback, float a_fStartVal, float a_fEndVal, float a_fDuration, Ease a_eEase = KCDefine.U_EASE_DEF, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsRealtime = false) {
-		CAccess.Assert(a_oSender != null);
+		CFunc.Assert(a_oSender != null);
 		return CFactory.MakeSequence(CFactory.MakeAni(() => a_oSender.Percent, (a_fVal) => a_oSender.SetPercent(a_fVal), () => a_oSender.SetPercent(a_fStartVal), a_oCallback, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => CFunc.Invoke(ref a_oCompleteCallback, a_oSender, a_oAniSender), a_fDelay, a_bIsRealtime: a_bIsRealtime);
 	}
 
 	/** JSON 노드 정보 => JSON 노드로 변환한다 */
 	public static SimpleJSON.JSONNode ExToJSONNode(this Dictionary<string, SimpleJSON.JSONNode> a_oSender) {
-		CAccess.Assert(a_oSender != null);
+		CFunc.Assert(a_oSender != null);
 		var oJSONNode = new SimpleJSON.JSONClass();
 
 		foreach(var stKeyVal in a_oSender) {

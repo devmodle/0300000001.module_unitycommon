@@ -452,7 +452,7 @@ namespace NSEngine {
 		/** 최상단 셀 객체를 반환한다 */
 		public CEObj GetTopCellObj(Vector3Int a_stIdx) {
 			bool bIsValid = this.TryGetTopCellObj(a_stIdx, out CEObj oCellObj);
-			CAccess.Assert(bIsValid);
+			CFunc.Assert(bIsValid);
 
 			return oCellObj;
 		}
@@ -764,7 +764,7 @@ namespace NSEngine {
 
 		/** 아이템을 제거한다 */
 		private void RemoveItem(CEItem a_oItem, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsAssert = true) {
-			CAccess.Assert(!a_bIsAssert || (a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
+			CFunc.Assert(!a_bIsAssert || (a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
 
 			// 아이템이 존재 할 경우
 			if(a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
@@ -775,7 +775,7 @@ namespace NSEngine {
 
 		/** 스킬을 제거한다 */
 		private void RemoveSkill(CESkill a_oSkill, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsAssert = true) {
-			CAccess.Assert(!a_bIsAssert || (a_oSkill != null && a_oSkill.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
+			CFunc.Assert(!a_bIsAssert || (a_oSkill != null && a_oSkill.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
 
 			// 스킬이 존재 할 경우
 			if(a_oSkill != null && a_oSkill.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
@@ -786,7 +786,7 @@ namespace NSEngine {
 
 		/** 객체를 제거한다 */
 		private void RemoveObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsAssert = true) {
-			CAccess.Assert(!a_bIsAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
+			CFunc.Assert(!a_bIsAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
 
 			// 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
@@ -797,7 +797,7 @@ namespace NSEngine {
 
 		/** 효과를 제거한다 */
 		private void RemoveFX(CEFX a_oFX, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsAssert = true) {
-			CAccess.Assert(!a_bIsAssert || (a_oFX != null && a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
+			CFunc.Assert(!a_bIsAssert || (a_oFX != null && a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
 
 			// 효과가 존재 할 경우
 			if(a_oFX != null && a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
@@ -809,7 +809,7 @@ namespace NSEngine {
 		/** 셀 객체를 제거한다 */
 		private void RemoveCellObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsAssert = true) {
 			var oCellObjList = (a_oObj != null) ? this.CellObjListsContainer.ExGetVal(a_oObj.GetController<CECellObjController>().CellIdx.z)?.ExGetVal(a_oObj.GetController<CECellObjController>().CellIdx) : null;
-			CAccess.Assert(!a_bIsAssert || (a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
+			CFunc.Assert(!a_bIsAssert || (a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
 
 			// 셀 객체가 존재 할 경우
 			if(a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
@@ -820,7 +820,7 @@ namespace NSEngine {
 
 		/** 플레이어 객체를 제거한다 */
 		private void RemovePlayerObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsAssert = true) {
-			CAccess.Assert(!a_bIsAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
+			CFunc.Assert(!a_bIsAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
 
 			// 플레이어 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
@@ -831,7 +831,7 @@ namespace NSEngine {
 
 		/** 적 객체를 제거한다 */
 		private void RemoveEnemyObj(CEObj a_oObj, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsAssert = true) {
-			CAccess.Assert(!a_bIsAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
+			CFunc.Assert(!a_bIsAssert || (a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()));
 
 			// 적 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {

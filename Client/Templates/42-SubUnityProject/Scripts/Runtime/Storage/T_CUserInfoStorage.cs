@@ -441,12 +441,12 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		CFunc.ShowLog($"CUserInfoStorage.ResetUserInfo: {a_oJSONStr}");
 		this.UserInfo = a_oJSONStr.ExMsgPackBase64StrToObj<CUserInfo>();
 
-		CAccess.Assert(this.UserInfo != null);
+		CFunc.Assert(this.UserInfo != null);
 	}
 
 	/** 타겟 정보를 추가한다 */
 	public void AddTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
+		CFunc.Assert(!a_bIsAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
@@ -456,7 +456,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 소유 타겟 정보를 추가한다 */
 	public void AddOwnedTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
+		CFunc.Assert(!a_bIsAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
@@ -471,7 +471,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 타겟 정보를 제거한다 */
 	public void RemoveTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
+		CFunc.Assert(!a_bIsAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
@@ -481,7 +481,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	/** 소유 타겟 정보를 제거한다 */
 	public void RemoveOwnedTargetInfo(int a_nCharacterID, CTargetInfo a_oTargetInfo, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
+		CFunc.Assert(!a_bIsAssert || this.UserInfo.m_oCharacterUserInfoDict.ContainsKey(a_nCharacterID));
 
 		// 캐릭터 유저 정보가 존재 할 경우
 		if(this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo)) {
@@ -509,7 +509,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
-			CAccess.Assert(this.UserInfo != null);
+			CFunc.Assert(this.UserInfo != null);
 		}
 
 		return this.UserInfo;
@@ -530,7 +530,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	/** 아이템 타겟 정보를 반환한다 */
 	public CItemTargetInfo GetItemTargetInfo(int a_nCharacterID, EItemKinds a_eItemKinds) {
 		bool bIsValid = this.TryGetItemTargetInfo(a_nCharacterID, a_eItemKinds, out CItemTargetInfo oItemTargetInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oItemTargetInfo;
 	}
@@ -538,7 +538,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	/** 스킬 타겟 정보를 반환한다 */
 	public CSkillTargetInfo GetSkillTargetInfo(int a_nCharacterID, ESkillKinds a_eSkillKinds) {
 		bool bIsValid = this.TryGetSkillTargetInfo(a_nCharacterID, a_eSkillKinds, out CSkillTargetInfo oSkillTargetInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oSkillTargetInfo;
 	}
@@ -546,7 +546,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	/** 객체 타겟 정보를 반환한다 */
 	public CObjTargetInfo GetObjTargetInfo(int a_nCharacterID, EObjKinds a_eObjKinds) {
 		bool bIsValid = this.TryGetObjTargetInfo(a_nCharacterID, a_eObjKinds, out CObjTargetInfo oObjTargetInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oObjTargetInfo;
 	}
@@ -554,7 +554,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	/** 어빌리티 타겟 정보를 반환한다 */
 	public CAbilityTargetInfo GetAbilityTargetInfo(int a_nCharacterID, EAbilityKinds a_eAbilityKinds) {
 		bool bIsValid = this.TryGetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, out CAbilityTargetInfo oAbilityTargetInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oAbilityTargetInfo;
 	}
@@ -562,7 +562,7 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	/** 캐릭터 유저 정보를 반환한다 */
 	public CCharacterUserInfo GetCharacterUserInfo(int a_nCharacterID) {
 		bool bIsValid = this.TryGetCharacterUserInfo(a_nCharacterID, out CCharacterUserInfo oCharacterUserInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oCharacterUserInfo;
 	}

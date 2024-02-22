@@ -39,7 +39,7 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 
 	/** 기타 정보를 저장한다 */
 	public void SaveEtcInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
+		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
@@ -59,7 +59,7 @@ public partial class CEtcInfoTable : CSingleton<CEtcInfoTable> {
 
 	/** 기타 정보 JSON 문자열을 로드한다 */
 	private string LoadEtcInfosJSONStr(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);

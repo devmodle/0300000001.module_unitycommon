@@ -165,7 +165,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	/** 레벨 에피소드 정보를 반환한다 */
 	public STEpisodeInfo GetLevelEpisodeInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetLevelEpisodeInfo(a_nLevelID, out STEpisodeInfo stEpisodeInfo, a_nStageID, a_nChapterID);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stEpisodeInfo;
 	}
@@ -173,7 +173,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	/** 스테이지 에피소드 정보를 반환한다 */
 	public STEpisodeInfo GetStageEpisodeInfo(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetStageEpisodeInfo(a_nStageID, out STEpisodeInfo stEpisodeInfo, a_nChapterID);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stEpisodeInfo;
 	}
@@ -181,7 +181,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	/** 챕터 에피소드 정보를 반환한다 */
 	public STEpisodeInfo GetChapterEpisodeInfo(int a_nChapterID) {
 		bool bIsValid = this.TryGetChapterEpisodeInfo(a_nChapterID, out STEpisodeInfo stEpisodeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stEpisodeInfo;
 	}
@@ -212,7 +212,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 	/** 에피소드 정보를 저장한다 */
 	public void SaveEpisodeInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
+		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
@@ -230,13 +230,13 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 	/** 에피소드 정보를 로드한다 */
 	private (Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>) LoadEpisodeInfos(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 		return this.DoLoadEpisodeInfos(this.LoadEpisodeInfosJSONStr(a_oFilePath));
 	}
 
 	/** 에피소드 정보 JSON 문자열을 로드한다 */
 	private string LoadEpisodeInfosJSONStr(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -247,7 +247,7 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 	/** 에피소드 정보를 로드한다 */
 	private (Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>) DoLoadEpisodeInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
+		CFunc.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oLevelEpisodeInfos, out SimpleJSON.JSONNode oStageEpisodeInfos, out SimpleJSON.JSONNode oChapterEpisodeInfos);
 
 		for(int i = 0; i < oLevelEpisodeInfos.Count; ++i) {

@@ -89,7 +89,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	/** 보상 정보를 반환한다 */
 	public STRewardInfo GetRewardInfo(ERewardKinds a_eRewardKinds) {
 		bool bIsValid = this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stRewardInfo;
 	}
@@ -97,7 +97,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	/** 획득 타겟 정보를 반환한다 */
 	public STTargetInfo GetAcquireTargetInfo(ERewardKinds a_eRewardKinds, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		bool bIsValid = this.TryGetAcquireTargetInfo(a_eRewardKinds, a_eTargetKinds, a_nKinds, out STTargetInfo stAcquireTargetInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stAcquireTargetInfo;
 	}
@@ -122,7 +122,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 	/** 보상 정보를 저장한다 */
 	public void SaveRewardInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
+		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
@@ -148,13 +148,13 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 	/** 보상 정보를 로드한다 */
 	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 		return this.DoLoadRewardInfos(this.LoadRewardInfosJSONStr(a_oFilePath));
 	}
 
 	/** 보상 정보 JSON 문자열을 로드한다 */
 	private string LoadRewardInfosJSONStr(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -165,7 +165,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 	/** 보상 정보를 로드한다 */
 	private Dictionary<ERewardKinds, STRewardInfo> DoLoadRewardInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
+		CFunc.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {

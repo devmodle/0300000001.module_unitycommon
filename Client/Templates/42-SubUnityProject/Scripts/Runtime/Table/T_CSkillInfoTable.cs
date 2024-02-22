@@ -176,7 +176,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	/** 스킬 정보를 반환한다 */
 	public STSkillInfo GetSkillInfo(ESkillKinds a_ESkillKinds) {
 		bool bIsValid = this.TryGetSkillInfo(a_ESkillKinds, out STSkillInfo stSkillInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stSkillInfo;
 	}
@@ -184,7 +184,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	/** 구입 스킬 교환 정보를 반환한다 */
 	public STSkillTradeInfo GetBuySkillTradeInfo(ESkillKinds a_eSkillKinds) {
 		bool bIsValid = this.TryGetBuySkillTradeInfo(a_eSkillKinds, out STSkillTradeInfo stSkillTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stSkillTradeInfo;
 	}
@@ -192,7 +192,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	/** 판매 스킬 교환 정보를 반환한다 */
 	public STSkillTradeInfo GetSaleSkillTradeInfo(ESkillKinds a_eSkillKinds) {
 		bool bIsValid = this.TryGetSaleSkillTradeInfo(a_eSkillKinds, out STSkillTradeInfo stSkillTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stSkillTradeInfo;
 	}
@@ -200,7 +200,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	/** 강화 스킬 교환 정보를 반환한다 */
 	public STSkillTradeInfo GetEnhanceSkillTradeInfo(ESkillKinds a_eSkillKinds) {
 		bool bIsValid = this.TryGetEnhanceSkillTradeInfo(a_eSkillKinds, out STSkillTradeInfo stSkillTradeInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stSkillTradeInfo;
 	}
@@ -237,7 +237,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 
 	/** 스킬 정보를 저장한다 */
 	public void SaveSkillInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
+		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
@@ -266,13 +266,13 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 
 	/** 스킬 정보를 로드한다 */
 	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) LoadSkillInfos(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 		return this.DoLoadSkillInfos(this.LoadSkillInfosJSONStr(a_oFilePath));
 	}
 
 	/** 스킬 정보 JSON 문자열을 로드한다 */
 	private string LoadSkillInfosJSONStr(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -283,7 +283,7 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 
 	/** 스킬 정보를 로드한다 */
 	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) DoLoadSkillInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
+		CFunc.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyTradeInfos, out SimpleJSON.JSONNode oSaleTradeInfos, out SimpleJSON.JSONNode oEnhanceTradeInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {

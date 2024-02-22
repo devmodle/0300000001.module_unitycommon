@@ -89,7 +89,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	/** 미션 정보를 반환한다 */
 	public STMissionInfo GetMissionInfo(EMissionKinds a_eMissionKinds) {
 		bool bIsValid = this.TryGetMissionInfo(a_eMissionKinds, out STMissionInfo stMissionInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stMissionInfo;
 	}
@@ -108,7 +108,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 
 	/** 미션 정보를 저장한다 */
 	public void SaveMissionInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oJSONStr != null);
+		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
 
 		// JSON 문자열이 존재 할 경우
 		if(a_oJSONStr != null) {
@@ -134,13 +134,13 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 
 	/** 미션 정보를 로드한다 */
 	private Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 		return this.DoLoadMissionInfos(this.LoadMissionInfosJSONStr(a_oFilePath));
 	}
 
 	/** 미션 정보 JSON 문자열을 로드한다 */
 	private string LoadMissionInfosJSONStr(string a_oFilePath) {
-		CAccess.Assert(a_oFilePath.ExIsValid());
+		CFunc.Assert(a_oFilePath.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
@@ -151,7 +151,7 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 
 	/** 미션 정보를 로드한다 */
 	private Dictionary<EMissionKinds, STMissionInfo> DoLoadMissionInfos(string a_oJSONStr) {
-		CAccess.Assert(a_oJSONStr.ExIsValid());
+		CFunc.Assert(a_oJSONStr.ExIsValid());
 		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {

@@ -26,7 +26,7 @@ public static partial class Extension {
 
 	/** JSON 문자열 => 타겟 정보로 변환한다 */
 	public static Dictionary<ulong, STTargetInfo> ExJSONStrToTargetInfos(this string a_oSender) {
-		CAccess.Assert(a_oSender.ExIsValid());
+		CFunc.Assert(a_oSender.ExIsValid());
 		var oTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 #if FIREBASE_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE

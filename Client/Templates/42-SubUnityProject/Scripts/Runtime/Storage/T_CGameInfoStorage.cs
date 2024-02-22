@@ -241,7 +241,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		CFunc.ShowLog($"CGameInfoStorage.ResetGameInfo: {a_oBase64Str}");
 		this.GameInfo = a_oBase64Str.ExMsgPackBase64StrToObj<CGameInfo>();
 
-		CAccess.Assert(this.GameInfo != null);
+		CFunc.Assert(this.GameInfo != null);
 	}
 
 	/** 선택 아이템을 리셋한다 */
@@ -278,7 +278,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath, true);
-			CAccess.Assert(this.GameInfo != null);
+			CFunc.Assert(this.GameInfo != null);
 
 			foreach(var stKeyVal in this.GameInfo.m_oCharacterGameInfoDict) {
 				foreach(var stLevelKeyVal in stKeyVal.Value.m_oLevelClearInfoDict) {
@@ -313,7 +313,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 캐릭터 게임 정보를 반환한다 */
 	public CCharacterGameInfo GetCharacterGameInfo(int a_nCharacterID) {
 		bool bIsValid = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oCharacterGameInfo;
 	}
@@ -321,7 +321,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 레벨 클리어 정보를 반환한다 */
 	public CClearInfo GetLevelClearInfo(int a_nCharacterID, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetLevelClearInfo(a_nCharacterID, a_nLevelID, out CClearInfo oLevelClearInfo, a_nStageID, a_nChapterID);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oLevelClearInfo;
 	}
@@ -329,7 +329,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 스테이지 클리어 정보를 반환한다 */
 	public CClearInfo GetStageClearInfo(int a_nCharacterID, int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		bool bIsValid = this.TryGetStageClearInfo(a_nCharacterID, a_nStageID, out CClearInfo oStageClearInfo, a_nChapterID);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oStageClearInfo;
 	}
@@ -337,7 +337,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 챕터 클리어 정보를 반환한다 */
 	public CClearInfo GetChapterClearInfo(int a_nCharacterID, int a_nChapterID) {
 		bool bIsValid = this.TryGetChapterClearInfo(a_nCharacterID, a_nChapterID, out CClearInfo oChapterClearInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oChapterClearInfo;
 	}

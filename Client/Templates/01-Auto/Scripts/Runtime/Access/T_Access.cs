@@ -49,7 +49,7 @@ public static partial class Access {
 	/** 상품을 반환한다 */
 	public static Product GetProduct(int a_nProductIdx) {
 		bool bIsValid = CProductInfoTable.Inst.TryGetProductInfo(a_nProductIdx, out STProductInfo stProductInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return CPurchaseManager.Inst.GetProduct(stProductInfo.m_oID);
 	}

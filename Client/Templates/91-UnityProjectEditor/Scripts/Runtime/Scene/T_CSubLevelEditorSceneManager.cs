@@ -2171,7 +2171,7 @@ namespace LevelEditorScene {
 
 			try {
 				NSEngine.Factory.MakeGridInfos(a_oLevelInfo, oGridInfoList, a_fDeltaX, a_fDeltaY);
-				CAccess.Assert(oGridInfoList.ExIsValidIdx(a_nIdx));
+				CFunc.Assert(oGridInfoList.ExIsValidIdx(a_nIdx));
 
 				stNumViewCells.x = Mathf.Clamp((int)(oGridInfoList[a_nIdx].m_stViewBounds.size.x / NSEngine.Access.CellSize.x), NSEngine.KDefine.E_MIN_NUM_CELLS.x, a_oLevelInfo.NumCells.x);
 				stNumViewCells.y = Mathf.Clamp((int)(oGridInfoList[a_nIdx].m_stViewBounds.size.y / NSEngine.Access.CellSize.y), NSEngine.KDefine.E_MIN_NUM_CELLS.y, a_oLevelInfo.NumCells.y);

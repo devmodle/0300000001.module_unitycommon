@@ -209,20 +209,20 @@ public static partial class Access {
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.ABILITY_TARGET) {
 			return Access.IsEnableTrade(a_nCharacterID, a_stTargetInfo);
 		} else {
-			CAccess.Assert(CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo));
+			CFunc.Assert(CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo));
 			return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
 		}
 	}
 
 	/** 교환 가능 여부를 검사한다 */
 	public static bool IsEnableTrade(int a_nCharacterID, Dictionary<ulong, STTargetInfo> a_oTargetInfoDict) {
-		CAccess.Assert(a_oTargetInfoDict != null);
+		CFunc.Assert(a_oTargetInfoDict != null);
 		return a_oTargetInfoDict.All((a_stKeyVal) => Access.IsEnableTrade(a_nCharacterID, a_stKeyVal.Value));
 	}
 
 	/** 교환 가능 여부를 검사한다 */
 	public static bool IsEnableTrade(int a_nCharacterID, Dictionary<ulong, STTargetInfo> a_oTargetInfoDict, CTargetInfo a_oTargetInfo) {
-		CAccess.Assert(a_oTargetInfoDict != null);
+		CFunc.Assert(a_oTargetInfoDict != null);
 		return a_oTargetInfoDict.All((a_stKeyVal) => Access.IsEnableTrade(a_nCharacterID, a_stKeyVal.Value, a_oTargetInfo));
 	}
 
@@ -466,7 +466,7 @@ public static partial class Access {
 
 	/** 시트 이름을 반환한다 */
 	public static Dictionary<string, string> GetSheetNames(System.Type a_oType, STTableInfo a_stTableInfo) {
-		CAccess.Assert(a_stTableInfo.m_oSheetNameDictContainer.ContainsKey(a_oType));
+		CFunc.Assert(a_stTableInfo.m_oSheetNameDictContainer.ContainsKey(a_oType));
 
 		return new Dictionary<string, string>() {
 			[KCDefine.B_KEY_COMMON] = a_stTableInfo.m_oSheetNameDictContainer[a_oType].GetValueOrDefault(KCDefine.B_KEY_COMMON, string.Empty),
@@ -506,25 +506,25 @@ public static partial class Access {
 
 	/** 아이템 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableItemTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
-		CAccess.Assert(CItemInfoTable.Inst.TryGetItemInfo((EItemKinds)a_stTargetInfo.Kinds, out STItemInfo stItemInfo));
+		CFunc.Assert(CItemInfoTable.Inst.TryGetItemInfo((EItemKinds)a_stTargetInfo.Kinds, out STItemInfo stItemInfo));
 		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
 	}
 
 	/** 스킬 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableSkillTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
-		CAccess.Assert(CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds, out STSkillInfo stSkillInfo));
+		CFunc.Assert(CSkillInfoTable.Inst.TryGetSkillInfo((ESkillKinds)a_stTargetInfo.Kinds, out STSkillInfo stSkillInfo));
 		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
 	}
 
 	/** 객체 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableObjTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
-		CAccess.Assert(CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.Kinds, out STObjInfo stObjInfo));
+		CFunc.Assert(CObjInfoTable.Inst.TryGetObjInfo((EObjKinds)a_stTargetInfo.Kinds, out STObjInfo stObjInfo));
 		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
 	}
 
 	/** 어빌리티 타겟 교환 가능 여부를 검사한다 */
 	private static bool IsEnableAbilityTargetTrade(STTargetInfo a_stTargetInfo, CTargetInfo a_oTargetInfo) {
-		CAccess.Assert(CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo));
+		CFunc.Assert(CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo));
 		return Access.DoIsEnableTrade(a_stTargetInfo, a_oTargetInfo);
 	}
 

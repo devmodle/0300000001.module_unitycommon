@@ -117,7 +117,7 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		// 파일이 존재 할 경우
 		if(File.Exists(a_oFilePath)) {
 			this.AppInfo = CFunc.ReadMsgPackObj<CAppInfo>(a_oFilePath, true);
-			CAccess.Assert(this.AppInfo != null);
+			CFunc.Assert(this.AppInfo != null);
 		}
 
 		return this.AppInfo;

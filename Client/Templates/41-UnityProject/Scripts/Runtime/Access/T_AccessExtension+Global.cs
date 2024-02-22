@@ -65,7 +65,7 @@ public static partial class AccessExtension {
 	/** 타겟 정보를 반환한다 */
 	public static STTargetInfo ExGetTargetInfo(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return stTargetInfo;
 	}
@@ -73,7 +73,7 @@ public static partial class AccessExtension {
 	/** 타겟 정보를 반환한다 */
 	public static CTargetInfo ExGetTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, int a_nKinds) {
 		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetType, a_nKinds, out CTargetInfo oTargetInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oTargetInfo;
 	}
@@ -81,7 +81,7 @@ public static partial class AccessExtension {
 	/** 타겟 정보를 반환한다 */
 	public static CTargetInfo ExGetTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, string a_oGUID) {
 		bool bIsValid = a_oSender.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo);
-		CAccess.Assert(bIsValid);
+		CFunc.Assert(bIsValid);
 
 		return oTargetInfo;
 	}
@@ -106,7 +106,7 @@ public static partial class AccessExtension {
 
 	/** 소유자 타겟 정보를 변경한다 */
 	public static void ExSetOwnerTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oOwnerTargetInfo, bool a_bIsAssert = true) {
-		CAccess.Assert(!a_bIsAssert || a_oSender != null);
+		CFunc.Assert(!a_bIsAssert || a_oSender != null);
 
 		// 타겟 정보가 존재 할 경우
 		if(a_oSender != null) {
