@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-/** 로그 상수 */
+/** 상수 - 로그 */
 public static partial class KDefine {
 	#region 기본
 	// 이름

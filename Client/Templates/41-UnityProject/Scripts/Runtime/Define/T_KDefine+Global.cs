@@ -72,15 +72,10 @@ public static partial class KDefine {
 	public static readonly string G_TABLE_N_ABILITY_INFO = KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false);
 	public static readonly string G_TABLE_N_PRODUCT_INFO = KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false);
 
-	// 분석 {
+	// 분석
 	public static readonly List<EAnalytics> G_ANALYTICS_LOG_ENABLE_LIST = new List<EAnalytics>() {
 		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER, EAnalytics.PLAYFAB
 	};
-
-	public static readonly List<EAnalytics> G_ANALYTICS_PURCHASE_LOG_ENABLE_LIST = new List<EAnalytics>() {
-		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER
-	};
-	// 분석 }
 
 	// 테이블 정보 {
 	public static readonly List<STKeyInfo> G_KEY_INFO_GOOGLE_SHEET_COMMON_LIST = new List<STKeyInfo>() {
