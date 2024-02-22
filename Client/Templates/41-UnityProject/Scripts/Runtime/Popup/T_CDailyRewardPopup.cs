@@ -25,14 +25,14 @@ public partial class CDailyRewardPopup : CSubPopup {
 	#endregion // 변수
 
 	#region 프로퍼티
-	public override bool IsIgnoreCloseBtn => true;
+	public override bool IsEnableCloseBtn => false;
 	#endregion // 프로퍼티
 
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.SetIsIgnoreNavStackEvent(true);
+		this.SetIsEnableNavStackEvent(false);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {

@@ -45,7 +45,7 @@ public partial class CContinuePopup : CSubPopup {
 	public STParams Params { get; private set; }
 	public bool IsWatchRewardAds { get; private set; } = false;
 
-	public override bool IsIgnoreCloseBtn => true;
+	public override bool IsEnableCloseBtn => false;
 	public EItemKinds ContinueItemKinds => (EItemKinds)Mathf.Min((int)EItemKinds.CONSUMABLE_ITEM_GAME_CONTINUE_MAX_VAL - KCDefine.B_VAL_1_INT, (int)EItemKinds.CONSUMABLE_ITEM_GAME_CONTINUE_01 + this.Params.m_nContinueTimes);
 	#endregion // 프로퍼티
 
@@ -53,7 +53,7 @@ public partial class CContinuePopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.SetIsIgnoreNavStackEvent(true);
+		this.SetIsEnableNavStackEvent(false);
 
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
@@ -160,11 +160,13 @@ public partial class CContinuePopup : CSubPopup {
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
-		// 광고를 시청했을 경우
-		if(a_bIsSuccess) {
-			this.IsWatchRewardAds = true;
-			this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
+		// 광고 시청에 실패했을 경우
+		if(!a_bIsSuccess) {
+			return;
 		}
+
+		this.IsWatchRewardAds = true;
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
 	}
 #endif // #if ADS_MODULE_ENABLE
 	#endregion // 조건부 함수
@@ -176,7 +178,9 @@ public partial class CContinuePopup : CSubPopup {
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams(int a_nContinueTimes, int a_nAdsContinueTimes, Dictionary<ECallback, System.Action<CContinuePopup>> a_oCallbackDict = null) {
 		return new STParams() {
-			m_nContinueTimes = a_nContinueTimes, m_nAdsContinueTimes = a_nAdsContinueTimes, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CContinuePopup>>()
+			m_nContinueTimes = a_nContinueTimes, 
+			m_nAdsContinueTimes = a_nAdsContinueTimes, 
+			m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CContinuePopup>>()
 		};
 	}
 	#endregion // 클래스 함수

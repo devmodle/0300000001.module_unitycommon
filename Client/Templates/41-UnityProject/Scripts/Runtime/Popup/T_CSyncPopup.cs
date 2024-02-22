@@ -165,7 +165,7 @@ public partial class CSyncPopup : CSubPopup {
 		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
 
 		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => {
-			a_oPopupSender.SetIsIgnoreNavStackEvent(m_bIsLoadUserInfo);
+			a_oPopupSender.SetIsEnableNavStackEvent(!m_bIsLoadUserInfo);
 			return true;
 		});
 	}

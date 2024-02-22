@@ -46,7 +46,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		base.Awake();
 
 		this.SetIsEnableAni(false);
-		this.SetIsIgnoreNavStackEvent(true);
+		this.SetIsEnableNavStackEvent(false);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {

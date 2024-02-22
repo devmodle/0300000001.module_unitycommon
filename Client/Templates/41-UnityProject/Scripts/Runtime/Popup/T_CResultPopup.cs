@@ -56,14 +56,14 @@ public partial class CResultPopup : CSubPopup {
 
 	#region 프로퍼티
 	public STParams Params { get; private set; }
-	public override bool IsIgnoreCloseBtn => true;
+	public override bool IsEnableCloseBtn => false;
 	#endregion // 프로퍼티
 
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.SetIsIgnoreNavStackEvent(true);
+		this.SetIsEnableNavStackEvent(false);
 
 		// 객체를 설정한다
 		CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
