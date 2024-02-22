@@ -73,7 +73,7 @@ public partial class CSettingsPopup : CSubPopup {
 
 		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
 			string oImgPath = oBtnKeyInfoList[i].Item5 ? oBtnKeyInfoList[i].Item3 : oBtnKeyInfoList[i].Item4;
-			m_oBtnDict.GetValueOrDefault(oBtnKeyInfoList[i].Item1)?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2)?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_SPRITE, CResManager.Inst.GetRes<Sprite>(oImgPath));
+			m_oBtnDict.ExGetVal(oBtnKeyInfoList[i].Item1)?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2)?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_SPRITE, CResManager.Inst.GetRes<Sprite>(oImgPath));
 		}
 		// 버튼을 갱신한다 }
 

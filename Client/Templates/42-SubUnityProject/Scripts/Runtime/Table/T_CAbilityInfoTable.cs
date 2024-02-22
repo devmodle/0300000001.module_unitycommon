@@ -186,25 +186,25 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 
 	/** 어빌리티 정보를 반환한다 */
 	public bool TryGetAbilityInfo(EAbilityKinds a_eAbilityKinds, out STAbilityInfo a_stOutAbilityInfo) {
-		a_stOutAbilityInfo = this.AbilityInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityInfo.INVALID);
+		a_stOutAbilityInfo = this.AbilityInfoDict.ExGetVal(a_eAbilityKinds, STAbilityInfo.INVALID);
 		return this.AbilityInfoDict.ContainsKey(a_eAbilityKinds);
 	}
 
 	/** 구입 어빌리티 교환 정보를 반환한다 */
 	public bool TryGetBuyAbilityTradeInfo(EAbilityKinds a_eAbilityKinds, out STAbilityTradeInfo a_stOutAbilityTradeInfo) {
-		a_stOutAbilityTradeInfo = this.BuyAbilityTradeInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityTradeInfo.INVALID);
+		a_stOutAbilityTradeInfo = this.BuyAbilityTradeInfoDict.ExGetVal(a_eAbilityKinds, STAbilityTradeInfo.INVALID);
 		return this.BuyAbilityTradeInfoDict.ContainsKey(a_eAbilityKinds);
 	}
 
 	/** 판매 어빌리티 교환 정보를 반환한다 */
 	public bool TryGetSaleAbilityTradeInfo(EAbilityKinds a_eAbilityKinds, out STAbilityTradeInfo a_stOutAbilityTradeInfo) {
-		a_stOutAbilityTradeInfo = this.SaleAbilityTradeInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityTradeInfo.INVALID);
+		a_stOutAbilityTradeInfo = this.SaleAbilityTradeInfoDict.ExGetVal(a_eAbilityKinds, STAbilityTradeInfo.INVALID);
 		return this.SaleAbilityTradeInfoDict.ContainsKey(a_eAbilityKinds);
 	}
 
 	/** 강화 어빌리티 교환 정보를 반환한다 */
 	public bool TryGetEnhanceAbilityTradeInfo(EAbilityKinds a_eAbilityKinds, out STAbilityTradeInfo a_stOutAbilityTradeInfo) {
-		a_stOutAbilityTradeInfo = this.EnhanceAbilityTradeInfoDict.GetValueOrDefault(a_eAbilityKinds, STAbilityTradeInfo.INVALID);
+		a_stOutAbilityTradeInfo = this.EnhanceAbilityTradeInfoDict.ExGetVal(a_eAbilityKinds, STAbilityTradeInfo.INVALID);
 		return this.EnhanceAbilityTradeInfoDict.ContainsKey(a_eAbilityKinds);
 	}
 

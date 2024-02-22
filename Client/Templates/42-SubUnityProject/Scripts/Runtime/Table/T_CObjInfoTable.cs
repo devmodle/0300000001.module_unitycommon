@@ -222,25 +222,25 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 
 	/** 객체 정보를 반환한다 */
 	public bool TryGetObjInfo(EObjKinds a_eObjKinds, out STObjInfo a_stOutObjInfo) {
-		a_stOutObjInfo = this.ObjInfoDict.GetValueOrDefault(a_eObjKinds, STObjInfo.INVALID);
+		a_stOutObjInfo = this.ObjInfoDict.ExGetVal(a_eObjKinds, STObjInfo.INVALID);
 		return this.ObjInfoDict.ContainsKey(a_eObjKinds);
 	}
 
 	/** 구입 객체 교환 정보를 반환한다 */
 	public bool TryGetBuyObjTradeInfo(EObjKinds a_eObjKinds, out STObjTradeInfo a_stOutObjTradeInfo) {
-		a_stOutObjTradeInfo = this.BuyObjTradeInfoDict.GetValueOrDefault(a_eObjKinds, STObjTradeInfo.INVALID);
+		a_stOutObjTradeInfo = this.BuyObjTradeInfoDict.ExGetVal(a_eObjKinds, STObjTradeInfo.INVALID);
 		return this.BuyObjTradeInfoDict.ContainsKey(a_eObjKinds);
 	}
 
 	/** 판매 객체 교환 정보를 반환한다 */
 	public bool TryGetSaleObjTradeInfo(EObjKinds a_eObjKinds, out STObjTradeInfo a_stOutObjTradeInfo) {
-		a_stOutObjTradeInfo = this.SaleObjTradeInfoDict.GetValueOrDefault(a_eObjKinds, STObjTradeInfo.INVALID);
+		a_stOutObjTradeInfo = this.SaleObjTradeInfoDict.ExGetVal(a_eObjKinds, STObjTradeInfo.INVALID);
 		return this.SaleObjTradeInfoDict.ContainsKey(a_eObjKinds);
 	}
 
 	/** 강화 객체 교환 정보를 반환한다 */
 	public bool TryGetEnhanceObjTradeInfo(EObjKinds a_eObjKinds, out STObjTradeInfo a_stOutObjTradeInfo) {
-		a_stOutObjTradeInfo = this.EnhanceObjTradeInfoDict.GetValueOrDefault(a_eObjKinds, STObjTradeInfo.INVALID);
+		a_stOutObjTradeInfo = this.EnhanceObjTradeInfoDict.ExGetVal(a_eObjKinds, STObjTradeInfo.INVALID);
 		return this.EnhanceObjTradeInfoDict.ContainsKey(a_eObjKinds);
 	}
 

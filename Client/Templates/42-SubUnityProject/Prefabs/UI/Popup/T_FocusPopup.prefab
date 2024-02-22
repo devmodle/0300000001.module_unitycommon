@@ -29,7 +29,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8019310881180709761}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -68,7 +67,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8019310881180709761}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -141,7 +139,7 @@ GameObject:
   - component: {fileID: 6865646950255022322}
   - component: {fileID: 7337276658562473696}
   - component: {fileID: 5870430285574755160}
-  - component: {fileID: 1968311577493394421}
+  - component: {fileID: 7709302261328339213}
   m_Layer: 5
   m_Name: CONTENTS
   m_TagString: Untagged
@@ -164,7 +162,6 @@ RectTransform:
   - {fileID: 898627692112889045}
   - {fileID: 970872857014784099}
   m_Father: {fileID: 8019310881588900475}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -229,7 +226,7 @@ MonoBehaviour:
   m_PartOfParent: 0
   m_IgnoreSelfGraphic: 0
   m_IgnoreSelfStencil: 0
---- !u!114 &1968311577493394421
+--- !u!114 &7709302261328339213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,7 +235,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8019310881180709762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c5c565eea0a41af950e2335b16cd79, type: 3}
+  m_Script: {fileID: 11500000, guid: def0647331c45494985de66634dc2d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_stSizeRate: {x: 1, y: 1, z: 1}
@@ -272,7 +269,6 @@ RectTransform:
   m_Children:
   - {fileID: 8019310881180709761}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

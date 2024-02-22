@@ -110,16 +110,16 @@ public static partial class CCommonEditorSceneManager {
 		if(stScene.IsValid() && !CCommonEditorSceneManager.m_oSampleSceneNameList.Contains(stScene.name) && CPlatformOptsSetter.OptsInfoTable != null) {
 			bool bIsValid01 = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
-			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty).ExGetFileName(false));
+			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty).ExGetFileName(false));
 
 			var stResult = oLightingSettingsPathDict.ExFindVal((a_stKeyVal) => {
 				return oLightingSettings != null && a_stKeyVal.Value.ExGetFileName(false).Equals(oLightingSettings.name);
 			});
 
 			// 광원 설정이 없을 경우
-			if((!bIsValid01 || bIsValid02 || (bIsValid03 && stResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty), true)) {
+			if((!bIsValid01 || bIsValid02 || (bIsValid03 && stResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty), true)) {
 				EditorSceneManager.MarkSceneDirty(stScene);
-				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict.GetValueOrDefault(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty)));
+				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty)));
 			}
 		}
 	}

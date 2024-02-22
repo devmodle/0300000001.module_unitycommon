@@ -90,7 +90,7 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 
 	/** 수식 정보를 반환한다 */
 	public bool TryGetCalcInfo(ECalcKinds a_eCalcKinds, out STCalcInfo a_stOutCalcInfo) {
-		a_stOutCalcInfo = this.CalcInfoDict.GetValueOrDefault(a_eCalcKinds, STCalcInfo.INVALID);
+		a_stOutCalcInfo = this.CalcInfoDict.ExGetVal(a_eCalcKinds, STCalcInfo.INVALID);
 		return this.CalcInfoDict.ContainsKey(a_eCalcKinds);
 	}
 

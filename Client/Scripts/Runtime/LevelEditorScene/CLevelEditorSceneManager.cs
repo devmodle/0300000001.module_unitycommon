@@ -60,36 +60,38 @@ namespace LevelEditorScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
-				// 객체를 설정한다 {
-				CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
-					(EKey.MID_EDITOR_UIS, $"{EKey.MID_EDITOR_UIS}", this.UIsBase),
-					(EKey.LEFT_EDITOR_UIS, $"{EKey.LEFT_EDITOR_UIS}", this.UIsBase),
-					(EKey.RIGHT_EDITOR_UIS, $"{EKey.RIGHT_EDITOR_UIS}", this.UIsBase)
-				}, m_oUIsDict);
-
-				CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
-					(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
-					(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
-					(EKey.ME_UIS_EDITOR_MODE_UIS, $"{EKey.ME_UIS_EDITOR_MODE_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
-					(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict[EKey.LEFT_EDITOR_UIS])
-				}, m_oUIsDict);
-
-				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
-				}, m_oObjDict);
-
-				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", m_oObjDict[EKey.EDITOR_OBJ_ROOT], null)
-				}, m_oObjDict);
-
-				m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
-				m_oObjDict[EKey.EDITOR_OBJ_ROOT]?.ExAddComponent<SpriteRenderer>();
-				// 객체를 설정한다 }
-
-				CSceneManager.ScreenDebugUIs?.SetActive(false);
+			// 앱 초기화가 필요 할 경우
+			if(!CSceneManager.IsAppInit) {
+				return;
 			}
+
+			// 객체를 설정한다 {
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
+				(EKey.MID_EDITOR_UIS, $"{EKey.MID_EDITOR_UIS}", this.UIsBase),
+				(EKey.LEFT_EDITOR_UIS, $"{EKey.LEFT_EDITOR_UIS}", this.UIsBase),
+				(EKey.RIGHT_EDITOR_UIS, $"{EKey.RIGHT_EDITOR_UIS}", this.UIsBase)
+			}, m_oUIsDict);
+
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
+				(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
+				(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
+				(EKey.ME_UIS_EDITOR_MODE_UIS, $"{EKey.ME_UIS_EDITOR_MODE_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
+				(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict[EKey.LEFT_EDITOR_UIS])
+			}, m_oUIsDict);
+
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+			}, m_oObjDict);
+
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
+				(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", m_oObjDict[EKey.EDITOR_OBJ_ROOT], null)
+			}, m_oObjDict);
+
+			m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
+			m_oObjDict[EKey.EDITOR_OBJ_ROOT]?.ExAddComponent<SpriteRenderer>();
+			// 객체를 설정한다 }
+
+			CSceneManager.ScreenDebugUIs?.SetActive(false);
 		}
 		#endregion // 함수
 	}

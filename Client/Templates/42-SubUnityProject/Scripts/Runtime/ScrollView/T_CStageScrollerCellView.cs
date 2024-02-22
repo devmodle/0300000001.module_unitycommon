@@ -55,7 +55,7 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 	private void UpdateScrollerCellState(GameObject a_oScrollerCell, STIDInfo a_stIDInfo) {
 		// 버튼을 갱신한다 {
 		var oSelBtn = a_oScrollerCell.GetComponentInChildren<Button>();
-		oSelBtn?.ExAddListener(() => base.Params.m_oCallbackDict.GetValueOrDefault(ECallback.SEL)?.Invoke(this, CFactory.MakeULevelID(a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)), true, false);
+		oSelBtn?.ExAddListener(() => base.Params.m_oCallbackDict.ExGetVal(ECallback.SEL)?.Invoke(this, CFactory.MakeULevelID(a_stIDInfo.m_nID01, a_stIDInfo.m_nID02, a_stIDInfo.m_nID03)), true, false);
 
 #if PLAY_TEST_ENABLE
 		oSelBtn?.ExSetInteractable(true, false);

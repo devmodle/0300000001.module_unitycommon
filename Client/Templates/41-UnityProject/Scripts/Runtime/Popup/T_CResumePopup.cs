@@ -53,12 +53,12 @@ public partial class CResumePopup : CSubPopup {
 
 	/** 재개 버튼을 눌렀을 경우 */
 	private void OnTouchResumeBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RESUME)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.RESUME)?.Invoke(this);
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.LEAVE)?.Invoke(this);
 	}
 	#endregion // 함수
 }

@@ -50,65 +50,65 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	[JsonIgnore]
 	[IgnoreMember]
 	public int SizeX {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_X, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int SizeY {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Y, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int SizeZ {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int ColorID {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public EObjKinds ObjKinds {
-		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
+		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 #else
 	[IgnoreMember]
 	public int SizeX {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_X, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int SizeY {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Y, $"{value}"); }
 	}
 	
 	[IgnoreMember]
 	public int SizeZ {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
 	}
 	
 	[IgnoreMember]
 	public int ColorID {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public EObjKinds ObjKinds {
-		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
+		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
@@ -289,35 +289,35 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore]
 	[IgnoreMember]
 	public int NumViewCellsX {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_X, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int NumViewCellsY {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Y, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int NumViewCellsZ {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Z, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public EGridType GridType {
-		get { return (EGridType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
+		get { return (EGridType)int.Parse(m_oStrDict.ExGetVal(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_GRID_TYPE, $"{(int)value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public System.Version CellInfoVer {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER_STR)); }
+		get { return System.Version.Parse(m_oStrDict.ExGetVal(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER_STR)); }
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
@@ -329,31 +329,31 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 #else
 	[IgnoreMember]
 	public int NumViewCellsX {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_X, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int NumViewCellsY {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Y, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int NumViewCellsZ {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Z, $"{value}"); }
 	}
 	
 	[IgnoreMember]
 	public EGridType GridType {
-		get { return (EGridType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
+		get { return (EGridType)int.Parse(m_oStrDict.ExGetVal(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_GRID_TYPE, $"{(int)value}"); }
 	}
 
 	[IgnoreMember]
 	public System.Version CellInfoVer {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER_STR)); }
+		get { return System.Version.Parse(m_oStrDict.ExGetVal(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER_STR)); }
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
@@ -557,7 +557,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
 			var oNumChapterLevelInfosDict = this.NumLevelInfosDictContainer.GetValueOrDefault(oLevelIDList[i].ExULevelIDToChapterID()) ?? new Dictionary<int, int>();
-			oNumChapterLevelInfosDict.ExReplaceVal(oLevelIDList[i].ExULevelIDToStageID(), oNumChapterLevelInfosDict.GetValueOrDefault(oLevelIDList[i].ExULevelIDToStageID(), KCDefine.B_VAL_0_INT) + KCDefine.B_VAL_1_INT);
+			oNumChapterLevelInfosDict.ExReplaceVal(oLevelIDList[i].ExULevelIDToStageID(), oNumChapterLevelInfosDict.ExGetVal(oLevelIDList[i].ExULevelIDToStageID(), KCDefine.B_VAL_0_INT) + KCDefine.B_VAL_1_INT);
 
 			this.NumLevelInfosDictContainer.TryAdd(oLevelIDList[i].ExULevelIDToChapterID(), oNumChapterLevelInfosDict);
 
@@ -680,7 +680,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		CFunc.Assert(oStageLevelInfoDict.ContainsKey(a_nSrcID) && oStageLevelInfoDict.ContainsKey(a_nDestID));
 
 		int nOffset = (a_nSrcID <= a_nDestID) ? KCDefine.B_VAL_1_INT : -KCDefine.B_VAL_1_INT;
-		var oSrcLevelInfo = oStageLevelInfoDict.GetValueOrDefault(a_nSrcID);
+		var oSrcLevelInfo = oStageLevelInfoDict.ExGetVal(a_nSrcID);
 
 		oStageLevelInfoDict.ExRemoveVal(a_nSrcID);
 
@@ -843,7 +843,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	/** 레벨 정보를 반환한다 */
 	public bool TryGetLevelInfo(int a_nLevelID, out CLevelInfo a_oOutLevelInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		this.TryGetStageLevelInfos(a_nStageID, out Dictionary<int, CLevelInfo> oStageLevelInfoDict, a_nChapterID);
-		a_oOutLevelInfo = oStageLevelInfoDict?.GetValueOrDefault(a_nLevelID);
+		a_oOutLevelInfo = oStageLevelInfoDict?.ExGetVal(a_nLevelID);
 
 		return a_oOutLevelInfo != null;
 	}

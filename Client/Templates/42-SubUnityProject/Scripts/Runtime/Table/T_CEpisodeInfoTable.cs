@@ -188,19 +188,19 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 
 	/** 레벨 에피소드 정보를 반환한다 */
 	public bool TryGetLevelEpisodeInfo(int a_nLevelID, out STEpisodeInfo a_stOutEpisodeInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		a_stOutEpisodeInfo = this.LevelEpisodeInfoDict.GetValueOrDefault(CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID), STEpisodeInfo.INVALID);
+		a_stOutEpisodeInfo = this.LevelEpisodeInfoDict.ExGetVal(CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID), STEpisodeInfo.INVALID);
 		return this.LevelEpisodeInfoDict.ContainsKey(CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID));
 	}
 
 	/** 스테이지 에피소드 정보를 반환한다 */
 	public bool TryGetStageEpisodeInfo(int a_nStageID, out STEpisodeInfo a_stOutEpisodeInfo, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		a_stOutEpisodeInfo = this.StageEpisodeInfoDict.GetValueOrDefault(CFactory.MakeUStageID(a_nStageID, a_nChapterID), STEpisodeInfo.INVALID);
+		a_stOutEpisodeInfo = this.StageEpisodeInfoDict.ExGetVal(CFactory.MakeUStageID(a_nStageID, a_nChapterID), STEpisodeInfo.INVALID);
 		return this.StageEpisodeInfoDict.ContainsKey(CFactory.MakeUStageID(a_nStageID, a_nChapterID));
 	}
 
 	/** 챕터 에피소드 정보를 반환한다 */
 	public bool TryGetChapterEpisodeInfo(int a_nChapterID, out STEpisodeInfo a_stOutEpisodeInfo) {
-		a_stOutEpisodeInfo = this.ChapterEpisodeInfoDict.GetValueOrDefault(CFactory.MakeUChapterID(a_nChapterID), STEpisodeInfo.INVALID);
+		a_stOutEpisodeInfo = this.ChapterEpisodeInfoDict.ExGetVal(CFactory.MakeUChapterID(a_nChapterID), STEpisodeInfo.INVALID);
 		return this.ChapterEpisodeInfoDict.ContainsKey(CFactory.MakeUChapterID(a_nChapterID));
 	}
 

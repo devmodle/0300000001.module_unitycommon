@@ -82,7 +82,7 @@ public partial class CStorePopup : CSubPopup {
 
 #if ADS_MODULE_ENABLE
 			stHandlerParams.m_oAdsCallbackDict.TryAdd(CStoreUIsHandler.ECallback.ADS, (a_oSender, a_stAdsRewardInfo, a_bIsSuccess) => {
-				a_stParams.m_oAdsCallbackDict?.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
+				a_stParams.m_oAdsCallbackDict?.ExGetVal(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
 			});
 #endif // #if ADS_MODULE_ENABLE
 
@@ -146,10 +146,10 @@ public partial class CStorePopup : CSubPopup {
 				var oNumText = a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT));
 
 				// 코인 일 경우
-				if(a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).Kinds == (int)EItemKinds.GOODS_ITEM_COINS_01) {
-					oNumText?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal:0}", EFontSet._1, false);
+				if(a_stProductTradeInfo.m_oAcquireTargetInfoDict.ExGetVal(nUniqueTargetInfoID).Kinds == (int)EItemKinds.GOODS_ITEM_COINS_01) {
+					oNumText?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.ExGetVal(nUniqueTargetInfoID).m_stValInfo01.m_dmVal:0}", EFontSet._1, false);
 				} else {
-					oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, $"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal:0}"), EFontSet._1, false);
+					oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, $"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.ExGetVal(nUniqueTargetInfoID).m_stValInfo01.m_dmVal:0}"), EFontSet._1, false);
 				}
 			}
 
@@ -230,7 +230,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		this.Params.m_oAdsCallbackDict?.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
+		this.Params.m_oAdsCallbackDict?.ExGetVal(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
 	}
 #endif // #if ADS_MODULE_ENABLE
 

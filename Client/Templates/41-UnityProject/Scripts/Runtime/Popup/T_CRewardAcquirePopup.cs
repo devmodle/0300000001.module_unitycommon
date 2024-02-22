@@ -82,7 +82,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 			// 보상 정보가 존재 할 경우
 			if(i < oRewardTargetInfoKeyList.Count) {
 				ulong nUniqueTargetInfoID = oRewardTargetInfoKeyList[i];
-				this.UpdateItemUIsState(m_oItemUIsList[i], this.Params.m_oRewardTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID));
+				this.UpdateItemUIsState(m_oItemUIsList[i], this.Params.m_oRewardTargetInfoDict.ExGetVal(nUniqueTargetInfoID));
 			}
 		}
 

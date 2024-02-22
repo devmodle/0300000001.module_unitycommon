@@ -39,7 +39,7 @@ public static partial class CBuildProcessor {
 	/** 빌드가 완료되었을 경우 */
 	[PostProcessBuild(byte.MaxValue * 10)]
 	public static void OnPostProcessBuild(BuildTarget a_eTarget, string a_oPath) {
-		CBuildProcessor.m_oLatePostProcessHandlerDict.GetValueOrDefault(a_eTarget)?.Invoke(a_eTarget, a_oPath);
+		CBuildProcessor.m_oLatePostProcessHandlerDict.ExGetVal(a_eTarget)?.Invoke(a_eTarget, a_oPath);
 	}
 
 	/** 빌드가 완료되었을 경우 */
@@ -50,7 +50,7 @@ public static partial class CBuildProcessor {
 			EditorUtility.RevealInFinder(a_oPath);
 		}
 
-		CBuildProcessor.m_oLatePostProcessHandlerDict.GetValueOrDefault(a_eTarget)?.Invoke(a_eTarget, a_oPath);
+		CBuildProcessor.m_oLatePostProcessHandlerDict.ExGetVal(a_eTarget)?.Invoke(a_eTarget, a_oPath);
 	}	
 	#endregion // 클래스 함수
 }

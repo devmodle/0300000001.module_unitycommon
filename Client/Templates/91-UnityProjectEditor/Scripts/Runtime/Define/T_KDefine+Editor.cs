@@ -60,16 +60,16 @@ public static partial class KDefine {
 	#endregion // 기본
 
 	#region 런타임 상수
-	// 단위
-	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(2.5f, 2.5f, 2.5f);
-
 	// 색상
 	public static readonly Color LES_COLOR_GRID_LINE_FX = new Color(0.0f, 0.35f, 0.35f, 1.0f);
 	public static readonly Color LES_COLOR_VIEW_GRID_LINE_FX = new Color(0.35f, 0.0f, 0.0f, 1.0f);
 
-	// 간격
+	// 단위 {
+	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(2.0f, 2.0f, 2.0f);
+
 	public static readonly Vector3 LES_OFFSET_H_GRID_LINE_BTN = new Vector3(0.0f, 20.0f, 0.0f);
 	public static readonly Vector3 LES_OFFSET_V_GRID_LINE_BTN = new Vector3(-30.0f, 0.0f, 0.0f);
+	// 단위 }
 	#endregion // 런타임 상수
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

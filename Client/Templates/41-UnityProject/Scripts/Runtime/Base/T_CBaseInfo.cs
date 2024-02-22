@@ -95,7 +95,7 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	[JsonIgnore]
 	[IgnoreMember]
 	public System.Version Ver {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER_STR)); }
+		get { return System.Version.Parse(m_oStrDict.ExGetVal(KEY_VER, KCDefine.B_DEF_VER_STR)); }
 		set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
@@ -103,7 +103,7 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 #else
 	[IgnoreMember]
 	public System.Version Ver {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_VER, KCDefine.B_DEF_VER_STR)); }
+		get { return System.Version.Parse(m_oStrDict.ExGetVal(KEY_VER, KCDefine.B_DEF_VER_STR)); }
 		set { m_oStrDict.ExReplaceVal(KEY_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 

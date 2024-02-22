@@ -203,7 +203,7 @@ namespace TitleScene {
 			for(int i = 0; i < oLoginBtnKeyList.Count; ++i) {
 				// 로그인되었을 경우
 				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
-					m_oBtnDict.GetValueOrDefault(oLoginBtnKeyList[i])?.gameObject.SetActive(false);
+					m_oBtnDict.ExGetVal(oLoginBtnKeyList[i])?.gameObject.SetActive(false);
 				}
 			}
 			// 버튼을 갱신한다 }
@@ -299,7 +299,7 @@ namespace TitleScene {
 					[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = () => CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString())
 				};
 
-				oHandlerDict.GetValueOrDefault(a_stGoogleSheetLoadInfo.m_oSheetName)?.Invoke();
+				oHandlerDict.ExGetVal(a_stGoogleSheetLoadInfo.m_oSheetName)?.Invoke();
 			}
 
 			m_bIsTouch = a_bIsSuccess;

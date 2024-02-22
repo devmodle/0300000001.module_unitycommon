@@ -130,8 +130,8 @@ namespace LateSetupScene {
 			a_oSender?.Close();
 
 			switch(a_eCallback) {
-				case EPopupCallback.AGREE: m_oCallbackDict.GetValueOrDefault(ECallback.SHOW_AGREE)?.Invoke(a_oSender); break;
-				case EPopupCallback.TRACKING_DESC: m_oCallbackDict.GetValueOrDefault(ECallback.SHOW_TRACKING_DESC)?.Invoke(a_oSender); break;
+				case EPopupCallback.AGREE: m_oCallbackDict.ExGetVal(ECallback.SHOW_AGREE)?.Invoke(a_oSender); break;
+				case EPopupCallback.TRACKING_DESC: m_oCallbackDict.ExGetVal(ECallback.SHOW_TRACKING_DESC)?.Invoke(a_oSender); break;
 			}
 		}
 

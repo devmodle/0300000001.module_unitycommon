@@ -118,7 +118,7 @@ namespace NSEngine {
 
 				// 공격을 회피했을 경우
 				if(fPercent.ExIsLessEquals((float)a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_AVOID_RATE_01))) {
-					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, EEngineObjEvent.AVOID, string.Empty);
+					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.ExGetVal(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, EEngineObjEvent.AVOID, string.Empty);
 				} else {
 					decimal dmDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
 					decimal dmPDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_P_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_P_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
@@ -128,7 +128,7 @@ namespace NSEngine {
 					dmTotalDamage = fPercent.ExIsLessEquals(fCriticalRate) ? dmTotalDamage * KCDefine.B_VAL_2_INT : dmTotalDamage;
 
 					a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExIncrAbilityVal(EAbilityKinds.STAT_ABILITY_HP_01, -dmTotalDamage);
-					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, fPercent.ExIsLessEquals(fCriticalRate) ? EEngineObjEvent.CRITICAL_DAMAGE : EEngineObjEvent.DAMAGE, $"{dmTotalDamage:0}");
+					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.ExGetVal(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, fPercent.ExIsLessEquals(fCriticalRate) ? EEngineObjEvent.CRITICAL_DAMAGE : EEngineObjEvent.DAMAGE, $"{dmTotalDamage:0}");
 				}
 			} finally {
 				CCollectionPoolManager.Inst.DespawnDict(oAbilityValDict);
@@ -250,9 +250,9 @@ namespace NSEngine {
 
 			try {
 				global::Func.SetupAbilityVals(a_stSkillInfo, a_oSkillTargetInfo, oAbilityValDict);
-				double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(this.ApplySkillTimeDict.GetValueOrDefault(a_stSkillInfo.m_eSkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)));
+				double dblDeltaTime = System.DateTime.Now.ExGetDeltaTime(this.ApplySkillTimeDict.ExGetVal(a_stSkillInfo.m_eSkillKinds, System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT)));
 
-				return (decimal)dblDeltaTime >= this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.ExGetAbilityVal((a_stSkillInfo.SkillType == ESkillType.ACTION) ? EAbilityKinds.STAT_ABILITY_ATK_DELAY_01 : EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01, (a_stSkillInfo.SkillType == ESkillType.ACTION) ? this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_ATK_DELAY_01) : oAbilityValDict.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01));
+				return (decimal)dblDeltaTime >= this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.ExGetAbilityVal((a_stSkillInfo.SkillType == ESkillType.ACTION) ? EAbilityKinds.STAT_ABILITY_ATK_DELAY_01 : EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01, (a_stSkillInfo.SkillType == ESkillType.ACTION) ? this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDictA.GetValueOrDefault(EAbilityKinds.STAT_ABILITY_ATK_DELAY_01) : oAbilityValDict.ExGetVal(EAbilityKinds.STAT_ABILITY_SKILL_DELAY_01));
 			} finally {
 				CCollectionPoolManager.Inst.DespawnDict(oAbilityValDict);
 			}

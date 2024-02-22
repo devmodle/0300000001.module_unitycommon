@@ -154,17 +154,17 @@ public partial class CResultPopup : CSubPopup {
 
 	/** 다음 버튼을 눌렀을 경우 */
 	private void OnTouchNextBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.NEXT)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.NEXT)?.Invoke(this);
 	}
 
 	/** 재시도 버튼을 눌렀을 경우 */
 	private void OnTouchRetryBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.RETRY)?.Invoke(this);
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.LEAVE)?.Invoke(this);
 	}
 
 	/** 광고 버튼을 눌렀을 경우 */

@@ -207,25 +207,25 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 
 	/** 스킬 정보를 반환한다 */
 	public bool TryGetSkillInfo(ESkillKinds a_ESkillKinds, out STSkillInfo a_stOutSkillInfo) {
-		a_stOutSkillInfo = this.SkillInfoDict.GetValueOrDefault(a_ESkillKinds, STSkillInfo.INVALID);
+		a_stOutSkillInfo = this.SkillInfoDict.ExGetVal(a_ESkillKinds, STSkillInfo.INVALID);
 		return this.SkillInfoDict.ContainsKey(a_ESkillKinds);
 	}
 
 	/** 구입 스킬 교환 정보를 반환한다 */
 	public bool TryGetBuySkillTradeInfo(ESkillKinds a_eSkillKinds, out STSkillTradeInfo a_stOutSkillTradeInfo) {
-		a_stOutSkillTradeInfo = this.BuySkillTradeInfoDict.GetValueOrDefault(a_eSkillKinds, STSkillTradeInfo.INVALID);
+		a_stOutSkillTradeInfo = this.BuySkillTradeInfoDict.ExGetVal(a_eSkillKinds, STSkillTradeInfo.INVALID);
 		return this.BuySkillTradeInfoDict.ContainsKey(a_eSkillKinds);
 	}
 
 	/** 판매 스킬 교환 정보를 반환한다 */
 	public bool TryGetSaleSkillTradeInfo(ESkillKinds a_eSkillKinds, out STSkillTradeInfo a_stOutSkillTradeInfo) {
-		a_stOutSkillTradeInfo = this.SaleSkillTradeInfoDict.GetValueOrDefault(a_eSkillKinds, STSkillTradeInfo.INVALID);
+		a_stOutSkillTradeInfo = this.SaleSkillTradeInfoDict.ExGetVal(a_eSkillKinds, STSkillTradeInfo.INVALID);
 		return this.SaleSkillTradeInfoDict.ContainsKey(a_eSkillKinds);
 	}
 
 	/** 강화 스킬 교환 정보를 반환한다 */
 	public bool TryGetEnhanceSkillTradeInfo(ESkillKinds a_eSkillKinds, out STSkillTradeInfo a_stOutSkillTradeInfo) {
-		a_stOutSkillTradeInfo = this.EnhanceSkillTradeInfoDict.GetValueOrDefault(a_eSkillKinds, STSkillTradeInfo.INVALID);
+		a_stOutSkillTradeInfo = this.EnhanceSkillTradeInfoDict.ExGetVal(a_eSkillKinds, STSkillTradeInfo.INVALID);
 		return this.EnhanceSkillTradeInfoDict.ContainsKey(a_eSkillKinds);
 	}
 

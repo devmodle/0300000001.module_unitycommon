@@ -65,7 +65,7 @@ public partial class CFocusPopup : CSubPopup {
 
 		// 터치 전달자를 설정한다
 		Func.SetupTouchDispatchers(new List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
-			(m_oImgDict[EKey.FOCUS_BLIND_IMG]?.gameObject, (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.BEGIN)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.MOVE)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.GetValueOrDefault(ECallback.END)?.Invoke(this, a_oEventData))
+			(m_oImgDict[EKey.FOCUS_BLIND_IMG]?.gameObject, (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.ExGetVal(ECallback.BEGIN)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.ExGetVal(ECallback.MOVE)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.ExGetVal(ECallback.END)?.Invoke(this, a_oEventData))
 		});
 
 		this.SubInit();

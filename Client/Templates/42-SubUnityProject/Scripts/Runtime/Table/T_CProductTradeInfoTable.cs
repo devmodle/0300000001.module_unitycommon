@@ -116,7 +116,7 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 
 	/** 구입 상품 교환 정보를 반환한다 */
 	public bool TryGetBuyProductTradeInfo(EProductKinds a_eProductKinds, out STProductTradeInfo a_stOutProductTradeInfo) {
-		a_stOutProductTradeInfo = this.BuyProductTradeInfoDict.GetValueOrDefault(a_eProductKinds, STProductTradeInfo.INVALID);
+		a_stOutProductTradeInfo = this.BuyProductTradeInfoDict.ExGetVal(a_eProductKinds, STProductTradeInfo.INVALID);
 		return this.BuyProductTradeInfoDict.ContainsKey(a_eProductKinds);
 	}
 

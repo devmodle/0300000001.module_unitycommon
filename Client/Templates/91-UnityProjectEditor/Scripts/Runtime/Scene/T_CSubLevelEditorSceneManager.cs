@@ -248,68 +248,70 @@ namespace LevelEditorScene {
 		public override void Awake() {
 			base.Awake();
 
-			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			// 앱 초기화가 필요 할 경우
+			if(!CSceneManager.IsAppInit) {
+				return;
+			}
+
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-				// 레벨 정보가 없을 경우
-				if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
-					this.AddLevelInfo(KCDefine.B_VAL_0_INT, Factory.MakeDefEditorCreateInfo());
-					CLevelInfoTable.Inst.SaveLevelInfos();
-				}
+			// 레벨 정보가 없을 경우
+			if(!CLevelInfoTable.Inst.LevelInfoDictContainer.ExIsValid()) {
+				this.AddLevelInfo(KCDefine.B_VAL_0_INT, Factory.MakeDefEditorCreateInfo());
+				CLevelInfoTable.Inst.SaveLevelInfos();
+			}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
-				// 게임 객체 풀을 설정한다 {
-				this.AddGameObjsPool(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
-				this.AddGameObjsPool(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_LINE_FX, this.ObjRoot));
+			// 게임 객체 풀을 설정한다 {
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_LINE_FX, this.ObjRoot));
 
-				this.AddGameObjsPool(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MidEditorUIs));
-				// 게임 객체 풀을 설정한다 }
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MidEditorUIs));
+			// 게임 객체 풀을 설정한다 }
 
-				// 텍스처를 설정한다
-				m_oGridBoundsTex2D = CFactory.MakeTex2D(KCDefine.U_IMG_N_TEX, new Vector3Int((int)(this.ScreenWidth * KCDefine.B_VAL_2_REAL), (int)(this.ScreenHeight * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_INT));
-				m_oGridBoundsTex2D?.ExSetPixels(Color.white);
+			// 텍스처를 설정한다
+			m_oGridBoundsTex2D = CFactory.MakeTex2D(KCDefine.U_IMG_N_TEX, new Vector3Int((int)(this.ScreenWidth * KCDefine.B_VAL_2_REAL), (int)(this.ScreenHeight * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_INT));
+			m_oGridBoundsTex2D?.ExSetPixels(Color.white);
 
-				// 스프라이트를 설정한다 {
-				var oObjSprite = this.ObjRoot.ExFindComponent<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE) ?? CFactory.CreateCloneGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE), this.ObjRoot);
-				oObjSprite.gameObject.SetActive(false);
-				oObjSprite.ExSetSortingOrder(KCDefine.B_SORTING_OI_OVERGROUND);
+			// 스프라이트를 설정한다 {
+			var oObjSprite = this.ObjRoot.ExFindComponent<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE) ?? CFactory.CreateCloneGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE), this.ObjRoot);
+			oObjSprite.gameObject.SetActive(false);
+			oObjSprite.ExSetSortingOrder(KCDefine.B_SORTING_OI_OVERGROUND);
 
-				m_oSelObjSpriteList.ExAddVal(oObjSprite);
-				// 스프라이트를 설정한다 }
+			m_oSelObjSpriteList.ExAddVal(oObjSprite);
+			// 스프라이트를 설정한다 }
 
 #if GOOGLE_SHEET_ENABLE
-				// 구글 시트 처리자를 설정한다 {
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-				m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			// 구글 시트 처리자를 설정한다 {
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
+			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
-				// 구글 시트 처리자를 설정한다 }
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_REWARD_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_RES_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ITEM_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_SKILL_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
+			// 구글 시트 처리자를 설정한다 }
 #endif // #if GOOGLE_SHEET_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-				this.SetupMidEditorUIs();
-				this.SetupLeftEditorUIs();
-				this.SetupRightEditorUIs();
+			this.SetupMidEditorUIs();
+			this.SetupLeftEditorUIs();
+			this.SetupRightEditorUIs();
 
-				this.SetSelLevelInfo(CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
-				this.SubAwake();
+			this.SetSelLevelInfo(CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
+			this.SubAwake();
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			}
 		}
 
 		/** 초기화 */
@@ -443,8 +445,8 @@ namespace LevelEditorScene {
 						m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]);
 
 						switch(this.SelLevelInfo.GridType) {
-							case EGridType.SCROLL_H: m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]); break;
 							case EGridType.SCROLL_V: m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]); break;
+							case EGridType.SCROLL_H: m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]); break;
 							default: m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT]); m_oInputList01.ExRemoveVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT]); break;
 						}
 
@@ -599,17 +601,17 @@ namespace LevelEditorScene {
 		private void ResetObjSprites() {
 			// 객체를 제거한다 {
 			for(int i = 0; i < m_oGridLineBtnHList.Count; ++i) {
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, 
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, 
 					m_oGridLineBtnHList[i].gameObject);
 			}
 
 			for(int i = 0; i < m_oGridLineBtnVList.Count; ++i) {
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, 
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, 
 					m_oGridLineBtnVList[i].gameObject);
 			}
 
 			for(int i = 0; i < m_oGridLineFXList.Count; ++i) {
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL, 
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL, 
 					m_oGridLineFXList[i].gameObject);
 			}
 
@@ -650,7 +652,7 @@ namespace LevelEditorScene {
 
 			for(int i = 0; i < this.SelLevelInfo.NumCells.y; ++i) {
 				for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j) {
-					var oLineFX = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
+					var oLineFX = CGameObjsPoolManager.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
 					oLineFX.loop = true;
 
 					oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
@@ -704,7 +706,7 @@ namespace LevelEditorScene {
 				var stPos = this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(new Vector3(NSEngine.Access.CellCenterOffset.x, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL), NSEngine.Access.CellSize);
 				var stWorldPos = stPos.ExToWorld(this.ObjRoot) + new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, this.PlaneDistance);
 
-				var oBtn = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
+				var oBtn = CGameObjsPoolManager.Inst.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
 				oBtn.gameObject.ExAddComponent<CBtnHandler>();
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnH(stIdx.x));
 
@@ -727,7 +729,7 @@ namespace LevelEditorScene {
 				var stPos = this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(new Vector3(KCDefine.B_VAL_0_REAL, NSEngine.Access.CellCenterOffset.y, KCDefine.B_VAL_0_REAL), NSEngine.Access.CellSize);
 				var stWorldPos = stPos.ExToWorld(this.ObjRoot) + new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, this.PlaneDistance);
 
-				var oBtn = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
+				var oBtn = CGameObjsPoolManager.Inst.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
 				oBtn.gameObject.ExAddComponent<CBtnHandler>();
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnV(stIdx.y));
 
@@ -775,7 +777,7 @@ namespace LevelEditorScene {
 			for(int i = 0; i < a_oObjSpriteInfoList.Count; ++i) {
 				a_oObjSpriteInfoList[i].m_oSprite.sprite = null;
 
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, 
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, 
 					a_oObjSpriteInfoList[i].m_oSprite.gameObject);
 			}
 		}
@@ -785,7 +787,7 @@ namespace LevelEditorScene {
 			a_oOutObjSpriteInfoList = new List<STObjSpriteInfo>();
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
-				var oObjSprite = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL);
+				var oObjSprite = CGameObjsPoolManager.Inst.SpawnGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL);
 				this.SetupObjSprite(a_stCellInfo, a_stCellInfo.m_oCellObjInfoList[i], oObjSprite);
 
 				a_oOutObjSpriteInfoList.ExAddVal(new STObjSpriteInfo() {
@@ -1194,7 +1196,7 @@ namespace LevelEditorScene {
 					[KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false)] = () => CProductTradeInfoTable.Inst.SaveProductTradeInfos(a_oJSONNodeInfoDict.ExToJSONNode().ToString())
 				};
 
-				oHandlerDict.GetValueOrDefault(a_stGoogleSheetLoadInfo.m_oSheetName)?.Invoke();
+				oHandlerDict.ExGetVal(a_stGoogleSheetLoadInfo.m_oSheetName)?.Invoke();
 			}
 		}
 
@@ -1230,7 +1232,7 @@ namespace LevelEditorScene {
 					// Do Something
 				};
 
-				oHandlerDict.GetValueOrDefault(a_stGoogleSheetSaveInfo.m_oSheetName)?.Invoke();
+				oHandlerDict.ExGetVal(a_stGoogleSheetSaveInfo.m_oSheetName)?.Invoke();
 			}
 		}
 
@@ -1360,7 +1362,7 @@ namespace LevelEditorScene {
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SetupMidEditorUIs() {
 			// 라인 효과를 설정한다 {
-			m_oViewGridLineFX = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
+			m_oViewGridLineFX = CGameObjsPoolManager.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
 			m_oViewGridLineFX.loop = false;
 
 			m_oViewGridLineFX.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE_FX, KDefine.LES_COLOR_VIEW_GRID_LINE_FX);
@@ -1786,8 +1788,8 @@ namespace LevelEditorScene {
 				}
 
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
-					m_oMethodInfoDict.GetValueOrDefault(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
+					m_oMethodInfoDict.ExGetVal(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
+						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}
@@ -1937,8 +1939,8 @@ namespace LevelEditorScene {
 
 				// 페이지 UI 상태를 갱신한다
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
-					m_oMethodInfoDict.GetValueOrDefault(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
+					m_oMethodInfoDict.ExGetVal(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
+						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}
@@ -1979,7 +1981,7 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 탭 콜백을 수신했을 경우 */
 		private void OnReceiveREUIsPageUIs02TapCallback(CTapUIsHandler a_oSender, int a_nIdx) {
-			this.UpdateREUIsPageUIs02(m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_02));
+			this.UpdateREUIsPageUIs02(m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_02));
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 적용 버튼을 눌렀을 경우 */

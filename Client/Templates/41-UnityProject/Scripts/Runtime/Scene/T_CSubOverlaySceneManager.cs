@@ -168,7 +168,7 @@ namespace OverlayScene {
 			CAppInfoStorage.Inst.SetPrevFullscreenAdsTime(System.DateTime.Now);
 #endif // #if ADS_MODULE_ENABLE
 			
-			m_oCallbackDict.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+			m_oCallbackDict.ExGetVal(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 		}
 
 #if FIREBASE_MODULE_ENABLE

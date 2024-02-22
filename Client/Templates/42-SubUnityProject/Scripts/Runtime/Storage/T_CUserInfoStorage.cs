@@ -38,25 +38,25 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public string Name {
-		get { return m_oStrDict.GetValueOrDefault(KEY_NAME, string.Empty); }
+		get { return m_oStrDict.ExGetVal(KEY_NAME, string.Empty); }
 		set { m_oStrDict.ExReplaceVal(KEY_NAME, value); }
 	}
 
 	[IgnoreMember]
 	public string GUID {
-		get { return m_oStrDict.GetValueOrDefault(KEY_GUID, string.Empty); }
+		get { return m_oStrDict.ExGetVal(KEY_GUID, string.Empty); }
 		set { m_oStrDict.ExReplaceVal(KEY_GUID, value); }
 	}
 
 	[IgnoreMember]
 	public string OwnerGUID {
-		get { return m_oStrDict.GetValueOrDefault(KEY_OWNER_GUID, string.Empty); }
+		get { return m_oStrDict.ExGetVal(KEY_OWNER_GUID, string.Empty); }
 		set { m_oStrDict.ExReplaceVal(KEY_OWNER_GUID, value); }
 	}
 
 	[IgnoreMember]
 	public ETargetType OwnerTargetType {
-		get { return (ETargetType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OWNER_TARGET_TYPE, $"{(int)ETargetType.NONE}")); }
+		get { return (ETargetType)int.Parse(m_oStrDict.ExGetVal(KEY_OWNER_TARGET_TYPE, $"{(int)ETargetType.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_OWNER_TARGET_TYPE, $"{(int)value}"); }
 	}
 	#endregion // 프로퍼티
@@ -111,7 +111,7 @@ public partial class CItemTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public EItemKinds ItemKinds {
-		get { return (EItemKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); }
+		get { return (EItemKinds)int.Parse(m_oStrDict.ExGetVal(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); }
 	}
 
@@ -160,7 +160,7 @@ public partial class CSkillTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public ESkillKinds SkillKinds {
-		get { return (ESkillKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); }
+		get { return (ESkillKinds)int.Parse(m_oStrDict.ExGetVal(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); }
 	}
 
@@ -210,7 +210,7 @@ public partial class CObjTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public EObjKinds ObjKinds {
-		get { return (EObjKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
+		get { return (EObjKinds)int.Parse(m_oStrDict.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 
@@ -259,7 +259,7 @@ public partial class CAbilityTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public EAbilityKinds AbilityKinds {
-		get { return (EAbilityKinds)int.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_KINDS, $"{(int)EAbilityKinds.NONE}")); }
+		get { return (EAbilityKinds)int.Parse(m_oStrDict.ExGetVal(KEY_ABILITY_KINDS, $"{(int)EAbilityKinds.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_ABILITY_KINDS, $"{(int)value}"); }
 	}
 
@@ -315,13 +315,13 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public int SelItemSetIdx {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_ITEM_SET_IDX, KCDefine.B_STR_0_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_SEL_ITEM_SET_IDX, KCDefine.B_STR_0_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_SEL_ITEM_SET_IDX, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int SelSkillSetIdx {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SEL_SKILL_SET_IDX, KCDefine.B_STR_0_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_SEL_SKILL_SET_IDX, KCDefine.B_STR_0_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_SEL_SKILL_SET_IDX, $"{value}"); }
 	}
 	#endregion // 프로퍼티
@@ -382,13 +382,13 @@ public partial class CUserInfo : CBaseInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public ELoginType LoginType {
-		get { return (ELoginType)int.Parse(m_oStrDict.GetValueOrDefault(KEY_LOGIN_TYPE, $"{(int)ELoginType.NONE}")); }
+		get { return (ELoginType)int.Parse(m_oStrDict.ExGetVal(KEY_LOGIN_TYPE, $"{(int)ELoginType.NONE}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_LOGIN_TYPE, $"{(int)value}"); }
 	}
 
 	[IgnoreMember]
 	public System.Version AbilityTargetInfoVer {
-		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER_STR)); }
+		get { return System.Version.Parse(m_oStrDict.ExGetVal(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER_STR)); }
 		set { m_oStrDict.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 	#endregion // 프로퍼티

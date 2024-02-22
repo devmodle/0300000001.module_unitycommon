@@ -273,8 +273,8 @@ namespace LevelEditorScene {
 				}
 
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
-					m_oSubMethodInfoDict.GetValueOrDefault(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
+					m_oSubMethodInfoDict.ExGetVal(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
+						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}
@@ -295,8 +295,8 @@ namespace LevelEditorScene {
 			// 페이지 스크롤 스냅이 존재 할 경우
 			if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
-					m_oSubMethodInfoDict.GetValueOrDefault(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIsDict.GetValueOrDefault(EKey.RE_UIS_PAGE_UIS_01 + i)
+					m_oSubMethodInfoDict.ExGetVal(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
+						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}

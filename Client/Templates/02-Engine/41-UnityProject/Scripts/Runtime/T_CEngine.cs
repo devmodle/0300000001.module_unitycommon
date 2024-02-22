@@ -344,14 +344,14 @@ namespace NSEngine {
 			// 객체를 설정한다 }
 
 			// 게임 객체 풀을 설정한다 {
-			CSceneManager.ActiveSceneManager.AddGameObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), this.Params.m_oItemRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
-			CSceneManager.ActiveSceneManager.AddGameObjsPool(KDefine.E_KEY_SKILL_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_SKILL), this.Params.m_oSkillRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
-			CSceneManager.ActiveSceneManager.AddGameObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
-			CSceneManager.ActiveSceneManager.AddGameObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), this.Params.m_oFXRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_ITEM_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ITEM), this.Params.m_oItemRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_SKILL_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_SKILL), this.Params.m_oSkillRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), this.Params.m_oFXRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
 
-			CSceneManager.ActiveSceneManager.AddGameObjsPool(KDefine.E_KEY_CELL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_CELL_OBJ), m_oObjDict[EKey.CELL_OBJ_ROOT], KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
-			CSceneManager.ActiveSceneManager.AddGameObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_oObjDict[EKey.PLAYER_OBJ_ROOT], KCDefine.B_VAL_1_INT, false);
-			CSceneManager.ActiveSceneManager.AddGameObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_oObjDict[EKey.NON_PLAYER_OBJ_ROOT], KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_CELL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_CELL_OBJ), m_oObjDict[EKey.CELL_OBJ_ROOT], KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_oObjDict[EKey.PLAYER_OBJ_ROOT], KCDefine.B_VAL_1_INT, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_oObjDict[EKey.NON_PLAYER_OBJ_ROOT], KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
 			// 게임 객체 풀을 설정한다 }
 
 			this.SubSetup();
@@ -652,7 +652,7 @@ namespace NSEngine {
 		#region 함수
 		/** 아이템을 생성한다 */
 		public CEItem CreateItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
-			var oItem = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<CEItem>(KDefine.E_OBJ_N_ITEM, KDefine.E_KEY_ITEM_OBJS_POOL);
+			var oItem = CGameObjsPoolManager.Inst.SpawnGameObj<CEItem>(KDefine.E_OBJ_N_ITEM, KDefine.E_KEY_ITEM_OBJS_POOL);
 			var oController = a_bIsEnableController ? oItem.gameObject.ExAddComponent<CEItemController>() : null;
 
 			oItem.Init(CEItem.MakeParams(this, a_stItemInfo, a_oItemTargetInfo, oController, KDefine.E_KEY_ITEM_OBJS_POOL));
@@ -666,7 +666,7 @@ namespace NSEngine {
 
 		/** 스킬을 생성한다 */
 		public CESkill CreateSkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
-			var oSkill = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<CESkill>(KDefine.E_OBJ_N_SKILL, KDefine.E_KEY_SKILL_OBJS_POOL);
+			var oSkill = CGameObjsPoolManager.Inst.SpawnGameObj<CESkill>(KDefine.E_OBJ_N_SKILL, KDefine.E_KEY_SKILL_OBJS_POOL);
 			var oController = a_bIsEnableController ? oSkill.gameObject.ExAddComponent<CESkillController>() : null;
 
 			oSkill.Init(CESkill.MakeParams(this, a_stSkillInfo, a_oSkillTargetInfo, oController, KDefine.E_KEY_SKILL_OBJS_POOL));
@@ -680,7 +680,7 @@ namespace NSEngine {
 
 		/** 객체를 생성한다 */
 		public CEObj CreateObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
-			var oObj = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<CEObj>(KDefine.E_OBJ_N_OBJ, KDefine.E_KEY_OBJ_OBJS_POOL);
+			var oObj = CGameObjsPoolManager.Inst.SpawnGameObj<CEObj>(KDefine.E_OBJ_N_OBJ, KDefine.E_KEY_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_OBJ_OBJS_POOL));
@@ -694,7 +694,7 @@ namespace NSEngine {
 
 		/** 효과를 생성한다 */
 		public CEFX CreateFX(STFXInfo a_stFXInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
-			var oFX = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<CEFX>(KDefine.E_OBJ_N_FX, KDefine.E_KEY_FX_OBJS_POOL);
+			var oFX = CGameObjsPoolManager.Inst.SpawnGameObj<CEFX>(KDefine.E_OBJ_N_FX, KDefine.E_KEY_FX_OBJS_POOL);
 			var oController = a_bIsEnableController ? oFX.gameObject.ExAddComponent<CEFXController>() : null;
 
 			oFX.Init(CEFX.MakeParams(this, a_stFXInfo, oController, KDefine.E_KEY_FX_OBJS_POOL));
@@ -708,7 +708,7 @@ namespace NSEngine {
 
 		/** 셀 객체를 생성한다 */
 		public CEObj CreateCellObj(STObjInfo a_stObjInfo, STGridInfo a_stGridInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
-			var oObj = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
+			var oObj = CGameObjsPoolManager.Inst.SpawnGameObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CECellObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
@@ -723,7 +723,7 @@ namespace NSEngine {
 
 		/** 플레이어 객체를 생성한다 */
 		public CEObj CreatePlayerObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
-			var oObj = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<CEObj>(KDefine.E_OBJ_N_PLAYER_OBJ, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL);
+			var oObj = CGameObjsPoolManager.Inst.SpawnGameObj<CEObj>(KDefine.E_OBJ_N_PLAYER_OBJ, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEPlayerObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL));
@@ -737,7 +737,7 @@ namespace NSEngine {
 
 		/** 적 객체를 생성한다 */
 		public CEObj CreateEnemyObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
-			var oObj = CSceneManager.ActiveSceneGameObjsPoolManager.SpawnGameObj<CEObj>(KDefine.E_OBJ_N_ENEMY_OBJ, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL);
+			var oObj = CGameObjsPoolManager.Inst.SpawnGameObj<CEObj>(KDefine.E_OBJ_N_ENEMY_OBJ, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEEnemyObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL));
@@ -769,7 +769,7 @@ namespace NSEngine {
 			// 아이템이 존재 할 경우
 			if(a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
 				this.ItemListWrapper.ExRemoveVal(a_oItem);
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oItem.gameObject, a_fDelay);
+				CGameObjsPoolManager.Inst.DespawnGameObj(a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oItem.gameObject, a_fDelay);
 			}
 		}
 
@@ -780,7 +780,7 @@ namespace NSEngine {
 			// 스킬이 존재 할 경우
 			if(a_oSkill != null && a_oSkill.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
 				this.SkillListWrapper.ExRemoveVal(a_oSkill);
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(a_oSkill.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oSkill.gameObject, a_fDelay);
+				CGameObjsPoolManager.Inst.DespawnGameObj(a_oSkill.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oSkill.gameObject, a_fDelay);
 			}
 		}
 
@@ -791,7 +791,7 @@ namespace NSEngine {
 			// 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
 				this.ObjListWrapper.ExRemoveVal(a_oObj);
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oObj.gameObject, a_fDelay);
+				CGameObjsPoolManager.Inst.DespawnGameObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
 
@@ -802,7 +802,7 @@ namespace NSEngine {
 			// 효과가 존재 할 경우
 			if(a_oFX != null && a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
 				this.FXListWrapper.ExRemoveVal(a_oFX);
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oFX.gameObject, a_fDelay);
+				CGameObjsPoolManager.Inst.DespawnGameObj(a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oFX.gameObject, a_fDelay);
 			}
 		}
 
@@ -814,7 +814,7 @@ namespace NSEngine {
 			// 셀 객체가 존재 할 경우
 			if(a_oObj != null && oCellObjList != null && a_oObj.GetController<CECellObjController>().CellIdx.ExIsValidIdx() && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
 				oCellObjList.ExRemoveVal(a_oObj);
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oObj.gameObject, a_fDelay);
+				CGameObjsPoolManager.Inst.DespawnGameObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
 
@@ -825,7 +825,7 @@ namespace NSEngine {
 			// 플레이어 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
 				this.PlayerObjListWrapper.ExRemoveVal(a_oObj);
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oObj.gameObject, a_fDelay);
+				CGameObjsPoolManager.Inst.DespawnGameObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
 
@@ -836,7 +836,7 @@ namespace NSEngine {
 			// 적 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey.ExIsValid()) {
 				this.EnemyObjListWrapper.ExRemoveVal(a_oObj);
-				CSceneManager.ActiveSceneGameObjsPoolManager.DespawnGameObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oObj.gameObject, a_fDelay);
+				CGameObjsPoolManager.Inst.DespawnGameObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oGameObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
 		#endregion // 함수

@@ -99,7 +99,7 @@ public partial class CContinuePopup : CSubPopup {
 		};
 
 		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
-			m_oTMPTextDict.GetValueOrDefault(oTextKeyInfoList[i].Item1)?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
+			m_oTMPTextDict.ExGetVal(oTextKeyInfoList[i].Item1)?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
 		}
 		// 텍스트를 갱신한다 }
 
@@ -132,7 +132,7 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** 재시도 버튼을 눌렀을 경우 */
 	private void OnTouchRetryBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.RETRY)?.Invoke(this);
 	}
 
 	/** 이어하기 버튼을 눌렀을 경우 */
@@ -146,13 +146,13 @@ public partial class CContinuePopup : CSubPopup {
 			Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo);
 			Func.SaveInfoStorages();
 
-			this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
+			this.Params.m_oCallbackDict?.ExGetVal(ECallback.CONTINUE)?.Invoke(this);
 		}
 	}
 
 	/** 그만두기 버튼을 눌렀을 경우 */
 	private void OnTouchFinishBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.FINISH)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.FINISH)?.Invoke(this);
 	}
 	#endregion // 함수
 
@@ -166,7 +166,7 @@ public partial class CContinuePopup : CSubPopup {
 		}
 
 		this.IsWatchRewardAds = true;
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.CONTINUE)?.Invoke(this);
 	}
 #endif // #if ADS_MODULE_ENABLE
 	#endregion // 조건부 함수

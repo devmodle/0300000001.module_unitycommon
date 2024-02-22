@@ -210,7 +210,7 @@ public static partial class Access {
 			return Access.IsEnableTrade(a_nCharacterID, a_stTargetInfo);
 		} else {
 			CFunc.Assert(CAbilityInfoTable.Inst.TryGetAbilityInfo((EAbilityKinds)a_stTargetInfo.Kinds, out STAbilityInfo stAbilityInfo));
-			return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+			return a_oTargetInfo.m_oAbilityTargetInfoDict.ExGetVal(Factory.MakeUTargetInfoID(a_stTargetInfo.m_eTargetKinds, a_stTargetInfo.Kinds), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
 		}
 	}
 
@@ -538,10 +538,10 @@ public static partial class Access {
 		// 타겟 정보가 존재 할 경우
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.NONE && a_oTargetInfo != null) {
 			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
-				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_LV), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_EXP), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
-				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.ExGetVal(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_LV), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.ExGetVal(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_EXP), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.ExGetVal(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
+				case KEnumVal.TK_ENHANCE_SUB_KINDS_TYPE_VAL: return a_oTargetInfo.m_oAbilityTargetInfoDict.ExGetVal(Factory.MakeUTargetInfoID(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_ENHANCE), STTargetInfo.INVALID).m_stValInfo01.m_dmVal >= a_stTargetInfo.m_stValInfo01.m_dmVal;
 			}
 		}
 

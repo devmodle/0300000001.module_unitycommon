@@ -195,25 +195,25 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 
 	/** 아이템 정보를 반환한다 */
 	public bool TryGetItemInfo(EItemKinds a_EItemKinds, out STItemInfo a_stOutItemInfo) {
-		a_stOutItemInfo = this.ItemInfoDict.GetValueOrDefault(a_EItemKinds, STItemInfo.INVALID);
+		a_stOutItemInfo = this.ItemInfoDict.ExGetVal(a_EItemKinds, STItemInfo.INVALID);
 		return this.ItemInfoDict.ContainsKey(a_EItemKinds);
 	}
 
 	/** 구입 아이템 교환 정보를 반환한다 */
 	public bool TryGetBuyItemTradeInfo(EItemKinds a_eItemKinds, out STItemTradeInfo a_stOutItemTradeInfo) {
-		a_stOutItemTradeInfo = this.BuyItemTradeInfoDict.GetValueOrDefault(a_eItemKinds, STItemTradeInfo.INVALID);
+		a_stOutItemTradeInfo = this.BuyItemTradeInfoDict.ExGetVal(a_eItemKinds, STItemTradeInfo.INVALID);
 		return this.BuyItemTradeInfoDict.ContainsKey(a_eItemKinds);
 	}
 
 	/** 판매 아이템 교환 정보를 반환한다 */
 	public bool TryGetSaleItemTradeInfo(EItemKinds a_eItemKinds, out STItemTradeInfo a_stOutItemTradeInfo) {
-		a_stOutItemTradeInfo = this.SaleItemTradeInfoDict.GetValueOrDefault(a_eItemKinds, STItemTradeInfo.INVALID);
+		a_stOutItemTradeInfo = this.SaleItemTradeInfoDict.ExGetVal(a_eItemKinds, STItemTradeInfo.INVALID);
 		return this.SaleItemTradeInfoDict.ContainsKey(a_eItemKinds);
 	}
 
 	/** 강화 아이템 교환 정보를 반환한다 */
 	public bool TryGetEnhanceItemTradeInfo(EItemKinds a_eItemKinds, out STItemTradeInfo a_stOutItemTradeInfo) {
-		a_stOutItemTradeInfo = this.EnhanceItemTradeInfoDict.GetValueOrDefault(a_eItemKinds, STItemTradeInfo.INVALID);
+		a_stOutItemTradeInfo = this.EnhanceItemTradeInfoDict.ExGetVal(a_eItemKinds, STItemTradeInfo.INVALID);
 		return this.EnhanceItemTradeInfoDict.ContainsKey(a_eItemKinds);
 	}
 

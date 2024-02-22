@@ -27,7 +27,7 @@ public partial class CClearInfo : CBaseInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public int NumMarks {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); }
 	}
 
@@ -95,19 +95,19 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public bool IsAutoControl {
-		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_IS_AUTO_CONTROL, KCDefine.B_TEXT_FALSE)); }
+		get { return bool.Parse(m_oStrDict.ExGetVal(KEY_IS_AUTO_CONTROL, KCDefine.B_TEXT_FALSE)); }
 		set { m_oStrDict.ExReplaceVal(KEY_IS_AUTO_CONTROL, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int DailyRewardID {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_DAILY_REWARD_ID, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int FreeRewardAcquireTimes {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); }
 	}
 
@@ -129,9 +129,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
 	}
 
-	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
-	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
-	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_FREE_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.ExGetVal(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
+	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.ExGetVal(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.ExGetVal(KEY_PREV_FREE_REWARD_TIME, string.Empty);
 
 	[IgnoreMember] private string AdjustPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string AdjustPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
@@ -349,19 +349,19 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 레벨 클리어 정보를 반환한다 */
 	public bool TryGetLevelClearInfo(int a_nCharacterID, int a_nLevelID, out CClearInfo a_oOutLevelClearInfo, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		a_oOutLevelClearInfo = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oLevelClearInfoDict.GetValueOrDefault(CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID)) : null;
+		a_oOutLevelClearInfo = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oLevelClearInfoDict.ExGetVal(CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID)) : null;
 		return a_oOutLevelClearInfo != null;
 	}
 
 	/** 스테이지 클리어 정보를 반환한다 */
 	public bool TryGetStageClearInfo(int a_nCharacterID, int a_nStageID, out CClearInfo a_oOutStageClearInfo, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		a_oOutStageClearInfo = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oStageClearInfoDict.GetValueOrDefault(CFactory.MakeULevelID(KCDefine.B_VAL_0_INT, a_nStageID, a_nChapterID)) : null;
+		a_oOutStageClearInfo = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oStageClearInfoDict.ExGetVal(CFactory.MakeULevelID(KCDefine.B_VAL_0_INT, a_nStageID, a_nChapterID)) : null;
 		return a_oOutStageClearInfo != null;
 	}
 
 	/** 챕터 클리어 정보를 반환한다 */
 	public bool TryGetChapterClearInfo(int a_nCharacterID, int a_nChapterID, out CClearInfo a_oOutChapterClearInfo) {
-		a_oOutChapterClearInfo = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oChapterClearInfoDict.GetValueOrDefault(CFactory.MakeULevelID(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nChapterID)) : null;
+		a_oOutChapterClearInfo = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? oCharacterGameInfo.m_oChapterClearInfoDict.ExGetVal(CFactory.MakeULevelID(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, a_nChapterID)) : null;
 		return a_oOutChapterClearInfo != null;
 	}
 

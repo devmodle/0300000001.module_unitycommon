@@ -76,7 +76,7 @@ public partial class CReadyPopup : CSubPopup {
 
 	/** 플레이 버튼을 눌렀을 경우 */
 	private void OnTouchPlayBtn() {
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.PLAY)?.Invoke(this);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.PLAY)?.Invoke(this);
 	}
 	#endregion // 함수
 }

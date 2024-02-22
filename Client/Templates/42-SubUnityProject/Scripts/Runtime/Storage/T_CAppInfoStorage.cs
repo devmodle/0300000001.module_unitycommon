@@ -30,13 +30,13 @@ public partial class CAppInfo : CBaseInfo {
 #if ADS_MODULE_ENABLE
 	[IgnoreMember]
 	public int RewardAdsWatchTimes {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_REWARD_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_REWARD_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_REWARD_ADS_WATCH_TIMES, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int FullscreenAdsWatchTimes {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_FULLSCREEN_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); }
+		get { return int.Parse(m_oStrDict.ExGetVal(KEY_FULLSCREEN_ADS_WATCH_TIMES, KCDefine.B_STR_0_INT)); }
 		set { m_oStrDict.ExReplaceVal(KEY_FULLSCREEN_ADS_WATCH_TIMES, $"{value}"); }
 	}
 #endif // #if ADS_MODULE_ENABLE

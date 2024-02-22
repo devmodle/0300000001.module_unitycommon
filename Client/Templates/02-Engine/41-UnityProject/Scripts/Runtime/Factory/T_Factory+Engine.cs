@@ -58,9 +58,6 @@ namespace NSEngine {
 			// TODO: 다중 그리드 및 수평 스크롤 처리 구현 예정
 			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
 				switch(a_oLevelInfo.GridType) {
-					case EGridType.SCROLL_H: {
-						break;
-					}
 					case EGridType.SCROLL_V: {
 						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, a_stCellSize, a_stMaxGridSize, a_oLevelInfo.NumCells, i, true);
 						stGridInfo.m_stScale = stGridInfo.m_stScale.ExIsValid() ? stGridInfo.m_stScale : Vector3.one;
@@ -74,6 +71,9 @@ namespace NSEngine {
 							i,
 							true));
 
+						break;
+					}
+					case EGridType.SCROLL_H: {
 						break;
 					}
 					default: {

@@ -100,7 +100,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 
 	/** 리소스 정보를 반환한다 */
 	public bool TryGetResInfo(EResKinds a_eResKinds, out STResInfo a_stOutResInfo) {
-		a_stOutResInfo = this.ResInfoDict.GetValueOrDefault(a_eResKinds, STResInfo.INVALID);
+		a_stOutResInfo = this.ResInfoDict.ExGetVal(a_eResKinds, STResInfo.INVALID);
 		return this.ResInfoDict.ContainsKey(a_eResKinds);
 	}
 

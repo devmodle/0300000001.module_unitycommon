@@ -25,7 +25,7 @@ public static partial class Access {
 			}
 
 			string oStr = CStrTable.Inst.GetEnumStr(typeof(EObjKinds), ((int)a_eObjKinds).ExKindsToDetailSubKindsType());
-			string oImgPath = oImgPathDict.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), oStr);
+			string oImgPath = oImgPathDict.ExGetVal((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), oStr);
 			string oEditorImgPath = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, a_oPrefix, oImgPath);
 
 			return CResManager.Inst.GetRes<Sprite>(oEditorImgPath) ?? NSEngine.Access.GetSprite(a_eObjKinds, a_eGroupType);

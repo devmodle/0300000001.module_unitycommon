@@ -104,13 +104,13 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 	/** 보상 정보를 반환한다 */
 	public bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo) {
-		a_stOutRewardInfo = this.RewardInfoDict.GetValueOrDefault(a_eRewardKinds, STRewardInfo.INVALID);
+		a_stOutRewardInfo = this.RewardInfoDict.ExGetVal(a_eRewardKinds, STRewardInfo.INVALID);
 		return this.RewardInfoDict.ContainsKey(a_eRewardKinds);
 	}
 
 	/** 획득 타겟 정보를 반환한다 */
 	public bool TryGetAcquireTargetInfo(ERewardKinds a_eRewardKinds, ETargetKinds a_eTargetKinds, int a_nKinds, out STTargetInfo a_stOutAcquireTargetInfo) {
-		a_stOutAcquireTargetInfo = this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo) ? stRewardInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(Factory.MakeUTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
+		a_stOutAcquireTargetInfo = this.TryGetRewardInfo(a_eRewardKinds, out STRewardInfo stRewardInfo) ? stRewardInfo.m_oAcquireTargetInfoDict.ExGetVal(Factory.MakeUTargetInfoID(a_eTargetKinds, a_nKinds), STTargetInfo.INVALID) : STTargetInfo.INVALID;
 		return a_stOutAcquireTargetInfo.m_eTargetKinds != ETargetKinds.NONE;
 	}
 

@@ -198,7 +198,7 @@ namespace SetupScene {
 
 		/** 디바이스 메세지를 수신했을 경우 */
 		private void OnReceiveDeviceMsg(string a_oCmd, string a_oMsg) {
-			this.DeviceMsgHandlerDict.GetValueOrDefault(a_oCmd)?.Invoke(a_oMsg);
+			this.DeviceMsgHandlerDict.ExGetVal(a_oCmd)?.Invoke(a_oMsg);
 		}
 
 		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */

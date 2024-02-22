@@ -49,7 +49,7 @@ public partial class CProductBuyPopup : CSubPopup {
 		}
 
 		this.UpdateUIsState();
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
 	}
 #endif // #if PURCHASE_MODULE_ENABLE
 	#endregion // 조건부 함수
