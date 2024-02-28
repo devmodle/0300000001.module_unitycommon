@@ -343,88 +343,90 @@ namespace LevelEditorScene {
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
 
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
-				m_fUpdateSkipTime += a_fDeltaTime;
+			// 앱이 종료되었을 경우
+			if(!CSceneManager.IsAppRunning) {
+				return;
+			}
 
-				// 단축키를 눌렀을 경우
-				if(Input.GetKey(CAccess.CmdKeyCode)) {
-					this.HandleHotKeys();
-					CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(null);
-				}
+			m_fUpdateSkipTime += a_fDeltaTime;
 
-				// 메인 카메라가 존재 할 경우
-				if(CSceneManager.IsExistsMainCamera) {
-					var stMousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, this.PlaneDistance);
-					var stCursorPos = CSceneManager.ActiveSceneMainCamera.ScreenToWorldPoint(stMousePos).ExToLocal(this.ObjRoot);
+			// 단축키를 눌렀을 경우
+			if(Input.GetKey(CAccess.CmdKeyCode)) {
+				this.HandleHotKeys();
+				CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(null);
+			}
 
-					// 그리드 영역 일 경우
-					if(m_oGridInfoList.ExIsValidIdx(m_nSelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos)) {
-						var stIdx = stCursorPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+			// 메인 카메라가 존재 할 경우
+			if(CSceneManager.IsExistsMainCamera) {
+				var stMousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, this.PlaneDistance);
+				var stCursorPos = CSceneManager.ActiveSceneMainCamera.ScreenToWorldPoint(stMousePos).ExToLocal(this.ObjRoot);
 
-						// 인덱스가 유효 할 경우
-						if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx)) {
-							// Do Something
-						}
+				// 그리드 영역 일 경우
+				if(m_oGridInfoList.ExIsValidIdx(m_nSelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos)) {
+					var stIdx = stCursorPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
 
-						// 스크롤이 가능 할 경우
-						if(!Input.mouseScrollDelta.ExIsEquals(Vector3.zero)) {
-							float fScrollDeltaX = (Input.mouseScrollDelta.x * NSEngine.Access.CellSize.x) * this.EditorObjRoot.transform.localScale.x;
-							float fScrollDeltaY = (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y) * this.EditorObjRoot.transform.localScale.y;
-
-							this.SetMEUIsGridScrollDelta(m_fGridScrollDeltaX + fScrollDeltaX, m_fGridScrollDeltaY - fScrollDeltaY);
-						}
-
-						bool bIsValid01 = m_eSelObjKinds.ExIsValid() && this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx);
-						bool bIsValid02 = m_oGridInfoList.ExIsValidIdx(m_nSelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos);
-
-						Color stColor = this.IsEnableAddCellObjInfo(stIdx, this.GetEditorObjSize(), m_eSelObjKinds) ? Color.white : Color.red;
-
-						this.SelObjSprite?.gameObject.SetActive(bIsValid01 && bIsValid02);
-						this.SelObjSprite?.gameObject.ExSetLocalPos(this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize));
-						this.SelObjSprite?.ExSetPropertyVal<SpriteRenderer>(KCDefine.U_PROPERTY_N_COLOR, stColor.ExGetAlphaColor(KCDefine.B_VAL_0_5_REAL));
-					} else {
-						this.SelObjSprite?.gameObject.SetActive(false);
+					// 인덱스가 유효 할 경우
+					if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx)) {
+						// Do Something
 					}
-				}
 
-				// 일정 시간이 지났을 경우
-				if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL)) {
-					m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
-					this.OnTouchMEUIsSaveBtn();
+					// 스크롤이 가능 할 경우
+					if(!Input.mouseScrollDelta.ExIsEquals(Vector3.zero)) {
+						float fScrollDeltaX = (Input.mouseScrollDelta.x * NSEngine.Access.CellSize.x) * this.EditorObjRoot.transform.localScale.x;
+						float fScrollDeltaY = (Input.mouseScrollDelta.y * NSEngine.Access.CellSize.y) * this.EditorObjRoot.transform.localScale.y;
+
+						this.SetMEUIsGridScrollDelta(m_fGridScrollDeltaX + fScrollDeltaX, m_fGridScrollDeltaY - fScrollDeltaY);
+					}
+
+					bool bIsValid01 = m_eSelObjKinds.ExIsValid() && this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx);
+					bool bIsValid02 = m_oGridInfoList.ExIsValidIdx(m_nSelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stCursorPos);
+
+					Color stColor = this.IsEnableAddCellObjInfo(stIdx, this.GetEditorObjSize(), m_eSelObjKinds) ? Color.white : Color.red;
+
+					this.SelObjSprite?.gameObject.SetActive(bIsValid01 && bIsValid02);
+					this.SelObjSprite?.gameObject.ExSetLocalPos(this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize));
+					this.SelObjSprite?.ExSetPropertyVal<SpriteRenderer>(KCDefine.U_PROPERTY_N_COLOR, stColor.ExGetAlphaColor(KCDefine.B_VAL_0_5_REAL));
+				} else {
+					this.SelObjSprite?.gameObject.SetActive(false);
 				}
+			}
+
+			// 일정 시간이 지났을 경우
+			if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL)) {
+				m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
+				this.OnTouchMEUIsSaveBtn();
+			}
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-				// 저장 키를 눌렀을 경우
-				if(Input.GetKey(CAccess.CmdKeyCode) && Input.GetKeyDown(KeyCode.S)) {
-					this.OnTouchMEUIsSaveBtn();
-				}
-
-				// 모든 셀 채우기 키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.F)) {
-					this.OnTouchREUIsPageUIs01FillAllCellsBtn();
-				}
-				// 모든 셀 지우기 키를 눌렀을 경우
-				else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.C)) {
-					this.OnTouchREUIsPageUIs01ClearAllCellsBtn();
-				}
-				// 선택 셀 지우기 키를 눌렀을 경우
-				else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.Q)) {
-					this.OnTouchREUIsPageUIs01ClearSelCellsBtn();
-				}
-
-				// 로컬 테이블 로드 키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.L)) {
-					this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL);
-				}
-				// 원격 테이블 로드 키를 눌렀을 경우
-				else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.R)) {
-					this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
-				}
-
-				this.SubOnUpdate(a_fDeltaTime);
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+			// 저장 키를 눌렀을 경우
+			if(Input.GetKey(CAccess.CmdKeyCode) && Input.GetKeyDown(KeyCode.S)) {
+				this.OnTouchMEUIsSaveBtn();
 			}
+
+			// 모든 셀 채우기 키를 눌렀을 경우
+			if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.F)) {
+				this.OnTouchREUIsPageUIs01FillAllCellsBtn();
+			}
+			// 모든 셀 지우기 키를 눌렀을 경우
+			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.C)) {
+				this.OnTouchREUIsPageUIs01ClearAllCellsBtn();
+			}
+			// 선택 셀 지우기 키를 눌렀을 경우
+			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.Q)) {
+				this.OnTouchREUIsPageUIs01ClearSelCellsBtn();
+			}
+
+			// 로컬 테이블 로드 키를 눌렀을 경우
+			if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.L)) {
+				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL);
+			}
+			// 원격 테이블 로드 키를 눌렀을 경우
+			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.R)) {
+				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
+			}
+
+			this.SubOnUpdate(a_fDeltaTime);
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 상태를 갱신한다 */
@@ -601,17 +603,17 @@ namespace LevelEditorScene {
 		private void ResetObjSprites() {
 			// 객체를 제거한다 {
 			for(int i = 0; i < m_oGridLineBtnHList.Count; ++i) {
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, 
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL,
 					m_oGridLineBtnHList[i].gameObject);
 			}
 
 			for(int i = 0; i < m_oGridLineBtnVList.Count; ++i) {
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, 
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL,
 					m_oGridLineBtnVList[i].gameObject);
 			}
 
 			for(int i = 0; i < m_oGridLineFXList.Count; ++i) {
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL, 
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL,
 					m_oGridLineFXList[i].gameObject);
 			}
 
@@ -777,7 +779,7 @@ namespace LevelEditorScene {
 			for(int i = 0; i < a_oObjSpriteInfoList.Count; ++i) {
 				a_oObjSpriteInfoList[i].m_oSprite.sprite = null;
 
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, 
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL,
 					a_oObjSpriteInfoList[i].m_oSprite.gameObject);
 			}
 		}
