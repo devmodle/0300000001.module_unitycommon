@@ -56,6 +56,8 @@ public static partial class CCommonEditorSceneManager {
 
 		oSerializeObj.ExSetPropertyVal(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY, 
 			(a_oProperty) => a_oProperty.boolValue = true);
+
+		CEditorFunc.SaveAsset(oLocalizeSettings);
 #endif // #if LOCALIZE_MODULE_ENABLE
 	}
 	#endregion // 클래스 함수

@@ -37,6 +37,8 @@ public static partial class CCommonEditorSceneManager {
 					oiOSSettings.InitManagerOnStart = true;
 					oAndroidSettings.InitManagerOnStart = true;
 					oStandaloneSettings.InitManagerOnStart = true;
+
+					CEditorFunc.SaveAsset(oPerformanceSettings);
 				}
 			}
 		}
@@ -72,6 +74,8 @@ public static partial class CCommonEditorSceneManager {
 		a_oProviderSettings.enableBoostOnStartup = false;
 		a_oProviderSettings.automaticPerformanceMode = false;
 		a_oProviderSettings.indexerSettings.active = false;
+
+		CEditorFunc.SaveAsset(a_oProviderSettings);
 	}
 #endif // #if ADAPTIVE_PERFORMANCE_ENABLE
 	#endregion // 클래스 함수

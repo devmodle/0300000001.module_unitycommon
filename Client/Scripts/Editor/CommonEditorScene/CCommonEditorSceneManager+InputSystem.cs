@@ -29,8 +29,6 @@ public static partial class CCommonEditorSceneManager {
 			oInputSettings = oInputSettings ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
 
 			InputSystem.settings = oInputSettings;
-
-			EditorUtility.SetDirty(oInputSettings);
 			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, oInputSettings, true);
 		}
 
@@ -58,6 +56,8 @@ public static partial class CCommonEditorSceneManager {
 		oInputSettings.iOS.motionUsage.enabled = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_stiOSBuildOptsInfo.m_bIsEnableInputSystemMotion;
 		oInputSettings.iOS.motionUsage.usageDescription = CPlatformOptsSetter.OptsInfoTable.BuildOptsInfo.m_oInputSystemMotionDesc;
 #endif // #if UNITY_IOS
+
+		CEditorFunc.SaveAsset(oInputSettings);
 #endif // #if INPUT_SYSTEM_MODULE_ENABLE
 	}
 	#endregion // 클래스 함수
