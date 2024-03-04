@@ -342,7 +342,7 @@ namespace PlayScene {
 			bool bIsRunning = a_eCallback == EPopupCallback.RESUME || a_eCallback == EPopupCallback.CONTINUE;
 			m_oEngine.SetIsRunning(bIsRunning);
 
-			a_oSender?.SetIsEnableAni(bIsRunning);
+			a_oSender?.SetIsEnableAnim(bIsRunning);
 			a_oSender?.Close();
 		}
 

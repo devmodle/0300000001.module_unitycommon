@@ -48,7 +48,7 @@ public partial class CFocusPopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.SetIsEnableAni(false);
+		this.SetIsEnableAnim(false);
 
 		// 이미지를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
