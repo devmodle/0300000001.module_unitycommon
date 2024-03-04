@@ -35,96 +35,116 @@ public static partial class CEditorSceneManager {
 	#region 클래스 함수
 	/** 생성자 */
 	static CEditorSceneManager() {
-		// 플레이 모드가 아닐 경우
-		if(!EditorApplication.isPlaying) {
-			CEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
-			CEditorSceneManager.m_dblDependencySkipTime = EditorApplication.timeSinceStartup;
-			CEditorSceneManager.m_dblDefineSymbolSkipTime = EditorApplication.timeSinceStartup;
-
-			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
-			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
-			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_RESEARCH_SAMPLE);
-			CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
+		// 플레이 모드 일 경우
+		if(EditorApplication.isPlaying) {
+			goto EDITOR_SCENE_MANAGER_CONSTRUCTOR_EXIT_FINAL;
 		}
 
+		CEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
+		CEditorSceneManager.m_dblDependencySkipTime = EditorApplication.timeSinceStartup;
+		CEditorSceneManager.m_dblDefineSymbolSkipTime = EditorApplication.timeSinceStartup;
+
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_RESEARCH_SAMPLE);
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
+
+EDITOR_SCENE_MANAGER_CONSTRUCTOR_EXIT_FINAL:
 		CEditorSceneManager.SetupCallbacks();
 	}
 
 	/** 상태를 갱신한다 */
 	private static void Update() {
-		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState) {
-			// 상태 갱신이 가능 할 경우
-			if(CEditorSceneManager.m_bIsEnableSetup) {
-				Preferences.Tooltips.Value = false;
-				Preferences.SelectOnTree.Value = false;
+		// 상태 갱신이 불가능 할 경우
+		if(!CEditorAccess.IsEnableUpdateState) {
+			goto EDITOR_SCENE_MANAGER_UPDATE_EXIT_FINAL;
+		}
 
-				CEditorSceneManager.m_bIsEnableSetup = false;
-				CEditorSceneManager.m_bIsEnableSetupDependencies = true;
+		// 설정이 불가능 할 경우
+		if(!CEditorSceneManager.m_bIsEnableSetup) {
+			goto EDITOR_SCENE_MANAGER_UPDATE_EXIT_A;
+		}
 
-				CEditorSceneManager.m_oListRequest = Client.List(false, false);
-			}
+		Preferences.Tooltips.Value = false;
+		Preferences.SelectOnTree.Value = false;
 
-			// 갱신 주기가 지났을 경우
-			if((EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblUpdateSkipTime).ExIsGreatEquals(KCDefine.B_VAL_3_REAL)) {
-				CEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
+		CEditorSceneManager.m_bIsEnableSetup = false;
+		CEditorSceneManager.m_bIsEnableSetupDependencies = true;
+
+		CEditorSceneManager.m_oListRequest = Client.List(false, false);
+
+EDITOR_SCENE_MANAGER_UPDATE_EXIT_A:
+		double dblUpdateDeltaTime = EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblUpdateSkipTime;
+
+		// 상태 갱신이 불가능 할 경우
+		if(dblUpdateDeltaTime.ExIsLess(KCDefine.B_VAL_3_REAL)) {
+			goto EDITOR_SCENE_MANAGER_UPDATE_EXIT_FINAL;
+		}
+
+		CEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
 
 #if UIS_ROOT_PREFAB_ENABLE
-				CAccess.EnumerateRootObjs((a_oObj) => {
-					// 최상단 프리팹 객체 일 경우
-					if(KCEditorDefine.B_OBJ_N_ROOT_PREFAB_OBJ_LIST.Contains(a_oObj.name) && !CEditorSceneManager.m_oSampleSceneNameList.Contains(a_oObj.scene.name)) {
-						CEditorSceneManager.SetupPrefabObjs(a_oObj);
-					}
+		CAccess.EnumerateRootObjs((a_oObj) => {
+			bool bIsRootPrefabObjA = KCEditorDefine.B_OBJ_N_ROOT_PREFAB_OBJ_LIST.Contains(a_oObj.name);
+			bool bIsRootPrefabObjB = bIsRootPrefabObjA && !CEditorSceneManager.m_oSampleSceneNameList.Contains(a_oObj.scene.name);
 
-					return true;
-				});
+			// 최상단 프리팹 객체 일 경우
+			if(bIsRootPrefabObjA && bIsRootPrefabObjB) {
+				CEditorSceneManager.SetupPrefabObj(a_oObj);
+			}
+
+			return true;
+		});
 #endif // #if UIS_ROOT_PREFAB_ENABLE
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
-				CAccess.EnumerateScenes((a_stScene) => {
-					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.G_EXTRA_SCENE_MANAGER_TYPE_DICT);
-					return true;
-				});
+		CAccess.EnumerateScenes((a_stScene) => {
+			CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.G_EXTRA_SCENE_MANAGER_TYPE_DICT);
+			return true;
+		});
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE
 
-				CAccess.EnumerateScenes((a_stScene) => {
-					var oUIsRoot = a_stScene.ExFindChild(KCDefine.U_OBJ_N_SCENE_UIS_ROOT);
-					string oPrefabPath = (oUIsRoot == null) ? CEditorAccess.GetRootObjPrefabPath(a_stScene, KCDefine.U_OBJ_N_SCENE_UIS_ROOT) : string.Empty;
+		CAccess.EnumerateScenes((a_stScene) => {
+			var oUIsRoot = a_stScene.ExFindChild(KCDefine.U_OBJ_N_SCENE_UIS_ROOT);
+			string oPrefabPath = (oUIsRoot == null) ? CEditorAccess.GetRootObjPrefabPath(a_stScene, KCDefine.U_OBJ_N_SCENE_UIS_ROOT) : string.Empty;
 
-					// 최상단 UI 가 없을 경우
-					if(oUIsRoot == null && CEditorAccess.IsExistsAsset(oPrefabPath)) {
-						EditorSceneManager.MarkSceneDirty(a_stScene);
-						CEditorFactory.CreatePrefabInstance(KCDefine.U_OBJ_N_SCENE_UIS_ROOT, CEditorAccess.FindAsset<GameObject>(oPrefabPath), null);
-					}
+			// 최상단 UI 가 없을 경우
+			if(oUIsRoot == null && CEditorAccess.IsExistsAsset(oPrefabPath)) {
+				EditorSceneManager.MarkSceneDirty(a_stScene);
+				CEditorFactory.CreatePrefabInstance(KCDefine.U_OBJ_N_SCENE_UIS_ROOT, CEditorAccess.FindAsset<GameObject>(oPrefabPath), null);
+			}
 
-					CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT);
-					return true;
-				});
+			CSampleSceneManager.SetupSceneManager(a_stScene, KEditorDefine.B_SCENE_MANAGER_TYPE_DICT);
+			return true;
+		});
 
-				// 스크립트 순서를 설정한다 {
-				var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
+		// 스크립트 순서를 설정한다 {
+		var oMonoScripts = MonoImporter.GetAllRuntimeMonoScripts();
 
-				for(int i = 0; i < oMonoScripts.Length; ++i) {
-					// 스크립트가 존재 할 경우
-					if(oMonoScripts[i] != null) {
-						var oType = oMonoScripts[i].GetClass();
+		for(int i = 0; i < oMonoScripts.Length; ++i) {
+			// 순서 설정이 불가능 할 경우
+			if(oMonoScripts[i] == null) {
+				continue;
+			}
 
-						// 스크립트 순서 설정이 가능 할 경우
-						if(oType != null && KEditorDefine.B_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nOrder)) {
-							CAccess.SetScriptOrder(oMonoScripts[i], nOrder);
-						}
+			var oType = oMonoScripts[i].GetClass();
+
+			// 스크립트 순서 설정이 가능 할 경우
+			if(oType != null && KEditorDefine.B_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nOrder)) {
+				CAccess.SetScriptOrder(oMonoScripts[i], nOrder);
+			}
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
-						// 스크립트 순서 설정이 가능 할 경우
-						if(oType != null && KEditorDefine.G_EXTRA_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nExtraOrder)) {
-							CAccess.SetScriptOrder(oMonoScripts[i], nExtraOrder);
-						}
-#endif // #if EXTRA_SCRIPT_MODULE_ENABLE
-					}
-				}
-				// 스크립트 순서를 설정한다 }
+			// 스크립트 순서 설정이 가능 할 경우
+			if(oType != null && KEditorDefine.G_EXTRA_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nExtraOrder)) {
+				CAccess.SetScriptOrder(oMonoScripts[i], nExtraOrder);
 			}
+#endif // #if EXTRA_SCRIPT_MODULE_ENABLE
 		}
+		// 스크립트 순서를 설정한다 }
+
+EDITOR_SCENE_MANAGER_UPDATE_EXIT_FINAL:
+		return;
 	}
 
 	/** 상태를 갱신한다 */
@@ -204,15 +224,15 @@ public static partial class CEditorSceneManager {
 		}
 	}
 
+	/** 프로젝트 상태가 갱신되었을 경우 */
+	private static void OnUpdateProjectState() {
+		CEditorSceneManager.SetupExtraPreloadAssets();
+	}
+
 	/** 스크립트가 로드되었을 경우 */
 	[UnityEditor.Callbacks.DidReloadScripts]
 	private static void OnLoadScript() {
 		CEditorSceneManager.m_bIsEnableSetup = true;
-	}
-
-	/** 프로젝트 상태가 갱신되었을 경우 */
-	private static void OnUpdateProjectState() {
-		CEditorSceneManager.SetupExtraPreloadAssets();
 	}
 
 	/** 씬이 열렸을 경우 */
@@ -251,18 +271,21 @@ public static partial class CEditorSceneManager {
 		var oPkgsInfoList = CEditorSceneManager.m_oListRequest.Result.ToList();
 
 		foreach(var stKeyVal in KEditorDefine.B_UNITY_PKGS_DEPENDENCY_DICT) {
-			int nIdx = oPkgsInfoList.FindIndex((a_oPkgsInfo) => a_oPkgsInfo.name.Equals(stKeyVal.Key));
+			int nResult = oPkgsInfoList.FindIndex((a_oPkgsInfo) => a_oPkgsInfo.name.Equals(stKeyVal.Key));
 
-			// 독립 패키지가 없을 경우
-			if(!oPkgsInfoList.ExIsValidIdx(nIdx)) {
-				// 버전이 유효 할 경우
-				if(stKeyVal.Value.ExIsValidBuildVer()) {
-					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(string.Format(KCEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value)));
-				} else {
+			// 패키지 설정이 불가능 할 경우
+			if(oPkgsInfoList.ExIsValidIdx(nResult)) {
+				continue;
+			}
+
+			// 버전이 유효 할 경우
+			if(stKeyVal.Value.ExIsValidBuildVer()) {
+				string oUnityPkgsID = string.Format(KCEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value);
+				CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(oUnityPkgsID));
+			} else {
 #if DEVELOPMENT_PROJ
-					CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
+				CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
 #endif // #if DEVELOPMENT_PROJ
-				}
 			}
 		}
 	}
@@ -273,59 +296,63 @@ public static partial class CEditorSceneManager {
 		var oPreloadAssetList = PlayerSettings.GetPreloadedAssets().ToList();
 
 		for(int i = 0; i < KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST.Count; ++i) {
-			// 디렉토리가 존재 할 경우
-			if(AssetDatabase.IsValidFolder(KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i])) {
-				var oAssetList = CEditorAccess.FindAssets<Object>(string.Empty, new List<string>() {
-					KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i]
-				});
+			// 에셋 설정이 불가능 할 경우
+			if(!AssetDatabase.IsValidFolder(KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i])) {
+				continue;
+			}
 
-				for(int j = 0; j < oAssetList.Count; ++j) {
-					// 디렉토리 에셋이 아닐 경우
-					if(oAssetList[j].GetType() != typeof(DefaultAsset)) {
-						oPreloadAssetList.ExAddVal(oAssetList[j], (a_oAsset) => (a_oAsset != null && oAssetList[j] != null) && oAssetList[j].name.Equals(a_oAsset.name));
-					}
+			var oAssetList = CEditorAccess.FindAssets<Object>(string.Empty, new List<string>() {
+				KEditorDefine.G_EXTRA_DIR_P_PRELOAD_ASSET_LIST[i]
+			});
+
+			for(int j = 0; j < oAssetList.Count; ++j) {
+				// 에셋 설정이 불가능 할 경우
+				if(oAssetList[j].GetType() == typeof(DefaultAsset)) {
+					continue;
 				}
+
+				oPreloadAssetList.ExAddVal(oAssetList[j], (a_oAsset) => a_oAsset != null && oAssetList[j] != null && a_oAsset.name.Equals(oAssetList[j].name));
 			}
 		}
 
 		for(int i = 0; i < KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST.Count; ++i) {
 			var oAsset = CEditorAccess.FindAsset<Object>(KEditorDefine.G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST[i]);
-			oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => (a_oAsset != null && oAsset != null) && oAsset.name.Equals(a_oAsset.name));
+			oPreloadAssetList.ExAddVal(oAsset, (a_oAsset) => a_oAsset != null && oAsset != null && a_oAsset.name.Equals(oAsset.name));
 		}
 
 		PlayerSettings.SetPreloadedAssets(oPreloadAssetList.ToArray());
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE
 	}
-	#endregion // 클래스 함수
 
-	#region 조건부 클래스 함수
 #if UIS_ROOT_PREFAB_ENABLE
 	/** 프리팹 객체를 설정한다 */
-	private static void SetupPrefabObjs(GameObject a_oObj) {
-		// 프리팹 설정이 가능 할 경우
-		if(!PrefabUtility.IsPrefabAssetMissing(a_oObj) && CFunc.FindComponent<CSampleSceneManager>(a_oObj.scene) == null) {
-			string oPrefabPath = CEditorAccess.GetRootObjPrefabPath(a_oObj.scene, a_oObj.name);
+	private static void SetupPrefabObj(GameObject a_oObj) {
+		// 객체 설정이 불가능 할 경우
+		if(PrefabUtility.IsPrefabAssetMissing(a_oObj) || CFunc.FindComponent<CSampleSceneManager>(a_oObj.scene) != null) {
+			return;
+		}
 
-			// 프리팹이 없을 경우
-			if(!CEditorAccess.IsExistsAsset(oPrefabPath)) {
-				CEditorFactory.MakeDirectories(Path.GetDirectoryName(oPrefabPath).Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH));
-				PrefabUtility.SaveAsPrefabAssetAndConnect(a_oObj, oPrefabPath, InteractionMode.AutomatedAction);
+		string oPrefabPath = CEditorAccess.GetRootObjPrefabPath(a_oObj.scene, a_oObj.name);
 
-				EditorSceneManager.MarkSceneDirty(a_oObj.scene);
-			}
+		// 프리팹이 없을 경우
+		if(!CEditorAccess.IsExistsAsset(oPrefabPath)) {
+			CEditorFactory.MakeDirectories(Path.GetDirectoryName(oPrefabPath).Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH));
+			PrefabUtility.SaveAsPrefabAssetAndConnect(a_oObj, oPrefabPath, InteractionMode.AutomatedAction);
 
-			// 베리언트 프리팹 일 경우
-			if(PrefabUtility.GetPrefabAssetType(a_oObj) == PrefabAssetType.Variant) {
-				do {
-					PrefabUtility.UnpackPrefabInstance(a_oObj, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
-				} while(PrefabUtility.GetPrefabAssetType(a_oObj) != PrefabAssetType.NotAPrefab);
+			EditorSceneManager.MarkSceneDirty(a_oObj.scene);
+		}
 
-				CEditorFactory.RemoveAsset(oPrefabPath);
-			}
+		// 베리언트 프리팹 일 경우
+		if(PrefabUtility.GetPrefabAssetType(a_oObj) == PrefabAssetType.Variant) {
+			do {
+				PrefabUtility.UnpackPrefabInstance(a_oObj, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
+			} while(PrefabUtility.GetPrefabAssetType(a_oObj) != PrefabAssetType.NotAPrefab);
+
+			CEditorFactory.RemoveAsset(oPrefabPath);
 		}
 	}
 #endif // #if UIS_ROOT_PREFAB_ENABLE
-	#endregion // 조건부 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if UNITY_EDITOR
 #endif // #if SCRIPT_TEMPLATE_ONLY
