@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 #endif // NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
-/** 기본 확장 클래스 */
+/** 확장 클래스 */
 public static partial class Extension {
 	#region 클래스 함수
 	/** 타겟 정보 고유 식별자 => 종류로 변환한다 */

@@ -37,7 +37,7 @@ public partial class CProductBuyPopup : CSubPopup {
 
 	#region 변수
 	[Header("=====> Game Objects <=====")]
-	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
+	[SerializeField] private List<GameObject> m_oProductBuyUIList = new List<GameObject>();
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -68,8 +68,8 @@ public partial class CProductBuyPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		// 상품 구입 UI 상태를 갱신한다
-		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
-			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
+		for(int i = 0; i < m_oProductBuyUIList.Count; ++i) {
+			this.UpdateProductBuyUIsState(m_oProductBuyUIList[i], CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(KDefine.G_PRODUCT_KINDS_SPECIAL_PKGS_LIST[i]));
 		}
 
 		this.SubUpdateUIsState();

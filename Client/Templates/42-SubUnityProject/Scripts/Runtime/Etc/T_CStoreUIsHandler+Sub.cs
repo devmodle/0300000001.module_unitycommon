@@ -39,12 +39,12 @@ public partial class CStoreUIsHandler : CComponent {
 	}
 
 	/** 패키지 상품 구입 UI 상태를 갱신한다 */
-	private void UpdatePkgsProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
+	private void UpdatePkgsProductBuyUIsState(GameObject a_oProductBuyUI, STProductTradeInfo a_stProductTradeInfo) {
 		// Do Something
 	}
 
 	/** 단일 상품 구입 UI 상태를 갱신한다 */
-	private void UpdateSingleProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
+	private void UpdateSingleProductBuyUIsState(GameObject a_oProductBuyUI, STProductTradeInfo a_stProductTradeInfo) {
 		// Do Something
 	}
 	#endregion // 함수

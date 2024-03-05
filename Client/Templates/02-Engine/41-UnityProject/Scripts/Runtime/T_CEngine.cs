@@ -64,7 +64,7 @@ namespace NSEngine {
 
 		[Header("=====> Game Objects <=====")]
 		private List<GameObject> m_oCellObjRootList = new List<GameObject>();
-		private Dictionary<EKey, GameObject> m_oObjsDict = new Dictionary<EKey, GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -335,11 +335,11 @@ namespace NSEngine {
 				(EKey.CELL_OBJ_ROOT, $"{EKey.CELL_OBJ_ROOT}", this.Params.m_oObjRoot, null),
 				(EKey.PLAYER_OBJ_ROOT, $"{EKey.PLAYER_OBJ_ROOT}", this.Params.m_oObjRoot, null),
 				(EKey.NON_PLAYER_OBJ_ROOT, $"{EKey.NON_PLAYER_OBJ_ROOT}", this.Params.m_oObjRoot, null)
-			}, m_oObjsDict);
+			}, m_oObjDict);
 
 			for(int i = 0; i < this.GridInfoList.Count; ++i) {
 				string oName = string.Format(KCDefine.PS_OBJ_N_FMT_CELL_OBJ_ROOT, i + KCDefine.B_VAL_1_INT);
-				m_oCellObjRootList.ExAddVal(CFactory.CreateGameObj(oName, m_oObjsDict[EKey.CELL_OBJ_ROOT]));
+				m_oCellObjRootList.ExAddVal(CFactory.CreateGameObj(oName, m_oObjDict[EKey.CELL_OBJ_ROOT]));
 			}
 			// 객체를 설정한다 }
 
@@ -349,9 +349,9 @@ namespace NSEngine {
 			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
 			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX), this.Params.m_oFXRoot, KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
 
-			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_CELL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_CELL_OBJ), m_oObjsDict[EKey.CELL_OBJ_ROOT], KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
-			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_oObjsDict[EKey.PLAYER_OBJ_ROOT], KCDefine.B_VAL_1_INT, false);
-			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_oObjsDict[EKey.NON_PLAYER_OBJ_ROOT], KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_CELL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_CELL_OBJ), m_oObjDict[EKey.CELL_OBJ_ROOT], KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), m_oObjDict[EKey.PLAYER_OBJ_ROOT], KCDefine.B_VAL_1_INT, false);
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), m_oObjDict[EKey.NON_PLAYER_OBJ_ROOT], KCDefine.U_SIZE_GAME_OBJS_POOL_50, false);
 			// 게임 객체 풀을 설정한다 }
 
 			this.SubSetup();

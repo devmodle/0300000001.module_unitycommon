@@ -114,17 +114,17 @@ namespace NSEngine {
 
 			// 실행 중 일 경우
 			if(this.IsRunning) {
-				var oNumEnemyObjsDict = CCollectionPoolManager.Inst.SpawnDict<EObjKinds, int>();
+				var oNumEnemyObjDict = CCollectionPoolManager.Inst.SpawnDict<EObjKinds, int>();
 
 				try {
 					for(int i = 0; i < this.EnemyObjListWrapper.Count; ++i) {
-						int nNumEnemyObjs = oNumEnemyObjsDict.ExGetVal(this.EnemyObjListWrapper[i].Params.m_stObjInfo.m_eObjKinds);
-						oNumEnemyObjsDict.ExReplaceVal(this.EnemyObjListWrapper[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
+						int nNumEnemyObjs = oNumEnemyObjDict.ExGetVal(this.EnemyObjListWrapper[i].Params.m_stObjInfo.m_eObjKinds);
+						oNumEnemyObjDict.ExReplaceVal(this.EnemyObjListWrapper[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
 					}
 
 					foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oEnemyObjTargetInfoDict) {
 						// 적 객체 생성이 가능 할 경우
-						if(oNumEnemyObjsDict.ExGetVal((EObjKinds)stKeyVal.Value.Kinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjListWrapper.Count < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nMaxNumEnemyObjs) {
+						if(oNumEnemyObjDict.ExGetVal((EObjKinds)stKeyVal.Value.Kinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjListWrapper.Count < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nMaxNumEnemyObjs) {
 							float fPosX = Random.Range(this.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
 							float fPosY = Random.Range(this.EpisodeSize.y / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
 
@@ -135,7 +135,7 @@ namespace NSEngine {
 						}
 					}
 				} finally {
-					CCollectionPoolManager.Inst.DespawnDict(oNumEnemyObjsDict);
+					CCollectionPoolManager.Inst.DespawnDict(oNumEnemyObjDict);
 				}
 			}
 		}

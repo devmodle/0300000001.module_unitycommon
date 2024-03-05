@@ -274,7 +274,7 @@ namespace LevelEditorScene {
 
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 					m_oSubMethodInfoDict.ExGetVal(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
+						m_oUIDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}
@@ -296,7 +296,7 @@ namespace LevelEditorScene {
 			if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 					m_oSubMethodInfoDict.ExGetVal(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
+						m_oUIDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}

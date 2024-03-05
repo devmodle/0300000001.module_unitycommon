@@ -32,7 +32,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 	[Header("=====> Game Objects <=====")]
 	[SerializeField] private GameObject m_oRewardUIs = null;
-	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
+	[SerializeField] private List<GameObject> m_oItemUIList = new List<GameObject>();
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -76,13 +76,13 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		var oRewardTargetInfoKeyList = this.Params.m_oRewardTargetInfoDict.Keys.ToList();
 
 		// 보상 아이템 UI 상태를 갱신한다
-		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
-			m_oItemUIsList[i].SetActive(i < oRewardTargetInfoKeyList.Count);
+		for(int i = 0; i < m_oItemUIList.Count; ++i) {
+			m_oItemUIList[i].SetActive(i < oRewardTargetInfoKeyList.Count);
 
 			// 보상 정보가 존재 할 경우
 			if(i < oRewardTargetInfoKeyList.Count) {
 				ulong nUniqueTargetInfoID = oRewardTargetInfoKeyList[i];
-				this.UpdateItemUIsState(m_oItemUIsList[i], this.Params.m_oRewardTargetInfoDict.ExGetVal(nUniqueTargetInfoID));
+				this.UpdateItemUIsState(m_oItemUIList[i], this.Params.m_oRewardTargetInfoDict.ExGetVal(nUniqueTargetInfoID));
 			}
 		}
 

@@ -21,7 +21,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 	[Header("=====> Game Objects <=====")]
-	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
+	[SerializeField] private List<GameObject> m_oRewardUIList = new List<GameObject>();
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -62,8 +62,8 @@ public partial class CDailyRewardPopup : CSubPopup {
 		m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID));
 
 		// 보상 UI 상태를 갱신한다
-		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
-			var oRewardUIs = m_oRewardUIsList[i];
+		for(int i = 0; i < m_oRewardUIList.Count; ++i) {
+			var oRewardUIs = m_oRewardUIList[i];
 			var stDailyRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.DAILY_REWARD_ATTENDANCE_01 + i);
 
 			this.UpdateRewardUIsState(oRewardUIs, stDailyRewardInfo);
