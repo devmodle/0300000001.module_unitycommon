@@ -28,7 +28,7 @@ namespace LevelEditorScene {
 		#region 변수
 		[Header("=====> Game Objects <=====")]
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjsDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -51,8 +51,8 @@ namespace LevelEditorScene {
 		protected GameObject MEUIsEditorModeUIs => m_oUIsDict[EKey.ME_UIS_EDITOR_MODE_UIS];
 		protected GameObject LEUIsABSetUIs => m_oUIsDict[EKey.LE_UIS_AB_SET_UIS];
 
-		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
-		protected GameObject EditorObjRoot => m_oObjDict[EKey.EDITOR_OBJ_ROOT];
+		protected GameObject ObjRoot => m_oObjsDict[EKey.OBJ_ROOT];
+		protected GameObject EditorObjRoot => m_oObjsDict[EKey.EDITOR_OBJ_ROOT];
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -81,14 +81,14 @@ namespace LevelEditorScene {
 
 			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 				(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
-			}, m_oObjDict);
+			}, m_oObjsDict);
 
 			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
-				(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", m_oObjDict[EKey.EDITOR_OBJ_ROOT], null)
-			}, m_oObjDict);
+				(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", m_oObjsDict[EKey.EDITOR_OBJ_ROOT], null)
+			}, m_oObjsDict);
 
 			m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
-			m_oObjDict[EKey.EDITOR_OBJ_ROOT]?.ExAddComponent<SpriteRenderer>();
+			m_oObjsDict[EKey.EDITOR_OBJ_ROOT]?.ExAddComponent<SpriteRenderer>();
 			// 객체를 설정한다 }
 
 			CSceneManager.ScreenDebugUIs?.SetActive(false);

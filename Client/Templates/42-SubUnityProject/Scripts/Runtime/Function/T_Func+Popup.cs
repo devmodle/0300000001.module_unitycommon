@@ -115,10 +115,10 @@ public static partial class Func {
 
 	#region 제니릭 클래스 함수
 	/** 팝업을 출력한다 */
-	public static void ShowPopup<T>(string a_oName, string a_oObjPath, GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) where T : CPopup {
+	public static void ShowPopup<T>(string a_oName, string a_oObjsPath, GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) where T : CPopup {
 		// 팝업이 없을 경우
-		if(a_oParent.ExFindChild(a_oName) == null && CAccess.IsExistsRes<GameObject>(a_oObjPath)) {
-			var oPopup = CPopup.Create<T>(a_oName, a_oObjPath, a_oParent);
+		if(a_oParent.ExFindChild(a_oName) == null && CAccess.IsExistsRes<GameObject>(a_oObjsPath)) {
+			var oPopup = CPopup.Create<T>(a_oName, a_oObjsPath, a_oParent);
 			CFunc.Invoke(ref a_oInitCallback, oPopup);
 
 			oPopup.Show(a_oShowCallback, a_oCloseCallback);

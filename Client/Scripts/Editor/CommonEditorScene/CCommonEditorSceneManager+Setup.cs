@@ -353,7 +353,7 @@ public static partial class CCommonEditorSceneManager {
 
 			// 확인 버튼을 눌렀을 경우
 			if(CEditorFunc.ShowOKCancelAlertPopup(KCEditorDefine.B_TEXT_ALERT, oMsg)) {
-				CFactory.RemoveObj(CCommonEditorSceneManager.m_oPrefabMissingObjList[i]);
+				CFunc.RemoveObj(CCommonEditorSceneManager.m_oPrefabMissingObjList[i]);
 			} else {
 				PrefabUtility.UnpackPrefabInstance(CCommonEditorSceneManager.m_oPrefabMissingObjList[i], PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
 			}
