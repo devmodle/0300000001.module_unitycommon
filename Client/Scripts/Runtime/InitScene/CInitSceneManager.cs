@@ -139,8 +139,8 @@ namespace InitScene {
 			long nTargetFrameRate = bIsValid ? stTargetFrameInfo.Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
 			long nDefTargetFrameRate = Application.isEditor ? KCDefine.B_EDITOR_TARGET_FRAME_RATE : KCDefine.B_DEF_TARGET_FRAME_RATE;
 
-			Application.targetFrameRate = System.Math.Max(KCDefine.B_MIN_TARGET_FRAME_RATE, 
-				Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate)));
+			float fRefreshRate = (float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate);
+			CAccess.SetTargetFrameRate(Mathf.RoundToInt(fRefreshRate));
 
 #if MULTI_TOUCH_ENABLE
 			Input.multiTouchEnabled = true;
