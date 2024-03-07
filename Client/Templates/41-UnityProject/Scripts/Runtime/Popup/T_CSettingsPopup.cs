@@ -67,13 +67,18 @@ public partial class CSettingsPopup : CSubPopup {
 		var oBtnKeyInfoList = new List<(EKey, string, string, string, bool)>() {
 			(EKey.BG_SND_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_BG_SND_ON, KDefine.G_IMG_P_SETTINGS_P_BG_SND_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd),
 			(EKey.FX_SNDS_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_ON, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds),
-			(EKey.VIBRATE_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_ON, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate),
-			(EKey.NOTI_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_NOTI_ON, KDefine.G_IMG_P_SETTINGS_P_NOTI_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti)
+			(EKey.VIBRATE_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_ON, KDefine.G_IMG_P_SETTINGS_P_VIBRATE_OFF, CCommonGameInfoStorage.Inst.GameInfo.IsEnableVibrate),
+			(EKey.NOTI_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_NOTI_ON, KDefine.G_IMG_P_SETTINGS_P_NOTI_OFF, CCommonGameInfoStorage.Inst.GameInfo.IsEnableNoti)
 		};
 
 		for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+			var oBtn = m_oBtnDict.ExGetVal(oBtnKeyInfoList[i].Item1);
+			var oImg = oBtn?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2);
+			
 			string oImgPath = oBtnKeyInfoList[i].Item5 ? oBtnKeyInfoList[i].Item3 : oBtnKeyInfoList[i].Item4;
-			m_oBtnDict.ExGetVal(oBtnKeyInfoList[i].Item1)?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2)?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_SPRITE, CResManager.Inst.GetRes<Sprite>(oImgPath));
+
+			oImg?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_SPRITE, 
+				CResManager.Inst.GetRes<Sprite>(oImgPath), a_bIsAssert: false);
 		}
 		// 버튼을 갱신한다 }
 
@@ -98,7 +103,7 @@ public partial class CSettingsPopup : CSubPopup {
 
 	/** 진동 버튼을 눌렀을 경우 */
 	private void OnTouchVibrateBtn() {
-		CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate = !CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate;
+		CCommonGameInfoStorage.Inst.GameInfo.IsEnableVibrate = !CCommonGameInfoStorage.Inst.GameInfo.IsEnableVibrate;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
 		this.UpdateUIsState();
@@ -107,7 +112,7 @@ public partial class CSettingsPopup : CSubPopup {
 
 	/** 알림 버튼을 눌렀을 경우 */
 	private void OnTouchNotiBtn() {
-		CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti = !CCommonGameInfoStorage.Inst.GameInfo.IsDisableNoti;
+		CCommonGameInfoStorage.Inst.GameInfo.IsEnableNoti = !CCommonGameInfoStorage.Inst.GameInfo.IsEnableNoti;
 		CCommonGameInfoStorage.Inst.SaveGameInfo();
 
 		this.UpdateUIsState();

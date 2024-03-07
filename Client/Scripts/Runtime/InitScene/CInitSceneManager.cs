@@ -78,23 +78,23 @@ namespace InitScene {
 
 			// 사운드 관리자를 설정한다 {
 #if MODE_2D_ENABLE
-			CSndManager.Inst.SetIsIgnoreBGSndEffects(true);
-			CSndManager.Inst.SetIsIgnoreFXSndsEffects(true);
+			CSndManager.Inst.SetIsBypassBGSndEffects(true);
+			CSndManager.Inst.SetIsBypassFXSndsEffects(true);
 
-			CSndManager.Inst.SetIsIgnoreBGSndReverbZones(true);
-			CSndManager.Inst.SetIsIgnoreFXSndsReverbZones(true);
+			CSndManager.Inst.SetIsBypassBGSndReverbZones(true);
+			CSndManager.Inst.SetIsBypassFXSndsReverbZones(true);
 
-			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(true);
-			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(true);
+			CSndManager.Inst.SetIsBypassBGSndListenerEffects(true);
+			CSndManager.Inst.SetIsBypassFXSndsListenerEffects(true);
 #else
-			CSndManager.Inst.SetIsIgnoreBGSndEffects(false);
-			CSndManager.Inst.SetIsIgnoreFXSndsEffects(false);
+			CSndManager.Inst.SetIsBypassBGSndEffects(false);
+			CSndManager.Inst.SetIsBypassFXSndsEffects(false);
 
-			CSndManager.Inst.SetIsIgnoreBGSndReverbZones(false);
-			CSndManager.Inst.SetIsIgnoreFXSndsReverbZones(false);
+			CSndManager.Inst.SetIsBypassBGSndReverbZones(false);
+			CSndManager.Inst.SetIsBypassFXSndsReverbZones(false);
 
-			CSndManager.Inst.SetIsIgnoreBGSndListenerEffects(false);
-			CSndManager.Inst.SetIsIgnoreFXSndsListenerEffects(false);
+			CSndManager.Inst.SetIsBypassBGSndListenerEffects(false);
+			CSndManager.Inst.SetIsBypassFXSndsListenerEffects(false);
 #endif // #if MODE_2D_ENABLE
 
 			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
@@ -102,7 +102,7 @@ namespace InitScene {
 
 			CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
 			CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
-			CSndManager.Inst.SetIsDisableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsDisableVibrate);
+			CSndManager.Inst.SetIsEnableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsEnableVibrate);
 			// 사운드 관리자를 설정한다 }
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
