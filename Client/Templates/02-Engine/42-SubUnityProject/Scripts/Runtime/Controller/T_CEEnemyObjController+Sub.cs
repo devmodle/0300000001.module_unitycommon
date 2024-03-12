@@ -112,7 +112,7 @@ namespace NSEngine {
 
 			// 소유자가 존재 할 경우
 			if(a_oEObjComponent.GetOwner<CEObjComponent>() != null) {
-				switch(a_oEObjComponent.Params.m_stBaseParams.m_oGameObjsPoolKey) {
+				switch(a_oEObjComponent.Params.m_stBase.m_oGameObjsPoolKey) {
 					// Do Something
 				}
 			}

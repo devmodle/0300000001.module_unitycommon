@@ -10,7 +10,7 @@ using UnityEngine.Events;
 public partial class CSubEditorScrollerCellView : CEditorScrollerCellView {
 	/** 매개 변수 */
 	public new struct STParams {
-		public CEditorScrollerCellView.STParams m_stBaseParams;
+		public CEditorScrollerCellView.STParams m_stBase;
 	}
 
 	/** 스크롤러 셀 UI */
@@ -36,7 +36,7 @@ public partial class CSubEditorScrollerCellView : CEditorScrollerCellView {
 
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
-		base.Init(a_stParams.m_stBaseParams);
+		base.Init(a_stParams.m_stBase);
 		this.Params = a_stParams;
 
 		this.UpdateUIsState();

@@ -18,7 +18,7 @@ namespace NSEngine {
 
 		/** 매개 변수 */
 		public new struct STParams {
-			public CEComponent.STParams m_stBaseParams;
+			public CEComponent.STParams m_stBase;
 			public CEController m_oController;
 
 			public Dictionary<ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> m_oCallbackDict;
@@ -55,7 +55,7 @@ namespace NSEngine {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
+			base.Init(a_stParams.m_stBase);
 			this.Params = a_stParams;
 
 			// 스프라이트를 설정한다
@@ -126,7 +126,7 @@ namespace NSEngine {
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, CEController a_oController, string a_oGameObjsPoolKey, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
 			return new STParams() {
-				m_stBaseParams = CEComponent.MakeParams(a_oEngine, a_oGameObjsPoolKey), m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
+				m_stBase = CEComponent.MakeParams(a_oEngine, a_oGameObjsPoolKey), m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
 			};
 		}
 		#endregion // 클래스 함수

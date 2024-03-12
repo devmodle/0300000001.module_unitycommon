@@ -14,7 +14,7 @@ using EnhancedUI.EnhancedScroller;
 public partial class CStageScrollerCellView : CScrollerCellView {
 	/** 매개 변수 */
 	public new struct STParams {
-		public CScrollerCellView.STParams m_stBaseParams;
+		public CScrollerCellView.STParams m_stBase;
 	}
 
 	/** 스크롤러 셀 UI */
@@ -40,7 +40,7 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
-		base.Init(a_stParams.m_stBaseParams);
+		base.Init(a_stParams.m_stBase);
 		this.Params = a_stParams;
 
 		for(int i = 0; i < this.ScrollerCellList.Count; ++i) {
@@ -82,7 +82,7 @@ public partial class CStageScrollerCellView : CScrollerCellView {
 	/** 매개 변수를 생성한다 */
 	public new static STParams MakeParams(int a_nIdx, ulong a_nID, EnhancedScroller a_oScroller, Dictionary<ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict = null) {
 		return new STParams() {
-			m_stBaseParams = CScrollerCellView.MakeParams(a_nIdx, a_nID, a_oScroller, a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CScrollerCellView, ulong>>())
+			m_stBase = CScrollerCellView.MakeParams(a_nIdx, a_nID, a_oScroller, a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CScrollerCellView, ulong>>())
 		};
 	}
 	#endregion // 클래스 함수

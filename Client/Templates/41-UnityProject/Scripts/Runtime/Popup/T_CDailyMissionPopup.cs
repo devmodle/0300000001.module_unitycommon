@@ -10,7 +10,7 @@ using UnityEngine.Events;
 public partial class CDailyMissionPopup : CMissionPopup {
 	/** 매개 변수 */
 	public new struct STParams {
-		public CMissionPopup.STParams m_stBaseParams;
+		public CMissionPopup.STParams m_stBase;
 	}
 	
 	#region 프로퍼티
@@ -26,7 +26,7 @@ public partial class CDailyMissionPopup : CMissionPopup {
 
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
-		base.Init(a_stParams.m_stBaseParams);
+		base.Init(a_stParams.m_stBase);
 		this.Params = a_stParams;
 
 		this.SubInit();

@@ -10,7 +10,7 @@ using UnityEngine.Events;
 public partial class CSubEditorCreatePopup : CEditorCreatePopup {
 	/** 매개 변수 */
 	public new struct STParams {
-		public CEditorCreatePopup.STParams m_stBaseParams;
+		public CEditorCreatePopup.STParams m_stBase;
 	}
 
 	#region 변수
@@ -29,7 +29,7 @@ public partial class CSubEditorCreatePopup : CEditorCreatePopup {
 
 	/** 초기화 */
 	public virtual void Init(STParams a_stParams) {
-		base.Init(a_stParams.m_stBaseParams);
+		base.Init(a_stParams.m_stBase);
 		this.Params = a_stParams;
 	}
 

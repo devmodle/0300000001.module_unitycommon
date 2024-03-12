@@ -17,7 +17,7 @@ namespace PlayScene {
 
 		/** 매개 변수 */
 		public new struct STParams {
-			public CPSComponent.STParams m_stBaseParams;
+			public CPSComponent.STParams m_stBase;
 		}
 
 		#region 변수
@@ -36,7 +36,7 @@ namespace PlayScene {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
+			base.Init(a_stParams.m_stBase);
 			this.Params = a_stParams;
 		}
 		#endregion // 함수
@@ -45,7 +45,7 @@ namespace PlayScene {
 		/** 매개 변수를 생성한다 */
 		public new static STParams MakeParams(NSEngine.CEngine a_oEngine) {
 			return new STParams() {
-				m_stBaseParams = CPSComponent.MakeParams(a_oEngine)
+				m_stBase = CPSComponent.MakeParams(a_oEngine)
 			};
 		}
 		#endregion // 클래스 함수

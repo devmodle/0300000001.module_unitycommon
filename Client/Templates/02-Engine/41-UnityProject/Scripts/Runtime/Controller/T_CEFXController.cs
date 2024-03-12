@@ -11,7 +11,7 @@ namespace NSEngine {
 	public partial class CEFXController : CEController {
 		/** 매개 변수 */
 		public new struct STParams {
-			public CEController.STParams m_stBaseParams;
+			public CEController.STParams m_stBase;
 		}
 
 		#region 변수
@@ -32,7 +32,7 @@ namespace NSEngine {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
+			base.Init(a_stParams.m_stBase);
 			this.Params = a_stParams;
 
 			this.SubInit();
@@ -75,7 +75,7 @@ namespace NSEngine {
 		/** 매개 변수를 생성한다 */
 		public new static STParams MakeParams(CEngine a_oEngine) {
 			return new STParams() {
-				m_stBaseParams = CEController.MakeParams(a_oEngine)
+				m_stBase = CEController.MakeParams(a_oEngine)
 			};
 		}
 		#endregion // 클래스 함수

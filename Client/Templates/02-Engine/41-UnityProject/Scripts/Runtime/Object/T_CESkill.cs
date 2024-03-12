@@ -17,7 +17,7 @@ namespace NSEngine {
 
 		/** 매개 변수 */
 		public new struct STParams {
-			public CEObjComponent.STParams m_stBaseParams;
+			public CEObjComponent.STParams m_stBase;
 			public STSkillInfo m_stSkillInfo;
 			public CSkillTargetInfo m_oSkillTargetInfo;
 		}
@@ -36,7 +36,7 @@ namespace NSEngine {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
+			base.Init(a_stParams.m_stBase);
 			this.Params = a_stParams;
 
 			// 어빌리티 값을 설정한다
@@ -95,7 +95,7 @@ namespace NSEngine {
 		/** 스킬 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEController a_oController = null, string a_oGameObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new STParams() {
-				m_stBaseParams = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oGameObjsPoolKey), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
+				m_stBase = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oGameObjsPoolKey), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
 			};
 		}
 		#endregion // 클래스 함수

@@ -11,7 +11,7 @@ namespace NSEngine {
 	public partial class CECellObjController : CEObjController {
 		/** 매개 변수 */
 		public new struct STParams {
-			public CEObjController.STParams m_stBaseParams;
+			public CEObjController.STParams m_stBase;
 		}
 
 		#region 프로퍼티
@@ -30,7 +30,7 @@ namespace NSEngine {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
+			base.Init(a_stParams.m_stBase);
 			this.Params = a_stParams;
 
 			this.SubInit();
@@ -92,7 +92,7 @@ namespace NSEngine {
 		/** 매개 변수를 생성한다 */
 		public new static STParams MakeParams(CEngine a_oEngine) {
 			return new STParams() {
-				m_stBaseParams = CEObjController.MakeParams(a_oEngine)
+				m_stBase = CEObjController.MakeParams(a_oEngine)
 			};
 		}
 		#endregion // 클래스 함수

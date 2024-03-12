@@ -11,7 +11,7 @@ namespace NSEngine {
 	public partial class CEObjController : CEController {
 		/** 매개 변수 */
 		public new struct STParams {
-			public CEController.STParams m_stBaseParams;
+			public CEController.STParams m_stBase;
 		}
 
 		#region 변수
@@ -40,7 +40,7 @@ namespace NSEngine {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
+			base.Init(a_stParams.m_stBase);
 			this.Params = a_stParams;
 
 			this.SubInit();
@@ -118,7 +118,7 @@ namespace NSEngine {
 
 				// 공격을 회피했을 경우
 				if(fPercent.ExIsLessEquals((float)a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_AVOID_RATE_01))) {
-					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.ExGetVal(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, EEngineObjEvent.AVOID, string.Empty);
+					this.GetOwner<CEObj>().Params.m_stBase.m_oCallbackDict.ExGetVal(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, EEngineObjEvent.AVOID, string.Empty);
 				} else {
 					decimal dmDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
 					decimal dmPDamage = System.Math.Clamp(oAbilityValDict.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_P_ATK_01) - a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExGetAbilityVal(EAbilityKinds.STAT_ABILITY_P_DEF_01), KCDefine.B_VAL_0_INT, decimal.MaxValue);
@@ -128,7 +128,7 @@ namespace NSEngine {
 					dmTotalDamage = fPercent.ExIsLessEquals(fCriticalRate) ? dmTotalDamage * KCDefine.B_VAL_2_INT : dmTotalDamage;
 
 					a_oTargetObj.AbilityValDictWrapper.m_oDictA.ExIncrAbilityVal(EAbilityKinds.STAT_ABILITY_HP_01, -dmTotalDamage);
-					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.ExGetVal(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, fPercent.ExIsLessEquals(fCriticalRate) ? EEngineObjEvent.CRITICAL_DAMAGE : EEngineObjEvent.DAMAGE, $"{dmTotalDamage:0}");
+					this.GetOwner<CEObj>().Params.m_stBase.m_oCallbackDict.ExGetVal(CEObj.ECallback.ENGINE_OBJ_EVENT)?.Invoke(a_oTargetObj, fPercent.ExIsLessEquals(fCriticalRate) ? EEngineObjEvent.CRITICAL_DAMAGE : EEngineObjEvent.DAMAGE, $"{dmTotalDamage:0}");
 				}
 			} finally {
 				CCollectionPoolManager.Inst.DespawnDict(oAbilityValDict);
@@ -266,7 +266,7 @@ namespace NSEngine {
 		/** 매개 변수를 생성한다 */
 		public new static STParams MakeParams(CEngine a_oEngine) {
 			return new STParams() {
-				m_stBaseParams = CEController.MakeParams(a_oEngine)
+				m_stBase = CEController.MakeParams(a_oEngine)
 			};
 		}
 		#endregion // 클래스 함수
