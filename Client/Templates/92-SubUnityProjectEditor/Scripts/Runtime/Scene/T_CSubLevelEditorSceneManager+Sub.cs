@@ -209,7 +209,7 @@ namespace LevelEditorScene {
 			}
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 
 		#region 조건부 팩토리 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -219,7 +219,7 @@ namespace LevelEditorScene {
 			return stCellObjInfo;
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 팩토리 함수
+#endregion // 조건부 팩토리 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 중앙 에디터 UI */
@@ -236,7 +236,7 @@ namespace LevelEditorScene {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 왼쪽 에디터 UI */
@@ -253,7 +253,7 @@ namespace LevelEditorScene {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 레벨 에디터 씬 관리자 - 오른쪽 에디터 UI */
@@ -312,7 +312,7 @@ namespace LevelEditorScene {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

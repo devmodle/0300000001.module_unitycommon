@@ -483,7 +483,7 @@ namespace PlayScene {
 			}
 		}
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 플레이 씬 관리자 - 접근 */

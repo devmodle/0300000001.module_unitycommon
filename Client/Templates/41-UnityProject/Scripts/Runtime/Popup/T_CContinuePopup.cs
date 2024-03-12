@@ -169,7 +169,7 @@ public partial class CContinuePopup : CSubPopup {
 		this.Params.m_oCallbackDict?.ExGetVal(ECallback.CONTINUE)?.Invoke(this);
 	}
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 이어하기 팝업 - 팩토리 */

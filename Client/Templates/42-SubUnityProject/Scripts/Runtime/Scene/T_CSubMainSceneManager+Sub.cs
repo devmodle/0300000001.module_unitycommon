@@ -32,7 +32,7 @@ namespace MainScene {
 		[Header("=====> UIs <=====")]
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 변수
+#endregion // 변수
 
 		#region 프로퍼티
 
@@ -106,7 +106,7 @@ namespace MainScene {
 			// Do Something
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 메인 씬 관리자 - 스크롤러 셀 뷰 */

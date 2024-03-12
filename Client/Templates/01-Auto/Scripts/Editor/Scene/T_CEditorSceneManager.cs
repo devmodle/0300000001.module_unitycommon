@@ -352,7 +352,7 @@ public static partial class CEditorSceneManager {
 		}
 	}
 #endif // #if UIS_ROOT_PREFAB_ENABLE
-	#endregion // 클래스 함수
+#endregion // 클래스 함수
 }
 #endif // #if UNITY_EDITOR
 #endif // #if SCRIPT_TEMPLATE_ONLY

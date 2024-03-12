@@ -253,7 +253,7 @@ public partial class CStoreUIsHandler : CComponent {
 	}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 상점 UI 처리자 - 팩토리 */

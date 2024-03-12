@@ -30,7 +30,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	[IgnoreMember][System.NonSerialized] public Vector3Int m_stSize;
 	[IgnoreMember][System.NonSerialized] public Vector3Int m_stBaseIdx;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 변수
+#endregion // 변수
 
 	#region 상수
 	public static readonly STCellObjInfo INVALID = new STCellObjInfo(null) {
@@ -112,7 +112,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 	#region ICloneable
 	/** 사본 객체를 생성한다 */
@@ -172,7 +172,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 		this.OnAfterDeserialize();
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 셀 정보 */
@@ -188,7 +188,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 #else
 	[IgnoreMember][System.NonSerialized] public Vector3Int m_stIdx;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 변수
+#endregion // 변수
 
 	#region 상수
 	public static readonly STCellInfo INVALID = new STCellInfo(null) {
@@ -256,7 +256,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 		this.OnAfterDeserialize();
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 레벨 정보 */
@@ -273,7 +273,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
 	[IgnoreMember][System.NonSerialized] public Vector3Int m_stNumViewCells;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 변수
+#endregion // 변수
 
 	#region 상수
 	private const string KEY_NUM_VIEW_CELLS_X = "NumViewCellsX";
@@ -363,7 +363,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
 	[IgnoreMember] public Vector3Int NumCells => new Vector3Int(m_oCellInfoDictContainer.ExIsValid() ? m_oCellInfoDictContainer.Max((a_stKeyVal) => a_stKeyVal.Value.Count) : KCDefine.B_VAL_0_INT, m_oCellInfoDictContainer.Count, KCDefine.B_VAL_1_INT);
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 	#region ICloneable
 	/** 사본 객체를 생성한다 */
@@ -516,7 +516,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #else
 	public int NumChapterInfos => this.NumLevelInfosDictContainer.Count;
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 	#region 함수
 	/** 레벨 정보를 로드한다 */
@@ -776,7 +776,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 	}
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 레벨 정보 테이블 - 접근 */
@@ -889,7 +889,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #endif // #if AB_TEST_ENABLE
 	}
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

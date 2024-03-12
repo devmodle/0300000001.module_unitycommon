@@ -2361,7 +2361,7 @@ namespace LevelEditorScene {
 			return oScrollerCellView;
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

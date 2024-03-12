@@ -30,7 +30,7 @@ namespace TitleScene {
 		[Header("=====> UIs <=====")]
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 변수
+#endregion // 변수
 
 		#region 프로퍼티
 
@@ -116,7 +116,7 @@ namespace TitleScene {
 			// Do Something
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -70,7 +70,7 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 		this.OnAfterDeserialize();
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 기본 정보 */
@@ -109,7 +109,7 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 
 	[IgnoreMember] public virtual bool IsEnableVer => false;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -149,7 +149,7 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 		this.OnAfterDeserialize();
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

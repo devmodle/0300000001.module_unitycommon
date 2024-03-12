@@ -286,7 +286,7 @@ public partial class CStorePopup : CSubPopup {
 	}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 상점 팝업 - 팩토리 */

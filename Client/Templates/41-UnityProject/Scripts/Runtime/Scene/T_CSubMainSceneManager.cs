@@ -399,7 +399,7 @@ namespace MainScene {
 			}
 		}
 #endif // #if AB_TEST_ENABLE && (DEBUG || DEVELOPMENT_BUILD || PLAY_TEST_ENABLE)
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 
 	/** 서브 메인 씬 관리자 - 스크롤러 셀 뷰 */

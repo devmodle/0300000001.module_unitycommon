@@ -53,7 +53,7 @@ public static partial class Factory {
 		};
 	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-	#endregion // 조건부 클래스 함수
+#endregion // 조건부 클래스 함수
 }
 
 /** 레벨 에디터 씬 팩토리 */

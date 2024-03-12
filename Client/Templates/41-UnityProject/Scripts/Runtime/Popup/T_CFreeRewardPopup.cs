@@ -94,7 +94,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 		}
 	}
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

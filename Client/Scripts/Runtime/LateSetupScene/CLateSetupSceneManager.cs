@@ -10,9 +10,11 @@ using Unity.Advertisement.IosSupport;
 using UnityEngine.Android;
 #endif // #if UNITY_IOS
 
-namespace LateSetupScene {
+namespace LateSetupScene
+{
 	/** 지연 설정 씬 관리자 */
-	public abstract partial class CLateSetupSceneManager : CSceneManager {
+	public abstract partial class CLateSetupSceneManager : CSceneManager
+	{
 		#region 추상
 		/** 한국 약관 동의 팝업을 출력한다 */
 		protected abstract void ShowKRAgreePopup(string a_oPrivacy, string a_oServices, System.Action<CPopup> a_oCallback);
@@ -54,11 +56,13 @@ namespace LateSetupScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 초기화가 필요 할 경우
-			if(!CSceneManager.IsInit) {
+			if(!CSceneManager.IsInit)
+			{
 				return;
 			}
 
@@ -67,11 +71,13 @@ namespace LateSetupScene {
 		}
 
 		/** 초기화 */
-		public sealed override void Start() {
+		public sealed override void Start()
+		{
 			base.Start();
 
 			// 초기화가 필요 할 경우
-			if(!CSceneManager.IsInit) {
+			if(!CSceneManager.IsInit)
+			{
 				return;
 			}
 
@@ -79,12 +85,14 @@ namespace LateSetupScene {
 		}
 
 		/** 씬을 설정한다 */
-		protected virtual void Setup() {
+		protected virtual void Setup()
+		{
 			// Do Something
 		}
 
 		/** 약관 동의 팝업이 닫혔을 경우 */
-		private void OnCloseAgreePopup(CPopup a_oSender) {
+		private void OnCloseAgreePopup(CPopup a_oSender)
+		{
 			CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
 
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
@@ -94,24 +102,30 @@ namespace LateSetupScene {
 			this.OnCloseTrackingConsentView(true);
 #else
 			// 추적 동의가 필요 할 경우
-			if(CAccess.IsNeedsTrackingConsent && CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup) {
+			if(CAccess.IsNeedsTrackingConsent && CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup)
+			{
 				this.ShowTrackingDescPopup((a_oPopupSender) => this.ShowTrackingConsentView());
-			} else {
+			}
+			else
+			{
 				this.OnCloseTrackingConsentView(true);
 			}
 #endif // #if ROBO_TEST_ENABLE
 		}
 
 		/** 추적 동의 뷰가 닫혔을 경우 */
-		private void OnCloseTrackingConsentView(bool a_bIsSuccess) {
+		private void OnCloseTrackingConsentView(bool a_bIsSuccess)
+		{
 			CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
 			CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup = false;
 
 			CCommonAppInfoStorage.Inst.SaveAppInfo();
 
 			// 관리자 자동 초기화 모드 일 경우
-			if(this.IsAutoInitManager) {
-				CServicesManager.Inst.Init(CServicesManager.MakeParams(new Dictionary<CServicesManager.ECallback, System.Action<CServicesManager, bool>>() {
+			if(this.IsAutoInitManager)
+			{
+				CServicesManager.Inst.Init(CServicesManager.MakeParams(new Dictionary<CServicesManager.ECallback, System.Action<CServicesManager, bool>>()
+				{
 					[CServicesManager.ECallback.INIT] = CLateSetupSceneManager.OnInitServicesManager
 				}));
 
@@ -181,13 +195,15 @@ namespace LateSetupScene {
 #endif // #if GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-				CPurchaseManager.Inst.Init(CPurchaseManager.MakeParams(CProductInfoTable.Inst.ProductInfoList, new Dictionary<CPurchaseManager.ECallback, System.Action<CPurchaseManager, bool>>() {
+				CPurchaseManager.Inst.Init(CPurchaseManager.MakeParams(CProductInfoTable.Inst.ProductInfoList, new Dictionary<CPurchaseManager.ECallback, System.Action<CPurchaseManager, bool>>()
+				{
 					[CPurchaseManager.ECallback.INIT] = CLateSetupSceneManager.OnInitPurchaseManager
 				}));
 #endif // #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
-				CNotiManager.Inst.Init(CNotiManager.MakeParams(new Dictionary<CNotiManager.ECallback, System.Action<CNotiManager, bool>>() {
+				CNotiManager.Inst.Init(CNotiManager.MakeParams(new Dictionary<CNotiManager.ECallback, System.Action<CNotiManager, bool>>()
+				{
 					[CNotiManager.ECallback.INIT] = CLateSetupSceneManager.OnInitNotiManager
 				}));
 #endif // #if NOTI_MODULE_ENABLE
@@ -204,11 +220,13 @@ namespace LateSetupScene {
 		}
 
 		/** 서비스 관리자가 초기화되었을 경우 */
-		private static void OnInitServicesManager(CServicesManager a_oSender, bool a_bIsSuccess) {
+		private static void OnInitServicesManager(CServicesManager a_oSender, bool a_bIsSuccess)
+		{
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitServicesManager: {a_bIsSuccess}");
 
 			// 초기화되었을 경우
-			if(a_bIsSuccess) {
+			if(a_bIsSuccess)
+			{
 #if APPLE_LOGIN_ENABLE && UNITY_IOS
 				CServicesManager.Inst.UpdateAppleLoginState(CLateSetupSceneManager.OnUpdateAppleLoginState);
 #endif // #if APPLE_LOGIN_ENABLE && UNITY_IOS
@@ -216,8 +234,9 @@ namespace LateSetupScene {
 		}
 
 		/** 다음 씬을 로드한다 */
-		private void LoadNextScene() {
-			CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT, 
+		private void LoadNextScene()
+		{
+			CFunc.BroadcastMsg(KCDefine.SS_FUNC_N_SETUP_SCENE_EVENT,
 				global::SetupScene.CSetupSceneManager.ESetupSceneEvent.LOAD_NEXT_SCENE, false);
 
 			CSceneManager.SetEnableLateSetup(true);
@@ -225,9 +244,12 @@ namespace LateSetupScene {
 
 #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			// 기본 씬 일 경우
-			if(KCDefine.B_DEF_SCENE_NAME_LIST_02.Contains(CSceneLoader.Inst.AwakeActiveSceneName)) {
+			if(KCDefine.B_DEF_SCENE_NAME_LIST_02.Contains(CSceneLoader.Inst.AwakeActiveSceneName))
+			{
 				CSceneLoader.Inst.LoadSceneAsync(KCDefine.B_SCENE_N_MENU, this.OnChangeAsyncSceneLoadingPercent);
-			} else {
+			}
+			else
+			{
 				CSceneLoader.Inst.LoadSceneAsync(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_MENU : CSceneLoader.Inst.AwakeActiveSceneName, this.OnChangeAsyncSceneLoadingPercent);
 			}
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -241,7 +263,8 @@ namespace LateSetupScene {
 		}
 
 		/** 유저 권한을 적용한다 */
-		private void ApplyUserPermissions() {
+		private void ApplyUserPermissions()
+		{
 #if !ROBO_TEST_ENABLE && UNITY_ANDROID
 			// 유저 권한이 필요 할 경우
 			if(this.UserPermissionList.ExIsValid()) {
@@ -255,7 +278,8 @@ namespace LateSetupScene {
 		}
 
 		/** 추적 동의 뷰를 출력한다 */
-		private void ShowTrackingConsentView() {
+		private void ShowTrackingConsentView()
+		{
 #if UNITY_IOS
 			ATTrackingStatusBinding.RequestAuthorizationTracking();
 
@@ -276,7 +300,8 @@ namespace LateSetupScene {
 
 		#region 접근자 클래스 함수
 		/** 로그 데이터를 변경한다 */
-		public static void SetLogDataDict(Dictionary<string, object> a_oDataDict) {
+		public static void SetLogDataDict(Dictionary<string, object> a_oDataDict)
+		{
 			CLateSetupSceneManager.LogDataDict = a_oDataDict;
 		}
 		#endregion         // 접근자 클래스 함수
@@ -418,14 +443,16 @@ namespace LateSetupScene {
 
 #if PURCHASE_MODULE_ENABLE
 		/** 결제 관리자가 초기화되었을 경우 */
-		private static void OnInitPurchaseManager(CPurchaseManager a_oSender, bool a_bIsSuccess) {
+		private static void OnInitPurchaseManager(CPurchaseManager a_oSender, bool a_bIsSuccess)
+		{
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitPurchaseManager: {a_bIsSuccess}");
 		}
 #endif // #if PURCHASE_MODULE_ENABLE
 
 #if NOTI_MODULE_ENABLE
 		/** 알림 관리자가 초기화되었을 경우 */
-		private static void OnInitNotiManager(CNotiManager a_oSender, bool a_bIsSuccess) {
+		private static void OnInitNotiManager(CNotiManager a_oSender, bool a_bIsSuccess)
+		{
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitNotiManager: {a_bIsSuccess}");
 		}
 #endif // #if NOTI_MODULE_ENABLE
@@ -469,10 +496,12 @@ namespace LateSetupScene {
 	}
 
 	/** 지연 설정 씬 관리자 - 코루틴 */
-	public abstract partial class CLateSetupSceneManager : CSceneManager {
+	public abstract partial class CLateSetupSceneManager : CSceneManager
+	{
 		#region 함수
 		/** 초기화 */
-		private IEnumerator CoStart() {
+		private IEnumerator CoStart()
+		{
 			yield return CAccess.CoGetWaitForSecs(KCDefine.U_DELAY_INIT);
 			this.SetupActiveScene();
 
@@ -480,21 +509,30 @@ namespace LateSetupScene {
 			this.OnCloseAgreePopup(null);
 #else
 			// 약관 동의 상태 일 경우
-			if(CCommonAppInfoStorage.Inst.AppInfo.IsAgree || !CCommonAppInfoStorage.Inst.IsNeedsAgree(CCommonAppInfoStorage.Inst.CountryCode)) {
+			if(CCommonAppInfoStorage.Inst.AppInfo.IsAgree || !CCommonAppInfoStorage.Inst.IsNeedsAgree(CCommonAppInfoStorage.Inst.CountryCode))
+			{
 				this.OnCloseAgreePopup(null);
-			} else {
+			}
+			else
+			{
 				// 한국 일 경우
-				if(CCommonAppInfoStorage.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE)) {
+				if(CCommonAppInfoStorage.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE))
+				{
 					var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY);
 					var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES);
 
-					try {
+					try
+					{
 						this.ShowKRAgreePopup(oPrivacy.text, oServices.text, this.OnCloseAgreePopup);
-					} finally {
+					}
+					finally
+					{
 						CResManager.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY, true);
 						CResManager.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES, true);
 					}
-				} else {
+				}
+				else
+				{
 					this.ShowEUAgreePopup(CProjInfoTable.Inst.CompanyInfo.m_oPrivacyURL, CProjInfoTable.Inst.CompanyInfo.m_oServicesURL, this.OnCloseAgreePopup);
 				}
 			}

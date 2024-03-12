@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace PlayScene {
+namespace PlayScene
+{
 	/** 플레이 씬 관리자 */
-	public partial class CPlaySceneManager : CSceneManager {
+	public partial class CPlaySceneManager : CSceneManager
+	{
 		/** 식별자 */
-		private enum EKey {
+		private enum EKey
+		{
 			NONE = -1,
 			ITEM_ROOT,
 			SKILL_ROOT,
@@ -26,7 +29,7 @@ namespace PlayScene {
 		public override bool IsIgnoreTestUIs => false;
 		public override bool IsEnableOverlayScene => true;
 		public override bool IsEnableBGTouchResponder => true;
-		
+
 		protected GameObject ItemRoot => m_oObjsDict[EKey.ITEM_ROOT];
 		protected GameObject SkillRoot => m_oObjsDict[EKey.SKILL_ROOT];
 		protected GameObject ObjRoot => m_oObjsDict[EKey.OBJ_ROOT];
@@ -35,11 +38,13 @@ namespace PlayScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsAppInit)
+			{
 				// 객체를 설정한다
 				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.ITEM_ROOT, $"{EKey.ITEM_ROOT}", this.Objs, null),

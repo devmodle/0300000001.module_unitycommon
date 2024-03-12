@@ -165,7 +165,7 @@ namespace LateSetupScene {
 			this.ExRequestUserPermission(a_oPermission, a_oCallback, true);
 		}
 #endif // #if UNITY_ANDROID
-		#endregion // 조건부 함수
+#endregion // 조건부 함수
 	}
 }
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE

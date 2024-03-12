@@ -13,19 +13,23 @@ using UnityEditor.AdaptivePerformance.Editor;
 #endif // #if ADAPTIVE_PERFORMANCE_ENABLE
 
 /** 공용 에디터 씬 관리자 - 적응형 퍼포먼스 */
-public static partial class CCommonEditorSceneManager {
+public static partial class CCommonEditorSceneManager
+{
 	#region 클래스 함수
 	/** 적응형 퍼포먼스를 설정한다 */
-	private static void SetupAdaptivePerformance() {
+	private static void SetupAdaptivePerformance()
+	{
 #if ADAPTIVE_PERFORMANCE_ENABLE
 		// 적응형 퍼포먼스 설정이 존재 할 경우
-		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_SETTINGS, out AdaptivePerformanceGeneralSettingsPerBuildTarget oPerformanceSettings)) {
+		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_SETTINGS, out AdaptivePerformanceGeneralSettingsPerBuildTarget oPerformanceSettings))
+		{
 			var oiOSSettings = oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.iOS);
 			var oAndroidSettings = oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.Android);
 			var oStandaloneSettings = oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.Standalone);
 
 			// 설정이 존재 할 경우
-			if(oiOSSettings != null && oAndroidSettings != null && oStandaloneSettings != null) {
+			if(oiOSSettings != null && oAndroidSettings != null && oStandaloneSettings != null)
+			{
 				var oIsSetupOptsList = new List<bool>() {
 					oiOSSettings.InitManagerOnStart,
 					oAndroidSettings.InitManagerOnStart,
@@ -33,7 +37,8 @@ public static partial class CCommonEditorSceneManager {
 				};
 
 				// 설정 갱신이 필요 할 경우
-				if(oIsSetupOptsList.Contains(false)) {
+				if(oIsSetupOptsList.Contains(false))
+				{
 					oiOSSettings.InitManagerOnStart = true;
 					oAndroidSettings.InitManagerOnStart = true;
 					oStandaloneSettings.InitManagerOnStart = true;
@@ -44,12 +49,14 @@ public static partial class CCommonEditorSceneManager {
 		}
 
 		// 적응형 퍼포먼스 제공자 설정이 존재 할 경우
-		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_PROVIDER_SETTINGS, out IAdaptivePerformanceSettings oProviderSettings)) {
+		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_PROVIDER_SETTINGS, out IAdaptivePerformanceSettings oProviderSettings))
+		{
 			CCommonEditorSceneManager.SetupAdaptivePerformanceProvider(oProviderSettings);
 		}
 
 		// 삼성 적응형 퍼포먼스 제공자 설정이 존재 할 경우
-		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_SAMSUNG_PROVIDER_SETTINGS, out IAdaptivePerformanceSettings oSamsungProviderSettings)) {
+		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_SAMSUNG_PROVIDER_SETTINGS, out IAdaptivePerformanceSettings oSamsungProviderSettings))
+		{
 			CCommonEditorSceneManager.SetupAdaptivePerformanceProvider(oSamsungProviderSettings);
 		}
 #endif // #if ADAPTIVE_PERFORMANCE_ENABLE
@@ -57,7 +64,8 @@ public static partial class CCommonEditorSceneManager {
 
 #if ADAPTIVE_PERFORMANCE_ENABLE
 	/** 적응형 퍼포먼스 제공자를 설정한다 */
-	private static void SetupAdaptivePerformanceProvider(IAdaptivePerformanceSettings a_oProviderSettings) {
+	private static void SetupAdaptivePerformanceProvider(IAdaptivePerformanceSettings a_oProviderSettings)
+	{
 		var oIsSetupOptsList = new List<bool>() {
 			a_oProviderSettings.logging == false,
 			a_oProviderSettings.enableBoostOnStartup == false,
@@ -66,7 +74,8 @@ public static partial class CCommonEditorSceneManager {
 		};
 
 		// 설정 갱신이 필요 없을 경우
-		if(!oIsSetupOptsList.Contains(false)) {
+		if(!oIsSetupOptsList.Contains(false))
+		{
 			return;
 		}
 

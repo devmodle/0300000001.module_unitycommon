@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace TestScene {
+namespace TestScene
+{
 	/** 테스트 씬 관리자 */
-	public abstract partial class CTestSceneManager : CSceneManager {
+	public abstract partial class CTestSceneManager : CSceneManager
+	{
 		/** 식별자 */
-		private enum EKey {
+		private enum EKey
+		{
 			NONE,
 			BACK_BTN,
 			[HideInInspector] MAX_VAL
@@ -27,11 +30,13 @@ namespace TestScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsAppInit)
+			{
 				// 버튼을 설정한다 {
 				CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>() {
 					(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
@@ -46,15 +51,18 @@ namespace TestScene {
 		}
 
 		/** 내비게이션 스택 이벤트를 수신했을 경우 */
-		public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
+		public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent)
+		{
 			// 백 키 눌림 이벤트 일 경우
-			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
+			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN)
+			{
 				this.OnTouchBackBtn();
 			}
 		}
 
 		/** 백 버튼을 눌렀을 경우 */
-		protected virtual void OnTouchBackBtn() {
+		protected virtual void OnTouchBackBtn()
+		{
 #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

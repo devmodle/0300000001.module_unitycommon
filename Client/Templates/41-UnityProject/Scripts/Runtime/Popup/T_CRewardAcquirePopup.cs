@@ -137,7 +137,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		}
 	}
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 보상 획득 팝업 - 팩토리 */

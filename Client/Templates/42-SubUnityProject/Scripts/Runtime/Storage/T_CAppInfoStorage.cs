@@ -24,7 +24,7 @@ public partial class CAppInfo : CBaseInfo {
 	private const string KEY_REWARD_ADS_WATCH_TIMES = "RewardAdsWatchTimes";
 	private const string KEY_FULLSCREEN_ADS_WATCH_TIMES = "FullscreenAdsWatchTimes";
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 상수
+#endregion // 상수
 
 	#region 프로퍼티
 #if ADS_MODULE_ENABLE
@@ -40,7 +40,7 @@ public partial class CAppInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_FULLSCREEN_ADS_WATCH_TIMES, $"{value}"); }
 	}
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
@@ -104,7 +104,7 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	public bool IsEnableUpdateAdsSkipTimes => true;
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 	#region 함수
 	/** 앱 정보를 로드한다 */
@@ -156,7 +156,7 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 		this.PrevFullscreenAdsTime = a_stTime;
 	}
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 접근 함수
+#endregion // 접근 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

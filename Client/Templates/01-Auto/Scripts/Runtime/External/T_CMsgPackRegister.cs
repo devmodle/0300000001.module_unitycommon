@@ -47,7 +47,7 @@ public static partial class CMsgPackRegister {
 		CMsgPackRegister.RegisterMsgPack();
 	}
 #endif // #if UNITY_EDITOR
-	#endregion // 조건부 클래스 함수
+#endregion // 조건부 클래스 함수
 }
 #endif // #if MSG_PACK_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE
 #endif // #if SCRIPT_TEMPLATE_ONLY

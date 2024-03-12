@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace OverlayScene {
+namespace OverlayScene
+{
 	/** 중첩 씬 관리자 */
-	public partial class COverlaySceneManager : CSceneManager {
+	public partial class COverlaySceneManager : CSceneManager
+	{
 		#region 프로퍼티
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.B_SCRIPT_O_OVERLAY_SCENE_MANAGER;

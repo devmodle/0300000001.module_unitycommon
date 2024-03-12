@@ -228,7 +228,7 @@ public partial class CResultPopup : CSubPopup {
 		}
 	}
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 조건부 함수
+#endregion // 조건부 함수
 }
 
 /** 결과 팝업 - 팩토리 */

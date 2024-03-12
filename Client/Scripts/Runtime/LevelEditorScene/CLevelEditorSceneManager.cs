@@ -5,11 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-namespace LevelEditorScene {
+namespace LevelEditorScene
+{
 	/** 레벨 에디터 씬 관리자 */
-	public partial class CLevelEditorSceneManager : CSceneManager {
+	public partial class CLevelEditorSceneManager : CSceneManager
+	{
 		/** 식별자 */
-		private enum EKey {
+		private enum EKey
+		{
 			NONE = -1,
 			MID_EDITOR_UIS,
 			LEFT_EDITOR_UIS,
@@ -41,7 +44,7 @@ namespace LevelEditorScene {
 
 		public override EProjection MainCameraProjection => EProjection._3D;
 		public override Vector3 ObjRootPivotPos => (this.UIsBase != null && this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS) != null) ? Vector3.zero.ExToWorld(this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS)).ExToLocal(this.UIs) : Vector3.zero;
-		
+
 		protected GameObject MidEditorUIs => m_oUIsDict[EKey.MID_EDITOR_UIS];
 		protected GameObject LeftEditorUIs => m_oUIsDict[EKey.LEFT_EDITOR_UIS];
 		protected GameObject RightEditorUIs => m_oUIsDict[EKey.RIGHT_EDITOR_UIS];
@@ -57,11 +60,13 @@ namespace LevelEditorScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 앱 초기화가 필요 할 경우
-			if(!CSceneManager.IsAppInit) {
+			if(!CSceneManager.IsAppInit)
+			{
 				return;
 			}
 

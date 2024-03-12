@@ -18,7 +18,7 @@ namespace SetupScene {
 		public override Vector3 LoadingTextPos => KDefine.SS_POS_LOADING_TEXT;
 		public override Vector3 LoadingGaugePos => KDefine.SS_POS_LOADING_GAUGE;
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-		#endregion // 프로퍼티
+#endregion // 프로퍼티
 
 		#region 함수
 		/** 씬을 설정한다 */

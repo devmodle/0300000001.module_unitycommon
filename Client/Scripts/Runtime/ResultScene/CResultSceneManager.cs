@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace ResultScene {
+namespace ResultScene
+{
 	/** 결과 씬 관리자 */
-	public partial class CResultSceneManager : CSceneManager {
+	public partial class CResultSceneManager : CSceneManager
+	{
 		#region 프로퍼티
 #if UNITY_EDITOR
 		public override int ScriptOrder => KCDefine.B_SCRIPT_O_RESULT_SCENE_MANAGER;

@@ -136,7 +136,7 @@ public static partial class LogFunc {
 		LogFunc.m_oLogTimeDict.ExReplaceVal(KDefine.L_LOG_N_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 	}
 #endif // #if PURCHASE_MODULE_ENABLE
-	#endregion // 클래스 함수
+#endregion // 클래스 함수
 
 	#region 클래스 접근 함수
 	/** 로그 전송 가능 여부를 검사한다 */

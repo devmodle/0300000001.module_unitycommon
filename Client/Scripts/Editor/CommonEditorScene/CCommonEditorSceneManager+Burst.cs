@@ -14,10 +14,12 @@ using Newtonsoft.Json.Linq;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
 /** 공용 에디터 씬 관리자 - 버스트 */
-public static partial class CCommonEditorSceneManager {
+public static partial class CCommonEditorSceneManager
+{
 	#region 클래스 함수
 	/** 버스트 컴파일러를 설정한다 */
-	private static void SetupBurst() {
+	private static void SetupBurst()
+	{
 #if BURST_MODULE_ENABLE && NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		var oSettingsPathList = new List<string>() {
 			KCEditorDefine.B_DATA_P_IOS_BURST_AOT_SETTINGS, 

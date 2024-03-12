@@ -13,18 +13,22 @@ using UnityEngine.InputSystem.iOS;
 #endif // #if UNITY_IOS
 
 /** 공용 에디터 씬 관리자 - 입력 시스템 */
-public static partial class CCommonEditorSceneManager {
+public static partial class CCommonEditorSceneManager
+{
 	#region 클래스 함수
 	/** 입력 시스템을 설정한다 */
-	private static void SetupInputSystem() {
+	private static void SetupInputSystem()
+	{
 #if INPUT_SYSTEM_MODULE_ENABLE
 		// 옵션 정보 테이블이 없을 경우
-		if(CPlatformOptsSetter.OptsInfoTable == null) {
+		if(CPlatformOptsSetter.OptsInfoTable == null)
+		{
 			return;
 		}
 
 		// 입력 시스템 설정이 없을 경우
-		if(!EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, out InputSettings oInputSettings)) {
+		if(!EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, out InputSettings oInputSettings))
+		{
 			oInputSettings = AssetDatabase.LoadAssetAtPath<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
 			oInputSettings = oInputSettings ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
 
@@ -44,7 +48,8 @@ public static partial class CCommonEditorSceneManager {
 		};
 
 		// 설정 갱신이 필요 없을 경우
-		if(!oIsSetupOptsList.Contains(false)) {
+		if(!oIsSetupOptsList.Contains(false))
+		{
 			return;
 		}
 
