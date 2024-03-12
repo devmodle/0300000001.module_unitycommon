@@ -178,7 +178,7 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
 
 		[Header("=====> Game Objects <=====")]
-		private Dictionary<EKey, GameObject> m_oUIDict = new Dictionary<EKey, GameObject>();
+		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -1789,12 +1789,12 @@ namespace LevelEditorScene {
 
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 					string oPageUIName = string.Format(KDefine.LES_OBJ_N_FMT_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
-					m_oUIDict.TryAdd(EKey.RE_UIS_PAGE_UIS_01 + i, m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].gameObject.ExFindChild(oPageUIName));
+					m_oUIsDict.TryAdd(EKey.RE_UIS_PAGE_UIS_01 + i, m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].gameObject.ExFindChild(oPageUIName));
 				}
 
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 					m_oMethodInfoDict.ExGetVal(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
+						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}
@@ -1870,8 +1870,8 @@ namespace LevelEditorScene {
 					[CTapUIsHandler.ECallback.TAP] = this.OnReceiveREUIsPageUIs02TapCallback
 				}));
 
-				for(int i = 0; i < oTapUIsHandler.ContentsUIList.Count; ++i) {
-					this.SetupREUIsPageUIs02TapContentsUIs(oTapUIsHandler.ContentsUIList[i], i);
+				for(int i = 0; i < oTapUIsHandler.ContentsUIsList.Count; ++i) {
+					this.SetupREUIsPageUIs02TapContentsUIs(oTapUIsHandler.ContentsUIsList[i], i);
 				}
 			}
 			// 탭 UI 를 설정한다 }
@@ -1945,7 +1945,7 @@ namespace LevelEditorScene {
 				// 페이지 UI 상태를 갱신한다
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 					m_oMethodInfoDict.ExGetVal(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
+						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}
@@ -1986,7 +1986,7 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 탭 콜백을 수신했을 경우 */
 		private void OnReceiveREUIsPageUIs02TapCallback(CTapUIsHandler a_oSender, int a_nIdx) {
-			this.UpdateREUIsPageUIs02(m_oUIDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_02));
+			this.UpdateREUIsPageUIs02(m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_02));
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 적용 버튼을 눌렀을 경우 */
@@ -2308,7 +2308,6 @@ namespace LevelEditorScene {
 		/** 레벨 스크롤러 셀 뷰를 생성한다 */
 		private EnhancedScrollerCellView CreateLevelScrollerCellView(EnhancedScroller a_oSender, 
 			int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict01, Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>> a_oCallbackDict02) {
-
 			string oName = string.Format(KCDefine.LES_TEXT_FMT_LEVEL, a_nDataIdx + KCDefine.B_VAL_1_INT);
 			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_SPACE_COMBINE, oName, string.Empty);
 
@@ -2327,7 +2326,6 @@ namespace LevelEditorScene {
 		/** 스테이지 스크롤러 셀 뷰를 생성한다 */
 		private EnhancedScrollerCellView CreateStageScrollerCellView(EnhancedScroller a_oSender, 
 			int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict01, Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>> a_oCallbackDict02) {
-
 			string oName = string.Format(KCDefine.LES_TEXT_FMT_STAGE, a_nDataIdx + KCDefine.B_VAL_1_INT);
 			string oExtraName = string.Format(KCDefine.B_TEXT_FMT_BRACKET, CLevelInfoTable.Inst.GetNumLevelInfos(a_nDataIdx, this.SelLevelInfo.m_stIDInfo.m_nID03));
 			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oName, KCDefine.B_TEXT_NEW_LINE, oExtraName.ExGetColorFmtStr(Color.red));
@@ -2347,7 +2345,6 @@ namespace LevelEditorScene {
 		/** 챕터 스크롤러 셀 뷰를 생성한다 */
 		private EnhancedScrollerCellView CreateChapterScrollerCellView(EnhancedScroller a_oSender, 
 			int a_nDataIdx, int a_nCellIdx, Dictionary<CScrollerCellView.ECallback, System.Action<CScrollerCellView, ulong>> a_oCallbackDict01, Dictionary<CEditorScrollerCellView.ECallback, System.Action<CEditorScrollerCellView, ulong>> a_oCallbackDict02) {
-
 			string oName = string.Format(KCDefine.LES_TEXT_FMT_CHAPTER, a_nDataIdx + KCDefine.B_VAL_1_INT);
 			string oExtraName = string.Format(KCDefine.B_TEXT_FMT_BRACKET, CLevelInfoTable.Inst.GetNumStageInfos(a_nDataIdx));
 			string oScrollerCellViewName = string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oName, KCDefine.B_TEXT_NEW_LINE, oExtraName.ExGetColorFmtStr(Color.red));

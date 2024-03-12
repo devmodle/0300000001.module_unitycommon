@@ -52,8 +52,8 @@ namespace PlayScene {
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		[Header("=====> Game Objects <=====")]
-		[SerializeField] private List<GameObject> m_oRewardAdsUIList = new List<GameObject>();
-		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
+		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjsDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 함수
@@ -81,7 +81,7 @@ namespace PlayScene {
 				// 객체를 설정한다
 				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.BG_SPRITE_ROOT, $"{EKey.BG_SPRITE_ROOT}", this.Objs, null)
-				}, m_oObjDict);
+				}, m_oObjsDict);
 
 				// 버튼을 설정한다
 				CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -95,11 +95,11 @@ namespace PlayScene {
 
 				// 스프라이트를 설정한다 {
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 				}, m_oSpriteDict);
 
 				var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
@@ -295,9 +295,9 @@ namespace PlayScene {
 
 		/** 보상 광고 UI 를 설정한다 */
 		private void SetupRewardAdsUIs() {
-			for(int i = 0; i < m_oRewardAdsUIList.Count; ++i) {
+			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
 				var eRewardAdsUIs = (ERewardAdsUIs)i;
-				m_oRewardAdsUIList[i]?.GetComponentInChildren<Button>()?.onClick.AddListener(() => this.OnTouchAdsBtn(eRewardAdsUIs));
+				m_oRewardAdsUIsList[i]?.GetComponentInChildren<Button>()?.onClick.AddListener(() => this.OnTouchAdsBtn(eRewardAdsUIs));
 			}
 		}
 
@@ -309,8 +309,8 @@ namespace PlayScene {
 
 		/** 보상 광고 UI 상태를 갱신한다 */
 		private void UpdateRewardAdsUIsState() {
-			for(int i = 0; i < m_oRewardAdsUIList.Count; ++i) {
-				m_oRewardAdsUIList[i]?.SetActive(CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + KCDefine.B_VAL_1_INT >= KDefine.PS_MIN_LEVEL_ENABLE_WATCH_ADS);
+			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
+				m_oRewardAdsUIsList[i]?.SetActive(CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + KCDefine.B_VAL_1_INT >= KDefine.PS_MIN_LEVEL_ENABLE_WATCH_ADS);
 			}
 		}
 

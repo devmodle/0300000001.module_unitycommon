@@ -19,7 +19,7 @@ namespace PlayScene {
 
 		#region 변수
 		[Header("=====> Game Objects <=====")]
-		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjsDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -27,10 +27,10 @@ namespace PlayScene {
 		public override bool IsEnableOverlayScene => true;
 		public override bool IsEnableBGTouchResponder => true;
 		
-		protected GameObject ItemRoot => m_oObjDict[EKey.ITEM_ROOT];
-		protected GameObject SkillRoot => m_oObjDict[EKey.SKILL_ROOT];
-		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
-		protected GameObject FXRoot => m_oObjDict[EKey.FX_ROOT];
+		protected GameObject ItemRoot => m_oObjsDict[EKey.ITEM_ROOT];
+		protected GameObject SkillRoot => m_oObjsDict[EKey.SKILL_ROOT];
+		protected GameObject ObjRoot => m_oObjsDict[EKey.OBJ_ROOT];
+		protected GameObject FXRoot => m_oObjsDict[EKey.FX_ROOT];
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -46,7 +46,7 @@ namespace PlayScene {
 					(EKey.SKILL_ROOT, $"{EKey.SKILL_ROOT}", this.Objs, null),
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null),
 					(EKey.FX_ROOT, $"{EKey.FX_ROOT}", this.Objs, null)
-				}, m_oObjDict);
+				}, m_oObjsDict);
 			}
 		}
 		#endregion // 함수

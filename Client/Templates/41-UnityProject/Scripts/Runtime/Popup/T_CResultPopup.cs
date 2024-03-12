@@ -51,7 +51,7 @@ public partial class CResultPopup : CSubPopup {
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 	[Header("=====> Game Objects <=====")]
-	private Dictionary<EKey, GameObject> m_oUIDict = new Dictionary<EKey, GameObject>();
+	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -70,7 +70,7 @@ public partial class CResultPopup : CSubPopup {
 			(EKey.CLEAR_UIS, $"{EKey.CLEAR_UIS}", this.ContentsUIs),
 			(EKey.REWARD_UIS, $"{EKey.REWARD_UIS}", this.ContentsUIs),
 			(EKey.CLEAR_FAIL_UIS, $"{EKey.CLEAR_FAIL_UIS}", this.ContentsUIs)
-		}, m_oUIDict);
+		}, m_oUIsDict);
 
 		// 텍스트를 설정한다 {
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
@@ -140,9 +140,9 @@ public partial class CResultPopup : CSubPopup {
 		bool bIsSuccess = this.Params.m_stRecordInfo.m_bIsSuccess;
 		bool bIsAcquireReward = Access.IsAcquireLevelReward(CGameInfoStorage.Inst.PlayCharacterID, this.Params.m_stIDInfo.m_nID01, this.Params.m_stIDInfo.m_nID02, this.Params.m_stIDInfo.m_nID03);
 
-		m_oUIDict[EKey.CLEAR_UIS]?.SetActive(bIsSuccess && (bIsAcquireReward || !CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward));
-		m_oUIDict[EKey.REWARD_UIS]?.SetActive(bIsSuccess && (!bIsAcquireReward && CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward));
-		m_oUIDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!bIsSuccess);
+		m_oUIsDict[EKey.CLEAR_UIS]?.SetActive(bIsSuccess && (bIsAcquireReward || !CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward));
+		m_oUIsDict[EKey.REWARD_UIS]?.SetActive(bIsSuccess && (!bIsAcquireReward && CGameInfoStorage.Inst.PlayEpisodeInfo.IsExistsReward));
+		m_oUIsDict[EKey.CLEAR_FAIL_UIS]?.SetActive(!bIsSuccess);
 		// 객체를 갱신한다 }
 
 		// 텍스트를 갱신한다

@@ -108,34 +108,34 @@ namespace NSEngine {
 			global::Func.UpdateComponents(this.ItemListWrapper, a_fDeltaTime);
 			global::Func.UpdateComponents(this.SkillListWrapper, a_fDeltaTime);
 			global::Func.UpdateComponents(this.FXListWrapper, a_fDeltaTime);
-			global::Func.UpdateComponents(this.ObjListWrapper, a_fDeltaTime);
-			global::Func.UpdateComponents(this.PlayerObjListWrapper, a_fDeltaTime);
-			global::Func.UpdateComponents(this.EnemyObjListWrapper, a_fDeltaTime);
+			global::Func.UpdateComponents(this.ObjsListWrapper, a_fDeltaTime);
+			global::Func.UpdateComponents(this.PlayerObjsListWrapper, a_fDeltaTime);
+			global::Func.UpdateComponents(this.EnemyObjsListWrapper, a_fDeltaTime);
 
 			// 실행 중 일 경우
 			if(this.IsRunning) {
-				var oNumEnemyObjDict = CCollectionPoolManager.Inst.SpawnDict<EObjKinds, int>();
+				var oNumEnemyObjsDict = CCollectionPoolManager.Inst.SpawnDict<EObjKinds, int>();
 
 				try {
-					for(int i = 0; i < this.EnemyObjListWrapper.Count; ++i) {
-						int nNumEnemyObjs = oNumEnemyObjDict.ExGetVal(this.EnemyObjListWrapper[i].Params.m_stObjInfo.m_eObjKinds);
-						oNumEnemyObjDict.ExReplaceVal(this.EnemyObjListWrapper[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
+					for(int i = 0; i < this.EnemyObjsListWrapper.Count; ++i) {
+						int nNumEnemyObjs = oNumEnemyObjsDict.ExGetVal(this.EnemyObjsListWrapper[i].Params.m_stObjInfo.m_eObjKinds);
+						oNumEnemyObjsDict.ExReplaceVal(this.EnemyObjsListWrapper[i].Params.m_stObjInfo.m_eObjKinds, nNumEnemyObjs + KCDefine.B_VAL_1_INT);
 					}
 
 					foreach(var stKeyVal in CGameInfoStorage.Inst.PlayEpisodeInfo.m_oEnemyObjTargetInfoDict) {
 						// 적 객체 생성이 가능 할 경우
-						if(oNumEnemyObjDict.ExGetVal((EObjKinds)stKeyVal.Value.Kinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjListWrapper.Count < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nMaxNumEnemyObjs) {
+						if(oNumEnemyObjsDict.ExGetVal((EObjKinds)stKeyVal.Value.Kinds) < stKeyVal.Value.m_stValInfo01.m_dmVal && this.EnemyObjsListWrapper.Count < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nMaxNumEnemyObjs) {
 							float fPosX = Random.Range(this.EpisodeSize.x / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.x / KCDefine.B_VAL_2_REAL);
 							float fPosY = Random.Range(this.EpisodeSize.y / -KCDefine.B_VAL_2_REAL, this.EpisodeSize.y / KCDefine.B_VAL_2_REAL);
 
 							var oEnemyObj = this.CreateEnemyObj(CObjInfoTable.Inst.GetObjInfo((EObjKinds)stKeyVal.Value.Kinds), null);
 							oEnemyObj.transform.localPosition = new Vector3(fPosX, fPosY, fPosY / this.EpisodeSize.y);
 
-							this.EnemyObjListWrapper.ExAddVal(oEnemyObj);
+							this.EnemyObjsListWrapper.ExAddVal(oEnemyObj);
 						}
 					}
 				} finally {
-					CCollectionPoolManager.Inst.DespawnDict(oNumEnemyObjDict);
+					CCollectionPoolManager.Inst.DespawnDict(oNumEnemyObjsDict);
 				}
 			}
 		}
@@ -171,10 +171,10 @@ namespace NSEngine {
 				CSceneManager.ActiveSceneManager.ScreenSize);
 
 			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
-			var oCellObjLists = this.CellObjListsContainer.ExGetVal(stIdx.z);
+			var oCellObjsLists = this.CellObjsListsContainer.ExGetVal(stIdx.z);
 
 			// 인덱스가 유효하지 않을 경우
-			if(oCellObjLists == null || oCellObjLists.ExIsValidIdx(stIdx)) {
+			if(oCellObjsLists == null || oCellObjsLists.ExIsValidIdx(stIdx)) {
 				return;
 			}
 		}
@@ -190,10 +190,10 @@ namespace NSEngine {
 				CSceneManager.ActiveSceneManager.ScreenSize);
 
 			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
-			var oCellObjLists = this.CellObjListsContainer.ExGetVal(stIdx.z);
+			var oCellObjsLists = this.CellObjsListsContainer.ExGetVal(stIdx.z);
 
 			// 인덱스가 유효하지 않을 경우
-			if(oCellObjLists == null || oCellObjLists.ExIsValidIdx(stIdx)) {
+			if(oCellObjsLists == null || oCellObjsLists.ExIsValidIdx(stIdx)) {
 				return;
 			}
 		}
@@ -209,10 +209,10 @@ namespace NSEngine {
 				CSceneManager.ActiveSceneManager.ScreenSize);
 
 			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
-			var oCellObjLists = this.CellObjListsContainer.ExGetVal(stIdx.z);
+			var oCellObjsLists = this.CellObjsListsContainer.ExGetVal(stIdx.z);
 
 			// 인덱스가 유효하지 않을 경우
-			if(oCellObjLists == null || oCellObjLists.ExIsValidIdx(stIdx)) {
+			if(oCellObjsLists == null || oCellObjsLists.ExIsValidIdx(stIdx)) {
 				return;
 			}
 		}
@@ -261,14 +261,14 @@ namespace NSEngine {
 				var stCenterPos = a_stGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
 
 				// 셀 객체가 없을 경우
-				if(!this.CellObjListsContainer.ExIsValidIdx(a_stCellInfo.m_stIdx.z)) {
+				if(!this.CellObjsListsContainer.ExIsValidIdx(a_stCellInfo.m_stIdx.z)) {
 					continue;
 				}
 
-				var oCellObjList = this.CellObjListsContainer[a_stCellInfo.m_stIdx.z].ExGetVal(a_stCellInfo.m_stIdx);
+				var oCellObjsList = this.CellObjsListsContainer[a_stCellInfo.m_stIdx.z].ExGetVal(a_stCellInfo.m_stIdx);
 
 				// 셀 객체가 없을 경우
-				if(!oCellObjList.ExIsValidIdx(nIdx)) {
+				if(!oCellObjsList.ExIsValidIdx(nIdx)) {
 					continue;
 				}
 

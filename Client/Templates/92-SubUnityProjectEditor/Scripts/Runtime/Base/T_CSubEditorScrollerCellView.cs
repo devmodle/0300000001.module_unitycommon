@@ -21,7 +21,7 @@ public partial class CSubEditorScrollerCellView : CEditorScrollerCellView {
 
 	#region 변수
 	[Header("=====> UIs <=====")]
-	private List<STScrollerCellUIs> m_oScrollerCellUIList = new List<STScrollerCellUIs>();
+	private List<STScrollerCellUIs> m_oScrollerCellUIsList = new List<STScrollerCellUIs>();
 	#endregion // 변수
 
 	#region 프로퍼티
