@@ -97,7 +97,8 @@ namespace SetupScene
 			this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_COUNTRY_CODE, this.OnReceiveGetCountryCodeMsg);
 
 			// 객체를 설정한다 {
-			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>()
+			{
 				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 			}, m_oUIsDict);
 
@@ -108,7 +109,8 @@ namespace SetupScene
 			// 객체를 설정한다 }
 
 			// 텍스트를 설정한다 {
-			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>()
+			{
 				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
 			}, m_oTextDict);
 
@@ -119,13 +121,15 @@ namespace SetupScene
 			// 텍스트를 설정한다 }
 
 			// 게이지 처리자를 설정한다
-			CFunc.SetupComponents(new List<(EKey, GameObject)>() {
+			CFunc.SetupComponents(new List<(EKey, GameObject)>() 
+			{
 				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
 			}, m_oGaugeHandlerDict);
 
 #if DEBUG || DEVELOPMENT
 			// 텍스트를 설정한다 {
-			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>()
+			{
 				(EKey.SCENE_INFO_TEXT, $"{EKey.SCENE_INFO_TEXT}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
 			}, m_oTextDict);
 

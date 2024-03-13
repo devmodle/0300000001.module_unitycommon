@@ -62,7 +62,7 @@ public static partial class CCommonEditorSceneManager
 	private static List<string> m_oSampleSceneNameList = new List<string>();
 
 	[Header("=====> Game Objects <=====")]
-	private static List<GameObject> m_oPrefabMissingObjsList = new List<GameObject>();
+	private static List<GameObject> m_oPrefabMissingObjList = new List<GameObject>();
 	#endregion // 클래스 변수
 
 	#region 클래스 함수

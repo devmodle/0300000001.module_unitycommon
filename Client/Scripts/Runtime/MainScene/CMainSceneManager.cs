@@ -18,13 +18,13 @@ namespace MainScene
 		}
 
 		#region 변수
-		[Header("=====> UIs <=====")]
+		[Header("=====> Main Scene Manager - UIs <=====")]
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
 		#endregion // 변수
 
 		#region 프로퍼티
-		public override bool IsIgnoreTestUIs => false;
-		public override bool IsIgnoreABTestUIs => false;
+		public override bool IsEnableTestUIs => true;
+		public override bool IsEnableABTestUIs => true;
 		public override bool IsEnableOverlayScene => true;
 
 		public Text VerText => m_oTextDict[EKey.VER_TEXT];
@@ -36,20 +36,23 @@ namespace MainScene
 		{
 			base.Awake();
 
-			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit)
+			// 앱 초기화가 필요 할 경우
+			if(!CSceneManager.IsAppInit)
 			{
-				// 텍스트를 설정한다 {
-				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
-				}, m_oTextDict);
-
-				m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-				m_oTextDict[EKey.VER_TEXT].rectTransform.anchoredPosition = Vector3.zero;
-				// 텍스트를 설정한다 }
+				return;
 			}
+
+			// 텍스트를 설정한다 {
+			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>()
+			{
+				(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
+			}, m_oTextDict);
+
+			m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict[EKey.VER_TEXT].rectTransform.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+			m_oTextDict[EKey.VER_TEXT].rectTransform.anchoredPosition = Vector3.zero;
+			// 텍스트를 설정한다 }
 		}
 
 		/** 초기화 */
@@ -57,12 +60,19 @@ namespace MainScene
 		{
 			base.Start();
 
-			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit)
+			// 앱 초기화가 필요 할 경우
+			if(!CSceneManager.IsAppInit)
 			{
-				m_oTextDict[EKey.VER_TEXT]?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
-				m_oTextDict[EKey.VER_TEXT]?.transform.SetAsLastSibling();
+				return;
 			}
+
+			string oVerStr = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer,
+				CCommonUserInfoStorage.Inst.UserInfo.UserType);
+
+			m_oTextDict[EKey.VER_TEXT]?.ExSetText(oVerStr,
+				CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
+
+			m_oTextDict[EKey.VER_TEXT]?.transform.SetAsLastSibling();
 		}
 
 		/** 상태를 갱신한다 */
@@ -70,21 +80,21 @@ namespace MainScene
 		{
 			base.OnUpdate(a_fDeltaTime);
 
-			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning)
+			// 앱이 종료되었을 경우
+			if(!CSceneManager.IsAppRunning)
 			{
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-				// 단축키를 눌렀을 경우
-				if(Input.GetKey(CAccess.CmdKeyCode))
-				{
-					this.HandleHotKeys();
-				}
-#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+				return;
 			}
-		}
-		#endregion // 함수
 
-		#region 조건부 함수
+#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+			// 단축키를 눌렀을 경우
+			if(Input.GetKey(CAccess.CmdKeyCode))
+			{
+				this.HandleHotKeys();
+			}
+#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+		}
+
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		/** 단축키를 처리한다 */
 		private void HandleHotKeys()
@@ -98,6 +108,6 @@ namespace MainScene
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		}
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		#endregion // 조건부 함수
+		#endregion // 함수
 	}
 }

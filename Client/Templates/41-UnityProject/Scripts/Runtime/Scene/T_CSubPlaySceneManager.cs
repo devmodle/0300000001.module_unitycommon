@@ -53,7 +53,7 @@ namespace PlayScene {
 
 		[Header("=====> Game Objects <=====")]
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
-		private Dictionary<EKey, GameObject> m_oObjsDict = new Dictionary<EKey, GameObject>();
+		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 함수
@@ -81,7 +81,7 @@ namespace PlayScene {
 				// 객체를 설정한다
 				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
 					(EKey.BG_SPRITE_ROOT, $"{EKey.BG_SPRITE_ROOT}", this.Objs, null)
-				}, m_oObjsDict);
+				}, m_oObjDict);
 
 				// 버튼을 설정한다
 				CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -95,11 +95,11 @@ namespace PlayScene {
 
 				// 스프라이트를 설정한다 {
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", m_oObjsDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 				}, m_oSpriteDict);
 
 				var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {

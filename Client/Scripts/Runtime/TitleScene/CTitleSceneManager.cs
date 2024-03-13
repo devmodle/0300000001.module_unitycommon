@@ -23,7 +23,7 @@ namespace TitleScene
 		#endregion // 변수
 
 		#region 프로퍼티
-		public override bool IsIgnoreTestUIs => false;
+		public override bool IsEnableTestUIs => true;
 		public override bool IsEnableOverlayScene => true;
 		public override bool IsEnableBGTouchResponder => true;
 

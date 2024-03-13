@@ -24,7 +24,7 @@ namespace NSEngine {
 
 		#region 변수
 		[Header("=====> Game Objects <=====")]
-		[SerializeField] private List<GameObject> m_oObjsList = new List<GameObject>();
+		[SerializeField] private List<GameObject> m_oObjList = new List<GameObject>();
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -61,9 +61,9 @@ namespace NSEngine {
 			this.SetupAbilityVals();
 
 			// 객체를 설정한다
-			for(int i = 0; i < m_oObjsList.Count; ++i) {
+			for(int i = 0; i < m_oObjList.Count; ++i) {
 				string oStr = CStrTable.Inst.GetEnumStr(typeof(EObjKinds), (int)this.Params.m_stObjInfo.m_eObjKinds);
-				m_oObjsList[i].SetActive(m_oObjsList[i].name.Equals(oStr));
+				m_oObjList[i].SetActive(m_oObjList[i].name.Equals(oStr));
 			}
 
 			// 스프라이트를 설정한다 {
