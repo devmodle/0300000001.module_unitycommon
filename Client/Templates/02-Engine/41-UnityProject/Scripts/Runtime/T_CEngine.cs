@@ -843,14 +843,14 @@ namespace NSEngine {
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null, Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict03 = null) {
+		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDictA = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDictB = null, Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict03 = null) {
 			return new STParams() {
 				m_oItemRoot = a_oItemRoot,
 				m_oSkillRoot = a_oSkillRoot,
 				m_oObjRoot = a_oObjRoot,
 				m_oFXRoot = a_oFXRoot,
-				m_oCallbackDictA = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(),
-				m_oCallbackDictB = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>(),
+				m_oCallbackDictA = a_oCallbackDictA ?? new Dictionary<ECallback, System.Action<CEngine>>(),
+				m_oCallbackDictB = a_oCallbackDictB ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>(),
 				m_oCallbackDictC = a_oCallbackDict03 ?? new Dictionary<ECallback, System.Action<CEngine, CEObjComponent, EEngineObjEvent, string>>()
 			};
 		}
