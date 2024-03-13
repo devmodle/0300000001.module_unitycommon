@@ -9,16 +9,19 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 /** 포커스 팝업 */
-public partial class CFocusPopup : CSubPopup {
+public partial class CFocusPopup : CSubPopup
+{
 	/** 식별자 */
-	private enum EKey {
+	private enum EKey
+	{
 		NONE = -1,
 		FOCUS_BLIND_IMG,
 		[HideInInspector] MAX_VAL
 	}
 
 	/** 콜백 */
-	public enum ECallback {
+	public enum ECallback
+	{
 		NONE = -1,
 		BEGIN,
 		MOVE,
@@ -27,7 +30,8 @@ public partial class CFocusPopup : CSubPopup {
 	}
 
 	/** 매개 변수 */
-	public struct STParams {
+	public struct STParams
+	{
 		public List<GameObject> m_oContentsUIsList;
 		public Dictionary<ECallback, System.Action<CFocusPopup, PointerEventData>> m_oCallbackDict;
 	}
@@ -39,19 +43,21 @@ public partial class CFocusPopup : CSubPopup {
 
 	#region 프로퍼티
 	public STParams Params { get; private set; }
-	
+
 	public override EPopupAniType PopupAniType => EPopupAniType.NONE;
 	public override Color BlindColor => KCDefine.B_COLOR_TRANSPARENT;
 	#endregion // 프로퍼티
 
 	#region 함수
 	/** 초기화 */
-	public override void Awake() {
+	public override void Awake()
+	{
 		base.Awake();
 		this.SetIsEnableAnim(false);
 
 		// 이미지를 설정한다
-		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+		CFunc.SetupComponents(new List<(EKey, string, GameObject)>()
+		{
 			(EKey.FOCUS_BLIND_IMG, $"{EKey.FOCUS_BLIND_IMG}", this.ContentsUIs)
 		}, m_oImgDict);
 
@@ -59,12 +65,14 @@ public partial class CFocusPopup : CSubPopup {
 	}
 
 	/** 초기화 */
-	public virtual void Init(STParams a_stParams) {
+	public virtual void Init(STParams a_stParams)
+	{
 		base.Init();
 		this.Params = a_stParams;
 
 		// 터치 전달자를 설정한다
-		Func.SetupTouchDispatchers(new List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>() {
+		Func.SetupTouchDispatchers(new List<(GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)>()
+		{
 			(m_oImgDict[EKey.FOCUS_BLIND_IMG]?.gameObject, (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.ExGetVal(ECallback.BEGIN)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.ExGetVal(ECallback.MOVE)?.Invoke(this, a_oEventData), (a_oSender, a_oEventData) => a_stParams.m_oCallbackDict?.ExGetVal(ECallback.END)?.Invoke(this, a_oEventData))
 		});
 
@@ -72,24 +80,25 @@ public partial class CFocusPopup : CSubPopup {
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
-	protected override void SetupContents() {
+	protected override void SetupContents()
+	{
 		base.SetupContents();
 
-		// 포커스 UI 가 존재 할 경우
-		if(this.Params.m_oContentsUIsList.ExIsValid()) {
-			for(int i = 0; i < this.Params.m_oContentsUIsList.Count; ++i) {
-				this.Params.m_oContentsUIsList[i].SetActive(true);
-				this.Params.m_oContentsUIsList[i].ExSetParent(this.ContentsUIs);
-			}
+		for(int i = 0; i < this.Params.m_oContentsUIsList.Count; ++i)
+		{
+			this.Params.m_oContentsUIsList[i].SetActive(true);
+			this.Params.m_oContentsUIsList[i].ExSetParent(this.ContentsUIs);
 		}
 
 		this.UpdateUIsState();
 	}
 
 	/** UI 상태를 갱신한다 */
-	private void UpdateUIsState() {
+	private void UpdateUIsState()
+	{
 		// 이미지를 갱신한다
-		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, KCDefine.B_COLOR_POPUP_BLIND, a_bIsAssert: false);
+		m_oImgDict[EKey.FOCUS_BLIND_IMG]?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, 
+			KCDefine.B_COLOR_POPUP_BLIND, a_bIsAssert: false);
 
 		this.SubUpdateUIsState();
 	}
