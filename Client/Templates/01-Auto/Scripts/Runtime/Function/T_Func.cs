@@ -395,7 +395,7 @@ public static partial class Func {
 	}
 
 	/** 단일 씬 UI 상태를 갱신한다 */
-	public static void UpdateSingleSceneUIsState() {
+	public static void UpdateUIsStateSingleScene() {
 		CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
 			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsAssert: false);
 
@@ -410,7 +410,7 @@ public static partial class Func {
 	}
 
 	/** 중첩 씬 UI 상태를 갱신한다 */
-	public static void UpdateOverlaySceneUIsState() {
+	public static void UpdateUIsStateOverlayScene() {
 		CSceneManager.GetSceneManager<ResultScene.CSubResultSceneManager>()?.gameObject.ExSendMsg(string.Empty, 
 			KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsAssert: false);
 

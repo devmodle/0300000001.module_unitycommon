@@ -123,7 +123,7 @@ namespace OverlayScene {
 			m_oTMPTextDict[EKey.NUM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS)}", a_bIsAssert: false);
 
 			this.SubUpdateUIsState();
-			Func.UpdateSingleSceneUIsState();
+			Func.UpdateUIsStateSingleScene();
 		}
 
 		/** 상점 버튼을 눌렀을 경우 */

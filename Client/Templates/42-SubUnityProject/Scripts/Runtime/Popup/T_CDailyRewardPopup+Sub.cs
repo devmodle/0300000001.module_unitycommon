@@ -39,7 +39,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 	}
 
 	/** 보상 UI 상태를 갱신한다 */
-	private void UpdateRewardUIsState(GameObject a_oRewardUIs, STRewardInfo a_stRewardInfo) {
+	private void UpdateRewardUIState(GameObject a_oRewardUI, STRewardInfo a_stRewardInfo) {
 		// Do Something
 	}
 	#endregion // 함수

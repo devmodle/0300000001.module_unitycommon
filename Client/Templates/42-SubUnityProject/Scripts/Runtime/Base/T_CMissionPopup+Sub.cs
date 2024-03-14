@@ -39,7 +39,7 @@ public abstract partial class CMissionPopup : CSubPopup {
 	}
 
 	/** 미션 UI 상태를 갱신한다 */
-	private void UpdateMissionUIsState(GameObject a_oMissionUIs, STMissionInfo a_stMissionInfo) {
+	private void UpdateMissionUIState(GameObject a_oMissionUIs, STMissionInfo a_stMissionInfo) {
 		// Do Something
 	}
 	#endregion // 함수

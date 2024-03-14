@@ -47,7 +47,7 @@ namespace SetupScene
 		private Dictionary<EKey, CGaugeHandler> m_oGaugeHandlerDict = new Dictionary<EKey, CGaugeHandler>();
 
 		[Header("=====> Game Objects <=====")]
-		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
+		private Dictionary<EKey, GameObject> m_oUIDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
 		#region 클래스 변수
@@ -100,12 +100,12 @@ namespace SetupScene
 			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>()
 			{
 				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
-			}, m_oUIsDict);
+			}, m_oUIDict);
 
-			m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition = (oLoadingGauge != null) ?
-				m_oUIsDict[EKey.LOADING_GAUGE].transform.localPosition : this.LoadingGaugePos;
+			m_oUIDict[EKey.LOADING_GAUGE].transform.localPosition = (oLoadingGauge != null) ?
+				m_oUIDict[EKey.LOADING_GAUGE].transform.localPosition : this.LoadingGaugePos;
 
-			m_oUIsDict[EKey.LOADING_GAUGE].SetActive(!this.IsIgnoreLoadingGauge);
+			m_oUIDict[EKey.LOADING_GAUGE].SetActive(!this.IsIgnoreLoadingGauge);
 			// 객체를 설정한다 }
 
 			// 텍스트를 설정한다 {
@@ -123,7 +123,7 @@ namespace SetupScene
 			// 게이지 처리자를 설정한다
 			CFunc.SetupComponents(new List<(EKey, GameObject)>() 
 			{
-				(EKey.LOADING_GAUGE_HANDLER, m_oUIsDict[EKey.LOADING_GAUGE])
+				(EKey.LOADING_GAUGE_HANDLER, m_oUIDict[EKey.LOADING_GAUGE])
 			}, m_oGaugeHandlerDict);
 
 #if DEBUG || DEVELOPMENT

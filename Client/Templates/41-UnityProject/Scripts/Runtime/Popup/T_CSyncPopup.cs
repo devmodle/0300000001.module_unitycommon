@@ -20,7 +20,7 @@ public partial class CSyncPopup : CSubPopup {
 	private bool m_bIsLoadUserInfo = false;
 
 	[Header("=====> Game Objects <=====")]
-	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
+	private Dictionary<EKey, GameObject> m_oUIDict = new Dictionary<EKey, GameObject>();
 	#endregion // 변수
 
 	#region 함수
@@ -32,7 +32,7 @@ public partial class CSyncPopup : CSubPopup {
 		CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
 			(EKey.LOGIN_UIS, $"{EKey.LOGIN_UIS}", this.ContentsUIs),
 			(EKey.LOGOUT_UIS, $"{EKey.LOGIN_UIS}", this.ContentsUIs)
-		}, m_oUIsDict);
+		}, m_oUIDict);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -61,8 +61,8 @@ public partial class CSyncPopup : CSubPopup {
 	private void UpdateUIsState() {
 		// 객체를 갱신한다 {
 #if FIREBASE_MODULE_ENABLE
-		m_oUIsDict[EKey.LOGIN_UIS]?.SetActive(CFirebaseManager.Inst.IsLogin);
-		m_oUIsDict[EKey.LOGOUT_UIS]?.SetActive(!CFirebaseManager.Inst.IsLogin);
+		m_oUIDict[EKey.LOGIN_UIS]?.SetActive(CFirebaseManager.Inst.IsLogin);
+		m_oUIDict[EKey.LOGOUT_UIS]?.SetActive(!CFirebaseManager.Inst.IsLogin);
 #endif // #if FIREBASE_MODULE_ENABLE
 		// 객체를 갱신한다 }
 

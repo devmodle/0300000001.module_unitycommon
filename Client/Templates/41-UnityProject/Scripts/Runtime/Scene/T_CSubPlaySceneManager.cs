@@ -52,7 +52,7 @@ namespace PlayScene {
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		[Header("=====> Game Objects <=====")]
-		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
+		[SerializeField] private List<GameObject> m_oRewardAdsUIList = new List<GameObject>();
 		private Dictionary<EKey, GameObject> m_oObjDict = new Dictionary<EKey, GameObject>();
 		#endregion // 변수
 
@@ -295,9 +295,9 @@ namespace PlayScene {
 
 		/** 보상 광고 UI 를 설정한다 */
 		private void SetupRewardAdsUIs() {
-			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
+			for(int i = 0; i < m_oRewardAdsUIList.Count; ++i) {
 				var eRewardAdsUIs = (ERewardAdsUIs)i;
-				m_oRewardAdsUIsList[i]?.GetComponentInChildren<Button>()?.onClick.AddListener(() => this.OnTouchAdsBtn(eRewardAdsUIs));
+				m_oRewardAdsUIList[i]?.GetComponentInChildren<Button>()?.onClick.AddListener(() => this.OnTouchAdsBtn(eRewardAdsUIs));
 			}
 		}
 
@@ -309,8 +309,8 @@ namespace PlayScene {
 
 		/** 보상 광고 UI 상태를 갱신한다 */
 		private void UpdateRewardAdsUIsState() {
-			for(int i = 0; i < m_oRewardAdsUIsList.Count; ++i) {
-				m_oRewardAdsUIsList[i]?.SetActive(CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + KCDefine.B_VAL_1_INT >= KDefine.PS_MIN_LEVEL_ENABLE_WATCH_ADS);
+			for(int i = 0; i < m_oRewardAdsUIList.Count; ++i) {
+				m_oRewardAdsUIList[i]?.SetActive(CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + KCDefine.B_VAL_1_INT >= KDefine.PS_MIN_LEVEL_ENABLE_WATCH_ADS);
 			}
 		}
 

@@ -87,9 +87,9 @@ namespace LevelEditorScene {
 
 		/** UI 상태를 갱신한다 */
 		private void SubUpdateUIsState() {
-			this.SubUpdateMidEditorUIsState();
-			this.SubUpdateLeftEditorUIsState();
-			this.SubUpdateRightEditorUIsState();
+			this.SubUpdateUIsStateMidEditor();
+			this.SubUpdateUIsStateLeftEditor();
+			this.SubUpdateUIsStateRightEditor();
 		}
 
 		/** 객체 스프라이트를 설정한다 */
@@ -232,7 +232,7 @@ namespace LevelEditorScene {
 		}
 
 		/** 중앙 에디터 UI 상태를 갱신한다 */
-		private void SubUpdateMidEditorUIsState() {
+		private void SubUpdateUIsStateMidEditor() {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -249,7 +249,7 @@ namespace LevelEditorScene {
 		}
 
 		/** 왼쪽 에디터 UI 상태를 갱신한다 */
-		private void SubUpdateLeftEditorUIsState() {
+		private void SubUpdateUIsStateLeftEditor() {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -274,7 +274,7 @@ namespace LevelEditorScene {
 
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 					m_oSubMethodInfoDict.ExGetVal(ECallback.SETUP_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
+						m_oUIDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}
@@ -291,12 +291,12 @@ namespace LevelEditorScene {
 		}
 
 		/** 오른쪽 에디터 UI 상태를 갱신한다 */
-		private void SubUpdateRightEditorUIsState() {
+		private void SubUpdateUIsStateRightEditor() {
 			// 페이지 스크롤 스냅이 존재 할 경우
 			if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 					m_oSubMethodInfoDict.ExGetVal(ECallback.UPDATE_RE_UIS_PAGE_UIS_01 + i)?.Invoke(this, new object[] {
-						m_oUIsDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
+						m_oUIDict.ExGetVal(EKey.RE_UIS_PAGE_UIS_01 + i)
 					});
 				}
 			}

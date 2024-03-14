@@ -32,7 +32,7 @@ public partial class CFocusPopup : CSubPopup
 	/** 매개 변수 */
 	public struct STParams
 	{
-		public List<GameObject> m_oContentsUIsList;
+		public List<GameObject> m_oContentsUIList;
 		public Dictionary<ECallback, System.Action<CFocusPopup, PointerEventData>> m_oCallbackDict;
 	}
 
@@ -84,10 +84,10 @@ public partial class CFocusPopup : CSubPopup
 	{
 		base.SetupContents();
 
-		for(int i = 0; i < this.Params.m_oContentsUIsList.Count; ++i)
+		for(int i = 0; i < this.Params.m_oContentsUIList.Count; ++i)
 		{
-			this.Params.m_oContentsUIsList[i].SetActive(true);
-			this.Params.m_oContentsUIsList[i].ExSetParent(this.ContentsUIs);
+			this.Params.m_oContentsUIList[i].SetActive(true);
+			this.Params.m_oContentsUIList[i].ExSetParent(this.ContentsUIs);
 		}
 
 		this.UpdateUIsState();
