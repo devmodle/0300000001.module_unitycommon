@@ -6,17 +6,21 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
-namespace NSEngine {
+namespace NSEngine
+{
 	/** 엔진 추가 컴포넌트 */
-	public partial class CExtraEngineComponent : CEComponent {
+	public partial class CExtraEngineComponent : CEComponent
+	{
 		/** 식별자 */
-		private enum EKey {
+		private enum EKey
+		{
 			NONE = -1,
 			[HideInInspector] MAX_VAL
 		}
 
 		/** 매개 변수 */
-		public new struct STParams {
+		public new struct STParams
+		{
 			public CEComponent.STParams m_stBase;
 		}
 
@@ -30,12 +34,14 @@ namespace NSEngine {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 		}
 
 		/** 초기화 */
-		public virtual void Init(STParams a_stParams) {
+		public virtual void Init(STParams a_stParams)
+		{
 			base.Init(a_stParams.m_stBase);
 			this.Params = a_stParams;
 		}
@@ -43,8 +49,10 @@ namespace NSEngine {
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public new static STParams MakeParams(CEngine a_oEngine, string a_oGameObjsPoolKey) {
-			return new STParams() {
+		public new static STParams MakeParams(CEngine a_oEngine, string a_oGameObjsPoolKey)
+		{
+			return new STParams()
+			{
 				m_stBase = CEComponent.MakeParams(a_oEngine, a_oGameObjsPoolKey)
 			};
 		}

@@ -15,16 +15,19 @@ using Newtonsoft.Json;
 #region 자료형
 /** 추가 타입 랩퍼 */
 [MessagePackObject]
-public struct STExtraTypeWrapper {
+public struct STExtraTypeWrapper
+{
 	// Do Something
 }
 #endregion // 자료형
 
-namespace NSEngine {
+namespace NSEngine
+{
 	#region 자료형
 	/** 엔진 추가 타입 랩퍼 */
 	[MessagePackObject]
-	public struct STEngineExtraTypeWrapper {
+	public struct STEngineExtraTypeWrapper
+	{
 		// Do Something
 	}
 	#endregion // 자료형

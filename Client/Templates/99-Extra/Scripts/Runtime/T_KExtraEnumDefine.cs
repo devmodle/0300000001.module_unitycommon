@@ -7,7 +7,8 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
 /** 추가 열거형 값 */
-public static partial class KExtraEnumVal {
+public static partial class KExtraEnumVal
+{
 	#region 컴파일 상수
 
 	#endregion // 컴파일 상수
@@ -17,9 +18,11 @@ public static partial class KExtraEnumVal {
 
 #endregion // 열거형
 
-namespace NSEngine {
+namespace NSEngine
+{
 	/** 엔진 추가 열거형 값 */
-	public static partial class KExtraEnumVal {
+	public static partial class KExtraEnumVal
+	{
 		#region 컴파일 상수
 
 		#endregion // 컴파일 상수

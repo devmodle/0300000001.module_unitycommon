@@ -7,7 +7,8 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
 /** 추가 상수 */
-public static partial class KDefine {
+public static partial class KDefine
+{
 	#region 컴파일 상수
 
 	#endregion // 컴파일 상수
@@ -17,9 +18,11 @@ public static partial class KDefine {
 	#endregion // 런타임 상수
 }
 
-namespace NSEngine {
+namespace NSEngine
+{
 	/** 엔진 추가 상수 */
-	public static partial class KDefine {
+	public static partial class KDefine
+	{
 		#region 컴파일 상수
 
 		#endregion // 컴파일 상수

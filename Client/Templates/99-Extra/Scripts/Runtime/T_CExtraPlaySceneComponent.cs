@@ -6,17 +6,21 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
-namespace PlayScene {
+namespace PlayScene
+{
 	/** 플레이 씬 추가 컴포넌트 */
-	public partial class CExtraPlaySceneComponent : CPSComponent {
+	public partial class CExtraPlaySceneComponent : CPSComponent
+	{
 		/** 식별자 */
-		private enum EKey {
+		private enum EKey
+		{
 			NONE = -1,
 			[HideInInspector] MAX_VAL
 		}
 
 		/** 매개 변수 */
-		public new struct STParams {
+		public new struct STParams
+		{
 			public CPSComponent.STParams m_stBase;
 		}
 
@@ -30,12 +34,14 @@ namespace PlayScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 		}
 
 		/** 초기화 */
-		public virtual void Init(STParams a_stParams) {
+		public virtual void Init(STParams a_stParams)
+		{
 			base.Init(a_stParams.m_stBase);
 			this.Params = a_stParams;
 		}
@@ -43,8 +49,10 @@ namespace PlayScene {
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public new static STParams MakeParams(NSEngine.CEngine a_oEngine) {
-			return new STParams() {
+		public new static STParams MakeParams(NSEngine.CEngine a_oEngine)
+		{
+			return new STParams()
+			{
 				m_stBase = CPSComponent.MakeParams(a_oEngine)
 			};
 		}
