@@ -37,20 +37,6 @@ public partial class CExtraSceneManager : CSceneManager
 		}
 	}
 
-	/** 초기화 */
-	public override void Start()
-	{
-		base.Start();
-
-		// 앱 초기화가 필요 할 경우
-		if(!CSceneManager.IsAppInit)
-		{
-			return;
-		}
-
-		this.UpdateUIsState();
-	}
-
 	/** 제거되었을 경우 */
 	public override void OnDestroy()
 	{
@@ -92,6 +78,13 @@ public partial class CExtraSceneManager : CSceneManager
 			case ENavStackEvent.BACK_KEY_DOWN:
 				break;
 		}
+	}
+
+	/** 상태를 갱신한다 */
+	public override void UpdateState()
+	{
+		base.UpdateState();
+		this.UpdateUIsState();
 	}
 
 	/** UI 상태를 갱신한다 */

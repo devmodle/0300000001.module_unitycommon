@@ -17,7 +17,7 @@ public partial class CExtraPopup : CSubPopup
 	}
 
 	/** 매개 변수 */
-	public struct STParams
+	public record REParams : global::REParams<CExtraPopup, CComponent, CComponent>
 	{
 		// Do Something
 	}
@@ -27,7 +27,7 @@ public partial class CExtraPopup : CSubPopup
 	#endregion // 변수
 
 	#region 프로퍼티
-	public STParams Params { get; private set; }
+	public REParams Params { get; private set; } = null;
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -38,16 +38,16 @@ public partial class CExtraPopup : CSubPopup
 	}
 
 	/** 초기화 */
-	public virtual void Init(STParams a_stParams)
+	public virtual void Init(REParams a_reParams)
 	{
 		base.Init();
-		this.Params = a_stParams;
+		this.Params = a_reParams;
 	}
 
-	/** 팝업 컨텐츠를 설정한다 */
-	protected override void SetupContents()
+	/** 상태를 갱신한다 */
+	public override void UpdateState()
 	{
-		base.SetupContents();
+		base.UpdateState();
 		this.UpdateUIsState();
 	}
 
@@ -60,11 +60,14 @@ public partial class CExtraPopup : CSubPopup
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams()
+	public static REParams MakeParams(CComponent a_oOwner, 
+		System.Action<CExtraPopup> a_oCallback, System.Action<CExtraPopup, CComponent> a_oParamsCallback)
 	{
-		return new STParams()
+		return new REParams()
 		{
-			// Do Something
+			m_tOwner = a_oOwner,
+			m_oCallback = a_oCallback,
+			m_oParamsCallback = a_oParamsCallback
 		};
 	}
 	#endregion // 클래스 함수
