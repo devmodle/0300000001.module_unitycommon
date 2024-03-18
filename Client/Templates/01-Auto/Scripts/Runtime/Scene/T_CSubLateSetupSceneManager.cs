@@ -12,11 +12,14 @@ using System.Linq;
 using UnityEngine.Android;
 #endif // #if UNITY_ANDROID
 
-namespace LateSetupScene {
+namespace LateSetupScene
+{
 	/** 서브 지연 설정 씬 관리자 */
-	public partial class CSubLateSetupSceneManager : CLateSetupSceneManager {
+	public partial class CSubLateSetupSceneManager : CLateSetupSceneManager
+	{
 		/** 콜백 */
-		private enum ECallback {
+		private enum ECallback
+		{
 			NONE = -1,
 			SHOW_AGREE,
 			SHOW_TRACKING_DESC,
@@ -24,7 +27,8 @@ namespace LateSetupScene {
 		}
 
 		/** 팝업 콜백 */
-		private enum EPopupCallback {
+		private enum EPopupCallback
+		{
 			NONE = -1,
 			AGREE,
 			TRACKING_DESC,
@@ -42,19 +46,24 @@ namespace LateSetupScene {
 
 		#region 함수
 		/** 초기화 */
-		public override void Awake() {
+		public override void Awake()
+		{
 			base.Awake();
 
 			// 초기화되었을 경우
-			if(CSceneManager.IsInit) {
+			if(CSceneManager.IsInit)
+			{
 				CFunc.ShowLog($"Country Code: {CCommonAppInfoStorage.Inst.CountryCode}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
 				CFunc.ShowLog($"System Language: {CCommonAppInfoStorage.Inst.SystemLanguage}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
 
 #if UNITY_EDITOR
 				// 유저 타입이 유효 할 경우
-				if(m_eUserType.ExIsValid()) {
+				if(m_eUserType.ExIsValid())
+				{
 					CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType;
-				} else {
+				}
+				else
+				{
 					CCommonUserInfoStorage.Inst.UserInfo.UserType = CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid() ? CCommonUserInfoStorage.Inst.UserInfo.UserType : EUserType.A;
 				}
 #else
@@ -94,7 +103,8 @@ namespace LateSetupScene {
 		}
 
 		/** 씬을 설정한다 */
-		protected override void Setup() {
+		protected override void Setup()
+		{
 			base.Setup();
 
 #if ADS_MODULE_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -104,21 +114,25 @@ namespace LateSetupScene {
 		}
 
 		/** 한국 약관 동의 팝업을 출력한다 */
-		protected override void ShowKRAgreePopup(string a_oPrivacy, string a_oServices, System.Action<CPopup> a_oCallback) {
-			this.ShowAgreePopup(a_oPrivacy, a_oServices, EAgreePopup.KR, a_oCallback);
+		protected override void ShowKRAgreePopup(string a_oPrivacy, string a_oServices, System.Action<CPopup> a_oCallback)
+		{
+			this.ShowAgreePopup(a_oPrivacy, a_oServices, CAgreePopup.EAgreePopup.KR, a_oCallback);
 		}
 
 		/** 유럽 연합 약관 동의 팝업을 출력한다 */
-		protected override void ShowEUAgreePopup(string a_oPrivacyURL, string a_oServicesURL, System.Action<CPopup> a_oCallback) {
-			this.ShowAgreePopup(a_oPrivacyURL, a_oServicesURL, EAgreePopup.EU, a_oCallback);
+		protected override void ShowEUAgreePopup(string a_oPrivacyURL, string a_oServicesURL, System.Action<CPopup> a_oCallback)
+		{
+			this.ShowAgreePopup(a_oPrivacyURL, a_oServicesURL, CAgreePopup.EAgreePopup.EU, a_oCallback);
 		}
 
 		/** 추적 설명 팝업을 출력한다 */
-		protected override void ShowTrackingDescPopup(System.Action<CPopup> a_oCallback) {
+		protected override void ShowTrackingDescPopup(System.Action<CPopup> a_oCallback)
+		{
 			m_oCallbackDict.ExReplaceVal(ECallback.SHOW_TRACKING_DESC, a_oCallback);
 			var oTrackingDescPopup = CPopup.Create<CTrackingDescPopup>(KCDefine.LSS_OBJ_N_TRACKING_DESC_POPUP, KCDefine.LSS_OBJ_P_TRACKING_DESC_POPUP, this.PopupUIs);
 
-			oTrackingDescPopup.Init(CTrackingDescPopup.MakeParams(new Dictionary<CTrackingDescPopup.ECallback, System.Action<CTrackingDescPopup>>() {
+			oTrackingDescPopup.Init(CTrackingDescPopup.MakeParams(new Dictionary<CTrackingDescPopup.ECallback, System.Action<CTrackingDescPopup>>()
+			{
 				[CTrackingDescPopup.ECallback.NEXT] = (a_oSender) => this.OnReceivePopupCallback(a_oSender, EPopupCallback.TRACKING_DESC)
 			}));
 
@@ -126,17 +140,25 @@ namespace LateSetupScene {
 		}
 
 		/** 팝업 콜백을 수신했을 경우 */
-		private void OnReceivePopupCallback(CPopup a_oSender, EPopupCallback a_eCallback) {
+		private void OnReceivePopupCallback(CPopup a_oSender, EPopupCallback a_eCallback)
+		{
 			a_oSender?.Close();
 
-			switch(a_eCallback) {
-				case EPopupCallback.AGREE: m_oCallbackDict.ExGetVal(ECallback.SHOW_AGREE)?.Invoke(a_oSender); break;
-				case EPopupCallback.TRACKING_DESC: m_oCallbackDict.ExGetVal(ECallback.SHOW_TRACKING_DESC)?.Invoke(a_oSender); break;
+			switch(a_eCallback)
+			{
+				case EPopupCallback.AGREE:
+					m_oCallbackDict.ExGetVal(ECallback.SHOW_AGREE)?.Invoke(a_oSender);
+					break;
+				case EPopupCallback.TRACKING_DESC:
+					m_oCallbackDict.ExGetVal(ECallback.SHOW_TRACKING_DESC)?.Invoke(a_oSender);
+					break;
 			}
 		}
 
 		/** 약관 동의 팝업을 출력한다 */
-		private void ShowAgreePopup(string a_oPrivacy, string a_oServices, EAgreePopup a_eAgreePopup, System.Action<CPopup> a_oCallback) {
+		private void ShowAgreePopup(string a_oPrivacy, 
+			string a_oServices, CAgreePopup.EAgreePopup a_eAgreePopup, System.Action<CPopup> a_oCallback)
+		{
 #if GOOGLE_SHEET_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 			Func.SetupGoogleSheetInfoValCreators();
 #endif // #if GOOGLE_SHEET_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
@@ -150,7 +172,8 @@ namespace LateSetupScene {
 			m_oCallbackDict.ExReplaceVal(ECallback.SHOW_AGREE, a_oCallback);
 			var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.PopupUIs);
 
-			oAgreePopup.Init(CAgreePopup.MakeParams(a_oPrivacy, a_oServices, a_eAgreePopup, new Dictionary<CAgreePopup.ECallback, System.Action<CAgreePopup>>() {
+			oAgreePopup.Init(CAgreePopup.MakeParams(a_oPrivacy, a_oServices, a_eAgreePopup, new Dictionary<CAgreePopup.ECallback, System.Action<CAgreePopup>>()
+			{
 				[CAgreePopup.ECallback.AGREE] = (a_oSender) => this.OnReceivePopupCallback(a_oSender, EPopupCallback.AGREE)
 			}));
 
@@ -165,7 +188,7 @@ namespace LateSetupScene {
 			this.ExRequestUserPermission(a_oPermission, a_oCallback, true);
 		}
 #endif // #if UNITY_ANDROID
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE
