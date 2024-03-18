@@ -70,7 +70,7 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 초기화 */
 		private void SubAwake() {
-			this.SubSetupMidEditorUIs();
+			this.SubSetupMiddleEditorUIs();
 			this.SubSetupLeftEditorUIs();
 			this.SubSetupRightEditorUIs();
 		}
@@ -87,7 +87,7 @@ namespace LevelEditorScene {
 
 		/** UI 상태를 갱신한다 */
 		private void SubUpdateUIsState() {
-			this.SubUpdateUIsStateMidEditor();
+			this.SubUpdateUIsStateMiddleEditor();
 			this.SubUpdateUIsStateLeftEditor();
 			this.SubUpdateUIsStateRightEditor();
 		}
@@ -227,12 +227,12 @@ namespace LevelEditorScene {
 		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 중앙 에디터 UI 를 설정한다 */
-		private void SubSetupMidEditorUIs() {
+		private void SubSetupMiddleEditorUIs() {
 			// Do Something
 		}
 
 		/** 중앙 에디터 UI 상태를 갱신한다 */
-		private void SubUpdateUIsStateMidEditor() {
+		private void SubUpdateUIsStateMiddleEditor() {
 			// Do Something
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

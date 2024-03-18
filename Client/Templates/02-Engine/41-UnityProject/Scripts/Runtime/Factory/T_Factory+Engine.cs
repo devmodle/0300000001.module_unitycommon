@@ -22,8 +22,8 @@ namespace NSEngine {
 			};
 
 			var stPos = a_stPos + a_stOffset;
-			var stBoundsPos = stPos.ExGetPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, stGridInfo.m_stBounds.size);
-			var stViewBoundsPos = a_stPos.ExGetPivotPos(KCDefine.B_ANCHOR_MID_CENTER, a_stPivot, a_bIsEnableOverflow ? new Vector3(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.x * (a_stMaxGridSize.y / a_stMaxGridSize.x), KCDefine.B_VAL_0_REAL) : new Vector3(Mathf.Max(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.y), Mathf.Max(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.y), KCDefine.B_VAL_0_REAL));
+			var stBoundsPos = stPos.ExGetPivotPos(KCDefine.B_ANCHOR_MIDDLE_CENTER, a_stPivot, stGridInfo.m_stBounds.size);
+			var stViewBoundsPos = a_stPos.ExGetPivotPos(KCDefine.B_ANCHOR_MIDDLE_CENTER, a_stPivot, a_bIsEnableOverflow ? new Vector3(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.x * (a_stMaxGridSize.y / a_stMaxGridSize.x), KCDefine.B_VAL_0_REAL) : new Vector3(Mathf.Max(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.y), Mathf.Max(stGridInfo.m_stBounds.size.x, stGridInfo.m_stBounds.size.y), KCDefine.B_VAL_0_REAL));
 
 			try {
 				stGridInfo.m_stBounds = new Bounds(stBoundsPos, stGridInfo.m_stBounds.size);
@@ -77,7 +77,7 @@ namespace NSEngine {
 						break;
 					}
 					default: {
-						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, a_stCellSize, a_stMaxGridSize, a_oLevelInfo.NumCells);
+						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_MIDDLE_CENTER, Vector3.zero, Vector3.zero, a_stCellSize, a_stMaxGridSize, a_oLevelInfo.NumCells);
 						stGridInfo.m_stScale = (a_oLevelInfo.GridType == EGridType.NONE) ? Vector3.one : stGridInfo.m_stScale;
 
 						a_oOutGridInfoList.ExAddVal(stGridInfo);

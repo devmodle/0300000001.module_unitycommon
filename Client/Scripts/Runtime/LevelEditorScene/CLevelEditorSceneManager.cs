@@ -14,9 +14,9 @@ namespace LevelEditorScene
 		private enum EKey
 		{
 			NONE = -1,
-			MID_EDITOR_UIS,
 			LEFT_EDITOR_UIS,
 			RIGHT_EDITOR_UIS,
+			MIDDLE_EDITOR_UIS,
 
 			ME_UIS_MSG_UIS,
 			ME_UIS_INFO_UIS,
@@ -43,11 +43,11 @@ namespace LevelEditorScene
 		public override float ScreenHeight => KCDefine.B_DESIGN_P_SCREEN_HEIGHT * KCDefine.ES_SCALE_DESIGN_SCREEN_HEIGHT;
 
 		public override EProjection MainCameraProjection => EProjection._3D;
-		public override Vector3 ObjRootPivotPos => (this.UIsBase != null && this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS) != null) ? Vector3.zero.ExToWorld(this.UIsBase.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS)).ExToLocal(this.UIs) : Vector3.zero;
+		public override Vector3 ObjRootPivotPos => this.GetObjRootPivotPos();
 
-		protected GameObject MidEditorUIs => m_oUIDict[EKey.MID_EDITOR_UIS];
 		protected GameObject LeftEditorUIs => m_oUIDict[EKey.LEFT_EDITOR_UIS];
 		protected GameObject RightEditorUIs => m_oUIDict[EKey.RIGHT_EDITOR_UIS];
+		protected GameObject MiddleEditorUIs => m_oUIDict[EKey.MIDDLE_EDITOR_UIS];
 
 		protected GameObject MEUIsMsgUIs => m_oUIDict[EKey.ME_UIS_MSG_UIS];
 		protected GameObject MEUIsInfoUIs => m_oUIDict[EKey.ME_UIS_INFO_UIS];
@@ -71,34 +71,47 @@ namespace LevelEditorScene
 			}
 
 			// 객체를 설정한다 {
-			CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
-				(EKey.MID_EDITOR_UIS, $"{EKey.MID_EDITOR_UIS}", this.UIsBase),
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>()
+			{
+				(EKey.MIDDLE_EDITOR_UIS, $"{EKey.MIDDLE_EDITOR_UIS}", this.UIsBase),
 				(EKey.LEFT_EDITOR_UIS, $"{EKey.LEFT_EDITOR_UIS}", this.UIsBase),
 				(EKey.RIGHT_EDITOR_UIS, $"{EKey.RIGHT_EDITOR_UIS}", this.UIsBase)
 			}, m_oUIDict);
 
-			CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {
-				(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIDict[EKey.MID_EDITOR_UIS]),
-				(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIDict[EKey.MID_EDITOR_UIS]),
-				(EKey.ME_UIS_EDITOR_MODE_UIS, $"{EKey.ME_UIS_EDITOR_MODE_UIS}", m_oUIDict[EKey.MID_EDITOR_UIS]),
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>()
+			{
+				(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIDict[EKey.MIDDLE_EDITOR_UIS]),
+				(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIDict[EKey.MIDDLE_EDITOR_UIS]),
+				(EKey.ME_UIS_EDITOR_MODE_UIS, $"{EKey.ME_UIS_EDITOR_MODE_UIS}", m_oUIDict[EKey.MIDDLE_EDITOR_UIS]),
 				(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIDict[EKey.LEFT_EDITOR_UIS])
 			}, m_oUIDict);
 
-			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>()
+			{
 				(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 			}, m_oObjDict);
 
-			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {
+			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>()
+			{
 				(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", m_oObjDict[EKey.EDITOR_OBJ_ROOT], null)
 			}, m_oObjDict);
+
+			CSceneManager.ScreenDebugUIs?.SetActive(false);
 
 			m_oUIDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
 			m_oObjDict[EKey.EDITOR_OBJ_ROOT]?.ExAddComponent<SpriteRenderer>();
 			// 객체를 설정한다 }
-
-			CSceneManager.ScreenDebugUIs?.SetActive(false);
 		}
 		#endregion // 함수
+
+		#region 접근 함수
+		/** 루트 객체 기준 위치를 반환한다 */
+		private Vector3 GetObjRootPivotPos()
+		{
+			var oEditorUIsMiddle = this.UIsBase?.ExFindChild(KCDefine.U_OBJ_N_SCENE_MIDDLE_EDITOR_UIS);
+			return (oEditorUIsMiddle != null) ? Vector3.zero.ExToWorld(oEditorUIsMiddle).ExToLocal(this.UIs) : Vector3.zero;
+		}
+		#endregion // 접근 함수
 	}
 }
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
