@@ -36,7 +36,7 @@ namespace SetupScene
 		}
 
 		#region 변수
-		private Tween m_oGaugeAni = null;
+		private Tween m_oGaugeAnim = null;
 		private Stopwatch m_oStopwatch = new Stopwatch();
 
 		private System.Text.StringBuilder m_oStrBuilder01 = new System.Text.StringBuilder();
@@ -158,9 +158,9 @@ namespace SetupScene
 		}
 
 		/** 애니메이션을 리셋한다 */
-		public virtual void ResetAni()
+		public virtual void ResetAnim()
 		{
-			CAccess.AssignVal(ref m_oGaugeAni, null);
+			CAccess.AssignVal(ref m_oGaugeAnim, null);
 		}
 
 		/** 제거되었을 경우 */
@@ -173,7 +173,7 @@ namespace SetupScene
 				// 앱이 실행 중 일 경우
 				if(CSceneManager.IsAppRunning)
 				{
-					this.ResetAni();
+					this.ResetAnim();
 				}
 			}
 			catch(System.Exception oException)
@@ -270,8 +270,8 @@ namespace SetupScene
 		{
 			float fPercent = Mathf.Clamp01((int)(a_eEvent + KCDefine.B_VAL_1_INT) / (float)ESetupSceneEvent.MAX_VAL);
 
-			CAccess.AssignVal(ref m_oGaugeAni,
-				this.StartLoadingGaugeAni(m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER], (a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
+			CAccess.AssignVal(ref m_oGaugeAnim,
+				this.StartLoadingGaugeAnim(m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER], (a_fVal) => this.UpdateUIsState(), null, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent, fPercent, KCDefine.U_DURATION_ANI * KCDefine.B_VAL_2_REAL));
 
 #if DEBUG || DEVELOPMENT
 			CLocalizeInfoTable.Inst.TryGetFontSetInfo(string.Empty, SystemLanguage.English, EFontSet._1, out STFontSetInfo stFontSetInfo);
@@ -289,10 +289,10 @@ namespace SetupScene
 		}
 
 		/** 로딩 게이지 애니메이션을 시작한다 */
-		private Sequence StartLoadingGaugeAni(CGaugeHandler a_oGaugeHandler, System.Action<float> a_oCallback, System.Action<CGaugeHandler, Sequence> a_oCompleteCallback, float a_fStartVal, float a_fEndVal, float a_fDuration, Ease a_eEase = KCDefine.U_EASE_DEF, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsRealtime = false)
+		private Sequence StartLoadingGaugeAnim(CGaugeHandler a_oGaugeHandler, System.Action<float> a_oCallback, System.Action<CGaugeHandler, Sequence> a_oCompleteCallback, float a_fStartVal, float a_fEndVal, float a_fDuration, Ease a_eEase = KCDefine.U_EASE_DEF, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsRealtime = false)
 		{
 			CFunc.Assert(a_oGaugeHandler != null);
-			return CFactory.MakeSequence(CFactory.MakeAni(() => a_oGaugeHandler.Percent, (a_fVal) => a_oGaugeHandler.SetPercent(a_fVal), () => a_oGaugeHandler.SetPercent(a_fStartVal), a_oCallback, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oAnimSender) => CFunc.Invoke(ref a_oCompleteCallback, a_oGaugeHandler, a_oAnimSender), a_fDelay, a_bIsRealtime: a_bIsRealtime);
+			return CFactory.MakeSequence(CFactory.MakeAnim(() => a_oGaugeHandler.Percent, (a_fVal) => a_oGaugeHandler.SetPercent(a_fVal), () => a_oGaugeHandler.SetPercent(a_fStartVal), a_oCallback, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oAnimSender) => CFunc.Invoke(ref a_oCompleteCallback, a_oGaugeHandler, a_oAnimSender), a_fDelay, a_bIsRealtime: a_bIsRealtime);
 		}
 		#endregion // 함수
 	}
