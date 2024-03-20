@@ -111,8 +111,8 @@ public static partial class Extension
 	{
 		CFunc.Assert(!a_bIsAssert || a_oSender != null);
 
-		a_oSender?.ExPlay(a_bIsPlayChildren, a_bIsStopChildren, a_bIsAssert);
-		a_oSender?.GetComponentInChildren<CEventDispatcher>()?.SetParticleFXCallback(a_oCallback);
+		a_oSender?.ExPlay(a_bIsPlayChildren, a_bIsStopChildren, a_bIsAssert: a_bIsAssert);
+		a_oSender?.GetComponentInChildren<CEventDispatcher>()?.SetParticleCallback(a_oCallback);
 	}
 
 	/** 게이지 애니메이션을 시작한다 */

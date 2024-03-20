@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1439637183281735830}
   - component: {fileID: 1439637183281735833}
   m_Layer: 0
-  m_Name: T_LineFX
+  m_Name: T_Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

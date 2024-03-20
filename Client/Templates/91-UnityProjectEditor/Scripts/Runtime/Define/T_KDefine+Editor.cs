@@ -40,14 +40,14 @@ public static partial class KDefine {
 	public const string LES_KEY_BTN_GAME_OBJS_POOL = "BtnGameObjsPool";
 
 	public const string LES_KEY_SPRITE_GAME_OBJS_POOL = "SpriteGameObjsPool";
-	public const string LES_KEY_LINE_FX_GAME_OBJS_POOL = "LineFXGameObjsPool";
+	public const string LES_KEY_LINE_GAME_OBJS_POOL = "LineGameObjsPool";
 	// 식별자 }
 
 	// 이름 {
 	public const string LES_OBJ_N_OBJ_SPRITE = "OBJ_SPRITE";
 	public const string LES_OBJ_N_SEL_OBJ_SPRITE = "SEL_OBJ_SPRITE";
 
-	public const string LES_OBJ_N_GRID_LINE_FX = "GRID_LINE_FX";
+	public const string LES_OBJ_N_GRID_LINE = "GRID_LINE";
 	public const string LES_OBJ_N_GRID_LINE_BTN = "GRID_LINE_BTN";
 	public const string LES_OBJ_N_FMT_RE_UIS_PAGE_UIS = "RE_UIS_PAGE_UIS_{0:00}";
 
@@ -61,8 +61,8 @@ public static partial class KDefine {
 
 	#region 런타임 상수
 	// 색상
-	public static readonly Color LES_COLOR_GRID_LINE_FX = new Color(0.0f, 0.35f, 0.35f, 1.0f);
-	public static readonly Color LES_COLOR_VIEW_GRID_LINE_FX = new Color(0.35f, 0.0f, 0.0f, 1.0f);
+	public static readonly Color LES_COLOR_GRID_LINE = new Color(0.0f, 0.35f, 0.35f, 1.0f);
+	public static readonly Color LES_COLOR_VIEW_GRID_LINE = new Color(0.35f, 0.0f, 0.0f, 1.0f);
 
 	// 단위 {
 	public static readonly Vector3 LES_SCALE_EDITOR_OBJ_ROOT = new Vector3(2.0f, 2.0f, 2.0f);

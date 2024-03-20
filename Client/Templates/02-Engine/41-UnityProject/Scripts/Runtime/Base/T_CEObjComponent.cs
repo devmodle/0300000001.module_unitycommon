@@ -35,7 +35,7 @@ namespace NSEngine {
 		public CDictWrapper<EAbilityKinds, decimal> AbilityValDictWrapper { get; } = new CDictWrapper<EAbilityKinds, decimal>();
 
 		public SpriteRenderer TargetSprite { get; private set; } = null;
-		public ParticleSystem TargetParticleFX { get; private set; } = null;
+		public ParticleSystem TargetParticle { get; private set; } = null;
 
 		public List<GameObject> TargetList => m_oTargetList;
 		public List<GameObject> ExtraTargetList => m_oExtraTargetList;
@@ -48,7 +48,7 @@ namespace NSEngine {
 
 			// 타겟 컴포넌트를 설정한다
 			this.TargetSprite = this.gameObject.ExFindComponent<SpriteRenderer>(KCDefine.U_OBJ_N_TARGET_SPRITE);
-			this.TargetParticleFX = this.gameObject.ExFindComponent<ParticleSystem>(KCDefine.U_OBJ_N_TARGET_PARTICLE_FX);
+			this.TargetParticle = this.gameObject.ExFindComponent<ParticleSystem>(KCDefine.U_OBJ_N_TARGET_PARTICLE);
 
 			this.SubAwake();
 		}
@@ -62,9 +62,9 @@ namespace NSEngine {
 			this.TargetSprite?.gameObject.ExSetLocalPos(Vector3.zero, false);
 			this.TargetSprite?.ExSetPropertyVal<SpriteRenderer>(KCDefine.U_PROPERTY_N_COLOR, Color.white, a_bIsAssert: false);
 
-			// 파티클 효과를 설정한다
-			this.TargetParticleFX?.gameObject.ExSetLocalPos(Vector3.zero, false);
-			this.TargetParticleFX?.Stop(true);
+			// 파티클을 설정한다
+			this.TargetParticle?.gameObject.ExSetLocalPos(Vector3.zero, false);
+			this.TargetParticle?.Stop(true);
 
 			this.SubInit();
 		}

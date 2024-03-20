@@ -32,7 +32,7 @@ namespace NSEngine {
 				case EFXApplyType.ANI: this.SetupAni(); break;
 				case EFXApplyType.TWEEN: this.SetupTween(); break;
 				case EFXApplyType.ANIMATOR: this.SetupAnimator(); break;
-				case EFXApplyType.PARTICLE_FX: this.SetupParticleFX(); break;
+				case EFXApplyType.PARTICLE: this.SetupParticle(); break;
 			}
 		}
 
@@ -44,7 +44,7 @@ namespace NSEngine {
 				case EFXApplyType.ANI: this.CancelAni(); break;
 				case EFXApplyType.TWEEN: this.CancelTween(); break;
 				case EFXApplyType.ANIMATOR: this.CancelAnimator(); break;
-				case EFXApplyType.PARTICLE_FX: this.CancelParticleFX(); break;
+				case EFXApplyType.PARTICLE: this.CancelParticle(); break;
 			}
 		}
 
@@ -107,8 +107,8 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 파티클 효과를 적용한다 */
-		private void ApplyParticleFX() {
+		/** 파티클을 적용한다 */
+		private void ApplyParticle() {
 			// Do Something
 		}
 
@@ -127,8 +127,8 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 파티클 효과를 취소한다 */
-		private void CancelParticleFX() {
+		/** 파티클을 취소한다 */
+		private void CancelParticle() {
 			// Do Something
 		}
 
@@ -144,7 +144,7 @@ namespace NSEngine {
 					case EFXApplyType.ANI: this.ApplyAni(); break;
 					case EFXApplyType.TWEEN: this.ApplyTween(); break;
 					case EFXApplyType.ANIMATOR: this.ApplyAnimator(); break;
-					case EFXApplyType.PARTICLE_FX: this.ApplyParticleFX(); break;
+					case EFXApplyType.PARTICLE: this.ApplyParticle(); break;
 				}
 			}
 
@@ -183,8 +183,8 @@ namespace NSEngine {
 			// Do Something
 		}
 
-		/** 파티클 효과를 설정한다 */
-		private void SetupParticleFX() {
+		/** 파티클을 설정한다 */
+		private void SetupParticle() {
 			// Do Something
 		}
 		#endregion // 함수

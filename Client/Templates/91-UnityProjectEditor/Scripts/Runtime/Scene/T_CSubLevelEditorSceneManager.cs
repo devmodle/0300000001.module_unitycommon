@@ -147,9 +147,9 @@ namespace LevelEditorScene
 
 		private Sprite m_oGridBoundsImg = null;
 		private Texture2D m_oGridBoundsTex2D = null;
-		private LineRenderer m_oViewGridLineFX = null;
+		private LineRenderer m_oViewGridLine = null;
 
-		private List<LineRenderer> m_oGridLineFXList = new List<LineRenderer>();
+		private List<LineRenderer> m_oGridLineList = new List<LineRenderer>();
 		private List<SpriteRenderer> m_oSelObjSpriteList = new List<SpriteRenderer>();
 
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
@@ -282,7 +282,7 @@ namespace LevelEditorScene
 
 			// 게임 객체 풀을 설정한다 {
 			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
-			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_LINE_FX, this.ObjRoot));
+			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_LINE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_LINE, this.ObjRoot));
 
 			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MiddleEditorUIs));
 			// 게임 객체 풀을 설정한다 }
@@ -702,10 +702,10 @@ namespace LevelEditorScene
 					m_oGridLineBtnVList[i].gameObject);
 			}
 
-			for(int i = 0; i < m_oGridLineFXList.Count; ++i)
+			for(int i = 0; i < m_oGridLineList.Count; ++i)
 			{
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL,
-					m_oGridLineFXList[i].gameObject);
+				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_LINE_GAME_OBJS_POOL,
+					m_oGridLineList[i].gameObject);
 			}
 
 			m_oObjSpriteInfoLists?.ExEnumerate((oObjSpriteInfoList, a_stIdx) =>
@@ -736,11 +736,11 @@ namespace LevelEditorScene
 			this.EditorObjRoot.transform.localPosition = this.ObjRootPivotPos;
 			// 객체를 설정한다 }
 
-			// 그리드 라인 효과를 설정한다 {
-			m_oGridLineFXList.Clear();
-			m_oViewGridLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
+			// 그리드 라인을 설정한다 {
+			m_oGridLineList.Clear();
+			m_oViewGridLine.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
 
-			m_oViewGridLineFX.ExSetPositions(new List<Vector3>() {
+			m_oViewGridLine.ExSetPositions(new List<Vector3>() {
 				new Vector3(this.SelGridInfo.m_stBounds.min.x, this.SelGridInfo.m_stBounds.min.y + (NSEngine.Access.CellSize.y * this.SelLevelInfo.m_stNumViewCells.y), this.SelGridInfo.m_stPivotPos.z),
 				new Vector3(this.SelGridInfo.m_stBounds.max.x, this.SelGridInfo.m_stBounds.min.y + (NSEngine.Access.CellSize.y * this.SelLevelInfo.m_stNumViewCells.y), this.SelGridInfo.m_stPivotPos.z)
 			});
@@ -749,24 +749,24 @@ namespace LevelEditorScene
 			{
 				for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j)
 				{
-					var oLineFX = CGameObjsPoolManager.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
-					oLineFX.loop = true;
+					var oLine = CGameObjsPoolManager.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE, KDefine.LES_KEY_LINE_GAME_OBJS_POOL);
+					oLine.loop = true;
 
-					oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
-					oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE_FX, KDefine.LES_COLOR_GRID_LINE_FX);
-					oLineFX.ExSetSortingOrder(KCDefine.B_SORTING_OI_UNDERGROUND);
+					oLine.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
+					oLine.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
+					oLine.ExSetSortingOrder(KCDefine.B_SORTING_OI_UNDERGROUND);
 
-					oLineFX.ExSetPositions(new List<Vector3>() {
+					oLine.ExSetPositions(new List<Vector3>() {
 						this.SelGridInfo.m_stPivotPos + new Vector3(j * NSEngine.Access.CellSize.x, (i + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
 						this.SelGridInfo.m_stPivotPos + new Vector3(j * NSEngine.Access.CellSize.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
 						this.SelGridInfo.m_stPivotPos + new Vector3((j + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
 						this.SelGridInfo.m_stPivotPos + new Vector3((j + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, (i + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL)
 					});
 
-					m_oGridLineFXList.ExAddVal(oLineFX);
+					m_oGridLineList.ExAddVal(oLine);
 				}
 			}
-			// 그리드 라인 효과를 설정한다 }
+			// 그리드 라인을 설정한다 }
 
 			// 객체 스프라이트를 설정한다 {
 			m_oObjSpriteInfoLists = new List<STObjSpriteInfo>[this.SelLevelInfo.NumCells.y, this.SelLevelInfo.NumCells.x];
@@ -1594,13 +1594,13 @@ namespace LevelEditorScene
 		/** 중앙 에디터 UI 를 설정한다 */
 		private void SetupMiddleEditorUIs()
 		{
-			// 라인 효과를 설정한다 {
-			m_oViewGridLineFX = CGameObjsPoolManager.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_GAME_OBJS_POOL);
-			m_oViewGridLineFX.loop = false;
+			// 라인을 설정한다 {
+			m_oViewGridLine = CGameObjsPoolManager.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE, KDefine.LES_KEY_LINE_GAME_OBJS_POOL);
+			m_oViewGridLine.loop = false;
 
-			m_oViewGridLineFX.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE_FX, KDefine.LES_COLOR_VIEW_GRID_LINE_FX);
-			m_oViewGridLineFX.ExSetSortingOrder(KCDefine.B_SORTING_OI_TOPMOST);
-			// 라인 효과를 설정한다 }
+			m_oViewGridLine.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE, KDefine.LES_COLOR_VIEW_GRID_LINE);
+			m_oViewGridLine.ExSetSortingOrder(KCDefine.B_SORTING_OI_TOPMOST);
+			// 라인을 설정한다 }
 
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {

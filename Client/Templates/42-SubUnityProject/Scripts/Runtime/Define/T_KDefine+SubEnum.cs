@@ -113,7 +113,7 @@ public enum EFXApplyType {
 	ANI,
 	TWEEN,
 	ANIMATOR,
-	PARTICLE_FX,
+	PARTICLE,
 	[HideInInspector] MAX_VAL
 }
 
@@ -136,10 +136,10 @@ public enum EFXApplyKinds {
 	ANIMATOR_FX_APPLY_01 = (EEnumVal.T * EFXApplyType.ANIMATOR) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 메카님 애니메이션
 
-	#region 파티클 효과
+	#region 파티클
 	// 300,000,000
-	PARTICLE_FX_APPLY_01 = (EEnumVal.T * EFXApplyType.PARTICLE_FX) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	#endregion // 파티클 효과
+	PARTICLE_APPLY_01 = (EEnumVal.T * EFXApplyType.PARTICLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	#endregion // 파티클
 
 	[HideInInspector] MAX_VAL
 }
