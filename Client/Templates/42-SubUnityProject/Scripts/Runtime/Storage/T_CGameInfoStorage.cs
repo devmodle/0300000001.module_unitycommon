@@ -113,19 +113,19 @@ public partial class CCharacterGameInfo : CBaseInfo {
 
 	[IgnoreMember]
 	public System.DateTime PrevDailyMissionTime {
-		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.AdjustPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.AdjustPrevDailyMissionTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); }
 	}
 
 	[IgnoreMember]
 	public System.DateTime PrevDailyRewardTime {
-		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.AdjustPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.AdjustPrevDailyRewardTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); }
 	}
 
 	[IgnoreMember]
 	public System.DateTime PrevFreeRewardTime {
-		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.AdjustPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.AdjustPrevFreeRewardTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
 	}
 
@@ -133,9 +133,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.ExGetVal(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
 	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.ExGetVal(KEY_PREV_FREE_REWARD_TIME, string.Empty);
 
-	[IgnoreMember] private string AdjustPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	[IgnoreMember] private string AdjustPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	[IgnoreMember] private string AdjustPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] private string AdjustPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] private string AdjustPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] private string AdjustPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
