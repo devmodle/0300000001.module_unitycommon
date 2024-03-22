@@ -111,9 +111,9 @@ public static partial class CCommonEditorSceneManager
 	{
 		var oLightingSettingsPathDict = new Dictionary<EQualityLevel, string>()
 		{
-			[EQualityLevel.NORM] = KCDefine.U_ASSET_P_G_NORM_QUALITY_LIGHTING_SETTINGS,
-			[EQualityLevel.HIGH] = KCDefine.U_ASSET_P_G_HIGH_QUALITY_LIGHTING_SETTINGS,
-			[EQualityLevel.ULTRA] = KCDefine.U_ASSET_P_G_ULTRA_QUALITY_LIGHTING_SETTINGS
+			[EQualityLevel.NORM] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_NORM_QUALITY,
+			[EQualityLevel.HIGH] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_HIGH_QUALITY,
+			[EQualityLevel.ULTRA] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_ULTRA_QUALITY
 		};
 
 		var stScene = EditorSceneManager.GetActiveScene();

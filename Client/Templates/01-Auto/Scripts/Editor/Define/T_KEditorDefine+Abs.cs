@@ -13,10 +13,12 @@ using UnityEditor.iOS.Xcode;
 #endif // #if UNITY_IOS
 
 /** 에디터 상수 */
-public static partial class KEditorDefine {
+public static partial class KEditorDefine
+{
 	#region 런타임 상수
 	// 스크립트 순서
-	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
+	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>()
+	{
 		[typeof(CValTable)] = KCDefine.B_SCRIPT_O_LATE,
 		[typeof(CStrTable)] = KCDefine.B_SCRIPT_O_LATE,
 
@@ -24,7 +26,7 @@ public static partial class KEditorDefine {
 		[typeof(CResManager)] = KCDefine.B_SCRIPT_O_LATE,
 		[typeof(CTaskManager)] = KCDefine.B_SCRIPT_O_LATE,
 		[typeof(CNetworkManager)] = KCDefine.B_SCRIPT_O_LATE,
-		
+
 		[typeof(CScheduleManager)] = KCDefine.B_SCRIPT_O_LATE,
 		[typeof(CNavStackManager)] = KCDefine.B_SCRIPT_O_LATE,
 		[typeof(CIndicatorManager)] = KCDefine.B_SCRIPT_O_LATE,
@@ -134,7 +136,8 @@ public static partial class KEditorDefine {
 	};
 
 	// 클래스 타입
-	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_DICT = new Dictionary<string, System.Type>() {
+	public static readonly Dictionary<string, System.Type> B_SCENE_MANAGER_TYPE_DICT = new Dictionary<string, System.Type>()
+	{
 #if SCENE_TEMPLATES_MODULE_ENABLE
 		[KCDefine.B_SCENE_N_INIT] = typeof(InitScene.CSubInitSceneManager),
 		[KCDefine.B_SCENE_N_SETUP] = typeof(SetupScene.CSubSetupSceneManager),
@@ -162,7 +165,8 @@ public static partial class KEditorDefine {
 	};
 
 	// 패키지
-	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>() {
+	public static readonly Dictionary<string, string> B_UNITY_PKGS_DEPENDENCY_DICT = new Dictionary<string, string>()
+	{
 		// 기본 {
 		["com.unity.feature.2d"] = "2.0.0",
 		["com.unity.feature.characters-animation"] = "1.0.0",
@@ -178,13 +182,9 @@ public static partial class KEditorDefine {
 		["com.unity.render-pipelines.universal"] = "14.0.10",
 		["com.unity.visualeffectgraph"] = "14.0.10",
 		["com.unity.adaptiveperformance.samsung.android"] = "4.0.2",
-		
-#if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
-		["com.unity.postprocessing"] = "3.4.0",
-#endif // #if POST_PROCESSING_ENABLE || POST_PROCESSING_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["com.unity.purchasing"] = "4.10.0",
+		["com.unity.purchasing"] = "4.11.0",
 		["com.unity.purchasing.udp"] = "2.2.5",
 #endif // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
@@ -241,7 +241,7 @@ public static partial class KEditorDefine {
 	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif // #if UNITY_IOS
-#endregion // 조건부 상수
+	#endregion // 조건부 상수
 
 	#region 조건부 런타임 상수
 #if UNITY_IOS
@@ -387,7 +387,7 @@ public static partial class KEditorDefine {
 	};
 	// 프레임워크 }
 #endif // #if UNITY_IOS
-#endregion // 조건부 런타임 상수
+	#endregion // 조건부 런타임 상수
 }
 #endif // #if UNITY_EDITOR
 #endif // #if SCRIPT_TEMPLATE_ONLY

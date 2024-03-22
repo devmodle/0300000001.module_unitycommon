@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3417879619681582966}
   - component: {fileID: 5988930133663138829}
   - component: {fileID: 815376786746393485}
-  - component: {fileID: 137124060420609355}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -32,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7755916769173386778}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -77,22 +75,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &137124060420609355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797726426388913004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0
 --- !u!1 &1491174069348139569
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +86,6 @@ GameObject:
   - component: {fileID: 5760860297807113106}
   - component: {fileID: 4210390595187709446}
   - component: {fileID: 1556105697880138233}
-  - component: {fileID: 8305403682775298029}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -125,7 +106,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5078525330625186405}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -170,22 +150,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8305403682775298029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491174069348139569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0
 --- !u!1 &1515028129432522447
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +162,7 @@ GameObject:
   - component: {fileID: 1515028129432522435}
   - component: {fileID: 1515028129432522434}
   - component: {fileID: 1515028129432522433}
-  - component: {fileID: 5680934288716918422}
+  - component: {fileID: 7483107347276735135}
   - component: {fileID: 7436185795531083309}
   - component: {fileID: 8037950981793500101}
   m_Layer: 5
@@ -225,7 +189,6 @@ RectTransform:
   - {fileID: 6997057943378071886}
   - {fileID: 5321980310776866238}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -300,7 +263,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5680934288716918422
+--- !u!114 &7483107347276735135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -309,17 +272,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1515028129432522447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385b7d1277b6c4007a84c065696e0f8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
-  m_DownSamplingRate: 1
-  m_Softness: 1
-  m_Alpha: 1
-  m_IgnoreParent: 0
-  m_PartOfParent: 0
-  m_IgnoreSelfGraphic: 0
-  m_IgnoreSelfStencil: 0
 --- !u!114 &7436185795531083309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +308,9 @@ MonoBehaviour:
   snapTweenType: 0
   snapTweenTime: 0
   snapWhileDragging: 0
+  forceSnapOnEndDrag: 0
+  interruptTweeningOnDrag: 0
+  tweenPaused: 0
   _scrollPosition: 0
 --- !u!114 &8037950981793500101
 MonoBehaviour:
@@ -394,7 +353,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1515028129432522432}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -413,7 +371,6 @@ GameObject:
   - component: {fileID: 8999425980721787607}
   - component: {fileID: 673759869670030856}
   - component: {fileID: 4625779963890995653}
-  - component: {fileID: 2351514226789847960}
   m_Layer: 5
   m_Name: HScrollbar
   m_TagString: Untagged
@@ -435,7 +392,6 @@ RectTransform:
   m_Children:
   - {fileID: 5078525330625186405}
   m_Father: {fileID: 1515028129432522432}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -529,22 +485,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2351514226789847960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2694164706323149759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0
 --- !u!1 &3199331064273677142
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +515,6 @@ RectTransform:
   m_Children:
   - {fileID: 5760860297807113106}
   m_Father: {fileID: 5321980310776866238}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -593,7 +532,6 @@ GameObject:
   - component: {fileID: 6449497196062819691}
   - component: {fileID: 6774911952547231173}
   - component: {fileID: 5498073574510725302}
-  - component: {fileID: 510011354406093470}
   m_Layer: 5
   m_Name: BG_IMG
   m_TagString: Untagged
@@ -614,7 +552,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1515028129432522432}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -659,22 +596,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &510011354406093470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5111563722606500760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0
 --- !u!1 &5361502883414210085
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +626,6 @@ RectTransform:
   m_Children:
   - {fileID: 3417879619681582966}
   m_Father: {fileID: 6997057943378071886}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -724,7 +644,6 @@ GameObject:
   - component: {fileID: 5143193498120260474}
   - component: {fileID: 3420572430034361920}
   - component: {fileID: 5282121212027624009}
-  - component: {fileID: 1277403598728743217}
   m_Layer: 5
   m_Name: VScrollbar
   m_TagString: Untagged
@@ -746,7 +665,6 @@ RectTransform:
   m_Children:
   - {fileID: 7755916769173386778}
   m_Father: {fileID: 1515028129432522432}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -834,25 +752,9 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 815376786746393485}
   m_HandleRect: {fileID: 3417879619681582966}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1277403598728743217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7543963288718894017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0

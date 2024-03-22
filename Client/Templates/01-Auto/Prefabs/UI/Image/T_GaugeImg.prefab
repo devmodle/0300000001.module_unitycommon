@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5861159794508693850}
   - component: {fileID: 4666079367473487682}
   - component: {fileID: 1047711856225172336}
-  - component: {fileID: 2778076806270867610}
   m_Layer: 5
   m_Name: PERCENT_IMG
   m_TagString: Untagged
@@ -32,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9210985311794052904}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -77,22 +75,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2778076806270867610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2733460570815652772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bc2ebab6563400c95b036136d26ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Inverse: 0
-  m_MaskInteraction: 85
-  m_UseStencil: 1
-  m_RaycastFilter: 0
 --- !u!1 &9210985311794052919
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +86,7 @@ GameObject:
   - component: {fileID: 9210985311794052904}
   - component: {fileID: 9210985311794052906}
   - component: {fileID: 9210985311794052905}
-  - component: {fileID: 202572722979892243}
+  - component: {fileID: 2370146556541299367}
   - component: {fileID: 8665866930111549254}
   m_Layer: 5
   m_Name: T_GaugeImg
@@ -127,7 +109,6 @@ RectTransform:
   m_Children:
   - {fileID: 5861159794508693850}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -172,7 +153,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &202572722979892243
+--- !u!114 &2370146556541299367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,17 +162,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9210985311794052919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385b7d1277b6c4007a84c065696e0f8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
-  m_DownSamplingRate: 1
-  m_Softness: 1
-  m_Alpha: 1
-  m_IgnoreParent: 0
-  m_PartOfParent: 0
-  m_IgnoreSelfGraphic: 0
-  m_IgnoreSelfStencil: 0
 --- !u!114 &8665866930111549254
 MonoBehaviour:
   m_ObjectHideFlags: 0
