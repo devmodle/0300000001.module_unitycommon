@@ -557,7 +557,7 @@ namespace LevelEditorScene
 		protected override void OnChangeDeviceScreenSize(Vector3 a_stScreenSize)
 		{
 			base.OnChangeDeviceScreenSize(a_stScreenSize);
-			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR), KCDefine.B_VAL_0_1_REAL);
+			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_EDITOR_SCENE_N_LEVEL), KCDefine.B_VAL_0_1_REAL);
 		}
 
 		/** 에디터 종료 팝업 결과를 수신했을 경우 */

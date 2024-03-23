@@ -9,54 +9,39 @@ namespace TestScene
 	/** 테스트 씬 관리자 */
 	public abstract partial class CTestSceneManager : CSceneManager
 	{
-		/** 식별자 */
-		private enum EKey
-		{
-			NONE,
-			BACK_BTN,
-			[HideInInspector] MAX_VAL
-		}
-
-		#region 변수
-		[Header("=====> UIs <=====")]
-		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-		#endregion // 변수
-
-		#region 프로퍼티
-		public override bool IsEnableTestUIs => true;
-		public override bool IsEnableOverlayScene => true;
-		public override bool IsEnableBGTouchResponder => true;
-		#endregion // 프로퍼티
-
 		#region 함수
 		/** 초기화 */
 		public override void Awake()
 		{
 			base.Awake();
 
-			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit)
+			// 앱 초기화가 필요 할 경우
+			if(!CSceneManager.IsAppInit)
 			{
-				// 버튼을 설정한다 {
-				CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>() {
-					(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
-				}, m_oBtnDict);
-
-				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_LEFT;
-				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
-				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
-				(m_oBtnDict[EKey.BACK_BTN].transform as RectTransform).anchoredPosition = Vector3.zero;
-				// 버튼을 설정한다 }
+				return;
 			}
+
+			// 버튼을 설정한다 {
+			CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>()
+			{
+				(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
+			}, m_oBtnDict);
+
+			var oRectTrans = m_oBtnDict[EKey.BACK_BTN].transform as RectTransform;
+			oRectTrans.pivot = KCDefine.B_ANCHOR_UP_LEFT;
+			oRectTrans.anchorMin = KCDefine.B_ANCHOR_UP_LEFT;
+			oRectTrans.anchorMax = KCDefine.B_ANCHOR_UP_LEFT;
+			oRectTrans.anchoredPosition = Vector3.zero;
+			// 버튼을 설정한다 }
 		}
 
 		/** 내비게이션 스택 이벤트를 수신했을 경우 */
 		public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent)
 		{
-			// 백 키 눌림 이벤트 일 경우
-			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN)
+			switch(a_eEvent)
 			{
-				this.OnTouchBackBtn();
+				case ENavStackEvent.BACK_KEY_DOWN:
+					break;
 			}
 		}
 

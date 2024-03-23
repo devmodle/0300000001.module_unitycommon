@@ -20,11 +20,6 @@ namespace InitScene
 		protected abstract void ShowSplash();
 		#endregion // 추상
 
-		#region 클래스 변수
-		[Header("=====> Game Objects <=====")]
-		private static GameObject m_oBlindUIs = null;
-		#endregion // 클래스 변수
-
 		#region 프로퍼티
 		protected List<string> SpriteAtlasPathList { get; } = new List<string>();
 
@@ -184,37 +179,36 @@ namespace InitScene
 		/** 블라인드 UI 를 설정한다 */
 		private void SetupBlindUIs()
 		{
-			// 블라인드 UI 가 없을 경우
-			if(CInitSceneManager.m_oBlindUIs == null)
+			// UI 설정이 불가능 할 경우
+			if(CInitSceneManager.m_oBlindUIs != null)
 			{
-				CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_BLIND_UIS,
-					CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
-
-				try
-				{
-					CSceneManager.SetScreenBlindUIs(CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS));
-
-					// 블라인드 이미지를 설정한다 {
-					var oImgList = new List<Image>() {
-						this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-						this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-						this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs),
-						this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
-					};
-
-					for(int i = 0; i < oImgList.Count; ++i)
-					{
-						oImgList[i].color = KCDefine.B_COLOR_TRANSPARENT;
-						oImgList[i].raycastTarget = false;
-					}
-					// 블라인드 이미지를 설정한다 }
-				}
-				finally
-				{
-					DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
-					CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.B_SORTING_O_SCREEN_BLIND_UIS);
-				}
+				return;
 			}
+
+			CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS,
+				CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
+
+			DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
+			CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.B_SORTING_O_SCREEN_BLIND_UIS);
+
+			var oScreenBlindUIs = CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS, false);
+			CSceneManager.SetScreenBlindUIs(oScreenBlindUIs);
+
+			// 블라인드 이미지를 설정한다 {
+			var oImgList = new List<Image>()
+			{
+				this.CreateBlindImg(KCDefine.U_OBJ_N_UP_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+				this.CreateBlindImg(KCDefine.U_OBJ_N_DOWN_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+				this.CreateBlindImg(KCDefine.U_OBJ_N_LEFT_BLIND_IMG, CSceneManager.ScreenBlindUIs),
+				this.CreateBlindImg(KCDefine.U_OBJ_N_RIGHT_BLIND_IMG, CSceneManager.ScreenBlindUIs)
+			};
+
+			for(int i = 0; i < oImgList.Count; ++i)
+			{
+				oImgList[i].color = KCDefine.B_COLOR_TRANSPARENT;
+				oImgList[i].raycastTarget = false;
+			}
+			// 블라인드 이미지를 설정한다 }
 		}
 		#endregion // 함수
 	}

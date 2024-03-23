@@ -103,7 +103,7 @@ namespace MainScene
 			// 에디터 키를 눌렀을 경우
 			if(Input.GetKeyDown(KeyCode.E))
 			{
-				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_EDITOR_SCENE_N_LEVEL);
 			}
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
 		}

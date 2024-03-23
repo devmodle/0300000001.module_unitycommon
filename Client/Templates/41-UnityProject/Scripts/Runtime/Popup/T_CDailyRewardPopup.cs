@@ -25,7 +25,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 	#endregion // 변수
 
 	#region 프로퍼티
-	public override bool IsEnableCloseBtn => false;
+	public override bool IsAutoHandleCloseBtn => false;
 	#endregion // 프로퍼티
 
 	#region 함수

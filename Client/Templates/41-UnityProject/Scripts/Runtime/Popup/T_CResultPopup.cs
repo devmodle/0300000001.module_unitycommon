@@ -56,7 +56,7 @@ public partial class CResultPopup : CSubPopup {
 
 	#region 프로퍼티
 	public STParams Params { get; private set; }
-	public override bool IsEnableCloseBtn => false;
+	public override bool IsAutoHandleCloseBtn => false;
 	#endregion // 프로퍼티
 
 	#region 함수

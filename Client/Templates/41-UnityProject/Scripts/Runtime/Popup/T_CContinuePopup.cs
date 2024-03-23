@@ -45,7 +45,7 @@ public partial class CContinuePopup : CSubPopup {
 	public STParams Params { get; private set; }
 	public bool IsWatchRewardAds { get; private set; } = false;
 
-	public override bool IsEnableCloseBtn => false;
+	public override bool IsAutoHandleCloseBtn => false;
 	public EItemKinds ContinueItemKinds => (EItemKinds)Mathf.Min((int)EItemKinds.CONSUMABLE_ITEM_GAME_CONTINUE_MAX_VAL - KCDefine.B_VAL_1_INT, (int)EItemKinds.CONSUMABLE_ITEM_GAME_CONTINUE_01 + this.Params.m_nContinueTimes);
 	#endregion // 프로퍼티
 

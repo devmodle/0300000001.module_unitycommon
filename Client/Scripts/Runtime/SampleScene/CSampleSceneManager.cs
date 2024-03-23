@@ -12,35 +12,35 @@ using UnityEditor.SceneManagement;
 /** 샘플 씬 관리자 */
 public partial class CSampleSceneManager : CSceneManager
 {
-	#region 프로퍼티
-	public override float ScreenWidth => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ?
-		KCDefine.B_DESIGN_P_SCREEN_WIDTH : base.ScreenWidth;
-
-	public override float ScreenHeight => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_SAMPLE) ?
-		KCDefine.B_DESIGN_P_SCREEN_HEIGHT : base.ScreenHeight;
-	#endregion // 프로퍼티
-
 	#region 클래스 함수
 #if UNITY_EDITOR
 	/** 씬 관리자를 설정한다 */
-	public static void SetupSceneManager(Scene a_stScene, Dictionary<string, System.Type> a_oSceneManagerTypeDict)
+	public static void SetupSceneManager(Scene a_stScene, 
+		Dictionary<string, System.Type> a_oSceneManagerTypeDict)
 	{
 		foreach(var stKeyVal in a_oSceneManagerTypeDict)
 		{
-			// 씬 관리자 타입과 동일 할 경우
-			if(a_stScene.name.Equals(stKeyVal.Key))
+			// 관리자 설정이 불가능 할 경우
+			if(!a_stScene.name.Equals(stKeyVal.Key))
 			{
-				var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_N_SCENE_MANAGER);
-
-				// 씬 관리자 추가가 필요 할 경우
-				if(oSceneManager != null && oSceneManager.GetComponentInChildren(stKeyVal.Value) == null)
-				{
-					EditorSceneManager.MarkSceneDirty(a_stScene);
-
-					oSceneManager.ExRemoveComponent<CSceneManager>(false);
-					oSceneManager.AddComponent(stKeyVal.Value);
-				}
+				continue;
 			}
+
+			var oSceneManager = a_stScene.ExFindChild(KCDefine.U_OBJ_N_SCENE_MANAGER);
+
+			bool bIsEnableSetup = oSceneManager != null;
+			bIsEnableSetup = bIsEnableSetup && oSceneManager.GetComponentInChildren(stKeyVal.Value) == null;
+
+			// 관리자 설정이 불가능 할 경우
+			if(!bIsEnableSetup)
+			{
+				continue;
+			}
+
+			EditorSceneManager.MarkSceneDirty(a_stScene);
+
+			oSceneManager.ExRemoveComponent<CSceneManager>(false);
+			oSceneManager.AddComponent(stKeyVal.Value);
 		}
 	}
 
@@ -49,14 +49,16 @@ public partial class CSampleSceneManager : CSceneManager
 	{
 		base.OnReceiveNavStackEvent(a_eEvent);
 
-		// 백 키 눌림 이벤트 일 경우
-		if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN)
+		switch(a_eEvent)
 		{
+			case ENavStackEvent.BACK_KEY_DOWN:
 #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
+				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_TITLE);
 #endif // #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
+
+				break;
 		}
 	}
 #endif // #if UNITY_EDITOR

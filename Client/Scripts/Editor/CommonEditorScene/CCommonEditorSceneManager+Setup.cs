@@ -221,16 +221,16 @@ public static partial class CCommonEditorSceneManager
 		}
 
 		// 에디터 샘플 씬 템플릿이 존재 할 경우
-		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_EDITOR_SAMPLE_SCENE_TEMPLATE))
+		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_SAMPLE_EDITOR_SCENE_TEMPLATE))
 		{
-			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_EDITOR_SAMPLE_SCENE_TEMPLATE));
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_SAMPLE_EDITOR_SCENE_TEMPLATE));
 		}
 
 #if RESEARCH_MODULE_ENABLE
 		// 메뉴 샘플 씬 템플릿이 존재 할 경우
-		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE))
+		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_SAMPLE_MENU_SCENE_TEMPLATE))
 		{
-			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_MENU_SAMPLE_SCENE_TEMPLATE));
+			CCommonEditorSceneManager.DoSetupSceneTemplates(CEditorAccess.FindAsset<SceneTemplateAsset>(KCEditorDefine.B_ASSET_P_SAMPLE_MENU_SCENE_TEMPLATE));
 		}
 
 		// 스터디 샘플 씬 템플릿이 존재 할 경우

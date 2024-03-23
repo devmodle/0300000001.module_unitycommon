@@ -9,10 +9,6 @@ namespace ResultScene
 	/** 결과 씬 관리자 */
 	public partial class CResultSceneManager : CSceneManager
 	{
-		#region 프로퍼티
-#if UNITY_EDITOR
-		public override int ScriptOrder => KCDefine.B_SCRIPT_O_RESULT_SCENE_MANAGER;
-#endif // #if UNITY_EDITOR
-		#endregion // 프로퍼티
+		// Do Something
 	}
 }

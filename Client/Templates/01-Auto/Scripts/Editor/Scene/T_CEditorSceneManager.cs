@@ -45,9 +45,9 @@ public static partial class CEditorSceneManager {
 		CEditorSceneManager.m_dblDefineSymbolSkipTime = EditorApplication.timeSinceStartup;
 
 		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_MENU_SAMPLE);
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_RESEARCH_SAMPLE);
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_EDITOR_SAMPLE);
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_MENU);
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_RESEARCH);
+		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_EDITOR_SCENE_N_SAMPLE);
 
 EDITOR_SCENE_MANAGER_CONSTRUCTOR_EXIT_FINAL:
 		CEditorSceneManager.SetupCallbacks();
