@@ -124,7 +124,7 @@ public static partial class CCommonEditorSceneManager
 		}
 
 		// 광원 설정이 가능 할 경우
-		if(stScene.IsValid() && !CCommonEditorSceneManager.m_oSampleSceneNameList.Contains(stScene.name) && CPlatformOptsSetter.OptsInfoTable != null)
+		if(stScene.IsValid() && !CCommonEditorSceneManager.m_oListSceneNameSample.Contains(stScene.name) && CPlatformOptsSetter.OptsInfoTable != null)
 		{
 			bool bIsValid01 = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);

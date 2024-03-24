@@ -7,15 +7,17 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 미션 팝업 */
-public abstract partial class CMissionPopup : CSubPopup {
+public abstract partial class CMissionPopup : CSubPopup
+{
 	/** 매개 변수 */
-	public struct STParams {
-		public List<STMissionInfo> m_oMissionInfoList;
+	public struct STParams
+	{
+		public List<STMissionInfo> m_oListMissionInfo;
 	}
 
 	#region 변수
-	[Header("=====> Game Objects <=====")]
-	[SerializeField] private List<GameObject> m_oMissionUIList = new List<GameObject>();
+	[Header("=====> Mission Popup - Game Objects <=====")]
+	[SerializeField] private List<GameObject> m_oListMissionUI = new List<GameObject>();
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -24,13 +26,15 @@ public abstract partial class CMissionPopup : CSubPopup {
 
 	#region 함수
 	/** 초기화 */
-	public override void Awake() {
+	public override void Awake()
+	{
 		base.Awake();
 		this.SubAwake();
 	}
 
 	/** 초기화 */
-	public virtual void Init(STParams a_stParams) {
+	public virtual void Init(STParams a_stParams)
+	{
 		base.Init();
 		this.Params = a_stParams;
 
@@ -38,16 +42,19 @@ public abstract partial class CMissionPopup : CSubPopup {
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
-	protected override void SetupContents() {
+	protected override void SetupContents()
+	{
 		base.SetupContents();
 		this.UpdateUIsState();
 	}
 
 	/** UI 상태를 갱신한다 */
-	private void UpdateUIsState() {
+	private void UpdateUIsState()
+	{
 		// 미션 UI 상태를 갱신한다
-		for(int i = 0; i < m_oMissionUIList.Count; ++i) {
-			this.UpdateMissionUIState(m_oMissionUIList[i], this.Params.m_oMissionInfoList[i]);
+		for(int i = 0; i < m_oListMissionUI.Count; ++i)
+		{
+			this.UpdateMissionUIState(m_oListMissionUI[i], this.Params.m_oListMissionInfo[i]);
 		}
 
 		this.SubUpdateUIsState();

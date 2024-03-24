@@ -57,9 +57,9 @@ public static partial class CCommonEditorSceneManager
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsEnableBuild = false;
 
-	private static double m_dblUpdateSkipTime = 0.0;
+	private static double m_dblSkipTimeUpdate = 0.0;
 	private static System.Text.StringBuilder m_oStrBuilder = new System.Text.StringBuilder();
-	private static List<string> m_oSampleSceneNameList = new List<string>();
+	private static List<string> m_oListSceneNameSample = new List<string>();
 
 	[Header("=====> Game Objects <=====")]
 	private static List<GameObject> m_oPrefabMissingObjList = new List<GameObject>();
@@ -82,12 +82,12 @@ public static partial class CCommonEditorSceneManager
 				textColor = KCEditorDefine.B_COLOR_HIERARCHY_OUTLINE
 			};
 
-			CCommonEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
+			CCommonEditorSceneManager.m_dblSkipTimeUpdate = EditorApplication.timeSinceStartup;
 
-			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
-			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_MENU);
-			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_RESEARCH);
-			CCommonEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_EDITOR_SCENE_N_SAMPLE);
+			CCommonEditorSceneManager.m_oListSceneNameSample.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
+			CCommonEditorSceneManager.m_oListSceneNameSample.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_MENU);
+			CCommonEditorSceneManager.m_oListSceneNameSample.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_RESEARCH);
+			CCommonEditorSceneManager.m_oListSceneNameSample.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_EDITOR);
 		}
 
 		CCommonEditorSceneManager.SetupCallbacks();
@@ -120,9 +120,9 @@ public static partial class CCommonEditorSceneManager
 			}
 
 			// 갱신 주기가 지났을 경우
-			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblUpdateSkipTime).ExIsGreatEquals(KCDefine.B_VAL_3_REAL))
+			if((EditorApplication.timeSinceStartup - CCommonEditorSceneManager.m_dblSkipTimeUpdate).ExIsGreatEquals(KCDefine.B_VAL_3_REAL))
 			{
-				CCommonEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
+				CCommonEditorSceneManager.m_dblSkipTimeUpdate = EditorApplication.timeSinceStartup;
 				CAccess.EnumerateComponents<CSceneManager>((a_oSceneManager) => { a_oSceneManager.EditorSetupScene(); return true; });
 
 				CCommonEditorSceneManager.SetupTags();

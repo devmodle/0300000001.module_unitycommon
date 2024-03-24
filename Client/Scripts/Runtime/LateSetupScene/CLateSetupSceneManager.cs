@@ -35,7 +35,7 @@ namespace LateSetupScene
 		public virtual bool IsAutoInitManager => false;
 
 #if UNITY_EDITOR
-		public override int ScriptOrder => KCDefine.B_SCRIPT_O_LATE_SETUP_SCENE_MANAGER;
+		public override int OrderScript => KCDefine.B_SCRIPT_O_LATE_SETUP_SCENE_MANAGER;
 #endif // #if UNITY_EDITOR
 
 #if UNITY_ANDROID

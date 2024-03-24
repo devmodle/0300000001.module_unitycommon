@@ -117,7 +117,7 @@ namespace MainScene {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 				// 에디터가 유효 할 경우
 				if(CCommonAppInfoStorage.Inst.IsEnableEditor && !CSceneLoader.Inst.AwakeActiveSceneName.Equals(KCDefine.B_SCENE_N_MAIN)) {
-					CSceneLoader.Inst.LoadScene(KCDefine.B_EDITOR_SCENE_N_LEVEL);
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_EDITOR_LEVEL);
 				}
 #endif // #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 			}

@@ -13,12 +13,12 @@ using UnityEditor.SceneManagement;
 public partial class CSampleSceneManager : CSceneManager
 {
 	#region 프로퍼티
-	public override float ScreenWidth => this.IsEditorSampleScene ? 
+	public override float ScreenWidth => this.IsSampleSceneEditor ? 
 		KCDefine.B_DESIGN_P_SCREEN_WIDTH : base.ScreenWidth;
 
-	public override float ScreenHeight => this.IsEditorSampleScene ?
+	public override float ScreenHeight => this.IsSampleSceneEditor ?
 		KCDefine.B_DESIGN_P_SCREEN_HEIGHT : base.ScreenHeight;
 
-	private bool IsEditorSampleScene => CSceneManager.ActiveSceneName.Equals(KCDefine.B_EDITOR_SCENE_N_SAMPLE);
+	private bool IsSampleSceneEditor => CSceneManager.ActiveSceneName.Equals(KCDefine.B_SCENE_N_SAMPLE_EDITOR);
 	#endregion // 프로퍼티
 }

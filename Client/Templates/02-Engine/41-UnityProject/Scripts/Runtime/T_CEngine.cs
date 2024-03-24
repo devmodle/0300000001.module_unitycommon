@@ -186,12 +186,12 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnLateUpdate(float a_fDeltaTime) {
-			base.OnLateUpdate(a_fDeltaTime);
+		public override void OnUpdateLate(float a_fDeltaTime) {
+			base.OnUpdateLate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning && this.IsEnableUpdate) {
-				this.SubOnLateUpdate(a_fDeltaTime * this.DeltaTimeScale);
+				this.SubOnUpdateLate(a_fDeltaTime * this.DeltaTimeScale);
 			}
 		}
 

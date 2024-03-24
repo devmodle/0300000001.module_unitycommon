@@ -468,9 +468,9 @@ namespace LevelEditorScene
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnLateUpdate(float a_fDeltaTime)
+		public override void OnUpdateLate(float a_fDeltaTime)
 		{
-			base.OnLateUpdate(a_fDeltaTime);
+			base.OnUpdateLate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning && CNavStackManager.Inst.TopComponent == this)
@@ -557,7 +557,7 @@ namespace LevelEditorScene
 		protected override void OnChangeDeviceScreenSize(Vector3 a_stScreenSize)
 		{
 			base.OnChangeDeviceScreenSize(a_stScreenSize);
-			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_EDITOR_SCENE_N_LEVEL), KCDefine.B_VAL_0_1_REAL);
+			this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_EDITOR_LEVEL), KCDefine.B_VAL_0_1_REAL);
 		}
 
 		/** 에디터 종료 팝업 결과를 수신했을 경우 */

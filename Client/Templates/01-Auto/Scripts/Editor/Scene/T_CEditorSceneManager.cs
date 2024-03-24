@@ -23,13 +23,13 @@ public static partial class CEditorSceneManager {
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsEnableSetupDependencies = false;
 
-	private static double m_dblUpdateSkipTime = 0.0;
-	private static double m_dblDependencySkipTime = 0.0;
-	private static double m_dblDefineSymbolSkipTime = 0.0;
+	private static double m_dblSkipTimeUpdate = 0.0;
+	private static double m_dblSkipTimeDependency = 0.0;
+	private static double m_dblSkipTimeDefineSymbol = 0.0;
 
 	private static ListRequest m_oListRequest = null;
-	private static List<string> m_oSampleSceneNameList = new List<string>();
-	private static List<AddRequest> m_oAddRequestList = new List<AddRequest>();
+	private static List<string> m_oListSceneNameSample = new List<string>();
+	private static List<AddRequest> m_oListAddRequest = new List<AddRequest>();
 	#endregion // 클래스 변수
 
 	#region 클래스 함수
@@ -40,14 +40,14 @@ public static partial class CEditorSceneManager {
 			goto EDITOR_SCENE_MANAGER_CONSTRUCTOR_EXIT_FINAL;
 		}
 
-		CEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
-		CEditorSceneManager.m_dblDependencySkipTime = EditorApplication.timeSinceStartup;
-		CEditorSceneManager.m_dblDefineSymbolSkipTime = EditorApplication.timeSinceStartup;
+		CEditorSceneManager.m_dblSkipTimeUpdate = EditorApplication.timeSinceStartup;
+		CEditorSceneManager.m_dblSkipTimeDependency = EditorApplication.timeSinceStartup;
+		CEditorSceneManager.m_dblSkipTimeDefineSymbol = EditorApplication.timeSinceStartup;
 
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_MENU);
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_RESEARCH);
-		CEditorSceneManager.m_oSampleSceneNameList.ExAddVal(KCDefine.B_EDITOR_SCENE_N_SAMPLE);
+		CEditorSceneManager.m_oListSceneNameSample.ExAddVal(KCDefine.B_SCENE_N_SAMPLE);
+		CEditorSceneManager.m_oListSceneNameSample.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_MENU);
+		CEditorSceneManager.m_oListSceneNameSample.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_RESEARCH);
+		CEditorSceneManager.m_oListSceneNameSample.ExAddVal(KCDefine.B_SCENE_N_SAMPLE_EDITOR);
 
 EDITOR_SCENE_MANAGER_CONSTRUCTOR_EXIT_FINAL:
 		CEditorSceneManager.SetupCallbacks();
@@ -74,19 +74,19 @@ EDITOR_SCENE_MANAGER_CONSTRUCTOR_EXIT_FINAL:
 		CEditorSceneManager.m_oListRequest = Client.List(false, false);
 
 EDITOR_SCENE_MANAGER_UPDATE_EXIT_A:
-		double dblUpdateDeltaTime = EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblUpdateSkipTime;
+		double dblUpdateDeltaTime = EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblSkipTimeUpdate;
 
 		// 상태 갱신이 불가능 할 경우
 		if(dblUpdateDeltaTime.ExIsLess(KCDefine.B_VAL_3_REAL)) {
 			goto EDITOR_SCENE_MANAGER_UPDATE_EXIT_FINAL;
 		}
 
-		CEditorSceneManager.m_dblUpdateSkipTime = EditorApplication.timeSinceStartup;
+		CEditorSceneManager.m_dblSkipTimeUpdate = EditorApplication.timeSinceStartup;
 
 #if UIS_ROOT_PREFAB_ENABLE
 		CAccess.EnumerateRootObjs((a_oObj) => {
 			bool bIsRootPrefabObjA = KCEditorDefine.B_OBJ_N_ROOT_PREFAB_OBJ_LIST.Contains(a_oObj.name);
-			bool bIsRootPrefabObjB = bIsRootPrefabObjA && !CEditorSceneManager.m_oSampleSceneNameList.Contains(a_oObj.scene.name);
+			bool bIsRootPrefabObjB = bIsRootPrefabObjA && !CEditorSceneManager.m_oListSceneNameSample.Contains(a_oObj.scene.name);
 
 			// 최상단 프리팹 객체 일 경우
 			if(bIsRootPrefabObjA && bIsRootPrefabObjB) {
@@ -131,13 +131,13 @@ EDITOR_SCENE_MANAGER_UPDATE_EXIT_A:
 
 			// 스크립트 순서 설정이 가능 할 경우
 			if(oType != null && KEditorDefine.B_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nOrder)) {
-				CAccess.SetScriptOrder(oMonoScripts[i], nOrder);
+				CAccess.SetOrderScript(oMonoScripts[i], nOrder);
 			}
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
 			// 스크립트 순서 설정이 가능 할 경우
 			if(oType != null && KEditorDefine.G_EXTRA_SCRIPT_ORDER_DICT.TryGetValue(oType, out int nExtraOrder)) {
-				CAccess.SetScriptOrder(oMonoScripts[i], nExtraOrder);
+				CAccess.SetOrderScript(oMonoScripts[i], nExtraOrder);
 			}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE
 		}
@@ -149,26 +149,26 @@ EDITOR_SCENE_MANAGER_UPDATE_EXIT_FINAL:
 
 	/** 상태를 갱신한다 */
 	private static void LateUpdate() {
-		bool bIsEnableUpdate = CEditorAccess.IsEnableUpdateState && !CEditorSceneManager.m_oAddRequestList.ExIsValid();
-		CEditorSceneManager.m_dblDefineSymbolSkipTime = bIsEnableUpdate ? CEditorSceneManager.m_dblDefineSymbolSkipTime : EditorApplication.timeSinceStartup;
+		bool bIsEnableUpdate = CEditorAccess.IsEnableUpdateState && !CEditorSceneManager.m_oListAddRequest.ExIsValid();
+		CEditorSceneManager.m_dblSkipTimeDefineSymbol = bIsEnableUpdate ? CEditorSceneManager.m_dblSkipTimeDefineSymbol : EditorApplication.timeSinceStartup;
 
-		for(int i = 0; i < CEditorSceneManager.m_oAddRequestList.Count; ++i) {
+		for(int i = 0; i < CEditorSceneManager.m_oListAddRequest.Count; ++i) {
 			// 에러가 존재 할 경우
-			if(CEditorSceneManager.m_oAddRequestList[i].Error != null) {
-				CFunc.ShowLogWarning($"CEditorSceneManager.LateUpdate: {CEditorSceneManager.m_oAddRequestList[i].Error.message}");
-				CEditorSceneManager.m_oAddRequestList.ExRemoveValAt(i, false);
+			if(CEditorSceneManager.m_oListAddRequest[i].Error != null) {
+				CFunc.ShowLogWarning($"CEditorSceneManager.LateUpdate: {CEditorSceneManager.m_oListAddRequest[i].Error.message}");
+				CEditorSceneManager.m_oListAddRequest.ExRemoveValAt(i, false);
 
 				break;
 			}
 		}
 
 		// 상태 갱신이 가능 할 경우
-		if(bIsEnableUpdate && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDefineSymbolSkipTime).ExIsGreatEquals(KCDefine.B_VAL_1_REAL)) {
+		if(bIsEnableUpdate && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblSkipTimeDefineSymbol).ExIsGreatEquals(KCDefine.B_VAL_1_REAL)) {
 			var oDefineSymbolInfoTable = CEditorAccess.FindAsset<CDefineSymbolInfoTable>(KCEditorDefine.B_ASSET_P_DEFINE_SYMBOL_INFO_TABLE);
 
 			// 전처리기 심볼 정보 테이블이 존재 할 경우
 			if(oDefineSymbolInfoTable != null) {
-				CEditorSceneManager.m_dblDefineSymbolSkipTime = EditorApplication.timeSinceStartup;
+				CEditorSceneManager.m_dblSkipTimeDefineSymbol = EditorApplication.timeSinceStartup;
 
 				foreach(var stKeyVal in KCEditorDefine.DS_DEFINE_S_REPLACE_MODULE_DICT) {
 					var oDefineSymbolLists = new List<List<string>>() {
@@ -210,8 +210,8 @@ EDITOR_SCENE_MANAGER_UPDATE_EXIT_FINAL:
 			bool bIsEnableSetup = CEditorSceneManager.m_bIsEnableSetupDependencies && (CEditorSceneManager.m_oListRequest != null && CEditorSceneManager.m_oListRequest.Result != null && CEditorSceneManager.m_oListRequest.IsCompleted);
 
 			// 갱신 주기가 지났을 경우
-			if(bIsEnableSetup && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblDependencySkipTime).ExIsGreatEquals(KCDefine.B_VAL_3_REAL)) {
-				CEditorSceneManager.m_dblDependencySkipTime = EditorApplication.timeSinceStartup;
+			if(bIsEnableSetup && (EditorApplication.timeSinceStartup - CEditorSceneManager.m_dblSkipTimeDependency).ExIsGreatEquals(KCDefine.B_VAL_3_REAL)) {
+				CEditorSceneManager.m_dblSkipTimeDependency = EditorApplication.timeSinceStartup;
 				CEditorSceneManager.m_bIsEnableSetupDependencies = false;
 
 				try {
@@ -281,10 +281,10 @@ public static partial class CEditorSceneManager {
 			// 버전이 유효 할 경우
 			if(stKeyVal.Value.ExIsValidBuildVer()) {
 				string oUnityPkgsID = string.Format(KCEditorDefine.B_UNITY_PKGS_ID_FMT, stKeyVal.Key, stKeyVal.Value);
-				CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(oUnityPkgsID));
+				CEditorSceneManager.m_oListAddRequest.ExAddVal(Client.Add(oUnityPkgsID));
 			} else {
 #if DEVELOPMENT_PROJ
-				CEditorSceneManager.m_oAddRequestList.ExAddVal(Client.Add(stKeyVal.Value));
+				CEditorSceneManager.m_oListAddRequest.ExAddVal(Client.Add(stKeyVal.Value));
 #endif // #if DEVELOPMENT_PROJ
 			}
 		}

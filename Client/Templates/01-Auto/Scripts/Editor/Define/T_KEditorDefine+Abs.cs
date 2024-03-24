@@ -42,7 +42,7 @@ public static partial class KEditorDefine
 		[typeof(CCommonGameInfoStorage)] = KCDefine.B_SCRIPT_O_LATE,
 
 		[typeof(CSampleSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
-		[typeof(CEditorSampleSceneManager)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
+		[typeof(CSampleSceneManagerEditor)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
 
 #if RESEARCH_MODULE_ENABLE
 		[typeof(CRSampleSceneManagerMenu)] = KCDefine.B_SCRIPT_O_SCENE_MANAGER,
@@ -160,7 +160,7 @@ public static partial class KEditorDefine
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE)
-		[KCDefine.B_EDITOR_SCENE_N_LEVEL] = typeof(LevelEditorScene.CSubLevelEditorSceneManager)
+		[KCDefine.B_SCENE_N_EDITOR_LEVEL] = typeof(LevelEditorScene.CSubLevelEditorSceneManager)
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE)
 	};
 

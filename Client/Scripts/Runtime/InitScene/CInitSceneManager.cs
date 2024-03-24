@@ -24,7 +24,7 @@ namespace InitScene
 		protected List<string> SpriteAtlasPathList { get; } = new List<string>();
 
 #if UNITY_EDITOR
-		public override int ScriptOrder => KCDefine.B_SCRIPT_O_INIT_SCENE_MANAGER;
+		public override int OrderScript => KCDefine.B_SCRIPT_O_INIT_SCENE_MANAGER;
 #endif // #if UNITY_EDITOR
 		#endregion // 프로퍼티
 

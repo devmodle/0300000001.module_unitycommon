@@ -58,7 +58,7 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnLateUpdate(float a_fDeltaTime) {
+		private void SubOnUpdateLate(float a_fDeltaTime) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
 				// Do Something

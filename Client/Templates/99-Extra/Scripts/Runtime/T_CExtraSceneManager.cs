@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE
 /** 추가 씬 관리자 */
-public partial class CExtraSceneManager : CSceneManager
+public partial class CSceneManagerExtra : CSceneManager
 {
 	/** 식별자 */
 	private enum EKey
@@ -52,7 +52,7 @@ public partial class CExtraSceneManager : CSceneManager
 		}
 		catch(System.Exception oException)
 		{
-			CFunc.ShowLogWarning($"CExtraSceneManager.OnDestroy Exception: {oException.Message}");
+			CFunc.ShowLogWarning($"CSceneManagerExtra.OnDestroy Exception: {oException.Message}");
 		}
 	}
 
