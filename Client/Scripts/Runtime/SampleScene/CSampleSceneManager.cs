@@ -45,13 +45,13 @@ public partial class CSampleSceneManager : CSceneManager
 	}
 
 	/** 내비게이션 스택 이벤트를 수신했을 경우 */
-	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent)
+	public override void OnReceiveEventNavStack(EEventNavStack a_eEvent)
 	{
-		base.OnReceiveNavStackEvent(a_eEvent);
+		base.OnReceiveEventNavStack(a_eEvent);
 
 		switch(a_eEvent)
 		{
-			case ENavStackEvent.BACK_KEY_DOWN:
+			case EEventNavStack.BACK_KEY_DOWN:
 #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

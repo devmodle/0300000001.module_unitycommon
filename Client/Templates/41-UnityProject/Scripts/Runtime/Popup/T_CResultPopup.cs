@@ -63,7 +63,7 @@ public partial class CResultPopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.SetIsEnableNavStackEvent(false);
+		this.SetIsEnableEventNavStack(false);
 
 		// 객체를 설정한다
 		CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>() {

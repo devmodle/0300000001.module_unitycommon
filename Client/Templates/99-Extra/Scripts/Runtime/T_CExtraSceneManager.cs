@@ -69,13 +69,13 @@ public partial class CSceneManagerExtra : CSceneManager
 	}
 
 	/** 내비게이션 스택 이벤트를 수신했을 경우 */
-	public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent)
+	public override void OnReceiveEventNavStack(EEventNavStack a_eEvent)
 	{
-		base.OnReceiveNavStackEvent(a_eEvent);
+		base.OnReceiveEventNavStack(a_eEvent);
 
 		switch(a_eEvent)
 		{
-			case ENavStackEvent.BACK_KEY_DOWN:
+			case EEventNavStack.BACK_KEY_DOWN:
 				break;
 		}
 	}

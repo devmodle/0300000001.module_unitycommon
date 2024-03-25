@@ -232,11 +232,11 @@ namespace PlayScene {
 		}
 
 		/** 내비게이션 스택 이벤트를 수신했을 경우 */
-		public override void OnReceiveNavStackEvent(ENavStackEvent a_eEvent) {
-			base.OnReceiveNavStackEvent(a_eEvent);
+		public override void OnReceiveEventNavStack(EEventNavStack a_eEvent) {
+			base.OnReceiveEventNavStack(a_eEvent);
 
 			// 백 키 눌림 이벤트 일 경우
-			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
+			if(a_eEvent == EEventNavStack.BACK_KEY_DOWN) {
 				// 이전 씬이 레벨 에디터 씬 일 경우
 				if(CSceneLoader.Inst.PrevActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_LEVEL)) {
 					Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LEAVE_P_MSG), this.OnReceiveLeavePopupResult);
