@@ -155,11 +155,11 @@ namespace LevelEditorScene
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 		private Dictionary<ECallback, System.Reflection.MethodInfo> m_oSubMethodInfoDict = new Dictionary<ECallback, System.Reflection.MethodInfo>();
 
-#if GOOGLE_SHEET_ENABLE
+#if ENABLE_GOOGLESHEET
 		private SimpleJSON.JSONNode m_oVerInfos = null;
 		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetLoadHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>> m_oGoogleSheetSaveHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>>();
-#endif // #if GOOGLE_SHEET_ENABLE
+#endif // #if ENABLE_GOOGLESHEET
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		private List<STObjSpriteInfo>[,] m_oObjSpriteInfoLists = null;
@@ -299,7 +299,7 @@ namespace LevelEditorScene
 			m_oSelObjSpriteList.ExAddVal(oObjSprite);
 			// 스프라이트를 설정한다 }
 
-#if GOOGLE_SHEET_ENABLE
+#if ENABLE_GOOGLESHEET
 			// 구글 시트 처리자를 설정한다 {
 			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 			m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
@@ -321,7 +321,7 @@ namespace LevelEditorScene
 			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
 			m_oGoogleSheetSaveHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnSaveGoogleSheet);
 			// 구글 시트 처리자를 설정한다 }
-#endif // #if GOOGLE_SHEET_ENABLE
+#endif // #if ENABLE_GOOGLESHEET
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			this.SetupLeftEditorUIs();
@@ -362,9 +362,9 @@ namespace LevelEditorScene
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime)
+		public override void OnUpdate(float a_fTimeDelta)
 		{
-			base.OnUpdate(a_fDeltaTime);
+			base.OnUpdate(a_fTimeDelta);
 
 			// 앱이 종료되었을 경우
 			if(!CSceneManager.IsRunningApp)
@@ -372,7 +372,7 @@ namespace LevelEditorScene
 				return;
 			}
 
-			m_fUpdateSkipTime += a_fDeltaTime;
+			m_fUpdateSkipTime += a_fTimeDelta;
 
 			// 단축키를 눌렀을 경우
 			if(Input.GetKey(CAccess.CmdKeyCode))
@@ -463,14 +463,14 @@ namespace LevelEditorScene
 				this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
 			}
 
-			this.SubOnUpdate(a_fDeltaTime);
+			this.SubOnUpdate(a_fTimeDelta);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnLateUpdate(float a_fDeltaTime)
+		public override void OnLateUpdate(float a_fTimeDelta)
 		{
-			base.OnLateUpdate(a_fDeltaTime);
+			base.OnLateUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp && CNavStackManager.Inst.TopComponent == this)
@@ -962,11 +962,11 @@ namespace LevelEditorScene
 				CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eSelUserType;
 				CCommonUserInfoStorage.Inst.SaveUserInfo();
 
-#if GOOGLE_SHEET_ENABLE
+#if ENABLE_GOOGLESHEET
 				m_eSelTableSrc = ETableSrc.REMOTE;
 #else
 				m_eSelTableSrc = ETableSrc.LOCAL;
-#endif // #if GOOGLE_SHEET_ENABLE
+#endif // #if ENABLE_GOOGLESHEET
 
 				this.OnReceiveEditorResetPopupResult(null, true);
 				this.OnReceiveEditorTableLoadPopupResult(null, true);
@@ -991,10 +991,10 @@ namespace LevelEditorScene
 					}
 					case ETableSrc.REMOTE:
 					{
-#if GOOGLE_SHEET_ENABLE
+#if ENABLE_GOOGLESHEET
 						string oKey = KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false);
 						Func.LoadVerInfoGoogleSheet(Access.GoogleSheetTableInfo.GetValueOrDefault(oKey).m_oID, this.OnLoadVerInfoGoogleSheet);
-#endif // #if GOOGLE_SHEET_ENABLE
+#endif // #if ENABLE_GOOGLESHEET
 
 						break;
 					}
@@ -1016,9 +1016,9 @@ namespace LevelEditorScene
 					}
 					case ETableSrc.REMOTE:
 					{
-#if GOOGLE_SHEET_ENABLE
+#if ENABLE_GOOGLESHEET
 						Func.SaveGoogleSheets(m_oGoogleSheetSaveHandlerDict, this.OnSaveGoogleSheets);
-#endif // #if GOOGLE_SHEET_ENABLE
+#endif // #if ENABLE_GOOGLESHEET
 
 						break;
 					}
@@ -1375,7 +1375,7 @@ namespace LevelEditorScene
 			}
 		}
 
-#if GOOGLE_SHEET_ENABLE
+#if ENABLE_GOOGLESHEET
 		/** 구글 시트를 로드했을 경우 */
 		private void OnLoadGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess)
 		{
@@ -1460,7 +1460,7 @@ namespace LevelEditorScene
 				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 		}
-#endif // #if GOOGLE_SHEET_ENABLE
+#endif // #if ENABLE_GOOGLESHEET
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		#endregion // 조건부 함수
 
@@ -2222,13 +2222,13 @@ namespace LevelEditorScene
 			// 버튼을 설정한다 {
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_REMOVE_ALL_LEVELS_BTN]?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT, false);
 
-#if GOOGLE_SHEET_ENABLE
+#if ENABLE_GOOGLESHEET
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_LOAD_REMOTE_TABLE_BTN]?.ExSetInteractable(true, false);
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN]?.ExSetInteractable(true, false);
 #else
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_LOAD_REMOTE_TABLE_BTN]?.ExSetInteractable(false, false);
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_SAVE_REMOTE_TABLE_BTN]?.ExSetInteractable(false, false);
-#endif // #if GOOGLE_SHEET_ENABLE
+#endif // #if ENABLE_GOOGLESHEET
 			// 버튼을 설정한다 }
 
 			// 페이지 스크롤 스냅이 존재 할 경우

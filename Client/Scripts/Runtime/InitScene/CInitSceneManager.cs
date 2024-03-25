@@ -80,7 +80,7 @@ namespace InitScene
 			CCommonGameInfoStorage.Inst.LoadGameInfo();
 
 			// 사운드 관리자를 설정한다 {
-#if MODE_2D_ENABLE
+#if ENABLE_MODE_2D
 			CSndManager.Inst.SetIsBypassBGSndEffects(true);
 			CSndManager.Inst.SetIsBypassFXSndsEffects(true);
 
@@ -98,7 +98,7 @@ namespace InitScene
 
 			CSndManager.Inst.SetIsBypassBGSndListenerEffects(false);
 			CSndManager.Inst.SetIsBypassFXSndsListenerEffects(false);
-#endif // #if MODE_2D_ENABLE
+#endif // #if ENABLE_MODE_2D
 
 			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
 			CSndManager.Inst.SetFXSndsVolume(CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume);
@@ -146,17 +146,17 @@ namespace InitScene
 			float fRefreshRate = (float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate);
 			CAccess.SetTargetFrameRate(Mathf.RoundToInt(fRefreshRate));
 
-#if MULTI_TOUCH_ENABLE
+#if ENABLE_MULTITOUCH
 			Input.multiTouchEnabled = true;
 #else
 			Input.multiTouchEnabled = false;
-#endif // #if MULTI_TOUCH_ENABLE
+#endif // #if ENABLE_MULTITOUCH
 
 #if UNITY_EDITOR
-			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eQualityLevel, true);
+			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eLevelQuality, true);
 #else
 			CSceneManager.SetupQuality(bIsValid ? 
-				(EQualityLevel)stTargetFrameInfo.Item1 : (EQualityLevel)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
+				(ELevelQuality)stTargetFrameInfo.Item1 : (ELevelQuality)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
 #endif // #if UNITY_EDITOR
 			// 디바이스 정보를 설정한다 }
 		}

@@ -88,7 +88,7 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 #endregion // 함수
 
 #region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 타겟 정보를 저장한다 */
 	public void SaveTargetInfo(SimpleJSON.JSONNode a_oOutTargetInfo, int a_nSrcIdx = KCDefine.B_VAL_0_INT) {
 		a_oOutTargetInfo[a_nSrcIdx + KCDefine.B_VAL_2_INT] = $"{(int)m_nKinds}";
@@ -99,7 +99,7 @@ public struct STTargetInfo : System.IEquatable<STTargetInfo> {
 		m_stValInfo02.SaveValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_5_INT);
 		m_stValInfo03.SaveValInfo(a_oOutTargetInfo, a_nSrcIdx + KCDefine.B_VAL_7_INT);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 

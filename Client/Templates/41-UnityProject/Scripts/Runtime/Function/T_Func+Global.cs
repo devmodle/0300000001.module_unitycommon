@@ -359,41 +359,41 @@ public static partial class Func {
 	}
 
 	/** 컴포넌트를 갱신한다 */
-	public static void UpdateComponents<T>(List<T> a_oComponentList, float a_fDeltaTime) where T : CComponent {
+	public static void UpdateComponents<T>(List<T> a_oComponentList, float a_fTimeDelta) where T : CComponent {
 		for(int i = 0; i < a_oComponentList.Count; ++i) {
 			// 상태 갱신이 가능 할 경우
 			if(a_oComponentList[i] != null && (a_oComponentList[i].IsEnable && !a_oComponentList[i].IsDestroy && a_oComponentList[i].gameObject.activeInHierarchy)) {
-				a_oComponentList[i].OnUpdate(a_fDeltaTime);
+				a_oComponentList[i].OnUpdate(a_fTimeDelta);
 			}
 		}
 	}
 
 	/** 컴포넌트를 갱신한다 */
-	public static void UpdateComponents<K, V>(Dictionary<K, V> a_oComponentDict, float a_fDeltaTime) where V : CComponent {
+	public static void UpdateComponents<K, V>(Dictionary<K, V> a_oComponentDict, float a_fTimeDelta) where V : CComponent {
 		foreach(var stKeyVal in a_oComponentDict) {
 			// 상태 갱신이 가능 할 경우
 			if(stKeyVal.Value != null && (stKeyVal.Value.IsEnable && !stKeyVal.Value.IsDestroy && stKeyVal.Value.gameObject.activeInHierarchy)) {
-				stKeyVal.Value.OnUpdate(a_fDeltaTime);
+				stKeyVal.Value.OnUpdate(a_fTimeDelta);
 			}
 		}
 	}
 
 	/** 컴포넌트를 갱신한다 */
-	public static void LateUpdateComponents<T>(List<T> a_oComponentList, float a_fDeltaTime) where T : CComponent {
+	public static void LateUpdateComponents<T>(List<T> a_oComponentList, float a_fTimeDelta) where T : CComponent {
 		for(int i = 0; i < a_oComponentList.Count; ++i) {
 			// 상태 갱신이 가능 할 경우
 			if(a_oComponentList[i] != null && (a_oComponentList[i].IsEnable && !a_oComponentList[i].IsDestroy && a_oComponentList[i].gameObject.activeInHierarchy)) {
-				a_oComponentList[i].OnLateUpdate(a_fDeltaTime);
+				a_oComponentList[i].OnLateUpdate(a_fTimeDelta);
 			}
 		}
 	}
 
 	/** 컴포넌트를 갱신한다 */
-	public static void LageUpdateComponents<K, V>(Dictionary<K, V> a_oComponentDict, float a_fDeltaTime) where V : CComponent {
+	public static void LageUpdateComponents<K, V>(Dictionary<K, V> a_oComponentDict, float a_fTimeDelta) where V : CComponent {
 		foreach(var stKeyVal in a_oComponentDict) {
 			// 상태 갱신이 가능 할 경우
 			if(stKeyVal.Value != null && (stKeyVal.Value.IsEnable && !stKeyVal.Value.IsDestroy && stKeyVal.Value.gameObject.activeInHierarchy)) {
-				stKeyVal.Value.OnLateUpdate(a_fDeltaTime);
+				stKeyVal.Value.OnLateUpdate(a_fTimeDelta);
 			}
 		}
 	}
@@ -714,7 +714,7 @@ public static partial class Func {
 	}
 #endif // #if PURCHASE_MODULE_ENABLE
 
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 구글 시트를 로드했을 경우 */
 	public static void OnLoadGoogleSheets(SimpleJSON.JSONNode a_oVerInfos) {
 		for(int i = 0; i < a_oVerInfos.Count; ++i) {
@@ -739,18 +739,18 @@ public static partial class Func {
 			stKeyVal.Value.SaveTargetInfo(a_oOutTargetInfos[string.Format(a_oFmt, ++nIdx)], a_nSrcIdx);
 		}
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 클래스 함수
 
 	#region 조건부 제네릭 클래스 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 값을 저장한다 */
 	public static void SaveVals<T>(List<T> a_oValList, string a_oFmt, System.Func<T, string> a_oCallback, SimpleJSON.JSONNode a_oOutVals) {
 		for(int i = 0; i < a_oValList.Count; ++i) {
 			a_oOutVals[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)] = a_oCallback(a_oValList[i]);
 		}
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 제네릭 클래스 함수
 }
 

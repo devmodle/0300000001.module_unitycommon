@@ -50,7 +50,7 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdate(float a_fDeltaTime) {
+		private void SubOnUpdate(float a_fTimeDelta) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				// Do Something
@@ -58,7 +58,7 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnLateUpdate(float a_fDeltaTime) {
+		private void SubOnLateUpdate(float a_fTimeDelta) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				// Do Something
@@ -104,13 +104,13 @@ namespace NSEngine {
 		}
 
 		/** 플레이 서브 상태를 처리한다 */
-		private void HandlePlaySubState(float a_fDeltaTime) {
-			global::Func.UpdateComponents(this.ItemListWrapper, a_fDeltaTime);
-			global::Func.UpdateComponents(this.SkillListWrapper, a_fDeltaTime);
-			global::Func.UpdateComponents(this.FXListWrapper, a_fDeltaTime);
-			global::Func.UpdateComponents(this.ObjListWrapper, a_fDeltaTime);
-			global::Func.UpdateComponents(this.PlayerObjListWrapper, a_fDeltaTime);
-			global::Func.UpdateComponents(this.EnemyObjListWrapper, a_fDeltaTime);
+		private void HandlePlaySubState(float a_fTimeDelta) {
+			global::Func.UpdateComponents(this.ItemListWrapper, a_fTimeDelta);
+			global::Func.UpdateComponents(this.SkillListWrapper, a_fTimeDelta);
+			global::Func.UpdateComponents(this.FXListWrapper, a_fTimeDelta);
+			global::Func.UpdateComponents(this.ObjListWrapper, a_fTimeDelta);
+			global::Func.UpdateComponents(this.PlayerObjListWrapper, a_fTimeDelta);
+			global::Func.UpdateComponents(this.EnemyObjListWrapper, a_fTimeDelta);
 
 			// 실행 중 일 경우
 			if(this.IsRunning) {
@@ -141,7 +141,7 @@ namespace NSEngine {
 		}
 
 		/** 정지 서브 상태를 처리한다 */
-		private void HandlePauseSubState(float a_fDeltaTime) {
+		private void HandlePauseSubState(float a_fTimeDelta) {
 			// Do Something
 		}
 

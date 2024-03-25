@@ -16,10 +16,10 @@ using UnityEditor.SceneTemplate;
 using UnityEditor.SceneManagement;
 using Unity.Linq;
 
-#if ADAPTIVE_PERFORMANCE_ENABLE
+#if ENABLE_ADAPTIVEPERFORMANCE
 using UnityEngine.AdaptivePerformance;
 using UnityEditor.AdaptivePerformance.Editor;
-#endif // #if ADAPTIVE_PERFORMANCE_ENABLE
+#endif // #if ENABLE_ADAPTIVEPERFORMANCE
 
 #if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
@@ -109,11 +109,11 @@ public static partial class CCommonEditorSceneManager
 	/** 광원 옵션을 설정한다 */
 	private static void SetupLightOpts()
 	{
-		var oLightingSettingsPathDict = new Dictionary<EQualityLevel, string>()
+		var oLightingSettingsPathDict = new Dictionary<ELevelQuality, string>()
 		{
-			[EQualityLevel.NORM] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_NORM_QUALITY,
-			[EQualityLevel.HIGH] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_HIGH_QUALITY,
-			[EQualityLevel.ULTRA] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_ULTRA_QUALITY
+			[ELevelQuality.NORM] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_NORM_QUALITY,
+			[ELevelQuality.HIGH] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_HIGH_QUALITY,
+			[ELevelQuality.ULTRA] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_ULTRA_QUALITY
 		};
 
 		var stScene = EditorSceneManager.GetActiveScene();
@@ -128,7 +128,7 @@ public static partial class CCommonEditorSceneManager
 		{
 			bool bIsValid01 = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
-			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty).ExGetFileName(false));
+			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLevelQuality, string.Empty).ExGetFileName(false));
 
 			var stResult = oLightingSettingsPathDict.ExFindVal((a_stKeyVal) =>
 			{
@@ -136,10 +136,10 @@ public static partial class CCommonEditorSceneManager
 			});
 
 			// 광원 설정이 없을 경우
-			if((!bIsValid01 || bIsValid02 || (bIsValid03 && stResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty), true))
+			if((!bIsValid01 || bIsValid02 || (bIsValid03 && stResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLevelQuality, string.Empty), true))
 			{
 				EditorSceneManager.MarkSceneDirty(stScene);
-				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eQualityLevel, string.Empty)));
+				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLevelQuality, string.Empty)));
 			}
 		}
 	}
@@ -270,16 +270,16 @@ public static partial class CCommonEditorSceneManager
 	}
 
 	/** 광원 옵션을 설정한다 */
-	private static void DoSetupLightOpts(EQualityLevel a_eQualityLevel, LightingSettings a_oSettings, bool a_bIsAssert = true)
+	private static void DoSetupLightOpts(ELevelQuality a_eLevelQuality, LightingSettings a_oSettings, bool a_bIsAssert = true)
 	{
 		CFunc.Assert(!a_bIsAssert || a_oSettings != null);
 
 		// 광원 설정이 존재 할 경우
 		if(a_oSettings != null && CPlatformOptsSetter.OptsInfoTable != null)
 		{
-			var stRenderingOptsInfo = CPlatformOptsSetter.OptsInfoTable.GetRenderingOptsInfo(a_eQualityLevel);
+			var stInfoOptsRendering = CPlatformOptsSetter.OptsInfoTable.GetInfoOptsRendering(a_eLevelQuality);
 
-			var oIsSetupOptsList = new List<bool>() {
+			var oListIsSetupOpts = new List<bool>() {
 				a_oSettings.ao,
 				a_oSettings.bakedGI,
 
@@ -289,11 +289,11 @@ public static partial class CCommonEditorSceneManager
 				a_oSettings.lightmapper == (CEditorAccess.IsAppleMSeries ? LightingSettings.Lightmapper.ProgressiveGPU : LightingSettings.Lightmapper.ProgressiveCPU),
 				a_oSettings.filteringMode == LightingSettings.FilterMode.Auto,
 				a_oSettings.mixedBakeMode == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode,
-				a_oSettings.directionalityMode == (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode,
+				a_oSettings.directionalityMode == (LightmapsMode)stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapMode,
 
 				a_oSettings.lightmapPadding == KCDefine.B_VAL_4_INT,
-				a_oSettings.lightmapMaxSize == (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize,
-				a_oSettings.lightmapCompression == stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression,
+				a_oSettings.lightmapMaxSize == (int)stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapMaxSize,
+				a_oSettings.lightmapCompression == stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapCompression,
 
 				a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_REAL),
 				a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_REAL),
@@ -302,7 +302,7 @@ public static partial class CCommonEditorSceneManager
 			};
 
 			// 설정 갱신이 필요 할 경우
-			if(oIsSetupOptsList.Contains(false))
+			if(oListIsSetupOpts.Contains(false))
 			{
 				a_oSettings.ao = true;
 				a_oSettings.bakedGI = true;
@@ -313,11 +313,11 @@ public static partial class CCommonEditorSceneManager
 				a_oSettings.lightmapper = CEditorAccess.IsAppleMSeries ? LightingSettings.Lightmapper.ProgressiveGPU : LightingSettings.Lightmapper.ProgressiveCPU;
 				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
 				a_oSettings.mixedBakeMode = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode;
-				a_oSettings.directionalityMode = (LightmapsMode)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMode;
+				a_oSettings.directionalityMode = (LightmapsMode)stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapMode;
 
 				a_oSettings.lightmapPadding = KCDefine.B_VAL_4_INT;
-				a_oSettings.lightmapMaxSize = (int)stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapMaxSize;
-				a_oSettings.lightmapCompression = stRenderingOptsInfo.m_stLightOptsInfo.m_eLightmapCompression;
+				a_oSettings.lightmapMaxSize = (int)stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapMaxSize;
+				a_oSettings.lightmapCompression = stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapCompression;
 
 				a_oSettings.albedoBoost = KCDefine.B_VAL_1_INT;
 				a_oSettings.indirectScale = KCDefine.B_VAL_1_INT;

@@ -227,9 +227,9 @@ namespace LateSetupScene
 			// 초기화되었을 경우
 			if(a_bIsSuccess)
 			{
-#if APPLE_LOGIN_ENABLE && UNITY_IOS
+#if ENABLE_LOGIN_APPLE && UNITY_IOS
 				CServicesManager.Inst.UpdateAppleLoginState(CLateSetupSceneManager.OnUpdateAppleLoginState);
-#endif // #if APPLE_LOGIN_ENABLE && UNITY_IOS
+#endif // #if ENABLE_LOGIN_APPLE && UNITY_IOS
 			}
 		}
 
@@ -317,12 +317,12 @@ namespace LateSetupScene
 		#endregion // 조건부 함수
 
 		#region 조건부 클래스 함수
-#if APPLE_LOGIN_ENABLE && UNITY_IOS
+#if ENABLE_LOGIN_APPLE && UNITY_IOS
 		/** 애플 로그인 상태가 갱신되었을 경우 */
 		private static void OnUpdateAppleLoginState(CServicesManager a_oSender, bool a_bIsSuccess) {
 			CFunc.ShowLog($"CLateSetupSceneManager.OnUpdateAppleLoginState: {a_bIsSuccess}");
 		}
-#endif // #if APPLE_LOGIN_ENABLE && UNITY_IOS
+#endif // #if ENABLE_LOGIN_APPLE && UNITY_IOS
 
 #if ADS_MODULE_ENABLE
 		/** 광고 관리자가 초기화되었을 경우 */

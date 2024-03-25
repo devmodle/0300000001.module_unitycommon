@@ -72,12 +72,12 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+		public override void OnUpdate(float a_fTimeDelta) {
+			base.OnUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp && this.IsActive) {
-				m_fUpdateSkipTime += a_fDeltaTime;
+				m_fUpdateSkipTime += a_fTimeDelta;
 
 				// 일정 시간이 지났을 경우
 				if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.U_DELAY_DEF)) {
@@ -101,7 +101,7 @@ namespace NSEngine {
 					}
 				}
 
-				this.SubOnUpdate(a_fDeltaTime);
+				this.SubOnUpdate(a_fTimeDelta);
 			}
 		}
 

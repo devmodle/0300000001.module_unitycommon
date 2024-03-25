@@ -25,8 +25,8 @@ namespace NSEngine {
 
 		#region 함수
 		/** 대기 상태를 처리한다 */
-		protected override void HandleIdleState(float a_fDeltaTime) {
-			base.HandleIdleState(a_fDeltaTime);
+		protected override void HandleIdleState(float a_fTimeDelta) {
+			base.HandleIdleState(a_fTimeDelta);
 
 			// 자동 제어 모드 일 경우
 			if(this.IsAutoControl) {
@@ -42,8 +42,8 @@ namespace NSEngine {
 		}
 
 		/** 이동 상태를 처리한다 */
-		protected override void HandleMoveState(float a_fDeltaTime) {
-			base.HandleMoveState(a_fDeltaTime);
+		protected override void HandleMoveState(float a_fTimeDelta) {
+			base.HandleMoveState(a_fTimeDelta);
 
 			// 자동 제어 모드 일 경우
 			if(this.IsAutoControl) {
@@ -60,8 +60,8 @@ namespace NSEngine {
 		}
 
 		/** 스킬 상태를 처리한다 */
-		protected override void HandleSkillState(float a_fDeltaTime) {
-			base.HandleSkillState(a_fDeltaTime);
+		protected override void HandleSkillState(float a_fTimeDelta) {
+			base.HandleSkillState(a_fTimeDelta);
 		}
 
 		/** 초기화 */
@@ -92,7 +92,7 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdate(float a_fDeltaTime) {
+		private void SubOnUpdate(float a_fTimeDelta) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				// Do Something

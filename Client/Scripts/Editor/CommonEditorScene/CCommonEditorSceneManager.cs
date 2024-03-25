@@ -74,12 +74,12 @@ public static partial class CCommonEditorSceneManager
 		{
 			CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState()
 			{
-				textColor = KCEditorDefine.B_COLOR_HIERARCHY_TEXT
+				textColor = KCEditorDefine.G_HIERARCHY_COLOR_TEXT
 			};
 
 			CCommonEditorSceneManager.m_oOutlineGUIStyle.normal = new GUIStyleState()
 			{
-				textColor = KCEditorDefine.B_COLOR_HIERARCHY_OUTLINE
+				textColor = KCEditorDefine.G_HIERARCHY_COLOR_OUTLINE
 			};
 
 			CCommonEditorSceneManager.m_dblSkipTimeUpdate = EditorApplication.timeSinceStartup;
@@ -130,9 +130,9 @@ public static partial class CCommonEditorSceneManager
 				CCommonEditorSceneManager.SetupRaycasters();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
 
-#if ADAPTIVE_PERFORMANCE_ENABLE
+#if ENABLE_ADAPTIVEPERFORMANCE
 				CCommonEditorSceneManager.SetupAdaptivePerformance();
-#endif // #if ADAPTIVE_PERFORMANCE_ENABLE
+#endif // #if ENABLE_ADAPTIVEPERFORMANCE
 
 #if URP_MODULE_ENABLE
 				CCommonEditorSceneManager.SetupURP();
@@ -238,7 +238,7 @@ public static partial class CCommonEditorSceneManager
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid())
 					{
-						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.B_OFFSET_HIERARCHY_TEXT) * -1.0f, KCDefine.B_VAL_0_REAL);
+						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.G_HIERARCHY_OFFSET_TEXT) * -1.0f, KCDefine.B_VAL_0_REAL);
 						string oStr = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRectList = new List<Rect>() {

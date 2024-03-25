@@ -203,13 +203,13 @@ namespace PlayScene {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+		public override void OnUpdate(float a_fTimeDelta) {
+			base.OnUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
-				this.SubOnUpdate(a_fDeltaTime);
-				m_oEngine.OnUpdate(a_fDeltaTime);
+				this.SubOnUpdate(a_fTimeDelta);
+				m_oEngine.OnUpdate(a_fTimeDelta);
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 				// 단축키를 눌렀을 경우
@@ -221,13 +221,13 @@ namespace PlayScene {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnLateUpdate(float a_fDeltaTime) {
-			base.OnLateUpdate(a_fDeltaTime);
+		public override void OnLateUpdate(float a_fTimeDelta) {
+			base.OnLateUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
-				this.SubOnLateUpdate(a_fDeltaTime);
-				m_oEngine.OnLateUpdate(a_fDeltaTime);
+				this.SubOnLateUpdate(a_fTimeDelta);
+				m_oEngine.OnLateUpdate(a_fTimeDelta);
 			}
 		}
 

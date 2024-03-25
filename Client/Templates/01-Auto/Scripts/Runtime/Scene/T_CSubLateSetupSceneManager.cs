@@ -78,10 +78,10 @@ namespace LateSetupScene
 				}
 #endif // #if UNITY_EDITOR
 
-#if EXTERNAL_STORAGE_ENABLE && UNITY_ANDROID
+#if ENABLE_STORAGE_EXTERNAL && UNITY_ANDROID
 				this.UserPermissionList.ExAddVal(Permission.ExternalStorageRead);
 				this.UserPermissionList.ExAddVal(Permission.ExternalStorageWrite);
-#endif // #if EXTERNAL_STORAGE_ENABLE && UNITY_ANDROID
+#endif // #if ENABLE_STORAGE_EXTERNAL && UNITY_ANDROID
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				Func.SetupStrTable();
@@ -159,15 +159,15 @@ namespace LateSetupScene
 		private void ShowAgreePopup(string a_oPrivacy, 
 			string a_oServices, CAgreePopup.EAgreePopup a_eAgreePopup, System.Action<CPopup> a_oCallback)
 		{
-#if GOOGLE_SHEET_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 			Func.SetupGoogleSheetInfoValCreators();
-#endif // #if GOOGLE_SHEET_ENABLE && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 
-#if MODE_PORTRAIT_ENABLE
+#if ENABLE_MODE_PORTRAIT
 			string oObjPath = KCDefine.LSS_OBJ_P_PORTRAIT_AGREE_POPUP;
 #else
 			string oObjPath = KCDefine.LSS_OBJ_P_LANDSCAPE_AGREE_POPUP;
-#endif // #if MODE_PORTRAIT_ENABLE
+#endif // #if ENABLE_MODE_PORTRAIT
 
 			m_oCallbackDict.ExReplaceVal(ECallback.SHOW_AGREE, a_oCallback);
 			var oAgreePopup = CPopup.Create<CAgreePopup>(KCDefine.AS_OBJ_N_AGREE_POPUP, oObjPath, this.PopupUIs);

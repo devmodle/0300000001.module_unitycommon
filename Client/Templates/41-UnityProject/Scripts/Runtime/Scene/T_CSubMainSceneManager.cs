@@ -153,12 +153,12 @@ namespace MainScene {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+		public override void OnUpdate(float a_fTimeDelta) {
+			base.OnUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
-				this.SubOnUpdate(a_fDeltaTime);
+				this.SubOnUpdate(a_fTimeDelta);
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 				// 단축키를 눌렀을 경우

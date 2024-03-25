@@ -162,36 +162,36 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+		public override void OnUpdate(float a_fTimeDelta) {
+			base.OnUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp && this.IsEnableUpdate) {
 				// 실행 중 일 경우
 				if(this.IsRunning) {
 					switch(this.SubState) {
-						case ESubState.PLAY: this.HandlePlaySubState(a_fDeltaTime * this.DeltaTimeScale); break;
-						case ESubState.PAUSE: this.HandlePauseSubState(a_fDeltaTime * this.DeltaTimeScale); break;
+						case ESubState.PLAY: this.HandlePlaySubState(a_fTimeDelta * this.DeltaTimeScale); break;
+						case ESubState.PAUSE: this.HandlePauseSubState(a_fTimeDelta * this.DeltaTimeScale); break;
 					}
 
 					// 플레이어 객체가 존재 할 경우
 					if(this.PlayerObjListWrapper.ExIsValid()) {
 						var stMainCameraPos = this.GetMainCameraPos();
-						CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos.ExToWorld(this.Params.m_oObjRoot), a_fDeltaTime * KCDefine.B_VAL_9_REAL);
+						CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos.ExToWorld(this.Params.m_oObjRoot), a_fTimeDelta * KCDefine.B_VAL_9_REAL);
 					}
 				}
 
-				this.SubOnUpdate(a_fDeltaTime * this.DeltaTimeScale);
+				this.SubOnUpdate(a_fTimeDelta * this.DeltaTimeScale);
 			}
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnLateUpdate(float a_fDeltaTime) {
-			base.OnLateUpdate(a_fDeltaTime);
+		public override void OnLateUpdate(float a_fTimeDelta) {
+			base.OnLateUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp && this.IsEnableUpdate) {
-				this.SubOnLateUpdate(a_fDeltaTime * this.DeltaTimeScale);
+				this.SubOnLateUpdate(a_fTimeDelta * this.DeltaTimeScale);
 			}
 		}
 

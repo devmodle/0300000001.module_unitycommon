@@ -52,12 +52,12 @@ public static partial class CCommonEditorSceneManager
 
 		var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_LOCALIZE_SETTINGS);
 
-		var oIsSetupOptsList = new List<bool>() {
+		var oListIsSetupOpts = new List<bool>() {
 			oSerializeObj.FindProperty(KCEditorDefine.B_PROPERTY_N_LOCALIZE_INITIALIZE_SYNCHRONOUSLY).boolValue
 		};
 
 		// 설정 갱신이 필요 없을 경우
-		if(!oIsSetupOptsList.Contains(false))
+		if(!oListIsSetupOpts.Contains(false))
 		{
 			return;
 		}

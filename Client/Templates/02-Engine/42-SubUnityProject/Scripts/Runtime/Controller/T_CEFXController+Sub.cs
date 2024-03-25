@@ -49,9 +49,9 @@ namespace NSEngine {
 		}
 
 		/** 대기 상태를 처리한다 */
-		protected override void HandleIdleState(float a_fDeltaTime) {
-			base.HandleIdleState(a_fDeltaTime);
-			m_fUpdateSkipTime += a_fDeltaTime;
+		protected override void HandleIdleState(float a_fTimeDelta) {
+			base.HandleIdleState(a_fTimeDelta);
+			m_fUpdateSkipTime += a_fTimeDelta;
 
 			// 딜레이 시간이 지났을 경우
 			if(m_fUpdateSkipTime.ExIsGreatEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDelay)) {
@@ -85,7 +85,7 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdate(float a_fDeltaTime) {
+		private void SubOnUpdate(float a_fTimeDelta) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				// Do Something
@@ -133,8 +133,8 @@ namespace NSEngine {
 		}
 
 		/** 적용 서브 상태를 처리한다 */
-		private void HandleApplySubState(float a_fDeltaTime) {
-			m_fUpdateSkipTime += a_fDeltaTime;
+		private void HandleApplySubState(float a_fTimeDelta) {
+			m_fUpdateSkipTime += a_fTimeDelta;
 
 			// 적용 간격이 지났을 경우
 			if(m_nApplyTimes < this.GetOwner<CEFX>().Params.m_stFXInfo.m_nMaxApplyTimes && m_fUpdateSkipTime.ExIsGreatEquals(this.GetOwner<CEFX>().Params.m_stFXInfo.m_stTimeInfo.m_fDeltaTime * (m_nApplyTimes - KCDefine.B_VAL_1_INT))) {
@@ -155,7 +155,7 @@ namespace NSEngine {
 		}
 
 		/** 완료 서브 상태를 처리한다 */
-		private void HandleCompleteSubState(float a_fDeltaTime) {
+		private void HandleCompleteSubState(float a_fTimeDelta) {
 			// 소유자가 존재 할 경우
 			if(this.GetOwner<CEFX>() != null && this.GetOwner<CEFX>().gameObject.activeSelf) {
 				this.SetState(EState.NONE);

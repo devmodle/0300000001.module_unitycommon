@@ -81,7 +81,7 @@ namespace LevelEditorScene {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdate(float a_fDeltaTime) {
+		private void SubOnUpdate(float a_fTimeDelta) {
 			// Do Something
 		}
 

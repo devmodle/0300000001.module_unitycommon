@@ -29,10 +29,10 @@ namespace TitleScene {
 		private bool m_bIsTouch = false;
 		private Tween m_oTouchAni = null;
 
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 		private SimpleJSON.JSONNode m_oVerInfos = null;
 		private Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetLoadHandlerDict = new Dictionary<string, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 
 		[Header("=====> UIs <=====")]
 		private Dictionary<EKey, Text> m_oTextDict = new Dictionary<EKey, Text>();
@@ -78,7 +78,7 @@ namespace TitleScene {
 					}
 					// 아이템을 설정한다 }
 
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 					// 구글 시트 처리자를 설정한다
 					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ETC_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_MISSION_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
@@ -89,7 +89,7 @@ namespace TitleScene {
 					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_OBJ_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_ABILITY_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 				} finally {
 					CCollectionPoolManager.Inst.DespawnList(oItemKindsList);
 				}
@@ -153,12 +153,12 @@ namespace TitleScene {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+		public override void OnUpdate(float a_fTimeDelta) {
+			base.OnUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
-				this.SubOnUpdate(a_fDeltaTime);
+				this.SubOnUpdate(a_fTimeDelta);
 			}
 		}
 
@@ -190,11 +190,11 @@ namespace TitleScene {
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 			// 버튼을 갱신한다 {
-#if APPLE_LOGIN_ENABLE && UNITY_IOS
+#if ENABLE_LOGIN_APPLE && UNITY_IOS
 			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(true);
 #else
 			m_oBtnDict[EKey.APPLE_LOGIN_BTN]?.gameObject.SetActive(false);
-#endif // #if APPLE_LOGIN_ENABLE && UNITY_IOS
+#endif // #if ENABLE_LOGIN_APPLE && UNITY_IOS
 
 			var oLoginBtnKeyList = new List<EKey>() {
 				EKey.PLAY_BTN, EKey.GUEST_LOGIN_BTN, EKey.APPLE_LOGIN_BTN, EKey.FACEBOOK_LOGIN_BTN,
@@ -254,9 +254,9 @@ namespace TitleScene {
 
 		/** 애플 로그인 버튼을 눌렀을 경우 */
 		private void OnTouchAppleLoginBtn() {
-#if APPLE_LOGIN_ENABLE && UNITY_IOS
+#if ENABLE_LOGIN_APPLE && UNITY_IOS
 			Func.AppleLogin((a_oSender, a_bIsSuccess) => this.OnLogin(ELoginType.APPLE, a_bIsSuccess));
-#endif // #if APPLE_LOGIN_ENABLE && UNITY_IOS
+#endif // #if ENABLE_LOGIN_APPLE && UNITY_IOS
 		}
 
 		/** 페이스 북 로그인 버튼을 눌렀을 경우 */
@@ -282,7 +282,7 @@ namespace TitleScene {
 		#endregion // 함수
 
 		#region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 		/** 구글 시트를 로드했을 경우 */
 		private void OnLoadGoogleSheet(CServicesManager a_oSender, STGoogleSheetLoadInfo a_stGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode> a_oJSONNodeInfoDict, bool a_bIsSuccess) {
 			// 로드되었을 경우
@@ -330,7 +330,7 @@ namespace TitleScene {
 
 			m_bIsTouch = a_bIsSuccess;
 		}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 	}
 }

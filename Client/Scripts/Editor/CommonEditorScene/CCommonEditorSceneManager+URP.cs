@@ -14,32 +14,32 @@ public static partial class CCommonEditorSceneManager
 	{
 #if URP_MODULE_ENABLE
 		// URP 전역 설정이 없을 경우
-		if(!CEditorAccess.IsExistsAsset(KCEditorDefine.G_ASSET_P_URP_SETTINGS_GLOBAL))
+		if(!CEditorAccess.IsExistsAsset(KCEditorDefine.G_URP_ASSET_P_SETTINGS_GLOBAL))
 		{
 			return;
 		}
 
-		var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.G_ASSET_P_URP_SETTINGS_GLOBAL);
+		var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.G_URP_ASSET_P_SETTINGS_GLOBAL);
 
-		var oIsSetupOptsList = new List<bool>() {
-			oSerializeObj.FindProperty(KCEditorDefine.G_PROPERTY_N_URP_VARIANTS_DEBUG_STRIP).boolValue,
-			oSerializeObj.FindProperty(KCEditorDefine.G_PROPERTY_N_URP_VARIANTS_UNUSED_STRIP).boolValue,
-			oSerializeObj.FindProperty(KCEditorDefine.G_PROPERTY_N_URP_VARIANTS_PROCESSING_POST_UNUSED_STRIP).boolValue,
+		var oListIsSetupOpts = new List<bool>() {
+			oSerializeObj.FindProperty(KCEditorDefine.G_URP_PROPERTY_N_VARIANTS_DEBUG_STRIP).boolValue,
+			oSerializeObj.FindProperty(KCEditorDefine.G_URP_PROPERTY_N_VARIANTS_UNUSED_STRIP).boolValue,
+			oSerializeObj.FindProperty(KCEditorDefine.G_URP_PROPERTY_N_VARIANTS_PROCESSING_POST_UNUSED_STRIP).boolValue,
 
-			oSerializeObj.FindProperty(KCEditorDefine.G_PROPERTY_N_URP_LEVEL_LOG_VARIANT_SHADER).intValue == (int)EShaderVariantLogLevel.ALL_SHADERS
+			oSerializeObj.FindProperty(KCEditorDefine.G_URP_PROPERTY_N_LEVEL_LOG_VARIANT_SHADER).intValue == (int)ELevelLogVariantShader.ALL_SHADERS
 		};
 
 		// 설정 갱신이 필요 없을 경우
-		if(!oIsSetupOptsList.Contains(false))
+		if(!oListIsSetupOpts.Contains(false))
 		{
 			return;
 		}
 
-		oSerializeObj.ExSetPropertyVal(KCEditorDefine.G_PROPERTY_N_URP_VARIANTS_DEBUG_STRIP, (a_oProperty) => a_oProperty.boolValue = true);
-		oSerializeObj.ExSetPropertyVal(KCEditorDefine.G_PROPERTY_N_URP_VARIANTS_UNUSED_STRIP, (a_oProperty) => a_oProperty.boolValue = true);
-		oSerializeObj.ExSetPropertyVal(KCEditorDefine.G_PROPERTY_N_URP_VARIANTS_PROCESSING_POST_UNUSED_STRIP, (a_oProperty) => a_oProperty.boolValue = true);
+		oSerializeObj.ExSetPropertyVal(KCEditorDefine.G_URP_PROPERTY_N_VARIANTS_DEBUG_STRIP, (a_oProperty) => a_oProperty.boolValue = true);
+		oSerializeObj.ExSetPropertyVal(KCEditorDefine.G_URP_PROPERTY_N_VARIANTS_UNUSED_STRIP, (a_oProperty) => a_oProperty.boolValue = true);
+		oSerializeObj.ExSetPropertyVal(KCEditorDefine.G_URP_PROPERTY_N_VARIANTS_PROCESSING_POST_UNUSED_STRIP, (a_oProperty) => a_oProperty.boolValue = true);
 
-		oSerializeObj.ExSetPropertyVal(KCEditorDefine.G_PROPERTY_N_URP_LEVEL_LOG_VARIANT_SHADER, (a_oProperty) => a_oProperty.intValue = (int)EShaderVariantLogLevel.ALL_SHADERS);
+		oSerializeObj.ExSetPropertyVal(KCEditorDefine.G_URP_PROPERTY_N_LEVEL_LOG_VARIANT_SHADER, (a_oProperty) => a_oProperty.intValue = (int)ELevelLogVariantShader.ALL_SHADERS);
 #endif // #if URP_MODULE_ENABLE
 	}
 	#endregion // 클래스 함수

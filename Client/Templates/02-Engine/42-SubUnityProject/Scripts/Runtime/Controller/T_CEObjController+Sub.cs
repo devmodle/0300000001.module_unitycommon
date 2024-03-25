@@ -25,14 +25,14 @@ namespace NSEngine {
 
 		#region 함수
 		/** 이동 상태를 처리한다 */
-		protected override void HandleMoveState(float a_fDeltaTime) {
-			base.HandleMoveState(a_fDeltaTime);
-			this.GetOwner<CEObj>().transform.localPosition = this.GetNextPos((this.MoveDirection * (float)this.GetOwner<CEObj>().GetAbilityVal(EAbilityKinds.STAT_ABILITY_MOVE_SPEED_01)) * a_fDeltaTime);
+		protected override void HandleMoveState(float a_fTimeDelta) {
+			base.HandleMoveState(a_fTimeDelta);
+			this.GetOwner<CEObj>().transform.localPosition = this.GetNextPos((this.MoveDirection * (float)this.GetOwner<CEObj>().GetAbilityVal(EAbilityKinds.STAT_ABILITY_MOVE_SPEED_01)) * a_fTimeDelta);
 		}
 
 		/** 스킬 상태를 처리한다 */
-		protected override void HandleSkillState(float a_fDeltaTime) {
-			base.HandleSkillState(a_fDeltaTime);
+		protected override void HandleSkillState(float a_fTimeDelta) {
+			base.HandleSkillState(a_fTimeDelta);
 		}
 
 		/** 초기화 */
@@ -58,7 +58,7 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdate(float a_fDeltaTime) {
+		private void SubOnUpdate(float a_fTimeDelta) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				// Do Something

@@ -70,9 +70,9 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
-			this.Params.m_oController?.OnUpdate(a_fDeltaTime);
+		public override void OnUpdate(float a_fTimeDelta) {
+			base.OnUpdate(a_fTimeDelta);
+			this.Params.m_oController?.OnUpdate(a_fTimeDelta);
 		}
 
 		/** 어빌리티 값을 설정한다 */

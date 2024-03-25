@@ -50,7 +50,7 @@ public struct STResInfo {
 	#endregion // 함수
 
 	#region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 리소스 정보를 저장한다 */
 	public void SaveResInfo(SimpleJSON.JSONNode a_oOutResInfo) {
 		m_stCommonInfo.SaveCommonInfo(a_oOutResInfo);
@@ -62,7 +62,7 @@ public struct STResInfo {
 		a_oOutResInfo[KCDefine.U_KEY_PREV_RES_KINDS] = $"{(int)m_ePrevResKinds}";
 		a_oOutResInfo[KCDefine.U_KEY_NEXT_RES_KINDS] = $"{(int)m_eNextResKinds}";
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -172,7 +172,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	#endregion // 함수
 
 	#region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 리소스 정보를 저장한다 */
 	public void SaveResInfos() {
 		var oResInfos = SimpleJSON.JSONNode.Parse(this.LoadResInfosJSONStr(Access.ResInfoTableLoadPath));
@@ -212,7 +212,7 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 		KDefine.G_KEY_INFO_GOOGLE_SHEET_COMMON_LIST.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo);
 		Access.ResTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

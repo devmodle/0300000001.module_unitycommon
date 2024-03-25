@@ -25,8 +25,8 @@ namespace NSEngine {
 
 		#region 함수
 		/** 대기 상태를 처리한다 */
-		protected override void HandleIdleState(float a_fDeltaTime) {
-			base.HandleIdleState(a_fDeltaTime);
+		protected override void HandleIdleState(float a_fTimeDelta) {
+			base.HandleIdleState(a_fTimeDelta);
 
 			// 플레이어 객체 공격이 가능 할 경우
 			if(this.IsEnableAttackPlayerObj()) {
@@ -37,8 +37,8 @@ namespace NSEngine {
 		}
 
 		/** 이동 상태를 처리한다 */
-		protected override void HandleMoveState(float a_fDeltaTime) {
-			base.HandleMoveState(a_fDeltaTime);
+		protected override void HandleMoveState(float a_fTimeDelta) {
+			base.HandleMoveState(a_fTimeDelta);
 
 			// 플레이어 객체 공격이 가능 할 경우
 			if(this.IsEnableAttackPlayerObj()) {
@@ -50,14 +50,14 @@ namespace NSEngine {
 		}
 
 		/** 스킬 상태를 처리한다 */
-		protected override void HandleSkillState(float a_fDeltaTime) {
-			base.HandleSkillState(a_fDeltaTime);
+		protected override void HandleSkillState(float a_fTimeDelta) {
+			base.HandleSkillState(a_fTimeDelta);
 		}
 
 		/** 등장 상태를 처리한다 */
-		protected override void HandleAppearState(float a_fDeltaTime) {
-			base.HandleAppearState(a_fDeltaTime);
-			m_fUpdateSkipTime += a_fDeltaTime;
+		protected override void HandleAppearState(float a_fTimeDelta) {
+			base.HandleAppearState(a_fTimeDelta);
+			m_fUpdateSkipTime += a_fTimeDelta;
 
 			// 일정 시간이 지났을 경우
 			if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.B_VAL_1_REAL)) {
@@ -94,7 +94,7 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdate(float a_fDeltaTime) {
+		private void SubOnUpdate(float a_fTimeDelta) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				// Do Something

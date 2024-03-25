@@ -50,7 +50,7 @@ public struct STAbilityInfo {
 	#endregion // 함수
 
 	#region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 어빌리티 정보를 설정한다 */
 	public void SetupAbilityInfo(SimpleJSON.JSONNode a_oOutAbilityInfo) {
 		m_stCommonInfo.SaveCommonInfo(a_oOutAbilityInfo);
@@ -64,7 +64,7 @@ public struct STAbilityInfo {
 		Func.SaveVals(m_oExtraAbilityKindsList, KCDefine.U_KEY_FMT_EXTRA_ABILITY_KINDS, (a_eAbilityKinds) => $"{(int)a_eAbilityKinds}", a_oOutAbilityInfo);
 		Func.SaveTargetInfos(m_oExtraAbilityTargetInfoDict, KCDefine.U_KEY_FMT_EXTRA_ABILITY_TARGET_INFO, a_oOutAbilityInfo);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -106,7 +106,7 @@ public struct STAbilityTradeInfo {
 	#endregion // 함수
 
 	#region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 어빌리티 교환 정보를 설정한다 */
 	public void SetupAbilityTradeInfo(SimpleJSON.JSONNode a_oOutAbilityTradeInfo) {
 		m_stCommonInfo.SaveCommonInfo(a_oOutAbilityTradeInfo);
@@ -118,7 +118,7 @@ public struct STAbilityTradeInfo {
 		Func.SaveTargetInfos(m_oPayTargetInfoDict, KCDefine.U_KEY_FMT_PAY_TARGET_INFO, a_oOutAbilityTradeInfo);
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutAbilityTradeInfo);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -306,7 +306,7 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 	#endregion // 함수
 
 	#region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 어빌리티 정보를 저장한다 */
 	public void SaveAbilityInfos() {
 		var oAbilityInfos = SimpleJSON.JSONNode.Parse(this.LoadAbilityInfosJSONStr(Access.AbilityInfoTableLoadPath));
@@ -390,7 +390,7 @@ public partial class CAbilityInfoTable : CSingleton<CAbilityInfoTable> {
 		Access.AbilityTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_SALE_TRADE)?.ExCopyTo(a_oOutSaleTradeKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 		Access.AbilityTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_ENHANCE_TRADE)?.ExCopyTo(a_oOutEnhanceTradeKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

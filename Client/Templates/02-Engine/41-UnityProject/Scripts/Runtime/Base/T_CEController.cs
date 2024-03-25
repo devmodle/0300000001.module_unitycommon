@@ -88,21 +88,21 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+		public override void OnUpdate(float a_fTimeDelta) {
+			base.OnUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				switch(this.State) {
-					case EState.FX: this.HandleFXState(a_fDeltaTime); break;
-					case EState.IDLE: this.HandleIdleState(a_fDeltaTime); break;
-					case EState.MOVE: this.HandleMoveState(a_fDeltaTime); break;
-					case EState.SKILL: this.HandleSkillState(a_fDeltaTime); break;
-					case EState.APPEAR: this.HandleAppearState(a_fDeltaTime); break;
-					case EState.DISAPPEAR: this.HandleDisappearState(a_fDeltaTime); break;
+					case EState.FX: this.HandleFXState(a_fTimeDelta); break;
+					case EState.IDLE: this.HandleIdleState(a_fTimeDelta); break;
+					case EState.MOVE: this.HandleMoveState(a_fTimeDelta); break;
+					case EState.SKILL: this.HandleSkillState(a_fTimeDelta); break;
+					case EState.APPEAR: this.HandleAppearState(a_fTimeDelta); break;
+					case EState.DISAPPEAR: this.HandleDisappearState(a_fTimeDelta); break;
 				}
 
-				this.SubOnUpdate(a_fDeltaTime);
+				this.SubOnUpdate(a_fTimeDelta);
 			}
 		}
 		#endregion // 함수

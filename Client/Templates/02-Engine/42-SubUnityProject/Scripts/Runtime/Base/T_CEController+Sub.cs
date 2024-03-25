@@ -25,32 +25,32 @@ namespace NSEngine {
 
 		#region 함수
 		/** 효과 상태를 처리한다 */
-		protected virtual void HandleFXState(float a_fDeltaTime) {
+		protected virtual void HandleFXState(float a_fTimeDelta) {
 			// Do Something
 		}
 
 		/** 대기 상태를 처리한다 */
-		protected virtual void HandleIdleState(float a_fDeltaTime) {
+		protected virtual void HandleIdleState(float a_fTimeDelta) {
 			// Do Something
 		}
 
 		/** 이동 상태를 처리한다 */
-		protected virtual void HandleMoveState(float a_fDeltaTime) {
+		protected virtual void HandleMoveState(float a_fTimeDelta) {
 			// Do Something
 		}
 
 		/** 스킬 상태를 처리한다 */
-		protected virtual void HandleSkillState(float a_fDeltaTime) {
+		protected virtual void HandleSkillState(float a_fTimeDelta) {
 			// Do Something
 		}
 
 		/** 등장 상태를 처리한다 */
-		protected virtual void HandleAppearState(float a_fDeltaTime) {
+		protected virtual void HandleAppearState(float a_fTimeDelta) {
 			// Do Something
 		}
 
 		/** 사라짐 상태를 처리한다 */
-		protected virtual void HandleDisappearState(float a_fDeltaTime) {
+		protected virtual void HandleDisappearState(float a_fTimeDelta) {
 			// Do Something
 		}
 
@@ -65,7 +65,7 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdate(float a_fDeltaTime) {
+		private void SubOnUpdate(float a_fTimeDelta) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				// Do Something

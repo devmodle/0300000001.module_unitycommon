@@ -62,7 +62,7 @@ namespace TitleScene {
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdate(float a_fDeltaTime) {
+		private void SubOnUpdate(float a_fTimeDelta) {
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp) {
 				// Do Something
@@ -94,12 +94,12 @@ namespace TitleScene {
 			if(!m_bIsTouch && CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
 				m_bIsTouch = true;
 
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 				string oKey = KCDefine.U_TABLE_P_G_VER_INFO.ExGetFileName(false);
 				Func.LoadVerInfoGoogleSheet(Access.GoogleSheetTableInfo.GetValueOrDefault(oKey).m_oID, this.OnLoadVerInfoGoogleSheet);
 #else
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 			}
 		}
 		#endregion // 함수

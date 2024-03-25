@@ -42,7 +42,7 @@ public struct STCalcInfo {
 #endregion // 함수
 
 #region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 수식 정보를 저장한다 */
 	public void SaveCalcInfo(SimpleJSON.JSONNode a_oOutCalcInfo) {
 		m_stCommonInfo.SaveCommonInfo(a_oOutCalcInfo);
@@ -52,7 +52,7 @@ public struct STCalcInfo {
 		a_oOutCalcInfo[KCDefine.U_KEY_PREV_CALC_KINDS] = $"{(int)m_ePrevCalcKinds}";
 		a_oOutCalcInfo[KCDefine.U_KEY_NEXT_CALC_KINDS] = $"{(int)m_eNextCalcKinds}";
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 
@@ -152,7 +152,7 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 #endregion // 함수
 
 #region 조건부 함수
-#if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 	/** 수식 정보를 저장한다 */
 	public void SaveCalcInfos(SimpleJSON.JSONNode a_oOutCalcInfos) {
 		this.SetupJSONNodes(a_oOutCalcInfos, out SimpleJSON.JSONNode oCommonInfos);
@@ -186,7 +186,7 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 		KDefine.G_KEY_INFO_GOOGLE_SHEET_COMMON_LIST.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo);
 		Access.CalcTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_COMMON)?.ExCopyTo(a_oOutCommonKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
-#endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
+#endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 #endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

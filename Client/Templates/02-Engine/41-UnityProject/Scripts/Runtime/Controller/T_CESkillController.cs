@@ -53,17 +53,17 @@ namespace NSEngine {
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdate(float a_fDeltaTime) {
-			base.OnUpdate(a_fDeltaTime);
+		public override void OnUpdate(float a_fTimeDelta) {
+			base.OnUpdate(a_fTimeDelta);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsRunningApp && this.SubState != ESubState.NONE) {
 				switch(this.SubState) {
-					case ESubState.APPLY: this.HandleApplySubState(a_fDeltaTime); break;
-					case ESubState.COMPLETE: this.HandleCompleteSubState(a_fDeltaTime); break;
+					case ESubState.APPLY: this.HandleApplySubState(a_fTimeDelta); break;
+					case ESubState.COMPLETE: this.HandleCompleteSubState(a_fTimeDelta); break;
 				}
 
-				this.SubOnUpdate(a_fDeltaTime);
+				this.SubOnUpdate(a_fTimeDelta);
 			}
 		}
 		#endregion // 함수

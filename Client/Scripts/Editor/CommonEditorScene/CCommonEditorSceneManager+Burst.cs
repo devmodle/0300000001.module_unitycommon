@@ -42,7 +42,7 @@ public static partial class CCommonEditorSceneManager
 				continue;
 			}
 
-			var oIsSetupOptsList = new List<bool>() {
+			var oListIsSetupOpts = new List<bool>() {
 				oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_ENABLE_OPTIMISATIONS) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_OPTIMISATIONS] : false,
 				oMonoBehaviourDatas.Contains(KCEditorDefine.B_KEY_BURST_AS_ENABLE_BURST_COMPILATION) ? (bool)oMonoBehaviourDatas[KCEditorDefine.B_KEY_BURST_AS_ENABLE_BURST_COMPILATION] : false,
 
@@ -54,7 +54,7 @@ public static partial class CCommonEditorSceneManager
 			};
 
 			// 설정 갱신이 필요 없을 경우
-			if(!oIsSetupOptsList.Contains(false)) {
+			if(!oListIsSetupOpts.Contains(false)) {
 				continue;
 			}
 
