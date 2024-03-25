@@ -49,7 +49,7 @@ namespace OverlayScene {
 			base.Awake();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsInitApp) {
 				// 텍스트를 설정한다
 				CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 					(EKey.NUM_COINS_TEXT, $"{EKey.NUM_COINS_TEXT}", this.UIsBase)
@@ -69,7 +69,7 @@ namespace OverlayScene {
 			base.Start();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsInitApp) {
 				this.SubStart();
 				this.UpdateUIsState();
 			}
@@ -81,7 +81,7 @@ namespace OverlayScene {
 
 			try {
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
+				if(CSceneManager.IsRunningApp) {
 					this.SubOnDestroy();
 				}
 			} catch(System.Exception oException) {
@@ -94,7 +94,7 @@ namespace OverlayScene {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsRunningApp) {
 				this.SubOnUpdate(a_fDeltaTime);
 			}
 		}

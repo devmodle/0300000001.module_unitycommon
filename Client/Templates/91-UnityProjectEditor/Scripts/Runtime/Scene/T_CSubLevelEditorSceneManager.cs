@@ -266,7 +266,7 @@ namespace LevelEditorScene
 			base.Awake();
 
 			// 앱 초기화가 필요 할 경우
-			if(!CSceneManager.IsAppInit)
+			if(!CSceneManager.IsInitApp)
 			{
 				return;
 			}
@@ -339,7 +339,7 @@ namespace LevelEditorScene
 			base.Start();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit)
+			if(CSceneManager.IsInitApp)
 			{
 				// 스크롤 뷰를 설정한다
 				m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.gameObject.SetActive(true);
@@ -367,7 +367,7 @@ namespace LevelEditorScene
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 종료되었을 경우
-			if(!CSceneManager.IsAppRunning)
+			if(!CSceneManager.IsRunningApp)
 			{
 				return;
 			}
@@ -468,12 +468,12 @@ namespace LevelEditorScene
 		}
 
 		/** 상태를 갱신한다 */
-		public override void OnUpdateLate(float a_fDeltaTime)
+		public override void OnLateUpdate(float a_fDeltaTime)
 		{
-			base.OnUpdateLate(a_fDeltaTime);
+			base.OnLateUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning && CNavStackManager.Inst.TopComponent == this)
+			if(CSceneManager.IsRunningApp && CNavStackManager.Inst.TopComponent == this)
 			{
 				// 탭 키를 눌렀을 경우
 				if(UnityEngine.Input.GetKeyDown(KeyCode.Tab))
@@ -525,7 +525,7 @@ namespace LevelEditorScene
 			try
 			{
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning)
+				if(CSceneManager.IsRunningApp)
 				{
 					GameObject.DestroyImmediate(m_oGridBoundsImg);
 					GameObject.DestroyImmediate(m_oGridBoundsTex2D);

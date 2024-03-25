@@ -37,7 +37,7 @@ namespace TitleScene
 			base.Awake();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit)
+			if(CSceneManager.IsInitApp)
 			{
 				// 텍스트를 설정한다 {
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
@@ -58,7 +58,7 @@ namespace TitleScene
 			base.Start();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit)
+			if(CSceneManager.IsInitApp)
 			{
 				m_oTextDict[EKey.VER_TEXT]?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
 				m_oTextDict[EKey.VER_TEXT]?.transform.SetAsLastSibling();
@@ -71,7 +71,7 @@ namespace TitleScene
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning)
+			if(CSceneManager.IsRunningApp)
 			{
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 				// 단축키를 눌렀을 경우

@@ -383,7 +383,7 @@ public static partial class Func {
 		for(int i = 0; i < a_oComponentList.Count; ++i) {
 			// 상태 갱신이 가능 할 경우
 			if(a_oComponentList[i] != null && (a_oComponentList[i].IsEnable && !a_oComponentList[i].IsDestroy && a_oComponentList[i].gameObject.activeInHierarchy)) {
-				a_oComponentList[i].OnUpdateLate(a_fDeltaTime);
+				a_oComponentList[i].OnLateUpdate(a_fDeltaTime);
 			}
 		}
 	}
@@ -393,7 +393,7 @@ public static partial class Func {
 		foreach(var stKeyVal in a_oComponentDict) {
 			// 상태 갱신이 가능 할 경우
 			if(stKeyVal.Value != null && (stKeyVal.Value.IsEnable && !stKeyVal.Value.IsDestroy && stKeyVal.Value.gameObject.activeInHierarchy)) {
-				stKeyVal.Value.OnUpdateLate(a_fDeltaTime);
+				stKeyVal.Value.OnLateUpdate(a_fDeltaTime);
 			}
 		}
 	}

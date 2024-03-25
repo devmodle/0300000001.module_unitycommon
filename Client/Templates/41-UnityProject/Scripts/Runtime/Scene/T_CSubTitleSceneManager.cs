@@ -45,7 +45,7 @@ namespace TitleScene {
 			base.Awake();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsInitApp) {
 				var oItemKindsList = CCollectionPoolManager.Inst.SpawnList<EItemKinds>();
 
 				try {
@@ -103,7 +103,7 @@ namespace TitleScene {
 			base.Start();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsInitApp) {
 				// 앱 업데이트가 가능 할 경우
 				if(!CAppInfoStorage.Inst.IsIgnoreAppUpdate && COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
 					CAppInfoStorage.Inst.SetIsIgnoreAppUpdate(true);
@@ -143,7 +143,7 @@ namespace TitleScene {
 
 			try {
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
+				if(CSceneManager.IsRunningApp) {
 					CAccess.AssignVal(ref m_oTouchAni, null);
 					this.SubOnDestroy();
 				}
@@ -157,7 +157,7 @@ namespace TitleScene {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsRunningApp) {
 				this.SubOnUpdate(a_fDeltaTime);
 			}
 		}

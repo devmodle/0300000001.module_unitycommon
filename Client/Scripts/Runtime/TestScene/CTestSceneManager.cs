@@ -16,7 +16,7 @@ namespace TestScene
 			base.Awake();
 
 			// 앱 초기화가 필요 할 경우
-			if(!CSceneManager.IsAppInit)
+			if(!CSceneManager.IsInitApp)
 			{
 				return;
 			}

@@ -78,7 +78,7 @@ namespace MainScene {
 			base.Awake();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsInitApp) {
 #if CREATIVE_DIST_BUILD
 				for(int i = 0; i < CLevelInfoTable.Inst.NumChapterInfos; ++i) {
 					for(int j = 0; j < CLevelInfoTable.Inst.GetNumStageInfos(i); ++j) {
@@ -108,7 +108,7 @@ namespace MainScene {
 			base.Start();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsInitApp) {
 				this.SetupStart();
 				this.UpdateUIsState();
 
@@ -129,7 +129,7 @@ namespace MainScene {
 
 			try {
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
+				if(CSceneManager.IsRunningApp) {
 					this.SubOnDestroy();
 				}
 			} catch(System.Exception oException) {
@@ -142,7 +142,7 @@ namespace MainScene {
 			base.OnApplicationPause(a_bIsPause);
 
 			// 재개되었을 경우
-			if(!a_bIsPause && CSceneManager.IsAppRunning) {
+			if(!a_bIsPause && CSceneManager.IsRunningApp) {
 #if ADS_MODULE_ENABLE
 				// 광고 출력이 가능 할 경우
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds && CAdsManager.Inst.IsLoadFullscreenAds(CPluginInfoTable.Inst.AdsPlatform)) {
@@ -157,7 +157,7 @@ namespace MainScene {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsRunningApp) {
 				this.SubOnUpdate(a_fDeltaTime);
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

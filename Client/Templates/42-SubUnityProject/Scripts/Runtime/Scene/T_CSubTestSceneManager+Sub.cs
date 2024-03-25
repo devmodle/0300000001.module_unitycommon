@@ -31,7 +31,7 @@ namespace TestScene {
 			base.Awake();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsInitApp) {
 				// Do Something
 			}
 		}
@@ -41,7 +41,7 @@ namespace TestScene {
 			base.Start();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit) {
+			if(CSceneManager.IsInitApp) {
 				this.UpdateUIsState();
 			}
 		}
@@ -52,7 +52,7 @@ namespace TestScene {
 
 			try {
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
+				if(CSceneManager.IsRunningApp) {
 					// Do Something
 				}
 			} catch(System.Exception oException) {
@@ -65,7 +65,7 @@ namespace TestScene {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsRunningApp) {
 				// Do Something
 			}
 		}

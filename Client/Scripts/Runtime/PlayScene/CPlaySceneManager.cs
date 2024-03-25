@@ -43,7 +43,7 @@ namespace PlayScene
 			base.Awake();
 
 			// 앱이 초기화되었을 경우
-			if(CSceneManager.IsAppInit)
+			if(CSceneManager.IsInitApp)
 			{
 				// 객체를 설정한다
 				CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>() {

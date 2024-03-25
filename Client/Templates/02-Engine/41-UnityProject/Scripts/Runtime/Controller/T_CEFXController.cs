@@ -44,7 +44,7 @@ namespace NSEngine {
 
 			try {
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
+				if(CSceneManager.IsRunningApp) {
 					this.SubOnDestroy();
 				}
 			} catch(System.Exception oException) {
@@ -57,7 +57,7 @@ namespace NSEngine {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning && this.SubState != ESubState.NONE) {
+			if(CSceneManager.IsRunningApp && this.SubState != ESubState.NONE) {
 				switch(this.SubState) {
 					case ESubState.APPLY: this.HandleApplySubState(a_fDeltaTime); break;
 					case ESubState.COMPLETE: this.HandleCompleteSubState(a_fDeltaTime); break;

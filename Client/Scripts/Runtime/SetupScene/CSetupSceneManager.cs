@@ -110,7 +110,7 @@ namespace SetupScene
 			try
 			{
 				// 앱이 종료되었을 경우
-				if(!CSceneManager.IsAppRunning)
+				if(!CSceneManager.IsRunningApp)
 				{
 					return;
 				}

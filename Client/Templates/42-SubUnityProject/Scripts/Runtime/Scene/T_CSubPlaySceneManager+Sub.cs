@@ -53,7 +53,7 @@ namespace PlayScene {
 		private void SubOnDestroy() {
 			try {
 				// 앱이 실행 중 일 경우
-				if(CSceneManager.IsAppRunning) {
+				if(CSceneManager.IsRunningApp) {
 					// Do Something
 				}
 			} catch(System.Exception oException) {
@@ -64,15 +64,15 @@ namespace PlayScene {
 		/** 상태를 갱신한다 */
 		private void SubOnUpdate(float a_fDeltaTime) {
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsRunningApp) {
 				// Do Something
 			}
 		}
 
 		/** 상태를 갱신한다 */
-		private void SubOnUpdateLate(float a_fDeltaTime) {
+		private void SubOnLateUpdate(float a_fDeltaTime) {
 			// 앱이 실행 중 일 경우
-			if(CSceneManager.IsAppRunning) {
+			if(CSceneManager.IsRunningApp) {
 				// Do Something
 			}
 		}

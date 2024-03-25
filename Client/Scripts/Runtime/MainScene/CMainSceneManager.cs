@@ -37,7 +37,7 @@ namespace MainScene
 			base.Awake();
 
 			// 앱 초기화가 필요 할 경우
-			if(!CSceneManager.IsAppInit)
+			if(!CSceneManager.IsInitApp)
 			{
 				return;
 			}
@@ -61,7 +61,7 @@ namespace MainScene
 			base.Start();
 
 			// 앱 초기화가 필요 할 경우
-			if(!CSceneManager.IsAppInit)
+			if(!CSceneManager.IsInitApp)
 			{
 				return;
 			}
@@ -81,7 +81,7 @@ namespace MainScene
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 종료되었을 경우
-			if(!CSceneManager.IsAppRunning)
+			if(!CSceneManager.IsRunningApp)
 			{
 				return;
 			}
