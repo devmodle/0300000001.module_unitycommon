@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oEditorDefineSymbolList: []
   m_oCommonDefineSymbolList:
-  - MODE_2D_ENABLE
-  - MODE_PORTRAIT_ENABLE
+  - ENABLE_MODE_2D
+  - ENABLE_MODE_PORTRAIT
   - SPRITE_PIXELS_PER_UNIT_ADJUST_ENABLE
   - URP_ENABLE
   - ADDRESSABLES_ENABLE

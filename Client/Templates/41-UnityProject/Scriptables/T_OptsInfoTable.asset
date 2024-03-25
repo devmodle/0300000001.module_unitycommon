@@ -36,7 +36,7 @@ MonoBehaviour:
     m_bIsEnableProbesReflectionRealtime: 0
     m_bIsEnableLightingEnvironmentRealtime: 0
     m_eLevelQuality: 2
-    m_eModeLightingMixed: 1
+    m_eModeLightingMixed: 2
     m_eQualityEncodingLightmap: 1
     m_stInfoOptsRenderingQualityNorm:
       m_stInfoOptsURP:
@@ -63,7 +63,7 @@ MonoBehaviour:
         m_eDownsampling: 0
       m_stInfoOptsLight:
         m_eSizeLightmapMax: 2048
-        m_eModeLightmap: 1
+        m_eModeLightmap: 0
         m_eModeShadowmask: 0
         m_eResolutionShadow: 2
         m_eCompressionLightmap: 3
