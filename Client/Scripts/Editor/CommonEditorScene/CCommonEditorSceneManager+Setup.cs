@@ -128,7 +128,7 @@ public static partial class CCommonEditorSceneManager
 		{
 			bool bIsValid01 = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
 			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCEditorDefine.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
-			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLevelQuality, string.Empty).ExGetFileName(false));
+			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_eLevelQuality, string.Empty).ExGetFileName(false));
 
 			var stResult = oLightingSettingsPathDict.ExFindVal((a_stKeyVal) =>
 			{
@@ -136,10 +136,10 @@ public static partial class CCommonEditorSceneManager
 			});
 
 			// 광원 설정이 없을 경우
-			if((!bIsValid01 || bIsValid02 || (bIsValid03 && stResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLevelQuality, string.Empty), true))
+			if((!bIsValid01 || bIsValid02 || (bIsValid03 && stResult.Item1)) && CAccess.IsExistsRes<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_eLevelQuality, string.Empty), true))
 			{
 				EditorSceneManager.MarkSceneDirty(stScene);
-				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eLevelQuality, string.Empty)));
+				Lightmapping.SetLightingSettingsForScene(stScene, Resources.Load<LightingSettings>(oLightingSettingsPathDict.ExGetVal(CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_eLevelQuality, string.Empty)));
 			}
 		}
 	}
@@ -283,17 +283,17 @@ public static partial class CCommonEditorSceneManager
 				a_oSettings.ao,
 				a_oSettings.bakedGI,
 
-				a_oSettings.realtimeGI == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeGI,
-				a_oSettings.realtimeEnvironmentLighting == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeEnvironmentLighting,
+				a_oSettings.realtimeGI == CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_bIsEnableGIRealtime,
+				a_oSettings.realtimeEnvironmentLighting == CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_bIsEnableLightingEnvironmentRealtime,
 
 				a_oSettings.lightmapper == (CEditorAccess.IsAppleMSeries ? LightingSettings.Lightmapper.ProgressiveGPU : LightingSettings.Lightmapper.ProgressiveCPU),
 				a_oSettings.filteringMode == LightingSettings.FilterMode.Auto,
-				a_oSettings.mixedBakeMode == CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode,
-				a_oSettings.directionalityMode == (LightmapsMode)stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapMode,
+				a_oSettings.mixedBakeMode == CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_eModeLightingMixed,
+				a_oSettings.directionalityMode == (LightmapsMode)stInfoOptsRendering.m_stInfoOptsLight.m_eModeLightmap,
 
 				a_oSettings.lightmapPadding == KCDefine.B_VAL_4_INT,
-				a_oSettings.lightmapMaxSize == (int)stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapMaxSize,
-				a_oSettings.lightmapCompression == stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapCompression,
+				a_oSettings.lightmapMaxSize == (int)stInfoOptsRendering.m_stInfoOptsLight.m_eSizeLightmapMax,
+				a_oSettings.lightmapCompression == stInfoOptsRendering.m_stInfoOptsLight.m_eCompressionLightmap,
 
 				a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_REAL),
 				a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_REAL),
@@ -307,17 +307,17 @@ public static partial class CCommonEditorSceneManager
 				a_oSettings.ao = true;
 				a_oSettings.bakedGI = true;
 
-				a_oSettings.realtimeGI = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeGI;
-				a_oSettings.realtimeEnvironmentLighting = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_bIsEnableRealtimeEnvironmentLighting;
+				a_oSettings.realtimeGI = CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_bIsEnableGIRealtime;
+				a_oSettings.realtimeEnvironmentLighting = CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_bIsEnableLightingEnvironmentRealtime;
 
 				a_oSettings.lightmapper = CEditorAccess.IsAppleMSeries ? LightingSettings.Lightmapper.ProgressiveGPU : LightingSettings.Lightmapper.ProgressiveCPU;
 				a_oSettings.filteringMode = LightingSettings.FilterMode.Auto;
-				a_oSettings.mixedBakeMode = CPlatformOptsSetter.OptsInfoTable.QualityOptsInfo.m_eMixedLightingMode;
-				a_oSettings.directionalityMode = (LightmapsMode)stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapMode;
+				a_oSettings.mixedBakeMode = CPlatformOptsSetter.OptsInfoTable.InfoOptsQuality.m_eModeLightingMixed;
+				a_oSettings.directionalityMode = (LightmapsMode)stInfoOptsRendering.m_stInfoOptsLight.m_eModeLightmap;
 
 				a_oSettings.lightmapPadding = KCDefine.B_VAL_4_INT;
-				a_oSettings.lightmapMaxSize = (int)stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapMaxSize;
-				a_oSettings.lightmapCompression = stInfoOptsRendering.m_stLightOptsInfo.m_eLightmapCompression;
+				a_oSettings.lightmapMaxSize = (int)stInfoOptsRendering.m_stInfoOptsLight.m_eSizeLightmapMax;
+				a_oSettings.lightmapCompression = stInfoOptsRendering.m_stInfoOptsLight.m_eCompressionLightmap;
 
 				a_oSettings.albedoBoost = KCDefine.B_VAL_1_INT;
 				a_oSettings.indirectScale = KCDefine.B_VAL_1_INT;

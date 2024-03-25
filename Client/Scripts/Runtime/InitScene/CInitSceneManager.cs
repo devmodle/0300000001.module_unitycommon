@@ -153,7 +153,7 @@ namespace InitScene
 #endif // #if ENABLE_MULTITOUCH
 
 #if UNITY_EDITOR
-			CSceneManager.SetupQuality(COptsInfoTable.Inst.QualityOptsInfo.m_eLevelQuality, true);
+			CSceneManager.SetupQuality(COptsInfoTable.Inst.InfoOptsQuality.m_eLevelQuality, true);
 #else
 			CSceneManager.SetupQuality(bIsValid ? 
 				(ELevelQuality)stTargetFrameInfo.Item1 : (ELevelQuality)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);

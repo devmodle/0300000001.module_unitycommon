@@ -573,7 +573,7 @@ namespace LevelEditorScene
 #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MENU);
 #elif EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-				CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.EtcOptsInfo.m_bIsEnableTitleScene ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
+				CSceneLoader.Inst.LoadScene(COptsInfoTable.Inst.InfoOptsEtc.m_bIsEnableSceneTitle ? KCDefine.B_SCENE_N_TITLE : KCDefine.B_SCENE_N_MAIN);
 #endif // #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			}
 		}

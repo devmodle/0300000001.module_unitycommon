@@ -12,77 +12,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c791f5d751bda4c3f9681965b4e93341, type: 3}
   m_Name: T_OptsInfoTable
   m_EditorClassIdentifier: 
-  m_stEtcOptsInfo:
-    m_bIsEnableTitleScene: 0
-  m_stSndOptsInfo:
-    m_nNumRealVoices: 32
-    m_nNumVirtualVoices: 512
-  m_stBuildOptsInfo:
-    m_bIsPreBakeCollisionMesh: 0
-    m_bIsPreserveFrameBufferAlpha: 0
-    m_oCameraDesc: 
-    m_oLocationDesc: 
-    m_oBluetoothDesc: 
-    m_oMicrophoneDesc: 
-    m_oInputSystemMotionDesc: 
-    m_eNormapMapEncoding: 1
-    m_stiOSBuildOptsInfo:
+  m_stInfoOptsEtc:
+    m_bIsEnableSceneTitle: 0
+  m_stInfoOptsSnd:
+    m_nNumVoicesReal: 32
+    m_nNumVoicesVirtual: 512
+  m_stInfoOptsBuild:
+    m_bIsPreBakeMeshCollision: 1
+    m_bIsPreserveAlphaBufferFrame: 0
+    m_oDescCamera: 
+    m_oDescLocation: 
+    m_oDescBluetooth: 
+    m_oDescMicrophone: 
+    m_oDescMotionSystemInput: 
+    m_eEncodingNormapMap: 1
+    m_stInfoOptsBuildiOS:
       m_bIsEnableProMotion: 0
-      m_bIsEnableInputSystemMotion: 0
-    m_stAndroidBuildOptsInfo:
-      m_bIsUseAPKExpansionFiles: 0
-  m_stQualityOptsInfo:
-    m_bIsEnableRealtimeGI: 0
-    m_bIsEnableRealtimeReflectionProbes: 0
-    m_bIsEnableRealtimeEnvironmentLighting: 0
-    m_eQualityLevel: 2
-    m_eMixedLightingMode: 2
-    m_eLightmapEncodingQuality: 1
-    m_stNormQualityRenderingOptsInfo:
-      m_stURPOptsInfo:
+      m_bIsEnableMotionSystemInput: 0
+    m_stInfoOptsBuildAndroid:
+      m_bIsUseFilesExpansionAPK: 0
+  m_stInfoOptsQuality:
+    m_bIsEnableGIRealtime: 0
+    m_bIsEnableProbesReflectionRealtime: 0
+    m_bIsEnableLightingEnvironmentRealtime: 0
+    m_eLevelQuality: 2
+    m_eModeLightingMixed: 1
+    m_eQualityEncodingLightmap: 1
+    m_stInfoOptsRenderingQualityNorm:
+      m_stInfoOptsURP:
         m_eLightCookieResolution: 256
         m_eMainLightShadowResolution: 1024
         m_eAdditionalLightsShadowResolution: 1024
-        m_eMSAAQuality: 0
+        m_eQualityMSAA: 0
         m_eDownsampling: 0
-      m_stLightOptsInfo:
-        m_eLightmapMaxSize: 1024
-        m_eLightmapMode: 0
-        m_eLightmapCompression: 2
-        m_eShadowmaskMode: 0
-        m_eShadowResolution: 1
-        m_eSoftShadowQuality: 0
-        m_eShadowCascadesOpts: 0
-      m_eAAQuality: 0
-    m_stHighQualityRenderingOptsInfo:
-      m_stURPOptsInfo:
+      m_stInfoOptsLight:
+        m_eSizeLightmapMax: 1024
+        m_eModeLightmap: 0
+        m_eModeShadowmask: 0
+        m_eResolutionShadow: 1
+        m_eCompressionLightmap: 2
+        m_eQualityShadowSoft: 0
+        m_eOptsCascadesShadow: 0
+      m_eQualityAA: 0
+    m_stInfoOptsRenderingQualityHigh:
+      m_stInfoOptsURP:
         m_eLightCookieResolution: 512
         m_eMainLightShadowResolution: 2048
         m_eAdditionalLightsShadowResolution: 2048
-        m_eMSAAQuality: 0
+        m_eQualityMSAA: 0
         m_eDownsampling: 0
-      m_stLightOptsInfo:
-        m_eLightmapMaxSize: 2048
-        m_eLightmapMode: 1
-        m_eLightmapCompression: 3
-        m_eShadowmaskMode: 0
-        m_eShadowResolution: 2
-        m_eSoftShadowQuality: 0
-        m_eShadowCascadesOpts: 0
-      m_eAAQuality: 0
-    m_stUltraQualityRenderingOptsInfo:
-      m_stURPOptsInfo:
+      m_stInfoOptsLight:
+        m_eSizeLightmapMax: 2048
+        m_eModeLightmap: 1
+        m_eModeShadowmask: 0
+        m_eResolutionShadow: 2
+        m_eCompressionLightmap: 3
+        m_eQualityShadowSoft: 0
+        m_eOptsCascadesShadow: 0
+      m_eQualityAA: 0
+    m_stInfoOptsRenderingQualityUltra:
+      m_stInfoOptsURP:
         m_eLightCookieResolution: 512
         m_eMainLightShadowResolution: 2048
         m_eAdditionalLightsShadowResolution: 2048
-        m_eMSAAQuality: 0
+        m_eQualityMSAA: 0
         m_eDownsampling: 0
-      m_stLightOptsInfo:
-        m_eLightmapMaxSize: 2048
-        m_eLightmapMode: 1
-        m_eLightmapCompression: 3
-        m_eShadowmaskMode: 1
-        m_eShadowResolution: 3
-        m_eSoftShadowQuality: 0
-        m_eShadowCascadesOpts: 0
-      m_eAAQuality: 0
+      m_stInfoOptsLight:
+        m_eSizeLightmapMax: 2048
+        m_eModeLightmap: 1
+        m_eModeShadowmask: 1
+        m_eResolutionShadow: 3
+        m_eCompressionLightmap: 3
+        m_eQualityShadowSoft: 0
+        m_eOptsCascadesShadow: 0
+      m_eQualityAA: 0
