@@ -29,29 +29,29 @@ public static partial class CCommonEditorSceneManager
 
 	private static Dictionary<string, string> m_oSortingLayerDict = new Dictionary<string, string>()
 	{
-		[KCDefine.B_SORTING_L_ABS] = "A",
-		[KCDefine.B_SORTING_L_DEF] = "D",
+		[KCDefine.G_SORTING_L_ABS] = "A",
+		[KCDefine.G_SORTING_L_DEF] = "D",
 
-		[KCDefine.B_SORTING_L_TOP] = "T",
-		[KCDefine.B_SORTING_L_TOPMOST] = "TM",
+		[KCDefine.G_SORTING_L_TOP] = "T",
+		[KCDefine.G_SORTING_L_TOPMOST] = "TM",
 
-		[KCDefine.B_SORTING_L_FOREGROUND] = "F",
-		[KCDefine.B_SORTING_L_BACKGROUND] = "B",
+		[KCDefine.G_SORTING_L_FOREGROUND] = "F",
+		[KCDefine.G_SORTING_L_BACKGROUND] = "B",
 
-		[KCDefine.B_SORTING_L_OVERGROUND] = "O",
-		[KCDefine.B_SORTING_L_UNDERGROUND] = "U",
+		[KCDefine.G_SORTING_L_OVERGROUND] = "O",
+		[KCDefine.G_SORTING_L_UNDERGROUND] = "U",
 
-		[KCDefine.B_SORTING_L_OVERLAY_ABS] = "OA",
-		[KCDefine.B_SORTING_L_OVERLAY_DEF] = "OD",
+		[KCDefine.G_SORTING_L_ABS_OVERLAY] = "OA",
+		[KCDefine.G_SORTING_L_DEF_OVERLAY] = "OD",
 
-		[KCDefine.B_SORTING_L_OVERLAY_TOP] = "OT",
-		[KCDefine.B_SORTING_L_OVERLAY_TOPMOST] = "OTM",
+		[KCDefine.G_SORTING_L_TOP_OVERLAY] = "OT",
+		[KCDefine.G_SORTING_L_TOPMOST_OVERLAY] = "OTM",
 
-		[KCDefine.B_SORTING_L_OVERLAY_FOREGROUND] = "OF",
-		[KCDefine.B_SORTING_L_OVERLAY_BACKGROUND] = "OB",
+		[KCDefine.G_SORTING_L_FOREGROUND_OVERLAY] = "OF",
+		[KCDefine.G_SORTING_L_BACKGROUND_OVERLAY] = "OB",
 
-		[KCDefine.B_SORTING_L_OVERLAY_OVERGROUND] = "OO",
-		[KCDefine.B_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
+		[KCDefine.G_SORTING_L_OVERGROUND_OVERLAY] = "OO",
+		[KCDefine.G_SORTING_L_UNDERGROUND_OVERLAY] = "OU"
 	};
 
 	private static bool m_bIsEnableSetup = false;
@@ -239,7 +239,7 @@ public static partial class CCommonEditorSceneManager
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid())
 					{
 						a_stRect.position += new Vector2((a_stRect.size.x + KCDefineEditor.G_HIERARCHY_OFFSET_TEXT) * -1.0f, KCDefine.B_VAL_0_REAL);
-						string oStr = string.Format(KCDefineEditor.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
+						string oStr = string.Format(KCDefineEditor.G_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRectList = new List<Rect>() {
 							new Rect(a_stRect.x + KCDefine.B_VAL_1_REAL, a_stRect.y, a_stRect.width, a_stRect.height),

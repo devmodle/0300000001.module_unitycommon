@@ -85,9 +85,9 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	}
 
 	/** 리소스 정보를 리셋한다 */
-	public virtual void ResetResInfos(string a_oJSONStr) {
+	public virtual void ResetResInfos(string a_oStrJSON) {
 		this.ResetResInfos();
-		this.DoLoadResInfos(a_oJSONStr);
+		this.DoLoadResInfos(a_oStrJSON);
 	}
 
 	/** 리소스 정보를 반환한다 */
@@ -111,17 +111,17 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	}
 
 	/** 리소스 정보를 저장한다 */
-	public void SaveResInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
+	public void SaveResInfos(string a_oStrJSON, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oStrJSON != null);
 
 		// JSON 문자열이 존재 할 경우
-		if(a_oJSONStr != null) {
-			this.ResetResInfos(a_oJSONStr);
+		if(a_oStrJSON != null) {
+			this.ResetResInfos(a_oStrJSON);
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			CFunc.WriteStr(Access.ResInfoTableSavePath, a_oJSONStr, false);
+			CFunc.WriteStr(Access.ResInfoTableSavePath, a_oStrJSON, false);
 #else
-			CFunc.WriteStr(Access.ResInfoTableSavePath, a_oJSONStr, true);
+			CFunc.WriteStr(Access.ResInfoTableSavePath, a_oStrJSON, true);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
@@ -137,26 +137,26 @@ public partial class CResInfoTable : CSingleton<CResInfoTable> {
 	}
 
 	/** 리소스 정보를 로드한다 */
-	private Dictionary<EResKinds, STResInfo> LoadResInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadResInfos(this.LoadResInfosJSONStr(a_oFilePath));
+	private Dictionary<EResKinds, STResInfo> LoadResInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		return this.DoLoadResInfos(this.LoadResInfosJSONStr(a_oPathFile));
 	}
 
 	/** 리소스 정보 JSON 문자열을 로드한다 */
-	private string LoadResInfosJSONStr(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
+	private string LoadResInfosJSONStr(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, false) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #else
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, true) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 리소스 정보를 로드한다 */
-	private Dictionary<EResKinds, STResInfo> DoLoadResInfos(string a_oJSONStr) {
-		CFunc.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
+	private Dictionary<EResKinds, STResInfo> DoLoadResInfos(string a_oStrJSON) {
+		CFunc.Assert(a_oStrJSON.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oStrJSON), out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var stResInfo = new STResInfo(oCommonInfos[i]);

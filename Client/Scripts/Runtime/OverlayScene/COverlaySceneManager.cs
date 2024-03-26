@@ -11,7 +11,7 @@ namespace OverlayScene
 	{
 		#region 프로퍼티
 #if UNITY_EDITOR
-		public override int OrderScript => KCDefine.B_SCRIPT_O_OVERLAY_SCENE_MANAGER;
+		public override int OrderScript => KCDefine.G_SCRIPT_O_MANAGER_SCENE_OVERLAY;
 #endif // #if UNITY_EDITOR
 		#endregion // 프로퍼티
 	}

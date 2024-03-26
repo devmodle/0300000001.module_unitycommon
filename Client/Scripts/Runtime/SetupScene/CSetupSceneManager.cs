@@ -26,8 +26,8 @@ namespace SetupScene
 			var oLoadingText = this.UIs.ExFindChild($"{EKey.LOADING_TEXT}");
 			var oLoadingGauge = this.UIs.ExFindChild($"{EKey.LOADING_GAUGE}");
 
-			CCommonAppInfoStorage.Inst.IncrAppRunningTimes(KCDefine.B_VAL_1_INT);
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			CStorageInfoAppCommon.Inst.IncrAppRunningTimes(KCDefine.B_VAL_1_INT);
+			CStorageInfoAppCommon.Inst.SaveAppInfo();
 
 			this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_ID, this.OnReceiveGetDeviceIDMsg);
 			this.DeviceMsgHandlerDict.TryAdd(KCDefine.B_CMD_GET_DEVICE_TYPE, this.OnReceiveGetDeviceTypeMsg);
@@ -171,7 +171,7 @@ namespace SetupScene
 				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_POPUP_UIS), null);
 
 			DontDestroyOnLoad(CSetupSceneManager.m_oPopupUIs);
-			CFunc.SetupScreenUIs(CSetupSceneManager.m_oPopupUIs, KCDefine.B_SORTING_O_SCREEN_POPUP_UIS);
+			CFunc.SetupScreenUIs(CSetupSceneManager.m_oPopupUIs, KCDefine.G_SORTING_O_UIS_POPUP_SCREEN);
 
 			// UI 를 설정한다 {
 			var oPopupUIs = CSetupSceneManager.m_oPopupUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS,
@@ -194,7 +194,7 @@ namespace SetupScene
 				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UIS), null);
 
 			DontDestroyOnLoad(CSetupSceneManager.m_oTopmostUIs);
-			CFunc.SetupScreenUIs(CSetupSceneManager.m_oTopmostUIs, KCDefine.B_SORTING_O_SCREEN_TOPMOST_UIS);
+			CFunc.SetupScreenUIs(CSetupSceneManager.m_oTopmostUIs, KCDefine.G_SORTING_O_UIS_TOPMOST_SCREEN);
 
 			// UI 를 설정한다 {
 			var oTopmostUIs = CSetupSceneManager.m_oTopmostUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS,
@@ -217,7 +217,7 @@ namespace SetupScene
 				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_ABS_UIS), null);
 
 			DontDestroyOnLoad(CSetupSceneManager.m_oAbsUIs);
-			CFunc.SetupScreenUIs(CSetupSceneManager.m_oAbsUIs, KCDefine.B_SORTING_O_SCREEN_ABS_UIS);
+			CFunc.SetupScreenUIs(CSetupSceneManager.m_oAbsUIs, KCDefine.G_SORTING_O_UIS_ABS_SCREEN);
 
 			// UI 를 설정한다 {
 			var oAbsUIs = CSetupSceneManager.m_oAbsUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_ABS_UIS,
@@ -249,17 +249,17 @@ namespace SetupScene
 		/** 디바이스 식별자 반환 메세지를 수신했을 경우 */
 		private void OnReceiveGetDeviceIDMsg(string a_oMsg)
 		{
-			bool bIsValidDeviceID = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.ExIsValid();
-			bIsValidDeviceID = bIsValidDeviceID && !CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN);
+			bool bIsValidDeviceID = CStorageInfoAppCommon.Inst.AppInfo.DeviceID.ExIsValid();
+			bIsValidDeviceID = bIsValidDeviceID && !CStorageInfoAppCommon.Inst.AppInfo.DeviceID.Equals(KCDefine.B_TEXT_UNKNOWN);
 
 			// 디바이스 식별자 설정이 필요 할 경우
 			if(!bIsValidDeviceID)
 			{
-				CCommonAppInfoStorage.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? 
+				CStorageInfoAppCommon.Inst.AppInfo.DeviceID = a_oMsg.ExIsValid() ? 
 					a_oMsg : KCDefine.B_TEXT_UNKNOWN;
 			}
 
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			CStorageInfoAppCommon.Inst.SaveAppInfo();
 			CUnityMsgSender.Inst.SendGetDeviceTypeMsg(this.OnReceiveDeviceMsg);
 		}
 
@@ -269,7 +269,7 @@ namespace SetupScene
 			bool bIsValidDeviceType = System.Enum.TryParse(a_oMsg, out EDeviceType a_eDeviceType);
 			bIsValidDeviceType = bIsValidDeviceType && a_eDeviceType.ExIsValid();
 
-			CCommonAppInfoStorage.Inst.SetDeviceType(bIsValidDeviceType ? 
+			CStorageInfoAppCommon.Inst.SetDeviceType(bIsValidDeviceType ? 
 				a_eDeviceType : EDeviceType.UNKNOWN);
 
 			CUnityMsgSender.Inst.SendGetCountryCodeMsg(this.OnReceiveDeviceMsg);
@@ -279,15 +279,15 @@ namespace SetupScene
 		private void OnReceiveGetCountryCodeMsg(string a_oMsg)
 		{
 #if UNITY_EDITOR
-			CCommonAppInfoStorage.Inst.SetCountryCode(a_oMsg.ExIsValid() ? 
+			CStorageInfoAppCommon.Inst.SetCountryCode(a_oMsg.ExIsValid() ? 
 				a_oMsg.ToUpper() : KCDefine.B_KOREA_COUNTRY_CODE);
 #else
-			CCommonAppInfoStorage.Inst.SetCountryCode(a_oMsg.ExIsValid() ? 
+			CStorageInfoAppCommon.Inst.SetCountryCode(a_oMsg.ExIsValid() ? 
 				a_oMsg.ToUpper() : KCDefine.B_AMERICA_COUNTRY_CODE);
 #endif // #if UNITY_EDITOR
 
 			CSceneManager.SetEnableSetup(true);
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			CStorageInfoAppCommon.Inst.SaveAppInfo();
 
 #if SCENE_TEMPLATES_MODULE_ENABLE
 			CSceneLoader.Inst.LoadAdditionalScene(KCDefine.B_SCENE_N_LATE_SETUP);
@@ -341,7 +341,7 @@ namespace SetupScene
 				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS), null);
 
 			DontDestroyOnLoad(CSetupSceneManager.m_oDebugUIs);
-			CFunc.SetupScreenUIs(CSetupSceneManager.m_oDebugUIs, KCDefine.B_SORTING_O_SCREEN_DEBUG_UIS);
+			CFunc.SetupScreenUIs(CSetupSceneManager.m_oDebugUIs, KCDefine.G_SORTING_O_UIS_DEBUG_SCREEN);
 
 			// UI 를 설정한다 {
 			var oDebugUIs = CSetupSceneManager.m_oDebugUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS,

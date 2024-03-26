@@ -27,8 +27,8 @@ public partial class CClearInfo : CBaseInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public int NumMarks {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_NUM_MARKS, KCDefine.B_STR_0_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_NUM_MARKS, $"{value}"); }
 	}
 
 	[IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
@@ -95,47 +95,47 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public bool IsAutoControl {
-		get { return bool.Parse(m_oStrDict.ExGetVal(KEY_IS_AUTO_CONTROL, KCDefine.B_TEXT_FALSE)); }
-		set { m_oStrDict.ExReplaceVal(KEY_IS_AUTO_CONTROL, $"{value}"); }
+		get { return bool.Parse(m_oDictStr.ExGetVal(KEY_IS_AUTO_CONTROL, KCDefine.B_TEXT_FALSE)); }
+		set { m_oDictStr.ExReplaceVal(KEY_IS_AUTO_CONTROL, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int DailyRewardID {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_DAILY_REWARD_ID, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_DAILY_REWARD_ID, KCDefine.B_STR_0_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_DAILY_REWARD_ID, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int FreeRewardAcquireTimes {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_FREE_REWARD_ACQUIRE_TIMES, KCDefine.B_STR_0_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public System.DateTime PrevDailyMissionTime {
-		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.AdjustPrevDailyMissionTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); }
+		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.AdjustPrevDailyMissionTimeStr.ExStrTimeToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oDictStr.ExReplaceVal(KEY_PREV_DAILY_MISSION_TIME, value.ExToStrLong()); }
 	}
 
 	[IgnoreMember]
 	public System.DateTime PrevDailyRewardTime {
-		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.AdjustPrevDailyRewardTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); }
+		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.AdjustPrevDailyRewardTimeStr.ExStrTimeToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oDictStr.ExReplaceVal(KEY_PREV_DAILY_REWARD_TIME, value.ExToStrLong()); }
 	}
 
 	[IgnoreMember]
 	public System.DateTime PrevFreeRewardTime {
-		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.AdjustPrevFreeRewardTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
+		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.AdjustPrevFreeRewardTimeStr.ExStrTimeToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oDictStr.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToStrLong()); }
 	}
 
-	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.ExGetVal(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
-	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.ExGetVal(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
-	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.ExGetVal(KEY_PREV_FREE_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oDictStr.ExGetVal(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
+	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oDictStr.ExGetVal(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
+	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oDictStr.ExGetVal(KEY_PREV_FREE_REWARD_TIME, string.Empty);
 
-	[IgnoreMember] private string AdjustPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	[IgnoreMember] private string AdjustPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-	[IgnoreMember] private string AdjustPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExTimeStrToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[IgnoreMember] private string AdjustPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExStrTimeToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToStrLong();
+	[IgnoreMember] private string AdjustPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExStrTimeToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToStrLong();
+	[IgnoreMember] private string AdjustPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExStrTimeToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToStrLong();
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -269,15 +269,15 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	/** 게임 정보를 로드한다 */
-	public CGameInfo LoadGameInfo() {
-		return this.LoadGameInfo(KDefine.G_DATA_P_GAME_INFO);
+	public CGameInfo LoadInfoGame() {
+		return this.LoadInfoGame(KDefine.G_DATA_P_GAME_INFO);
 	}
 
 	/** 게임 정보를 로드한다 */
-	public CGameInfo LoadGameInfo(string a_oFilePath) {
+	public CGameInfo LoadInfoGame(string a_oPathFile) {
 		// 파일이 존재 할 경우
-		if(File.Exists(a_oFilePath)) {
-			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oFilePath, true);
+		if(File.Exists(a_oPathFile)) {
+			this.GameInfo = CFunc.ReadMsgPackObj<CGameInfo>(a_oPathFile, true);
 			CFunc.Assert(this.GameInfo != null);
 
 			foreach(var stKeyVal in this.GameInfo.m_oCharacterGameInfoDict) {
@@ -299,13 +299,13 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	}
 
 	/** 게임 정보를 저장한다 */
-	public void SaveGameInfo() {
-		this.SaveGameInfo(KDefine.G_DATA_P_GAME_INFO);
+	public void SaveInfoGame() {
+		this.SaveInfoGame(KDefine.G_DATA_P_GAME_INFO);
 	}
 
 	/** 게임 정보를 저장한다 */
-	public void SaveGameInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo, true);
+	public void SaveInfoGame(string a_oPathFile) {
+		CFunc.WriteMsgPackObj(a_oPathFile, this.GameInfo, true);
 	}
 	#endregion // 함수
 

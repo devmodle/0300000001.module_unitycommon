@@ -50,66 +50,66 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	[JsonIgnore]
 	[IgnoreMember]
 	public int SizeX {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_X, $"{value}"); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_SIZE_X, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int SizeY {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Y, $"{value}"); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_SIZE_Y, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int SizeZ {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int ColorID {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public EObjKinds ObjKinds {
-		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
+		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 #else
 	[IgnoreMember]
 	public int SizeX {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_X, $"{value}"); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_SIZE_X, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_SIZE_X, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int SizeY {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Y, $"{value}"); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_SIZE_Y, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_SIZE_Y, $"{value}"); }
 	}
 	
 	[IgnoreMember]
 	public int SizeZ {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_SIZE_Z, KCDefine.B_STR_1_INT)); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_SIZE_Z, $"{value}"); }
 	}
 	
 	[IgnoreMember]
 	public int ColorID {
-		get { return int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public EObjKinds ObjKinds {
-		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oStrDict.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
-		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
+		get { return (EObjKinds)int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
+		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 #endregion // 프로퍼티
@@ -162,13 +162,13 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	/** 직렬화 될 경우 */
 	[OnSerializing]
-	private void OnSerializingMethod(StreamingContext a_oContext) {
+	private void OnSerializing(StreamingContext a_oContext) {
 		this.OnBeforeSerialize();
 	}
 
 	/** 역직렬화되었을 경우 */
 	[OnDeserialized]
-	private void OnDeserializedMethod(StreamingContext a_oContext) {
+	private void OnDeserialized(StreamingContext a_oContext) {
 		this.OnAfterDeserialize();
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
@@ -246,13 +246,13 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	/** 직렬화 될 경우 */
 	[OnSerializing]
-	private void OnSerializingMethod(StreamingContext a_oContext) {
+	private void OnSerializing(StreamingContext a_oContext) {
 		this.OnBeforeSerialize();
 	}
 
 	/** 역직렬화되었을 경우 */
 	[OnDeserialized]
-	private void OnDeserializedMethod(StreamingContext a_oContext) {
+	private void OnDeserialized(StreamingContext a_oContext) {
 		this.OnAfterDeserialize();
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
@@ -289,36 +289,36 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	[JsonIgnore]
 	[IgnoreMember]
 	public int NumViewCellsX {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_X, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_NUM_VIEW_CELLS_X, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int NumViewCellsY {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Y, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_NUM_VIEW_CELLS_Y, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public int NumViewCellsZ {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Z, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_NUM_VIEW_CELLS_Z, $"{value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public EGridType GridType {
-		get { return (EGridType)int.Parse(m_oStrDict.ExGetVal(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_GRID_TYPE, $"{(int)value}"); }
+		get { return (EGridType)int.Parse(m_oDictStr.ExGetVal(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
+		set { m_oDictStr.ExReplaceVal(KEY_GRID_TYPE, $"{(int)value}"); }
 	}
 
 	[JsonIgnore]
 	[IgnoreMember]
 	public System.Version CellInfoVer {
-		get { return System.Version.Parse(m_oStrDict.ExGetVal(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER_STR)); }
-		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+		get { return System.Version.Parse(m_oDictStr.ExGetVal(KEY_CELL_INFO_VER, KCDefine.G_VER_STR_DEF)); }
+		set { m_oDictStr.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
 	[JsonIgnore][IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
@@ -329,32 +329,32 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 #else
 	[IgnoreMember]
 	public int NumViewCellsX {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_X, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_NUM_VIEW_CELLS_X, KCDefine.B_STR_1_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_NUM_VIEW_CELLS_X, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int NumViewCellsY {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Y, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_NUM_VIEW_CELLS_Y, KCDefine.B_STR_1_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_NUM_VIEW_CELLS_Y, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int NumViewCellsZ {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_NUM_VIEW_CELLS_Z, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_NUM_VIEW_CELLS_Z, KCDefine.B_STR_1_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_NUM_VIEW_CELLS_Z, $"{value}"); }
 	}
 	
 	[IgnoreMember]
 	public EGridType GridType {
-		get { return (EGridType)int.Parse(m_oStrDict.ExGetVal(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_GRID_TYPE, $"{(int)value}"); }
+		get { return (EGridType)int.Parse(m_oDictStr.ExGetVal(KEY_GRID_TYPE, $"{(int)EGridType.NONE}")); }
+		set { m_oDictStr.ExReplaceVal(KEY_GRID_TYPE, $"{(int)value}"); }
 	}
 
 	[IgnoreMember]
 	public System.Version CellInfoVer {
-		get { return System.Version.Parse(m_oStrDict.ExGetVal(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER_STR)); }
-		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+		get { return System.Version.Parse(m_oDictStr.ExGetVal(KEY_CELL_INFO_VER, KCDefine.G_VER_STR_DEF)); }
+		set { m_oDictStr.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
 	[IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
@@ -489,7 +489,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	/** 사본 객체를 설정한다 */
 	protected virtual void SetupCloneInst(CLevelInfo a_oLevelInfo) {
 		a_oLevelInfo.m_stIDInfo = m_stIDInfo;
-		m_oStrDict.ExCopyTo(a_oLevelInfo.m_oStrDict, (_, a_oStr) => a_oStr);
+		m_oDictStr.ExCopyTo(a_oLevelInfo.m_oDictStr, (_, a_oStr) => a_oStr);
 
 		// 셀 정보를 설정한다
 		for(int i = 0; i < m_oCellInfoDictContainer.Count; ++i) {
@@ -534,14 +534,14 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	/** 레벨 정보를 로드한다 */
-	private CLevelInfo LoadLevelInfo(string a_oFilePath, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
+	private CLevelInfo LoadLevelInfo(string a_oPathFile, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
+		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oPathFile}");
 
 #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
-		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, false);
+		var oLevelInfo = File.Exists(a_oPathFile) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oPathFile, false) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oPathFile, false);
 #elif NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-		a_oFilePath = a_oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
-		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, false);
+		a_oPathFile = a_oPathFile.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
+		var oLevelInfo = File.Exists(a_oPathFile) ? CFunc.ReadJSONObj<CLevelInfo>(a_oPathFile, false) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oPathFile, false);
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
 
 		oLevelInfo.m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
@@ -549,11 +549,11 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	}
 
 	/** 레벨 정보를 로드한다 */
-	private Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oFilePath}");
+	private Dictionary<int, Dictionary<int, Dictionary<int, CLevelInfo>>> LoadLevelInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfos: {a_oPathFile}");
 
-		var oLevelIDList = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath, false) : CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oFilePath, false);
+		var oLevelIDList = File.Exists(a_oPathFile) ? CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oPathFile, false) : CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oPathFile, false);
 
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
 			var oNumChapterLevelInfosDict = this.NumLevelInfosDictContainer.GetValueOrDefault(oLevelIDList[i].ExULevelIDToChapterID()) ?? new Dictionary<int, int>();
@@ -867,8 +867,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		ulong nULevelID = CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID);
 
 #if AB_TEST_ENABLE
-		string oFilePath = string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
-		return File.Exists(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, a_oFileExtension)) ? oFilePath : string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
+		string oFilePath = string.Format((CStorageInfoUserCommon.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
+		return File.Exists(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, a_oFileExtension)) ? oFilePath : string.Format((CStorageInfoUserCommon.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
 #else
 		string oFilePath = string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
 		return File.Exists(oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, a_oFileExtension)) ? oFilePath : string.Format(KCDefine.U_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
@@ -883,7 +883,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		ulong nULevelID = CFactory.MakeULevelID(a_nLevelID, a_nStageID, a_nChapterID);
 
 #if AB_TEST_ENABLE
-		return string.Format((CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
+		return string.Format((CStorageInfoUserCommon.Inst.UserInfo.UserType == EUserType.B) ? KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_B : KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO_SET_A, nULevelID + KCDefine.B_VAL_1_INT);
 #else
 		return string.Format(KCDefine.U_RUNTIME_DATA_P_FMT_G_LEVEL_INFO, nULevelID + KCDefine.B_VAL_1_INT);
 #endif // #if AB_TEST_ENABLE

@@ -101,7 +101,7 @@ public partial class CProductBuyPopup : CSubPopup {
 
 		// 비소모 상품 일 경우
 		if(stProductInfo.m_eProductType == ProductType.NonConsumable) {
-			oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID));
+			oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseProductConsumableNon(stProductInfo.m_oID));
 		}
 #endif // #if PURCHASE_MODULE_ENABLE
 		// 버튼을 설정한다 }

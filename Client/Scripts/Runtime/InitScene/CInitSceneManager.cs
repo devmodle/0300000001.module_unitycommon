@@ -24,7 +24,7 @@ namespace InitScene
 		protected List<string> SpriteAtlasPathList { get; } = new List<string>();
 
 #if UNITY_EDITOR
-		public override int OrderScript => KCDefine.B_SCRIPT_O_INIT_SCENE_MANAGER;
+		public override int OrderScript => KCDefine.G_SCRIPT_O_MANAGER_SCENE_INIT;
 #endif // #if UNITY_EDITOR
 		#endregion // 프로퍼티
 
@@ -75,9 +75,9 @@ namespace InitScene
 			// 테이블을 로드한다 }
 
 			// 저장소를 로드한다
-			CCommonAppInfoStorage.Inst.LoadAppInfo();
-			CCommonUserInfoStorage.Inst.LoadUserInfo();
-			CCommonGameInfoStorage.Inst.LoadGameInfo();
+			CStorageInfoAppCommon.Inst.LoadAppInfo();
+			CStorageInfoUserCommon.Inst.LoadInfoUser();
+			CStorageInfoGameCommon.Inst.LoadInfoGame();
 
 			// 사운드 관리자를 설정한다 {
 #if ENABLE_MODE_2D
@@ -100,12 +100,12 @@ namespace InitScene
 			CSndManager.Inst.SetIsBypassFXSndsListenerEffects(false);
 #endif // #if ENABLE_MODE_2D
 
-			CSndManager.Inst.SetBGSndVolume(CCommonGameInfoStorage.Inst.GameInfo.BGSndVolume);
-			CSndManager.Inst.SetFXSndsVolume(CCommonGameInfoStorage.Inst.GameInfo.FXSndsVolume);
+			CSndManager.Inst.SetVolumeSndBG(CStorageInfoGameCommon.Inst.GameInfo.VolumeSndBG);
+			CSndManager.Inst.SetVolumeSndsFX(CStorageInfoGameCommon.Inst.GameInfo.VolumeSndsFX);
 
-			CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
-			CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
-			CSndManager.Inst.SetIsEnableVibrate(CCommonGameInfoStorage.Inst.GameInfo.IsEnableVibrate);
+			CSndManager.Inst.SetIsMuteSndBG(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndBG);
+			CSndManager.Inst.SetIsMuteSndsFX(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndsFX);
+			CSndManager.Inst.SetIsEnableVibrate(CStorageInfoGameCommon.Inst.GameInfo.IsEnableVibrate);
 			// 사운드 관리자를 설정한다 }
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
@@ -189,7 +189,7 @@ namespace InitScene
 				CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
 
 			DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
-			CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.B_SORTING_O_SCREEN_BLIND_UIS);
+			CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.G_SORTING_O_UIS_BLIND_SCREEN);
 
 			var oScreenBlindUIs = CInitSceneManager.m_oBlindUIs.ExFindChild(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS, false);
 			CSceneManager.SetScreenBlindUIs(oScreenBlindUIs);
@@ -286,9 +286,9 @@ namespace InitScene
 			// 테이블을 생성한다 }
 
 			// 저장소를 생성한다
-			CCommonAppInfoStorage.Create();
-			CCommonUserInfoStorage.Create();
-			CCommonGameInfoStorage.Create();
+			CStorageInfoAppCommon.Create();
+			CStorageInfoUserCommon.Create();
+			CStorageInfoGameCommon.Create();
 
 			// 디바이스를 설정한다 {
 #if UNITY_IOS

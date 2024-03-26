@@ -137,7 +137,7 @@ public partial class CStoreUIsHandler : CComponent {
 
 			// 비소모 상품 일 경우
 			if(stProductInfo.m_eProductType == ProductType.NonConsumable) {
-				oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID));
+				oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseProductConsumableNon(stProductInfo.m_oID));
 			}
 #endif // #if PURCHASE_MODULE_ENABLE
 			// 버튼을 갱신한다 }
@@ -157,7 +157,7 @@ public partial class CStoreUIsHandler : CComponent {
 	private void OnTouchRestoreBtn() {
 #if PURCHASE_MODULE_ENABLE
 		m_oRestoreProductList.Clear();
-		Func.RestoreProducts(this.OnRestoreProducts);
+		Func.ProductsRestore(this.OnProductsRestore);
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
 
@@ -203,17 +203,17 @@ public partial class CStoreUIsHandler : CComponent {
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 복원되었을 경우 */
-	public void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
+	public void OnProductsRestore(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess) {
 		// 복원되었을 경우
 		if(a_bIsSuccess) {
 			m_oRestoreProductList = a_oProductList;
-			Func.AcquireRestoreProducts(a_oProductList);
+			Func.AcquireProductsRestore(a_oProductList);
 		}
 
 #if FIREBASE_MODULE_ENABLE
 		this.ExLateCallFunc((a_oFuncSender) => Func.LoadTargetInfos(this.OnLoadTargetInfos));
 #else
-		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
+		Func.OnProductsRestore(a_oSender, a_oProductList, a_bIsSuccess, null);
 #endif // #if FIREBASE_MODULE_ENABLE
 
 		this.UpdateUIsState();
@@ -221,27 +221,27 @@ public partial class CStoreUIsHandler : CComponent {
 	}
 
 	/** 상품이 결제되었을 경우 */
-	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oIDProduct, bool a_bIsSuccess) {
 		// 결제되었을 경우
 		if(a_bIsSuccess) {
 			// Do Something
 		}
 
 		this.UpdateUIsState();
-		this.Params.m_oPurchaseCallbackDictA?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		this.Params.m_oPurchaseCallbackDictA?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oIDProduct, a_bIsSuccess);
 	}
 
 #if FIREBASE_MODULE_ENABLE
 	/** 타겟 정보를 로드했을 경우 */
-	private void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+	private void OnLoadTargetInfos(CFirebaseManager a_oSender, string a_oStrJSON, bool a_bIsSuccess) {
 		// 로드되었을 경우
-		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
-			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
+		if(a_bIsSuccess && a_oStrJSON.ExIsValid()) {
+			var oTargetInfoDict = a_oStrJSON.ExJSONStrToTargetInfos();
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oTargetInfoDict, true);
 
 			this.ExLateCallFunc((a_oFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
 		} else {
-			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
+			Func.OnProductsRestore(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 		}
 
 		this.UpdateUIsState();
@@ -249,7 +249,7 @@ public partial class CStoreUIsHandler : CComponent {
 
 	/** 타겟 정보를 저장했을 경우 */
 	private void OnSaveTargetInfos(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-		Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
+		Func.OnProductsRestore(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 	}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE

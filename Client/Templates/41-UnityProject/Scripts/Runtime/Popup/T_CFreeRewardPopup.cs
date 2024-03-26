@@ -70,7 +70,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 			oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
 		}
 
-		CGameInfoStorage.Inst.SaveGameInfo();
+		CGameInfoStorage.Inst.SaveInfoGame();
 	}
 
 	/** 보상 획득 팝업을 출력한다 */

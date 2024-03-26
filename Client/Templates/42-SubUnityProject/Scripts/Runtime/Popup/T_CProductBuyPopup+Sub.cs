@@ -42,14 +42,14 @@ public partial class CProductBuyPopup : CSubPopup {
 	#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 결제되었을 경우 */
-	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oIDProduct, bool a_bIsSuccess) {
 		// 결제되었을 경우
 		if(a_bIsSuccess) {
 			// Do Something
 		}
 
 		this.UpdateUIsState();
-		this.Params.m_oCallbackDict?.ExGetVal(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+		this.Params.m_oCallbackDict?.ExGetVal(ECallback.PURCHASE)?.Invoke(a_oSender, a_oIDProduct, a_bIsSuccess);
 	}
 #endif // #if PURCHASE_MODULE_ENABLE
 #endregion // 조건부 함수

@@ -162,7 +162,7 @@ namespace PlayScene {
 				}, KCDefine.B_VAL_0_5_REAL);
 
 				Func.PlayBGSnd(EResKinds.SND_RES_BG_SCENE_GAME_01);
-				CCommonAppInfoStorage.Inst.SetEnableEditor(false);
+				CStorageInfoAppCommon.Inst.SetEnableEditor(false);
 			}
 		}
 

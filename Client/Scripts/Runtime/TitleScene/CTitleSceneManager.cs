@@ -60,7 +60,7 @@ namespace TitleScene
 			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsInitApp)
 			{
-				m_oTextDict[EKey.VER_TEXT]?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
+				m_oTextDict[EKey.VER_TEXT]?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CStorageInfoUserCommon.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
 				m_oTextDict[EKey.VER_TEXT]?.transform.SetAsLastSibling();
 			}
 		}

@@ -28,7 +28,7 @@ namespace OverlayScene {
 		}
 
 		#region 변수
-		string m_oPurchaseProductID = string.Empty;
+		string m_oIDProductPurchase = string.Empty;
 
 #if PURCHASE_MODULE_ENABLE
 		private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
@@ -40,7 +40,7 @@ namespace OverlayScene {
 		#endregion // 변수
 
 		#region 프로퍼티
-		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.B_SORTING_OI_OVERLAY_UIS_CANVAS;
+		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.G_SORTING_OI_CANVAS_UIS_OVERLAY;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -109,7 +109,7 @@ namespace OverlayScene {
 #endif // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-				stParams.m_oPurchaseCallbackDictA.TryAdd(CStorePopup.ECallback.PURCHASE, (a_oPurchaseSender, a_oProductID, a_bIsSuccess) => this.UpdateUIsState());
+				stParams.m_oPurchaseCallbackDictA.TryAdd(CStorePopup.ECallback.PURCHASE, (a_oPurchaseSender, a_oIDProduct, a_bIsSuccess) => this.UpdateUIsState());
 				stParams.m_oPurchaseCallbackDictB.TryAdd(CStorePopup.ECallback.RESTORE, (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState());
 #endif // #if PURCHASE_MODULE_ENABLE
 
@@ -146,19 +146,19 @@ namespace OverlayScene {
 		}
 
 		/** 상품이 결제되었을 경우 */
-		private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
+		private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oIDProduct, bool a_bIsSuccess) {
 			// 결제되었을 경우
 			if(a_bIsSuccess) {
-				Func.AcquireProduct(a_oProductID);
-				m_oPurchaseProductID = a_oProductID;
+				Func.AcquireProduct(a_oIDProduct);
+				m_oIDProductPurchase = a_oIDProduct;
 
 #if FIREBASE_MODULE_ENABLE
-				this.ExLateCallFunc((a_oFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
+				this.ExLateCallFunc((a_oFuncSender) => Func.SaveInfoUser(this.OnSaveInfoUser));
 #else
-				Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+				Func.OnPurchaseProduct(a_oSender, a_oIDProduct, a_bIsSuccess, null);
 #endif // #if FIREBASE_MODULE_ENABLE
 			} else {
-				Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
+				Func.OnPurchaseProduct(a_oSender, a_oIDProduct, a_bIsSuccess, null);
 			}
 
 			this.UpdateUIsState();
@@ -168,13 +168,13 @@ namespace OverlayScene {
 			CAppInfoStorage.Inst.SetPrevFullscreenAdsTime(System.DateTime.Now);
 #endif // #if ADS_MODULE_ENABLE
 			
-			m_oCallbackDict.ExGetVal(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+			m_oCallbackDict.ExGetVal(ECallback.PURCHASE)?.Invoke(a_oSender, a_oIDProduct, a_bIsSuccess);
 		}
 
 #if FIREBASE_MODULE_ENABLE
 		/** 유저 정보를 저장했을 경우 */
-		private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-			Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oPurchaseProductID, true, null);
+		private void OnSaveInfoUser(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+			Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oIDProductPurchase, true, null);
 		}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE

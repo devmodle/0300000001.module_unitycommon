@@ -95,7 +95,7 @@ namespace MainScene {
 				}
 
 				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, KCDefine.B_UNIT_DIGITS_HUNDRED_THOUSAND);
-				CGameInfoStorage.Inst.SaveGameInfo();
+				CGameInfoStorage.Inst.SaveInfoGame();
 #endif // #if CREATIVE_DIST_BUILD
 
 				this.SetupAwake();
@@ -116,7 +116,7 @@ namespace MainScene {
 
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 				// 에디터가 유효 할 경우
-				if(CCommonAppInfoStorage.Inst.IsEnableEditor && !CSceneLoader.Inst.AwakeActiveSceneName.Equals(KCDefine.B_SCENE_N_MAIN)) {
+				if(CStorageInfoAppCommon.Inst.IsEnableEditor && !CSceneLoader.Inst.AwakeActiveSceneName.Equals(KCDefine.B_SCENE_N_MAIN)) {
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_EDITOR_LEVEL);
 				}
 #endif // #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
@@ -250,11 +250,11 @@ namespace MainScene {
 					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
 				}
 
-				CGameInfoStorage.Inst.SaveGameInfo();
+				CGameInfoStorage.Inst.SaveInfoGame();
 			}
 
 			// 앱 업데이트가 가능 할 경우
-			if(!CAppInfoStorage.Inst.IsIgnoreAppUpdate && !COptsInfoTable.Inst.InfoOptsEtc.m_bIsEnableSceneTitle && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+			if(!CAppInfoStorage.Inst.IsIgnoreAppUpdate && !COptsInfoTable.Inst.InfoOptsEtc.m_bIsEnableSceneTitle && CStorageInfoAppCommon.Inst.IsEnableUpdate()) {
 				CAppInfoStorage.Inst.SetIsIgnoreAppUpdate(true);
 				this.ExLateCallFunc((a_oSender) => Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_UPDATE_P_MSG), this.OnReceiveUpdatePopupResult));
 			}
@@ -359,7 +359,7 @@ namespace MainScene {
 				oCharacterGameInfo.m_oStageClearInfoDict.Clear();
 				oCharacterGameInfo.m_oChapterClearInfoDict.Clear();
 
-				CGameInfoStorage.Inst.SaveGameInfo();
+				CGameInfoStorage.Inst.SaveInfoGame();
 				this.ExLateCallFunc((a_oSender) => CSceneLoader.Inst.LoadScene(this.SceneName));
 			}
 		}
@@ -371,7 +371,7 @@ namespace MainScene {
 			base.OnTouchABTUIsSetBtn(a_eUserType);
 
 			// 유저 타입이 다를 경우
-			if(CCommonUserInfoStorage.Inst.UserInfo.UserType != a_eUserType) {
+			if(CStorageInfoUserCommon.Inst.UserInfo.UserType != a_eUserType) {
 				string oKey = (a_eUserType == EUserType.A) ? KCDefine.G_ST_KEY_C_SETUP_A_SET_MSG : KCDefine.G_ST_KEY_C_SETUP_B_SET_MSG;
 				Func.ShowAlertPopup(CStrTable.Inst.GetStr(oKey), (a_oSender, a_bIsOK) => this.OnReceiveABSetPopupResult(a_oSender, a_bIsOK, a_eUserType));
 			}

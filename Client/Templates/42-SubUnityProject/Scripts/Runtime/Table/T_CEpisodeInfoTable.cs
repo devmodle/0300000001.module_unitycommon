@@ -157,9 +157,9 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	}
 
 	/** 에피소드 정보를 리셋한다 */
-	public virtual void ResetEpisodeInfos(string a_oJSONStr) {
+	public virtual void ResetEpisodeInfos(string a_oStrJSON) {
 		this.ResetEpisodeInfos();
-		this.DoLoadEpisodeInfos(a_oJSONStr);
+		this.DoLoadEpisodeInfos(a_oStrJSON);
 	}
 
 	/** 레벨 에피소드 정보를 반환한다 */
@@ -211,12 +211,12 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	}
 
 	/** 에피소드 정보를 저장한다 */
-	public void SaveEpisodeInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
+	public void SaveEpisodeInfos(string a_oStrJSON, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oStrJSON != null);
 
 		// JSON 문자열이 존재 할 경우
-		if(a_oJSONStr != null) {
-			this.ResetEpisodeInfos(a_oJSONStr);
+		if(a_oStrJSON != null) {
+			this.ResetEpisodeInfos(a_oStrJSON);
 		}
 	}
 
@@ -229,26 +229,26 @@ public partial class CEpisodeInfoTable : CSingleton<CEpisodeInfoTable> {
 	}
 
 	/** 에피소드 정보를 로드한다 */
-	private (Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>) LoadEpisodeInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadEpisodeInfos(this.LoadEpisodeInfosJSONStr(a_oFilePath));
+	private (Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>) LoadEpisodeInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		return this.DoLoadEpisodeInfos(this.LoadEpisodeInfosJSONStr(a_oPathFile));
 	}
 
 	/** 에피소드 정보 JSON 문자열을 로드한다 */
-	private string LoadEpisodeInfosJSONStr(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
+	private string LoadEpisodeInfosJSONStr(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, false) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #else
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, true) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 에피소드 정보를 로드한다 */
-	private (Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>) DoLoadEpisodeInfos(string a_oJSONStr) {
-		CFunc.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oLevelEpisodeInfos, out SimpleJSON.JSONNode oStageEpisodeInfos, out SimpleJSON.JSONNode oChapterEpisodeInfos);
+	private (Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>, Dictionary<ulong, STEpisodeInfo>) DoLoadEpisodeInfos(string a_oStrJSON) {
+		CFunc.Assert(a_oStrJSON.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oStrJSON), out SimpleJSON.JSONNode oLevelEpisodeInfos, out SimpleJSON.JSONNode oStageEpisodeInfos, out SimpleJSON.JSONNode oChapterEpisodeInfos);
 
 		for(int i = 0; i < oLevelEpisodeInfos.Count; ++i) {
 			var stEpisodeInfo = new STEpisodeInfo(oLevelEpisodeInfos[i]);

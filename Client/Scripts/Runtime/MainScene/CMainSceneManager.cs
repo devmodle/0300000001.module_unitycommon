@@ -67,7 +67,7 @@ namespace MainScene
 			}
 
 			string oVerStr = CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer,
-				CCommonUserInfoStorage.Inst.UserInfo.UserType);
+				CStorageInfoUserCommon.Inst.UserInfo.UserType);
 
 			m_oTextDict[EKey.VER_TEXT]?.ExSetText(oVerStr,
 				CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);

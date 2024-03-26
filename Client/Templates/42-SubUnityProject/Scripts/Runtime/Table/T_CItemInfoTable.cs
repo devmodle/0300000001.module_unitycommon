@@ -156,9 +156,9 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	}
 
 	/** 아이템 정보를 리셋한다 */
-	public virtual void ResetItemInfos(string a_oJSONStr) {
+	public virtual void ResetItemInfos(string a_oStrJSON) {
 		this.ResetItemInfos();
-		this.DoLoadItemInfos(a_oJSONStr);
+		this.DoLoadItemInfos(a_oStrJSON);
 	}
 
 	/** 아이템 정보를 반환한다 */
@@ -224,17 +224,17 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	}
 
 	/** 아이템 정보를 저장한다 */
-	public void SaveItemInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
+	public void SaveItemInfos(string a_oStrJSON, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oStrJSON != null);
 
 		// JSON 문자열이 존재 할 경우
-		if(a_oJSONStr != null) {
-			this.ResetItemInfos(a_oJSONStr);
+		if(a_oStrJSON != null) {
+			this.ResetItemInfos(a_oStrJSON);
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, false);
+			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oStrJSON, false);
 #else
-			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oJSONStr, true);
+			CFunc.WriteStr(Access.ItemInfoTableSavePath, a_oStrJSON, true);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
@@ -253,26 +253,26 @@ public partial class CItemInfoTable : CSingleton<CItemInfoTable> {
 	}
 
 	/** 아이템 정보를 로드한다 */
-	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadItemInfos(this.LoadItemInfosJSONStr(a_oFilePath));
+	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) LoadItemInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		return this.DoLoadItemInfos(this.LoadItemInfosJSONStr(a_oPathFile));
 	}
 
 	/** 아이템 정보 JSON 문자열을 로드한다 */
-	private string LoadItemInfosJSONStr(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
+	private string LoadItemInfosJSONStr(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, false) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #else
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, true) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 아이템 정보를 로드한다 */
-	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) DoLoadItemInfos(string a_oJSONStr) {
-		CFunc.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyItemTradeInfos, out SimpleJSON.JSONNode oSaleItemTradeInfos, out SimpleJSON.JSONNode oEnhanceItemTradeInfos);
+	private (Dictionary<EItemKinds, STItemInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>, Dictionary<EItemKinds, STItemTradeInfo>) DoLoadItemInfos(string a_oStrJSON) {
+		CFunc.Assert(a_oStrJSON.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oStrJSON), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyItemTradeInfos, out SimpleJSON.JSONNode oSaleItemTradeInfos, out SimpleJSON.JSONNode oEnhanceItemTradeInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var stItemInfo = new STItemInfo(oCommonInfos[i]);

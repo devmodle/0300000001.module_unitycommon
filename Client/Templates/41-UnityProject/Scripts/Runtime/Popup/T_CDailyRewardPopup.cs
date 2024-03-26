@@ -87,7 +87,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 	/** 보상 획득 팝업이 닫혔을 경우 */
 	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
 		Func.SetupNextDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
-		CGameInfoStorage.Inst.SaveGameInfo();
+		CGameInfoStorage.Inst.SaveInfoGame();
 
 		this.Close();
 	}

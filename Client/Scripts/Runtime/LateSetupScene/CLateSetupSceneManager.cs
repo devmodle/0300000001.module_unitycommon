@@ -35,7 +35,7 @@ namespace LateSetupScene
 		public virtual bool IsAutoInitManager => false;
 
 #if UNITY_EDITOR
-		public override int OrderScript => KCDefine.B_SCRIPT_O_LATE_SETUP_SCENE_MANAGER;
+		public override int OrderScript => KCDefine.G_SCRIPT_O_MANAGER_SCENE_SETUP_LATE;
 #endif // #if UNITY_EDITOR
 
 #if UNITY_ANDROID
@@ -93,16 +93,16 @@ namespace LateSetupScene
 		/** 약관 동의 팝업이 닫혔을 경우 */
 		private void OnCloseAgreePopup(CPopup a_oSender)
 		{
-			CCommonAppInfoStorage.Inst.AppInfo.IsAgree = true;
+			CStorageInfoAppCommon.Inst.AppInfo.IsAgree = true;
 
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
-			CCommonAppInfoStorage.Inst.SetCloseAgreePopup(true);
+			CStorageInfoAppCommon.Inst.SaveAppInfo();
+			CStorageInfoAppCommon.Inst.SetCloseAgreePopup(true);
 
 #if ROBO_TEST_ENABLE
 			this.OnCloseTrackingConsentView(true);
 #else
 			// 추적 동의가 필요 할 경우
-			if(CAccess.IsNeedsTrackingConsent && CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup)
+			if(CAccess.IsNeedsTrackingConsent && CStorageInfoAppCommon.Inst.AppInfo.IsEnablePopupDescTrackingShow)
 			{
 				this.ShowTrackingDescPopup((a_oPopupSender) => this.ShowTrackingConsentView());
 			}
@@ -116,10 +116,10 @@ namespace LateSetupScene
 		/** 추적 동의 뷰가 닫혔을 경우 */
 		private void OnCloseTrackingConsentView(bool a_bIsSuccess)
 		{
-			CCommonAppInfoStorage.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
-			CCommonAppInfoStorage.Inst.AppInfo.IsEnableShowTrackingDescPopup = false;
+			CStorageInfoAppCommon.Inst.AppInfo.IsAgreeTracking = a_bIsSuccess;
+			CStorageInfoAppCommon.Inst.AppInfo.IsEnablePopupDescTrackingShow = false;
 
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			CStorageInfoAppCommon.Inst.SaveAppInfo();
 
 			// 관리자 자동 초기화 모드 일 경우
 			if(this.IsAutoInitManager)
@@ -140,25 +140,25 @@ namespace LateSetupScene
 				stAdsParams.m_oAdmobTestDeviceIDList.ExAddVals(CDeviceInfoTable.Inst.DeviceInfo.m_oiOSAdmobTestDeviceIDList);
 				stAdsParams.m_oAdmobTestDeviceIDList.ExAddVals(CDeviceInfoTable.Inst.DeviceInfo.m_oAndroidAdmobTestDeviceIDList);
 
-				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.ADMOB));
-				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.ADMOB));
-				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.ADMOB));
+				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.ADMOB));
+				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.ADMOB));
+				stAdsParams.m_oAdmobAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.ADMOB));
 #endif // #if ADMOB_ADS_ENABLE
 
 #if IRON_SRC_ADS_ENABLE
 				stAdsParams.m_oIronSrcAppKey = CPluginInfoTable.Inst.IronSrcPluginInfo.m_oAppKey;
 
-				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC));
-				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.IRON_SRC));
-				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.IRON_SRC));
+				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.IRON_SRC));
+				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.IRON_SRC));
+				stAdsParams.m_oIronSrcAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.IRON_SRC));
 #endif // #if IRON_SRC_ADS_ENABLE
 
 #if APP_LOVIN_ADS_ENABLE
 				stAdsParams.m_oAppLovinSDKKey = CPluginInfoTable.Inst.AppLovinSDKKey;
 
-				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN));
-				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.APP_LOVIN));
-				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.B_KEY_ADS_M_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.APP_LOVIN));
+				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_BANNER_ADS_ID, CPluginInfoTable.Inst.GetBannerAdsID(EAdsPlatform.APP_LOVIN));
+				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_REWARD_ADS_ID, CPluginInfoTable.Inst.GetRewardAdsID(EAdsPlatform.APP_LOVIN));
+				stAdsParams.m_oAppLovinAdsIDDict.TryAdd(KCDefine.G_ADS_M_KEY_FULLSCREEN_ADS_ID, CPluginInfoTable.Inst.GetFullscreenAdsID(EAdsPlatform.APP_LOVIN));
 #endif // #if APP_LOVIN_ADS_ENABLE
 
 				CAdsManager.Inst.Init(stAdsParams);
@@ -240,7 +240,7 @@ namespace LateSetupScene
 				global::SetupScene.CSetupSceneManager.ESetupSceneEvent.LOAD_NEXT_SCENE, false);
 
 			CSceneManager.SetEnableLateSetup(true);
-			CCommonAppInfoStorage.Inst.SetupStoreVer();
+			CStorageInfoAppCommon.Inst.SetupStoreVer();
 
 #if RESEARCH_MODULE_ENABLE && SCENE_TEMPLATES_MODULE_ENABLE
 			// 기본 씬 일 경우
@@ -300,9 +300,9 @@ namespace LateSetupScene
 
 		#region 접근자 클래스 함수
 		/** 로그 데이터를 변경한다 */
-		public static void SetLogDataDict(Dictionary<string, object> a_oDataDict)
+		public static void SetLogDataDict(Dictionary<string, object> a_oDictData)
 		{
-			CLateSetupSceneManager.LogDataDict = a_oDataDict;
+			CLateSetupSceneManager.LogDataDict = a_oDictData;
 		}
 		#endregion         // 접근자 클래스 함수
 
@@ -366,10 +366,10 @@ namespace LateSetupScene
 
 			// 초기화되었을 경우
 			if(a_bIsSuccess) {
-				CFlurryManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+				CFlurryManager.Inst.SetAnalyticsUserID(CStorageInfoAppCommon.Inst.AppInfo.DeviceID);
 
 				// 약관 동의 팝업이 닫혔을 경우
-				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
+				if(CStorageInfoAppCommon.Inst.IsCloseAgreePopup) {
 					CFlurryManager.Inst.SendLog(KCDefine.G_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
 				}
 			}
@@ -390,17 +390,17 @@ namespace LateSetupScene
 
 			// 초기화되었을 경우
 			if(a_bIsSuccess) {
-				CFirebaseManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-				CFirebaseManager.Inst.SetCrashlyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+				CFirebaseManager.Inst.SetAnalyticsUserID(CStorageInfoAppCommon.Inst.AppInfo.DeviceID);
+				CFirebaseManager.Inst.SetCrashlyticsUserID(CStorageInfoAppCommon.Inst.AppInfo.DeviceID);
 
 				CFirebaseManager.Inst.SetCrashlyticsDatas(new Dictionary<string, string>() {
-					[KCDefine.G_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
+					[KCDefine.G_LOG_KEY_COUNTRY_CODE] = CStorageInfoAppCommon.Inst.CountryCode
 				});
 
 				CFirebaseManager.Inst.LoadMsgToken(CLateSetupSceneManager.OnLoadFirebaseMsgToken);
 
 				// 약관 동의 팝업이 닫혔을 경우
-				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
+				if(CStorageInfoAppCommon.Inst.IsCloseAgreePopup) {
 					CFirebaseManager.Inst.SendLog(KCDefine.G_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
 				}
 			}
@@ -424,10 +424,10 @@ namespace LateSetupScene
 			
 			// 초기화되었을 경우
 			if(a_bIsSuccess) {
-				CAppsFlyerManager.Inst.SetAnalyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+				CAppsFlyerManager.Inst.SetAnalyticsUserID(CStorageInfoAppCommon.Inst.AppInfo.DeviceID);
 
 				// 약관 동의 팝업이 닫혔을 경우
-				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
+				if(CStorageInfoAppCommon.Inst.IsCloseAgreePopup) {
 					CAppsFlyerManager.Inst.SendLog(KCDefine.G_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
 				}
 			}
@@ -463,7 +463,7 @@ namespace LateSetupScene
 			CFunc.ShowLog($"CLateSetupSceneManager.OnInitPlayfabManager: {a_bIsSuccess}");
 
 			// 초기화되었을 경우
-			if(a_bIsSuccess && CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
+			if(a_bIsSuccess && CStorageInfoAppCommon.Inst.IsCloseAgreePopup) {
 				CPlayfabManager.Inst.SendLog(KCDefine.G_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict);
 			}
 		}
@@ -509,14 +509,14 @@ namespace LateSetupScene
 			this.OnCloseAgreePopup(null);
 #else
 			// 약관 동의 상태 일 경우
-			if(CCommonAppInfoStorage.Inst.AppInfo.IsAgree || !CCommonAppInfoStorage.Inst.IsNeedsAgree(CCommonAppInfoStorage.Inst.CountryCode))
+			if(CStorageInfoAppCommon.Inst.AppInfo.IsAgree || !CStorageInfoAppCommon.Inst.IsNeedsAgree(CStorageInfoAppCommon.Inst.CountryCode))
 			{
 				this.OnCloseAgreePopup(null);
 			}
 			else
 			{
 				// 한국 일 경우
-				if(CCommonAppInfoStorage.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE))
+				if(CStorageInfoAppCommon.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE))
 				{
 					var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY);
 					var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES);

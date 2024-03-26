@@ -81,9 +81,9 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	}
 
 	/** 튜토리얼 정보를 리셋한다 */
-	public virtual void ResetTutorialInfos(string a_oJSONStr) {
+	public virtual void ResetTutorialInfos(string a_oStrJSON) {
 		this.ResetTutorialInfos();
-		this.DoLoadTutorialInfos(a_oJSONStr);
+		this.DoLoadTutorialInfos(a_oStrJSON);
 	}
 
 	/** 튜토리얼 정보를 반환한다 */
@@ -107,12 +107,12 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	}
 
 	/** 튜토리얼 정보를 저장한다 */
-	public void SaveTutorialInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
+	public void SaveTutorialInfos(string a_oStrJSON, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oStrJSON != null);
 
 		// JSON 문자열이 존재 할 경우
-		if(a_oJSONStr != null) {
-			this.ResetTutorialInfos(a_oJSONStr);
+		if(a_oStrJSON != null) {
+			this.ResetTutorialInfos(a_oStrJSON);
 		}
 	}
 
@@ -123,26 +123,26 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 	}
 
 	/** 튜토리얼 정보를 로드한다 */
-	private Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadTutorialInfos(this.LoadTutorialInfosJSONStr(a_oFilePath));
+	private Dictionary<ETutorialKinds, STTutorialInfo> LoadTutorialInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		return this.DoLoadTutorialInfos(this.LoadTutorialInfosJSONStr(a_oPathFile));
 	}
 
 	/** 튜토리얼 정보 JSON 문자열을 로드한다 */
-	private string LoadTutorialInfosJSONStr(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
+	private string LoadTutorialInfosJSONStr(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, false) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #else
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, true) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 튜토리얼 정보를 로드한다 */
-	private Dictionary<ETutorialKinds, STTutorialInfo> DoLoadTutorialInfos(string a_oJSONStr) {
-		CFunc.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
+	private Dictionary<ETutorialKinds, STTutorialInfo> DoLoadTutorialInfos(string a_oStrJSON) {
+		CFunc.Assert(a_oStrJSON.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oStrJSON), out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var stTutorialInfo = new STTutorialInfo(oCommonInfos[i]);

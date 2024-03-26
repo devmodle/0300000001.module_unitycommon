@@ -88,7 +88,7 @@ public static partial class Func {
 		CGameInfoStorage.Inst.SetPlayEpisodeInfo(Access.GetEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID));
 
 		CUserInfoStorage.Inst.GetCharacterUserInfo(a_nCharacterID).m_stPlayEpisodeIDInfo = Access.GetEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID).m_stIDInfo;
-		CUserInfoStorage.Inst.SaveUserInfo();
+		CUserInfoStorage.Inst.SaveInfoUser();
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		CGameInfoStorage.Inst.SetPlayLevelInfo(CLevelInfoTable.Inst.GetLevelInfo(a_nLevelID, a_nStageID, a_nChapterID));
@@ -632,7 +632,7 @@ public static partial class Func {
 	}
 
 	/** 유저 정보가 로드되었을 경우 */
-	public static void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+	public static void OnLoadInfoUser(CFirebaseManager a_oSender, string a_oStrJSON, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 로드되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_LOAD_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
@@ -642,7 +642,7 @@ public static partial class Func {
 	}
 
 	/** 유저 정보가 저장되었을 경우 */
-	public static void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+	public static void OnSaveInfoUser(CFirebaseManager a_oSender, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 저장되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_SAVE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
@@ -654,7 +654,7 @@ public static partial class Func {
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 복원되었을 경우 */
-	public static void OnRestoreProducts(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+	public static void OnProductsRestore(CPurchaseManager a_oSender, List<Product> a_oProductList, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 복원되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_RESTORE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
@@ -664,7 +664,7 @@ public static partial class Func {
 	}
 
 	/** 상품이 결제되었을 경우 */
-	public static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
+	public static void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oIDProduct, bool a_bIsSuccess, System.Action<CAlertPopup, bool> a_oCallback) {
 		// 결제되었을 경우
 		if(a_bIsSuccess) {
 			Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_PURCHASE_MSG), a_oCallback, a_bIsEnableCancelBtn: false);
@@ -674,42 +674,42 @@ public static partial class Func {
 	}
 
 	/** 상품을 획득한다 */
-	public static void AcquireProduct(string a_oProductID, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oProductID.ExIsValid());
+	public static void AcquireProduct(string a_oIDProduct, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oIDProduct.ExIsValid());
 
 		// 상품이 존재 할 경우
-		if(a_oProductID.ExIsValid()) {
-			var oProduct = CPurchaseManager.Inst.GetProduct(a_oProductID);
-			var stProductTradeInfo = CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(CProductInfoTable.Inst.GetProductInfoIdx(a_oProductID));
+		if(a_oIDProduct.ExIsValid()) {
+			var oProduct = CPurchaseManager.Inst.GetProduct(a_oIDProduct);
+			var stProductTradeInfo = CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(CProductInfoTable.Inst.GetProductInfoIdx(a_oIDProduct));
 
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stProductTradeInfo.m_oAcquireTargetInfoDict);
 
 			// 비소모 상품 일 경우
-			if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable && !CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductID)) {
-				CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductID);
-				CCommonUserInfoStorage.Inst.SaveUserInfo();
+			if(oProduct != null && oProduct.definition.type == ProductType.NonConsumable && !CStorageInfoUserCommon.Inst.IsProductRestore(a_oIDProduct)) {
+				CStorageInfoUserCommon.Inst.AddIDProductRestore(a_oIDProduct);
+				CStorageInfoUserCommon.Inst.SaveInfoUser();
 			}
 		}
 	}
 
 	/** 복원 상품을 획득한다 */
-	public static void AcquireRestoreProducts(List<Product> a_oProductList, bool a_bIsAssert = true) {
+	public static void AcquireProductsRestore(List<Product> a_oProductList, bool a_bIsAssert = true) {
 		CFunc.Assert(!a_bIsAssert || a_oProductList != null);
 
 		// 상품이 존재 할 경우
 		if(a_oProductList != null) {
 			for(int i = 0; i < a_oProductList.Count; ++i) {
 				// 상품 복원이 가능 할 경우
-				if(!CCommonUserInfoStorage.Inst.IsRestoreProduct(a_oProductList[i].definition.id)) {
+				if(!CStorageInfoUserCommon.Inst.IsProductRestore(a_oProductList[i].definition.id)) {
 					int nIdx = CProductInfoTable.Inst.GetProductInfoIdx(a_oProductList[i].definition.id);
 					var stProductTradeInfo = CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(nIdx);
 
 					Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stProductTradeInfo.m_oAcquireTargetInfoDict);
-					CCommonUserInfoStorage.Inst.AddRestoreProductID(a_oProductList[i].definition.id);
+					CStorageInfoUserCommon.Inst.AddIDProductRestore(a_oProductList[i].definition.id);
 				}
 			}
 
-			CCommonUserInfoStorage.Inst.SaveUserInfo();
+			CStorageInfoUserCommon.Inst.SaveInfoUser();
 		}
 	}
 #endif // #if PURCHASE_MODULE_ENABLE

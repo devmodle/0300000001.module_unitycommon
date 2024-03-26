@@ -294,7 +294,7 @@ namespace LevelEditorScene
 			// 스프라이트를 설정한다 {
 			var oObjSprite = this.ObjRoot.ExFindComponent<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE) ?? CFactory.CreateCloneGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE), this.ObjRoot);
 			oObjSprite.gameObject.SetActive(false);
-			oObjSprite.ExSetSortingOrder(KCDefine.B_SORTING_OI_OVERGROUND);
+			oObjSprite.ExSetSortingOrder(KCDefine.G_SORTING_OI_OVERGROUND);
 
 			m_oSelObjSpriteList.ExAddVal(oObjSprite);
 			// 스프라이트를 설정한다 }
@@ -357,7 +357,7 @@ namespace LevelEditorScene
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 				CSndManager.Inst.StopBGSnd();
-				CCommonAppInfoStorage.Inst.SetEnableEditor(false);
+				CStorageInfoAppCommon.Inst.SetEnableEditor(false);
 			}
 		}
 
@@ -754,7 +754,7 @@ namespace LevelEditorScene
 
 					oLine.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
 					oLine.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
-					oLine.ExSetSortingOrder(KCDefine.B_SORTING_OI_UNDERGROUND);
+					oLine.ExSetSortingOrder(KCDefine.G_SORTING_OI_UNDERGROUND);
 
 					oLine.ExSetPositions(new List<Vector3>() {
 						this.SelGridInfo.m_stPivotPos + new Vector3(j * NSEngine.Access.CellSize.x, (i + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
@@ -793,7 +793,7 @@ namespace LevelEditorScene
 			oSpriteRenderer.color = Color.white.ExGetAlphaColor(KCDefine.B_VAL_0_1_REAL);
 			oSpriteRenderer.sprite = m_oGridBoundsImg;
 
-			oSpriteRenderer.ExSetSortingOrder(KCDefine.B_SORTING_OI_UNDERGROUND.ExGetExtraSortingOrderInfo(-KCDefine.B_VAL_1_INT));
+			oSpriteRenderer.ExSetSortingOrder(KCDefine.G_SORTING_OI_UNDERGROUND.ExGetExtraSortingOrderInfo(-KCDefine.B_VAL_1_INT));
 			// 에디터 객체 스프라이트를 설정한다 }
 
 			// 그리드 라인 버튼을 설정한다 {
@@ -959,8 +959,8 @@ namespace LevelEditorScene
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK)
 			{
-				CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eSelUserType;
-				CCommonUserInfoStorage.Inst.SaveUserInfo();
+				CStorageInfoUserCommon.Inst.UserInfo.UserType = m_eSelUserType;
+				CStorageInfoUserCommon.Inst.SaveInfoUser();
 
 #if ENABLE_GOOGLESHEET
 				m_eSelTableSrc = ETableSrc.REMOTE;
@@ -1599,7 +1599,7 @@ namespace LevelEditorScene
 			m_oViewGridLine.loop = false;
 
 			m_oViewGridLine.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE, KDefine.LES_COLOR_VIEW_GRID_LINE);
-			m_oViewGridLine.ExSetSortingOrder(KCDefine.B_SORTING_OI_TOPMOST);
+			m_oViewGridLine.ExSetSortingOrder(KCDefine.G_SORTING_OI_TOPMOST);
 			// 라인을 설정한다 }
 
 			// 텍스트를 설정한다
@@ -1969,8 +1969,8 @@ namespace LevelEditorScene
 
 			// 버튼을 설정한다 {
 #if AB_TEST_ENABLE
-			m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.A) ? Color.yellow : Color.white, a_bIsAssert: false);
-			m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? Color.yellow : Color.white, a_bIsAssert: false);
+			m_oBtnDict[EKey.LE_UIS_A_SET_BTN]?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (CStorageInfoUserCommon.Inst.UserInfo.UserType == EUserType.A) ? Color.yellow : Color.white, a_bIsAssert: false);
+			m_oBtnDict[EKey.LE_UIS_B_SET_BTN]?.image.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_COLOR, (CStorageInfoUserCommon.Inst.UserInfo.UserType == EUserType.B) ? Color.yellow : Color.white, a_bIsAssert: false);
 #endif // #if AB_TEST_ENABLE
 			// 버튼을 설정한다 }
 		}
@@ -2018,7 +2018,7 @@ namespace LevelEditorScene
 			var eUserType = (a_oSender == m_oBtnDict[EKey.LE_UIS_A_SET_BTN]) ? EUserType.A : EUserType.B;
 
 			// 유저 타입이 다를 경우
-			if(CCommonUserInfoStorage.Inst.UserInfo.UserType != eUserType)
+			if(CStorageInfoUserCommon.Inst.UserInfo.UserType != eUserType)
 			{
 				string oKey = (a_oSender == m_oBtnDict[EKey.LE_UIS_A_SET_BTN]) ? KCDefine.G_ST_KEY_C_SETUP_A_SET_MSG : KCDefine.G_ST_KEY_C_SETUP_B_SET_MSG;
 				m_eSelUserType = eUserType;

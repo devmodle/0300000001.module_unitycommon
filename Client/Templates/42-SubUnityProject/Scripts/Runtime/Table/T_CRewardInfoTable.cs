@@ -81,9 +81,9 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	}
 
 	/** 보상 정보를 리셋한다 */
-	public virtual void ResetRewardInfos(string a_oJSONStr) {
+	public virtual void ResetRewardInfos(string a_oStrJSON) {
 		this.ResetRewardInfos();
-		this.DoLoadRewardInfos(a_oJSONStr);
+		this.DoLoadRewardInfos(a_oStrJSON);
 	}
 
 	/** 보상 정보를 반환한다 */
@@ -121,17 +121,17 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	}
 
 	/** 보상 정보를 저장한다 */
-	public void SaveRewardInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
+	public void SaveRewardInfos(string a_oStrJSON, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oStrJSON != null);
 
 		// JSON 문자열이 존재 할 경우
-		if(a_oJSONStr != null) {
-			this.ResetRewardInfos(a_oJSONStr);
+		if(a_oStrJSON != null) {
+			this.ResetRewardInfos(a_oStrJSON);
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oJSONStr, false);
+			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oStrJSON, false);
 #else
-			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oJSONStr, true);
+			CFunc.WriteStr(Access.RewardInfoTableSavePath, a_oStrJSON, true);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
@@ -147,26 +147,26 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	}
 
 	/** 보상 정보를 로드한다 */
-	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadRewardInfos(this.LoadRewardInfosJSONStr(a_oFilePath));
+	private Dictionary<ERewardKinds, STRewardInfo> LoadRewardInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		return this.DoLoadRewardInfos(this.LoadRewardInfosJSONStr(a_oPathFile));
 	}
 
 	/** 보상 정보 JSON 문자열을 로드한다 */
-	private string LoadRewardInfosJSONStr(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
+	private string LoadRewardInfosJSONStr(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, false) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #else
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, true) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 보상 정보를 로드한다 */
-	private Dictionary<ERewardKinds, STRewardInfo> DoLoadRewardInfos(string a_oJSONStr) {
-		CFunc.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
+	private Dictionary<ERewardKinds, STRewardInfo> DoLoadRewardInfos(string a_oStrJSON) {
+		CFunc.Assert(a_oStrJSON.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oStrJSON), out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var stRewardInfo = new STRewardInfo(oCommonInfos[i]);

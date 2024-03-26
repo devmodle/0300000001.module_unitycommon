@@ -17,7 +17,7 @@ public partial class CSyncPopup : CSubPopup {
 	}
 
 	#region 변수
-	private bool m_bIsLoadUserInfo = false;
+	private bool m_bIsLoadInfoUser = false;
 
 	[Header("=====> Game Objects <=====")]
 	private Dictionary<EKey, GameObject> m_oUIDict = new Dictionary<EKey, GameObject>();
@@ -90,7 +90,7 @@ public partial class CSyncPopup : CSubPopup {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
 				a_oSender.SetIsEnableAnim(false);
-				Func.LoadUserInfo(this.OnLoadUserInfo);
+				Func.LoadInfoUser(this.OnLoadInfoUser);
 			}
 #endif // #if FIREBASE_MODULE_ENABLE
 		});
@@ -103,7 +103,7 @@ public partial class CSyncPopup : CSubPopup {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
 				a_oSender.SetIsEnableAnim(false);
-				Func.SaveUserInfo(this.OnSaveUserInfo);
+				Func.SaveInfoUser(this.OnSaveInfoUser);
 			}
 #endif // #if FIREBASE_MODULE_ENABLE
 		});
@@ -128,27 +128,27 @@ public partial class CSyncPopup : CSubPopup {
 	}
 
 	/** 유저 정보가 로드되었을 경우 */
-	private void OnLoadUserInfo(CFirebaseManager a_oSender, string a_oJSONStr, bool a_bIsSuccess) {
+	private void OnLoadInfoUser(CFirebaseManager a_oSender, string a_oStrJSON, bool a_bIsSuccess) {
 		// 로드되었을 경우
-		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
-			var oJSONNode = SimpleJSON.JSON.Parse(a_oJSONStr);
+		if(a_bIsSuccess && a_oStrJSON.ExIsValid()) {
+			var oJSONNode = SimpleJSON.JSON.Parse(a_oStrJSON);
 
 			string oUserInfoStr = oJSONNode[KCDefine.B_KEY_JSON_USER_INFO_DATA];
 			string oGameInfoStr = oJSONNode[KCDefine.B_KEY_JSON_GAME_INFO_DATA];
-			string oCommonAppInfoStr = oJSONNode[KCDefine.B_KEY_JSON_COMMON_APP_INFO_DATA];
-			string oCommonUserInfoStr = oJSONNode[KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA];
+			string oInfoAppCommonStr = oJSONNode[KCDefine.B_KEY_JSON_COMMON_APP_INFO_DATA];
+			string oInfoUserCommonStr = oJSONNode[KCDefine.B_KEY_JSON_COMMON_USER_INFO_DATA];
 
-			CUserInfoStorage.Inst.ResetUserInfo(oUserInfoStr);
-			CUserInfoStorage.Inst.SaveUserInfo();
+			CUserInfoStorage.Inst.ResetInfoUser(oUserInfoStr);
+			CUserInfoStorage.Inst.SaveInfoUser();
 
 			CGameInfoStorage.Inst.ResetGameInfo(oGameInfoStr);
-			CGameInfoStorage.Inst.SaveGameInfo();
+			CGameInfoStorage.Inst.SaveInfoGame();
 
-			CCommonAppInfoStorage.Inst.ResetAppInfo(oCommonAppInfoStr);
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			CStorageInfoAppCommon.Inst.ResetAppInfo(oInfoAppCommonStr);
+			CStorageInfoAppCommon.Inst.SaveAppInfo();
 
-			CCommonUserInfoStorage.Inst.ResetUserInfo(oCommonUserInfoStr);
-			CCommonUserInfoStorage.Inst.SaveUserInfo();
+			CStorageInfoUserCommon.Inst.ResetInfoUser(oInfoUserCommonStr);
+			CStorageInfoUserCommon.Inst.SaveInfoUser();
 
 #if ADS_MODULE_ENABLE
 			// 광고 제거 상품을 결제했을 경우
@@ -161,30 +161,30 @@ public partial class CSyncPopup : CSubPopup {
 #endif // #if ADS_MODULE_ENABLE
 		}
 
-		m_bIsLoadUserInfo = a_bIsSuccess && a_oJSONStr.ExIsValid();
-		Func.OnLoadUserInfo(a_oSender, a_oJSONStr, m_bIsLoadUserInfo, this.OnReceiveLoadSuccessPopupResult);
+		m_bIsLoadInfoUser = a_bIsSuccess && a_oStrJSON.ExIsValid();
+		Func.OnLoadInfoUser(a_oSender, a_oStrJSON, m_bIsLoadInfoUser, this.OnReceiveLoadSuccessPopupResult);
 
 		CSceneManager.ScreenPopupUIs.ExEnumerateComponents<CAlertPopup>((a_oPopupSender) => {
-			a_oPopupSender.SetIsEnableEventNavStack(!m_bIsLoadUserInfo);
+			a_oPopupSender.SetIsEnableEventNavStack(!m_bIsLoadInfoUser);
 			return true;
 		});
 	}
 
 	/** 유저 정보가 저장되었을 경우 */
-	private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
+	private void OnSaveInfoUser(CFirebaseManager a_oSender, bool a_bIsSuccess) {
 		// 저장되었을 경우
 		if(a_bIsSuccess) {
 			// Do Something
 		}
 
 		this.UpdateUIsState();
-		Func.OnSaveUserInfo(a_oSender, a_bIsSuccess, null);
+		Func.OnSaveInfoUser(a_oSender, a_bIsSuccess, null);
 	}
 
 	/** 로드 팝업 결과를 수신했을 경우 */
 	private void OnReceiveLoadSuccessPopupResult(CAlertPopup a_oSender, bool a_bIsOK) {
 		// 유저 정보를 로드했을 경우
-		if(a_bIsOK && m_bIsLoadUserInfo) {
+		if(a_bIsOK && m_bIsLoadInfoUser) {
 			this.ExLateCallFunc((a_oSender) => {
 				CScheduleManager.Inst.Reset();
 				CNavStackManager.Inst.Reset();

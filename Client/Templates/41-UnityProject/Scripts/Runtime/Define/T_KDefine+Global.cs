@@ -73,7 +73,7 @@ public static partial class KDefine {
 	public static readonly string G_TABLE_N_PRODUCT_INFO = KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false);
 
 	// 분석
-	public static readonly List<EAnalytics> G_ANALYTICS_LOG_ENABLE_LIST = new List<EAnalytics>() {
+	public static readonly List<EAnalytics> G_LIST_ENABLE_LOG_ANALYTICS = new List<EAnalytics>() {
 		EAnalytics.FLURRY, EAnalytics.FIREBASE, EAnalytics.APPS_FLYER, EAnalytics.PLAYFAB
 	};
 

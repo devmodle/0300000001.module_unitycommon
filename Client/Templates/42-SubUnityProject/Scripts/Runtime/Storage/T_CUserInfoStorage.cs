@@ -38,26 +38,26 @@ public abstract partial class CTargetInfo : CBaseInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public string Name {
-		get { return m_oStrDict.ExGetVal(KEY_NAME, string.Empty); }
-		set { m_oStrDict.ExReplaceVal(KEY_NAME, value); }
+		get { return m_oDictStr.ExGetVal(KEY_NAME, string.Empty); }
+		set { m_oDictStr.ExReplaceVal(KEY_NAME, value); }
 	}
 
 	[IgnoreMember]
 	public string GUID {
-		get { return m_oStrDict.ExGetVal(KEY_GUID, string.Empty); }
-		set { m_oStrDict.ExReplaceVal(KEY_GUID, value); }
+		get { return m_oDictStr.ExGetVal(KEY_GUID, string.Empty); }
+		set { m_oDictStr.ExReplaceVal(KEY_GUID, value); }
 	}
 
 	[IgnoreMember]
 	public string OwnerGUID {
-		get { return m_oStrDict.ExGetVal(KEY_OWNER_GUID, string.Empty); }
-		set { m_oStrDict.ExReplaceVal(KEY_OWNER_GUID, value); }
+		get { return m_oDictStr.ExGetVal(KEY_OWNER_GUID, string.Empty); }
+		set { m_oDictStr.ExReplaceVal(KEY_OWNER_GUID, value); }
 	}
 
 	[IgnoreMember]
 	public ETargetType OwnerTargetType {
-		get { return (ETargetType)int.Parse(m_oStrDict.ExGetVal(KEY_OWNER_TARGET_TYPE, $"{(int)ETargetType.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_OWNER_TARGET_TYPE, $"{(int)value}"); }
+		get { return (ETargetType)int.Parse(m_oDictStr.ExGetVal(KEY_OWNER_TARGET_TYPE, $"{(int)ETargetType.NONE}")); }
+		set { m_oDictStr.ExReplaceVal(KEY_OWNER_TARGET_TYPE, $"{(int)value}"); }
 	}
 	#endregion // 프로퍼티
 
@@ -111,8 +111,8 @@ public partial class CItemTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public EItemKinds ItemKinds {
-		get { return (EItemKinds)int.Parse(m_oStrDict.ExGetVal(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); }
+		get { return (EItemKinds)int.Parse(m_oDictStr.ExGetVal(KEY_ITEM_KINDS, $"{(int)EItemKinds.NONE}")); }
+		set { m_oDictStr.ExReplaceVal(KEY_ITEM_KINDS, $"{(int)value}"); }
 	}
 
 	[IgnoreMember] public override int Kinds => (int)this.ItemKinds;
@@ -160,8 +160,8 @@ public partial class CSkillTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public ESkillKinds SkillKinds {
-		get { return (ESkillKinds)int.Parse(m_oStrDict.ExGetVal(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); }
+		get { return (ESkillKinds)int.Parse(m_oDictStr.ExGetVal(KEY_SKILL_KINDS, $"{(int)ESkillKinds.NONE}")); }
+		set { m_oDictStr.ExReplaceVal(KEY_SKILL_KINDS, $"{(int)value}"); }
 	}
 
 	[IgnoreMember] public override int Kinds => (int)this.SkillKinds;
@@ -210,8 +210,8 @@ public partial class CObjTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public EObjKinds ObjKinds {
-		get { return (EObjKinds)int.Parse(m_oStrDict.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
+		get { return (EObjKinds)int.Parse(m_oDictStr.ExGetVal(KEY_OBJ_KINDS, $"{(int)EObjKinds.NONE}")); }
+		set { m_oDictStr.ExReplaceVal(KEY_OBJ_KINDS, $"{(int)value}"); }
 	}
 
 	[IgnoreMember] public override int Kinds => (int)this.ObjKinds;
@@ -259,8 +259,8 @@ public partial class CAbilityTargetInfo : CTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public EAbilityKinds AbilityKinds {
-		get { return (EAbilityKinds)int.Parse(m_oStrDict.ExGetVal(KEY_ABILITY_KINDS, $"{(int)EAbilityKinds.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_ABILITY_KINDS, $"{(int)value}"); }
+		get { return (EAbilityKinds)int.Parse(m_oDictStr.ExGetVal(KEY_ABILITY_KINDS, $"{(int)EAbilityKinds.NONE}")); }
+		set { m_oDictStr.ExReplaceVal(KEY_ABILITY_KINDS, $"{(int)value}"); }
 	}
 
 	[IgnoreMember] public override int Kinds => (int)this.AbilityKinds;
@@ -315,14 +315,14 @@ public partial class CCharacterUserInfo : CObjTargetInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public int SelItemSetIdx {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_SEL_ITEM_SET_IDX, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_SEL_ITEM_SET_IDX, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_SEL_ITEM_SET_IDX, KCDefine.B_STR_0_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_SEL_ITEM_SET_IDX, $"{value}"); }
 	}
 
 	[IgnoreMember]
 	public int SelSkillSetIdx {
-		get { return int.Parse(m_oStrDict.ExGetVal(KEY_SEL_SKILL_SET_IDX, KCDefine.B_STR_0_INT)); }
-		set { m_oStrDict.ExReplaceVal(KEY_SEL_SKILL_SET_IDX, $"{value}"); }
+		get { return int.Parse(m_oDictStr.ExGetVal(KEY_SEL_SKILL_SET_IDX, KCDefine.B_STR_0_INT)); }
+		set { m_oDictStr.ExReplaceVal(KEY_SEL_SKILL_SET_IDX, $"{value}"); }
 	}
 	#endregion // 프로퍼티
 
@@ -382,14 +382,14 @@ public partial class CUserInfo : CBaseInfo {
 	#region 프로퍼티
 	[IgnoreMember]
 	public ELoginType LoginType {
-		get { return (ELoginType)int.Parse(m_oStrDict.ExGetVal(KEY_LOGIN_TYPE, $"{(int)ELoginType.NONE}")); }
-		set { m_oStrDict.ExReplaceVal(KEY_LOGIN_TYPE, $"{(int)value}"); }
+		get { return (ELoginType)int.Parse(m_oDictStr.ExGetVal(KEY_LOGIN_TYPE, $"{(int)ELoginType.NONE}")); }
+		set { m_oDictStr.ExReplaceVal(KEY_LOGIN_TYPE, $"{(int)value}"); }
 	}
 
 	[IgnoreMember]
 	public System.Version AbilityTargetInfoVer {
-		get { return System.Version.Parse(m_oStrDict.ExGetVal(KEY_ABILITY_TARGET_INFO_VER, KCDefine.B_DEF_VER_STR)); }
-		set { m_oStrDict.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+		get { return System.Version.Parse(m_oDictStr.ExGetVal(KEY_ABILITY_TARGET_INFO_VER, KCDefine.G_VER_STR_DEF)); }
+		set { m_oDictStr.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 	#endregion // 프로퍼티
 
@@ -437,9 +437,9 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 
 	#region 함수
 	/** 유저 정보를 리셋한다 */
-	public virtual void ResetUserInfo(string a_oJSONStr) {
-		CFunc.ShowLog($"CUserInfoStorage.ResetUserInfo: {a_oJSONStr}");
-		this.UserInfo = a_oJSONStr.ExMsgPackBase64StrToObj<CUserInfo>();
+	public virtual void ResetInfoUser(string a_oStrJSON) {
+		CFunc.ShowLog($"CUserInfoStorage.ResetInfoUser: {a_oStrJSON}");
+		this.UserInfo = a_oStrJSON.ExMsgPackBase64StrToObj<CUserInfo>();
 
 		CFunc.Assert(this.UserInfo != null);
 	}
@@ -500,15 +500,15 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 유저 정보를 로드한다 */
-	public CUserInfo LoadUserInfo() {
-		return this.LoadUserInfo(KDefine.G_DATA_P_USER_INFO);
+	public CUserInfo LoadInfoUser() {
+		return this.LoadInfoUser(KDefine.G_DATA_P_USER_INFO);
 	}
 
 	/** 유저 정보를 로드한다 */
-	public CUserInfo LoadUserInfo(string a_oFilePath) {
+	public CUserInfo LoadInfoUser(string a_oPathFile) {
 		// 파일이 존재 할 경우
-		if(File.Exists(a_oFilePath)) {
-			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oFilePath, true);
+		if(File.Exists(a_oPathFile)) {
+			this.UserInfo = CFunc.ReadMsgPackObj<CUserInfo>(a_oPathFile, true);
 			CFunc.Assert(this.UserInfo != null);
 		}
 
@@ -516,13 +516,13 @@ public partial class CUserInfoStorage : CSingleton<CUserInfoStorage> {
 	}
 
 	/** 유저 정보를 저장한다 */
-	public void SaveUserInfo() {
-		this.SaveUserInfo(KDefine.G_DATA_P_USER_INFO);
+	public void SaveInfoUser() {
+		this.SaveInfoUser(KDefine.G_DATA_P_USER_INFO);
 	}
 
 	/** 유저 정보를 저장한다 */
-	public void SaveUserInfo(string a_oFilePath) {
-		CFunc.WriteMsgPackObj(a_oFilePath, this.UserInfo, true);
+	public void SaveInfoUser(string a_oPathFile) {
+		CFunc.WriteMsgPackObj(a_oPathFile, this.UserInfo, true);
 	}
 	#endregion // 함수
 

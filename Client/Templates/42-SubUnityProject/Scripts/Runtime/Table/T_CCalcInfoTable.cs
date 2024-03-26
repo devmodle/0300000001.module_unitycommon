@@ -75,9 +75,9 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	}
 
 	/** 수식 정보를 리셋한다 */
-	public virtual void ResetCalcInfos(string a_oJSONStr) {
+	public virtual void ResetCalcInfos(string a_oStrJSON) {
 		this.ResetCalcInfos();
-		this.DoLoadCalcInfos(a_oJSONStr);
+		this.DoLoadCalcInfos(a_oStrJSON);
 	}
 
 	/** 수식 정보를 반환한다 */
@@ -101,12 +101,12 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	}
 
 	/** 수식 정보를 저장한다 */
-	public void SaveCalcInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
+	public void SaveCalcInfos(string a_oStrJSON, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oStrJSON != null);
 
 		// JSON 문자열이 존재 할 경우
-		if(a_oJSONStr != null) {
-			this.ResetCalcInfos(a_oJSONStr);
+		if(a_oStrJSON != null) {
+			this.ResetCalcInfos(a_oStrJSON);
 		}
 	}
 
@@ -117,26 +117,26 @@ public partial class CCalcInfoTable : CSingleton<CCalcInfoTable> {
 	}
 
 	/** 수식 정보를 로드한다 */
-	private Dictionary<ECalcKinds, STCalcInfo> LoadCalcInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadCalcInfos(this.LoadCalcInfosJSONStr(a_oFilePath));
+	private Dictionary<ECalcKinds, STCalcInfo> LoadCalcInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		return this.DoLoadCalcInfos(this.LoadCalcInfosJSONStr(a_oPathFile));
 	}
 
 	/** 수식 정보 JSON 문자열을 로드한다 */
-	private string LoadCalcInfosJSONStr(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
+	private string LoadCalcInfosJSONStr(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, false) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #else
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, true) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 수식 정보를 로드한다 */
-	private Dictionary<ECalcKinds, STCalcInfo> DoLoadCalcInfos(string a_oJSONStr) {
-		CFunc.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
+	private Dictionary<ECalcKinds, STCalcInfo> DoLoadCalcInfos(string a_oStrJSON) {
+		CFunc.Assert(a_oStrJSON.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oStrJSON), out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var stCalcInfo = new STCalcInfo(oCommonInfos[i]);

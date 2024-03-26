@@ -81,9 +81,9 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	}
 
 	/** 미션 정보를 리셋한다 */
-	public virtual void ResetMissionInfos(string a_oJSONStr) {
+	public virtual void ResetMissionInfos(string a_oStrJSON) {
 		this.ResetMissionInfos();
-		this.DoLoadMissionInfos(a_oJSONStr);
+		this.DoLoadMissionInfos(a_oStrJSON);
 	}
 
 	/** 미션 정보를 반환한다 */
@@ -107,17 +107,17 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	}
 
 	/** 미션 정보를 저장한다 */
-	public void SaveMissionInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
+	public void SaveMissionInfos(string a_oStrJSON, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oStrJSON != null);
 
 		// JSON 문자열이 존재 할 경우
-		if(a_oJSONStr != null) {
-			this.ResetMissionInfos(a_oJSONStr);
+		if(a_oStrJSON != null) {
+			this.ResetMissionInfos(a_oStrJSON);
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			CFunc.WriteStr(Access.MissionInfoTableSavePath, a_oJSONStr, false);
+			CFunc.WriteStr(Access.MissionInfoTableSavePath, a_oStrJSON, false);
 #else
-			CFunc.WriteStr(Access.MissionInfoTableSavePath, a_oJSONStr, true);
+			CFunc.WriteStr(Access.MissionInfoTableSavePath, a_oStrJSON, true);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
@@ -133,26 +133,26 @@ public partial class CMissionInfoTable : CSingleton<CMissionInfoTable> {
 	}
 
 	/** 미션 정보를 로드한다 */
-	private Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadMissionInfos(this.LoadMissionInfosJSONStr(a_oFilePath));
+	private Dictionary<EMissionKinds, STMissionInfo> LoadMissionInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		return this.DoLoadMissionInfos(this.LoadMissionInfosJSONStr(a_oPathFile));
 	}
 
 	/** 미션 정보 JSON 문자열을 로드한다 */
-	private string LoadMissionInfosJSONStr(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
+	private string LoadMissionInfosJSONStr(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, false) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #else
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, true) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 미션 정보를 로드한다 */
-	private Dictionary<EMissionKinds, STMissionInfo> DoLoadMissionInfos(string a_oJSONStr) {
-		CFunc.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos);
+	private Dictionary<EMissionKinds, STMissionInfo> DoLoadMissionInfos(string a_oStrJSON) {
+		CFunc.Assert(a_oStrJSON.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSON.Parse(a_oStrJSON), out SimpleJSON.JSONNode oCommonInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var stMissionInfo = new STMissionInfo(oCommonInfos[i]);

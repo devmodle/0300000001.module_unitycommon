@@ -16,7 +16,7 @@ public static partial class Access {
 	public static float BannerAdsHeight {
 		get {
 #if ADS_MODULE_ENABLE
-			return CAccess.GetHeightBannerAds(KCDefine.B_SIZE_BANNER_ADS.y);
+			return CAccess.GetHeightBannerAds(KCDefine.G_ADS_M_SIZE_ADS_BANNER.y);
 #else
 			return KCDefine.B_VAL_0_REAL;
 #endif // #if ADS_MODULE_ENABLE
@@ -28,7 +28,7 @@ public static partial class Access {
 #if AB_TEST_ENABLE
 			// 기타 테이블 정보가 존재 할 경우
 			if(KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.TryGetValue(KDefine.G_TABLE_N_ETC_INFO, out STTableInfo stEtcTableInfo)) {
-				stEtcTableInfo.m_oID = (CCommonUserInfoStorage.Inst.UserInfo.UserType == EUserType.B) ? KDefine.G_GOOGLE_SHEET_ID_ETC_INFO_B : KDefine.G_GOOGLE_SHEET_ID_ETC_INFO_A;
+				stEtcTableInfo.m_oID = (CStorageInfoUserCommon.Inst.UserInfo.UserType == EUserType.B) ? KDefine.G_GOOGLE_SHEET_ID_ETC_INFO_B : KDefine.G_GOOGLE_SHEET_ID_ETC_INFO_A;
 				KDefine.G_TABLE_INFO_GOOGLE_SHEET_DICT.ExReplaceVal(KDefine.G_TABLE_N_ETC_INFO, stEtcTableInfo);
 			}
 #endif // #if AB_TEST_ENABLE

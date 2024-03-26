@@ -16,7 +16,7 @@ namespace ResultScene {
 		}
 		
 		#region 프로퍼티
-		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.B_SORTING_OI_RESULT_UIS_CANVAS;
+		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.G_SORTING_OI_CANVAS_UIS_RESULT;
 		#endregion // 프로퍼티
 
 		#region 함수

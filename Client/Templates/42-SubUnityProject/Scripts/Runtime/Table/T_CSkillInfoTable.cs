@@ -69,7 +69,7 @@ public struct STSkillInfo {
 	/** 스킬 정보를 저장한다 */
 	public void SaveSkillInfo(SimpleJSON.JSONNode a_oOutSkillInfo) {
 		m_stCommonInfo.SaveCommonInfo(a_oOutSkillInfo);
-		m_stTimeInfo.SaveTimeInfo(a_oOutSkillInfo);
+		m_stTimeInfo.TimeSaveInfo(a_oOutSkillInfo);
 
 		a_oOutSkillInfo[KCDefine.U_KEY_IS_PROJECTILE] = m_bIsProjectile ? KCDefine.B_STR_1_INT : KCDefine.B_STR_0_INT;
 		a_oOutSkillInfo[KCDefine.U_KEY_MAX_APPLY_TIMES] = $"{m_nMaxApplyTimes}";
@@ -168,9 +168,9 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	}
 
 	/** 스킬 정보를 리셋한다 */
-	public virtual void ResetSkillInfos(string a_oJSONStr) {
+	public virtual void ResetSkillInfos(string a_oStrJSON) {
 		this.ResetSkillInfos();
-		this.DoLoadSkillInfos(a_oJSONStr);
+		this.DoLoadSkillInfos(a_oStrJSON);
 	}
 
 	/** 스킬 정보를 반환한다 */
@@ -236,17 +236,17 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	}
 
 	/** 스킬 정보를 저장한다 */
-	public void SaveSkillInfos(string a_oJSONStr, bool a_bIsAssert = true) {
-		CFunc.Assert(!a_bIsAssert || a_oJSONStr != null);
+	public void SaveSkillInfos(string a_oStrJSON, bool a_bIsAssert = true) {
+		CFunc.Assert(!a_bIsAssert || a_oStrJSON != null);
 
 		// JSON 문자열이 존재 할 경우
-		if(a_oJSONStr != null) {
-			this.ResetSkillInfos(a_oJSONStr);
+		if(a_oStrJSON != null) {
+			this.ResetSkillInfos(a_oStrJSON);
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oJSONStr, false);
+			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oStrJSON, false);
 #else
-			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oJSONStr, true);
+			CFunc.WriteStr(Access.SkillInfoTableSavePath, a_oStrJSON, true);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
 #if UNITY_ANDROID && (DEBUG || DEVELOPMENT)
@@ -265,26 +265,26 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 	}
 
 	/** 스킬 정보를 로드한다 */
-	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) LoadSkillInfos(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadSkillInfos(this.LoadSkillInfosJSONStr(a_oFilePath));
+	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) LoadSkillInfos(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
+		return this.DoLoadSkillInfos(this.LoadSkillInfosJSONStr(a_oPathFile));
 	}
 
 	/** 스킬 정보 JSON 문자열을 로드한다 */
-	private string LoadSkillInfosJSONStr(string a_oFilePath) {
-		CFunc.Assert(a_oFilePath.ExIsValid());
+	private string LoadSkillInfosJSONStr(string a_oPathFile) {
+		CFunc.Assert(a_oPathFile.ExIsValid());
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, false) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, false) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #else
-		return File.Exists(a_oFilePath) ? CFunc.ReadStr(a_oFilePath, true) : CFunc.ReadStrFromRes(a_oFilePath, false);
+		return File.Exists(a_oPathFile) ? CFunc.ReadStr(a_oPathFile, true) : CFunc.ReadStrFromRes(a_oPathFile, false);
 #endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	}
 
 	/** 스킬 정보를 로드한다 */
-	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) DoLoadSkillInfos(string a_oJSONStr) {
-		CFunc.Assert(a_oJSONStr.ExIsValid());
-		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oJSONStr), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyTradeInfos, out SimpleJSON.JSONNode oSaleTradeInfos, out SimpleJSON.JSONNode oEnhanceTradeInfos);
+	private (Dictionary<ESkillKinds, STSkillInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>, Dictionary<ESkillKinds, STSkillTradeInfo>) DoLoadSkillInfos(string a_oStrJSON) {
+		CFunc.Assert(a_oStrJSON.ExIsValid());
+		this.SetupJSONNodes(SimpleJSON.JSONNode.Parse(a_oStrJSON), out SimpleJSON.JSONNode oCommonInfos, out SimpleJSON.JSONNode oBuyTradeInfos, out SimpleJSON.JSONNode oSaleTradeInfos, out SimpleJSON.JSONNode oEnhanceTradeInfos);
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var stSkillInfo = new STSkillInfo(oCommonInfos[i]);

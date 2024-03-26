@@ -105,7 +105,7 @@ namespace TitleScene {
 			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsInitApp) {
 				// 앱 업데이트가 가능 할 경우
-				if(!CAppInfoStorage.Inst.IsIgnoreAppUpdate && COptsInfoTable.Inst.InfoOptsEtc.m_bIsEnableSceneTitle && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
+				if(!CAppInfoStorage.Inst.IsIgnoreAppUpdate && COptsInfoTable.Inst.InfoOptsEtc.m_bIsEnableSceneTitle && CStorageInfoAppCommon.Inst.IsEnableUpdate()) {
 					CAppInfoStorage.Inst.SetIsIgnoreAppUpdate(true);
 					this.ExLateCallFunc((a_oSender) => Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_UPDATE_P_MSG), this.OnReceiveUpdatePopupResult));
 				}
@@ -114,12 +114,12 @@ namespace TitleScene {
 				this.UpdateUIsState();
 
 				// 최초 시작 일 경우
-				if(CCommonAppInfoStorage.Inst.IsFirstStart) {
+				if(CStorageInfoAppCommon.Inst.IsFirstStart) {
 					this.UpdateFirstStartState();
 				}
 
 				// 최초 실행 일 경우
-				if(CCommonAppInfoStorage.Inst.AppInfo.IsFirstRunning) {
+				if(CStorageInfoAppCommon.Inst.AppInfo.IsRunningFirst) {
 					this.UpdateFirstRunningState();
 				}
 
@@ -216,13 +216,13 @@ namespace TitleScene {
 			LogFunc.SendLaunchLog();
 			LogFunc.SendSplashLog();
 
-			CCommonAppInfoStorage.Inst.SetFirstStart(false);
+			CStorageInfoAppCommon.Inst.SetFirstStart(false);
 		}
 
 		/** 최초 실행 상태를 갱신한다 */
 		private void UpdateFirstRunningState() {
-			CCommonAppInfoStorage.Inst.AppInfo.IsFirstRunning = false;
-			CCommonAppInfoStorage.Inst.SaveAppInfo();
+			CStorageInfoAppCommon.Inst.AppInfo.IsRunningFirst = false;
+			CStorageInfoAppCommon.Inst.SaveAppInfo();
 		}
 
 		/** 종료 팝업 결과를 수신했을 경우 */
@@ -271,7 +271,7 @@ namespace TitleScene {
 			// 로그인되었을 경우
 			if(a_bIsSuccess) {
 				CUserInfoStorage.Inst.UserInfo.LoginType = a_eLoginType;
-				CUserInfoStorage.Inst.SaveUserInfo();
+				CUserInfoStorage.Inst.SaveInfoUser();
 
 				this.UpdateUIsState();
 

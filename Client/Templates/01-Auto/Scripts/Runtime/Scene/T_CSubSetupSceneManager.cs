@@ -28,8 +28,8 @@ namespace SetupScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 저장소를 로드한다
 			CAppInfoStorage.Inst.LoadAppInfo();
-			CUserInfoStorage.Inst.LoadUserInfo();
-			CGameInfoStorage.Inst.LoadGameInfo();
+			CUserInfoStorage.Inst.LoadInfoUser();
+			CGameInfoStorage.Inst.LoadInfoGame();
 
 			// 테이블을 로드한다
 			CEtcInfoTable.Inst.LoadEtcInfos();
@@ -51,20 +51,20 @@ namespace SetupScene {
 				oCharacterUserInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_LV, KCDefine.B_VAL_1_INT);
 
 				CUserInfoStorage.Inst.AddCharacterUserInfo(oCharacterUserInfo);
-				CUserInfoStorage.Inst.SaveUserInfo();
+				CUserInfoStorage.Inst.SaveInfoUser();
 			}
 
 			// 공용 앱 정보를 설정한다 {
-			CCommonAppInfoStorage.Inst.SetStoreURL(Access.StoreURL);
+			CStorageInfoAppCommon.Inst.SetStoreURL(Access.StoreURL);
 
 #if ADS_MODULE_ENABLE
-			CCommonAppInfoStorage.Inst.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);
+			CStorageInfoAppCommon.Inst.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);
 #endif // #if ADS_MODULE_ENABLE
 
 #if LOCALIZE_TEST_ENABLE
-			CCommonAppInfoStorage.Inst.SetSystemLanguage(m_eSystemLanguage);
+			CStorageInfoAppCommon.Inst.SetSystemLanguage(m_eSystemLanguage);
 #else
-			CCommonAppInfoStorage.Inst.SetSystemLanguage(Application.systemLanguage);
+			CStorageInfoAppCommon.Inst.SetSystemLanguage(Application.systemLanguage);
 #endif // #if LOCALIZE_TEST_ENABLE
 			// 공용 앱 정보를 설정한다 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

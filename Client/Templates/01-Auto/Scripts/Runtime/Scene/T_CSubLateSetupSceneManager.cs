@@ -53,27 +53,27 @@ namespace LateSetupScene
 			// 초기화되었을 경우
 			if(CSceneManager.IsInit)
 			{
-				CFunc.ShowLog($"Country Code: {CCommonAppInfoStorage.Inst.CountryCode}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
-				CFunc.ShowLog($"System Language: {CCommonAppInfoStorage.Inst.SystemLanguage}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
+				CFunc.ShowLog($"Country Code: {CStorageInfoAppCommon.Inst.CountryCode}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
+				CFunc.ShowLog($"System Language: {CStorageInfoAppCommon.Inst.SystemLanguage}", KCDefine.B_LOG_COLOR_PLATFORM_INFO);
 
 #if UNITY_EDITOR
 				// 유저 타입이 유효 할 경우
 				if(m_eUserType.ExIsValid())
 				{
-					CCommonUserInfoStorage.Inst.UserInfo.UserType = m_eUserType;
+					CStorageInfoUserCommon.Inst.UserInfo.UserType = m_eUserType;
 				}
 				else
 				{
-					CCommonUserInfoStorage.Inst.UserInfo.UserType = CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid() ? CCommonUserInfoStorage.Inst.UserInfo.UserType : EUserType.A;
+					CStorageInfoUserCommon.Inst.UserInfo.UserType = CStorageInfoUserCommon.Inst.UserInfo.UserType.ExIsValid() ? CStorageInfoUserCommon.Inst.UserInfo.UserType : EUserType.A;
 				}
 #else
 				// 유저 타입이 유효하지 않을 경우
-				if(!CCommonUserInfoStorage.Inst.UserInfo.UserType.ExIsValid()) {
+				if(!CStorageInfoUserCommon.Inst.UserInfo.UserType.ExIsValid()) {
 #if AB_TEST_ENABLE
-					int nSumVal = CCommonAppInfoStorage.Inst.AppInfo.DeviceID.Sum((a_chLetter) => a_chLetter);
-					CCommonUserInfoStorage.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT <= KCDefine.B_VAL_0_INT) ? EUserType.A : EUserType.B;
+					int nSumVal = CStorageInfoAppCommon.Inst.AppInfo.DeviceID.Sum((a_chLetter) => a_chLetter);
+					CStorageInfoUserCommon.Inst.UserInfo.UserType = (nSumVal % KCDefine.B_VAL_2_INT <= KCDefine.B_VAL_0_INT) ? EUserType.A : EUserType.B;
 #else
-					CCommonUserInfoStorage.Inst.UserInfo.UserType = EUserType.A;
+					CStorageInfoUserCommon.Inst.UserInfo.UserType = EUserType.A;
 #endif // #if AB_TEST_ENABLE
 				}
 #endif // #if UNITY_EDITOR
