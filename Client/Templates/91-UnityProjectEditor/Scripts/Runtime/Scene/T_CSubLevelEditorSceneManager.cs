@@ -281,10 +281,10 @@ namespace LevelEditorScene
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 			// 게임 객체 풀을 설정한다 {
-			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
-			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_LINE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_LINE, this.ObjRoot));
+			CManagerPoolGameObjs.Inst.AddPoolGameObjs(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
+			CManagerPoolGameObjs.Inst.AddPoolGameObjs(KDefine.LES_KEY_LINE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_LINE, this.ObjRoot));
 
-			CGameObjsPoolManager.Inst.AddGameObjsPool(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MiddleEditorUIs));
+			CManagerPoolGameObjs.Inst.AddPoolGameObjs(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MiddleEditorUIs));
 			// 게임 객체 풀을 설정한다 }
 
 			// 텍스처를 설정한다
@@ -478,7 +478,7 @@ namespace LevelEditorScene
 				// 탭 키를 눌렀을 경우
 				if(UnityEngine.Input.GetKeyDown(KeyCode.Tab))
 				{
-					var oInputListContainer = CCollectionPoolManager.Inst.SpawnList<List<InputField>>();
+					var oInputListContainer = CManagerPoolCollection.Inst.SpawnList<List<InputField>>();
 
 					try
 					{
@@ -511,7 +511,7 @@ namespace LevelEditorScene
 					}
 					finally
 					{
-						CCollectionPoolManager.Inst.DespawnList(oInputListContainer);
+						CManagerPoolCollection.Inst.DespawnList(oInputListContainer);
 					}
 				}
 			}
@@ -692,19 +692,19 @@ namespace LevelEditorScene
 			// 객체를 제거한다 {
 			for(int i = 0; i < m_oGridLineBtnHList.Count; ++i)
 			{
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL,
+				CManagerPoolGameObjs.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL,
 					m_oGridLineBtnHList[i].gameObject);
 			}
 
 			for(int i = 0; i < m_oGridLineBtnVList.Count; ++i)
 			{
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL,
+				CManagerPoolGameObjs.Inst.DespawnGameObj(KDefine.LES_KEY_BTN_GAME_OBJS_POOL,
 					m_oGridLineBtnVList[i].gameObject);
 			}
 
 			for(int i = 0; i < m_oGridLineList.Count; ++i)
 			{
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_LINE_GAME_OBJS_POOL,
+				CManagerPoolGameObjs.Inst.DespawnGameObj(KDefine.LES_KEY_LINE_GAME_OBJS_POOL,
 					m_oGridLineList[i].gameObject);
 			}
 
@@ -749,7 +749,7 @@ namespace LevelEditorScene
 			{
 				for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j)
 				{
-					var oLine = CGameObjsPoolManager.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE, KDefine.LES_KEY_LINE_GAME_OBJS_POOL);
+					var oLine = CManagerPoolGameObjs.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE, KDefine.LES_KEY_LINE_GAME_OBJS_POOL);
 					oLine.loop = true;
 
 					oLine.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
@@ -806,7 +806,7 @@ namespace LevelEditorScene
 				var stPos = this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(new Vector3(NSEngine.Access.CellCenterOffset.x, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL), NSEngine.Access.CellSize);
 				var stWorldPos = stPos.ExToWorld(this.ObjRoot) + new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, this.PlaneDistance);
 
-				var oBtn = CGameObjsPoolManager.Inst.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
+				var oBtn = CManagerPoolGameObjs.Inst.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
 				oBtn.gameObject.ExAddComponent<CBtnHandler>();
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnH(stIdx.x));
 
@@ -831,7 +831,7 @@ namespace LevelEditorScene
 				var stPos = this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(new Vector3(KCDefine.B_VAL_0_REAL, NSEngine.Access.CellCenterOffset.y, KCDefine.B_VAL_0_REAL), NSEngine.Access.CellSize);
 				var stWorldPos = stPos.ExToWorld(this.ObjRoot) + new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, this.PlaneDistance);
 
-				var oBtn = CGameObjsPoolManager.Inst.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
+				var oBtn = CManagerPoolGameObjs.Inst.SpawnGameObj<Button>(KDefine.LES_OBJ_N_GRID_LINE_BTN, KDefine.LES_KEY_BTN_GAME_OBJS_POOL);
 				oBtn.gameObject.ExAddComponent<CBtnHandler>();
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnV(stIdx.y));
 
@@ -884,7 +884,7 @@ namespace LevelEditorScene
 			{
 				a_oObjSpriteInfoList[i].m_oSprite.sprite = null;
 
-				CGameObjsPoolManager.Inst.DespawnGameObj(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL,
+				CManagerPoolGameObjs.Inst.DespawnGameObj(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL,
 					a_oObjSpriteInfoList[i].m_oSprite.gameObject);
 			}
 		}
@@ -896,7 +896,7 @@ namespace LevelEditorScene
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i)
 			{
-				var oObjSprite = CGameObjsPoolManager.Inst.SpawnGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL);
+				var oObjSprite = CManagerPoolGameObjs.Inst.SpawnGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL);
 				this.SetupObjSprite(a_stCellInfo, a_stCellInfo.m_oCellObjInfoList[i], oObjSprite);
 
 				a_oOutObjSpriteInfoList.ExAddVal(new STObjSpriteInfo()
@@ -1595,7 +1595,7 @@ namespace LevelEditorScene
 		private void SetupMiddleEditorUIs()
 		{
 			// 라인을 설정한다 {
-			m_oViewGridLine = CGameObjsPoolManager.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE, KDefine.LES_KEY_LINE_GAME_OBJS_POOL);
+			m_oViewGridLine = CManagerPoolGameObjs.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE, KDefine.LES_KEY_LINE_GAME_OBJS_POOL);
 			m_oViewGridLine.loop = false;
 
 			m_oViewGridLine.ExSetColor(KDefine.LES_COLOR_VIEW_GRID_LINE, KDefine.LES_COLOR_VIEW_GRID_LINE);
@@ -1894,7 +1894,7 @@ namespace LevelEditorScene
 		/** 왼쪽 에디터 UI 를 설정한다 */
 		private void SetupLeftEditorUIs()
 		{
-			var oScrollViewDict = CCollectionPoolManager.Inst.SpawnDict<string, GameObject>();
+			var oScrollViewDict = CManagerPoolCollection.Inst.SpawnDict<string, GameObject>();
 
 			try
 			{
@@ -1955,7 +1955,7 @@ namespace LevelEditorScene
 			}
 			finally
 			{
-				CCollectionPoolManager.Inst.DespawnDict(oScrollViewDict);
+				CManagerPoolCollection.Inst.DespawnDict(oScrollViewDict);
 			}
 		}
 
@@ -2514,7 +2514,7 @@ namespace LevelEditorScene
 		/** 시야 셀 개수를 반환한다 */
 		private Vector3Int GetNumViewCells(CLevelInfo a_oLevelInfo, int a_nIdx, float a_fDeltaX = KCDefine.B_VAL_0_REAL, float a_fDeltaY = KCDefine.B_VAL_0_REAL)
 		{
-			var oGridInfoList = CCollectionPoolManager.Inst.SpawnList<NSEngine.STGridInfo>();
+			var oGridInfoList = CManagerPoolCollection.Inst.SpawnList<NSEngine.STGridInfo>();
 			var stNumViewCells = Vector3Int.zero;
 
 			try
@@ -2528,7 +2528,7 @@ namespace LevelEditorScene
 			}
 			finally
 			{
-				CCollectionPoolManager.Inst.DespawnList(oGridInfoList);
+				CManagerPoolCollection.Inst.DespawnList(oGridInfoList);
 			}
 
 			int nNumViewCellsX = (this.SelLevelInfo.m_stNumViewCells.x <= KCDefine.B_VAL_1_INT) ? stNumViewCells.x : this.SelLevelInfo.m_stNumViewCells.x;

@@ -374,10 +374,10 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 
 	/** 스킬 정보 값을 생성한다 */
 	public Dictionary<string, List<List<string>>> MakeSkillInfoVals() {
-		var oCommonKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
-		var oBuyTradeKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
-		var oSaleTradeKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
-		var oEnhanceTradeKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
+		var oCommonKeyInfoList = CManagerPoolCollection.Inst.SpawnList<STKeyInfo>();
+		var oBuyTradeKeyInfoList = CManagerPoolCollection.Inst.SpawnList<STKeyInfo>();
+		var oSaleTradeKeyInfoList = CManagerPoolCollection.Inst.SpawnList<STKeyInfo>();
+		var oEnhanceTradeKeyInfoList = CManagerPoolCollection.Inst.SpawnList<STKeyInfo>();
 
 		var oSkillInfoValDictContainer = new Dictionary<string, List<List<string>>>();
 
@@ -390,10 +390,10 @@ public partial class CSkillInfoTable : CSingleton<CSkillInfoTable> {
 			oSkillInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.SkillTableInfo)[KCDefine.B_KEY_SALE_TRADE], oCommonInfos.AsArray.ExToInfoVals(oSaleTradeKeyInfoList));
 			oSkillInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.SkillTableInfo)[KCDefine.B_KEY_ENHANCE_TRADE], oCommonInfos.AsArray.ExToInfoVals(oEnhanceTradeKeyInfoList));
 		} finally {
-			CCollectionPoolManager.Inst.DespawnList(oCommonKeyInfoList);
-			CCollectionPoolManager.Inst.DespawnList(oBuyTradeKeyInfoList);
-			CCollectionPoolManager.Inst.DespawnList(oSaleTradeKeyInfoList);
-			CCollectionPoolManager.Inst.DespawnList(oEnhanceTradeKeyInfoList);
+			CManagerPoolCollection.Inst.DespawnList(oCommonKeyInfoList);
+			CManagerPoolCollection.Inst.DespawnList(oBuyTradeKeyInfoList);
+			CManagerPoolCollection.Inst.DespawnList(oSaleTradeKeyInfoList);
+			CManagerPoolCollection.Inst.DespawnList(oEnhanceTradeKeyInfoList);
 		}
 
 		return oSkillInfoValDictContainer;

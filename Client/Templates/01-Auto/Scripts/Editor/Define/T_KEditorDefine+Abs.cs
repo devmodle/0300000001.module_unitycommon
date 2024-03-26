@@ -31,8 +31,8 @@ public static partial class KEditorDefine
 		[typeof(CNavStackManager)] = KCDefine.G_SCRIPT_O_LATE,
 		[typeof(CIndicatorManager)] = KCDefine.G_SCRIPT_O_LATE,
 
-		[typeof(CObjsPoolManager)] = KCDefine.G_SCRIPT_O_LATE,
-		[typeof(CCollectionPoolManager)] = KCDefine.G_SCRIPT_O_LATE,
+		[typeof(CManagerPoolObjs)] = KCDefine.G_SCRIPT_O_LATE,
+		[typeof(CManagerPoolCollection)] = KCDefine.G_SCRIPT_O_LATE,
 
 		[typeof(CUnityMsgSender)] = KCDefine.G_SCRIPT_O_LATE,
 		[typeof(CDeviceMsgReceiver)] = KCDefine.G_SCRIPT_O_LATE,

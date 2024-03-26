@@ -93,9 +93,9 @@ namespace NSEngine {
 	public partial class CESkill : CEObjComponent {
 		#region 클래스 함수
 		/** 스킬 매개 변수를 생성한다 */
-		public static STParams MakeParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEController a_oController = null, string a_oGameObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static STParams MakeParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEController a_oController = null, string a_oKeyPoolGameObjs = KCDefine.B_TEXT_EMPTY) {
 			return new STParams() {
-				m_stBase = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oGameObjsPoolKey), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
+				m_stBase = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oKeyPoolGameObjs), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
 			};
 		}
 		#endregion // 클래스 함수

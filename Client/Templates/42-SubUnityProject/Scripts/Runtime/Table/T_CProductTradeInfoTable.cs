@@ -212,7 +212,7 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 
 	/** 상품 교환 정보 값을 생성한다 */
 	public Dictionary<string, List<List<string>>> MakeProductTradeInfoVals() {
-		var oCommonKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
+		var oCommonKeyInfoList = CManagerPoolCollection.Inst.SpawnList<STKeyInfo>();
 		var oProductTradeInfoValDictContainer = new Dictionary<string, List<List<string>>>();
 
 		try {
@@ -221,7 +221,7 @@ public partial class CProductTradeInfoTable : CSingleton<CProductTradeInfoTable>
 
 			oProductTradeInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.ProductTradeTableInfo)[KCDefine.B_KEY_COMMON], oCommonInfos.AsArray.ExToInfoVals(oCommonKeyInfoList));
 		} finally {
-			CCollectionPoolManager.Inst.DespawnList(oCommonKeyInfoList);
+			CManagerPoolCollection.Inst.DespawnList(oCommonKeyInfoList);
 		}
 
 		return oProductTradeInfoValDictContainer;

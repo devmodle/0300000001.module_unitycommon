@@ -175,7 +175,7 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 
 	/** 튜토리얼 정보 값을 생성한다 */
 	public void MakeTutorialInfoVals(SimpleJSON.JSONNode a_oTutorialInfos, Dictionary<string, List<List<string>>> a_oOutTutorialInfoValDictContainer) {
-		var oCommonKeyInfoList = CCollectionPoolManager.Inst.SpawnList<STKeyInfo>();
+		var oCommonKeyInfoList = CManagerPoolCollection.Inst.SpawnList<STKeyInfo>();
 
 		try {
 			this.SetupKeyInfos(oCommonKeyInfoList);
@@ -183,7 +183,7 @@ public partial class CTutorialInfoTable : CSingleton<CTutorialInfoTable> {
 
 			a_oOutTutorialInfoValDictContainer.TryAdd(Access.GetSheetNames(this.GetType(), Access.TutorialTableInfo)[KCDefine.B_KEY_COMMON], oCommonInfos.AsArray.ExToInfoVals(oCommonKeyInfoList));
 		} finally {
-			CCollectionPoolManager.Inst.DespawnList(oCommonKeyInfoList);
+			CManagerPoolCollection.Inst.DespawnList(oCommonKeyInfoList);
 		}
 	}
 

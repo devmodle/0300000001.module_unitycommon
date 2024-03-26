@@ -166,7 +166,7 @@ namespace LevelEditorScene {
 
 		/** 페인트 에디터 모드 터치 이동 이벤트를 처리한다 */
 		private void HandlePaintEditorModeTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var oIdxList = CCollectionPoolManager.Inst.SpawnList<Vector3Int>();
+			var oIdxList = CManagerPoolCollection.Inst.SpawnList<Vector3Int>();
 
 			try {
 				var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
@@ -205,7 +205,7 @@ namespace LevelEditorScene {
 					}
 				}
 			} finally {
-				CCollectionPoolManager.Inst.DespawnList(oIdxList);
+				CManagerPoolCollection.Inst.DespawnList(oIdxList);
 			}
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

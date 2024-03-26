@@ -16,7 +16,7 @@ public static partial class Access {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	/** 에디터 스프라이트를 반환한다 */
 	public static Sprite GetEditorSprite(EObjKinds a_eObjKinds, string a_oPrefix, bool a_bIsIgnoreEditor = false, EKindsGroupType a_eGroupType = EKindsGroupType.SUB_KINDS_TYPE) {
-		var oImgPathDict = CCollectionPoolManager.Inst.SpawnDict<EObjKinds, string>();
+		var oImgPathDict = CManagerPoolCollection.Inst.SpawnDict<EObjKinds, string>();
 
 		try {
 			// 에디터 무시 모드가 아닐 경우
@@ -30,7 +30,7 @@ public static partial class Access {
 
 			return CResManager.Inst.GetRes<Sprite>(oEditorImgPath) ?? NSEngine.Access.GetSprite(a_eObjKinds, a_eGroupType);
 		} finally {
-			CCollectionPoolManager.Inst.DespawnDict(oImgPathDict);
+			CManagerPoolCollection.Inst.DespawnDict(oImgPathDict);
 		}
 	}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

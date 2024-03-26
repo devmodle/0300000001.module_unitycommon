@@ -89,9 +89,9 @@ namespace NSEngine {
 	public partial class CEItem : CEObjComponent {
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(CEngine a_oEngine, STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEController a_oController = null, string a_oGameObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
+		public static STParams MakeParams(CEngine a_oEngine, STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEController a_oController = null, string a_oKeyPoolGameObjs = KCDefine.B_TEXT_EMPTY) {
 			return new STParams() {
-				m_stBase = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oGameObjsPoolKey), m_stItemInfo = a_stItemInfo, m_oItemTargetInfo = a_oItemTargetInfo
+				m_stBase = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oKeyPoolGameObjs), m_stItemInfo = a_stItemInfo, m_oItemTargetInfo = a_oItemTargetInfo
 			};
 		}
 		#endregion // 클래스 함수

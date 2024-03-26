@@ -188,7 +188,7 @@ public partial class CResultPopup : CSubPopup {
 		m_oBtnDict[EKey.ADS_BTN]?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
 #endif // #if ADS_MODULE_ENABLE
 
-		var oRewardTargetInfoDict = CCollectionPoolManager.Inst.SpawnDict<ulong, STTargetInfo>();
+		var oRewardTargetInfoDict = CManagerPoolCollection.Inst.SpawnDict<ulong, STTargetInfo>();
 
 		try {
 			var stEpisodeInfo = CEpisodeInfoTable.Inst.GetLevelEpisodeInfo(this.Params.m_stIDInfo.m_nID01, this.Params.m_stIDInfo.m_nID02, this.Params.m_stIDInfo.m_nID03);
@@ -213,7 +213,7 @@ public partial class CResultPopup : CSubPopup {
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oRewardTargetInfoDict, true);
 			this.UpdateUIsState();
 		} finally {
-			CCollectionPoolManager.Inst.DespawnDict(oRewardTargetInfoDict);
+			CManagerPoolCollection.Inst.DespawnDict(oRewardTargetInfoDict);
 		}
 	}
 	#endregion // 함수

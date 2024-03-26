@@ -124,9 +124,9 @@ namespace NSEngine {
 	public abstract partial class CEObjComponent : CEComponent {
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(CEngine a_oEngine, CEController a_oController, string a_oGameObjsPoolKey, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
+		public static STParams MakeParams(CEngine a_oEngine, CEController a_oController, string a_oKeyPoolGameObjs, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
 			return new STParams() {
-				m_stBase = CEComponent.MakeParams(a_oEngine, a_oGameObjsPoolKey), m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
+				m_stBase = CEComponent.MakeParams(a_oEngine, a_oKeyPoolGameObjs), m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
 			};
 		}
 		#endregion // 클래스 함수

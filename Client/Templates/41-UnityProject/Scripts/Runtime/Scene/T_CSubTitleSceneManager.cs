@@ -46,7 +46,7 @@ namespace TitleScene {
 
 			// 앱이 초기화되었을 경우
 			if(CSceneManager.IsInitApp) {
-				var oItemKindsList = CCollectionPoolManager.Inst.SpawnList<EItemKinds>();
+				var oItemKindsList = CManagerPoolCollection.Inst.SpawnList<EItemKinds>();
 
 				try {
 					// 텍스트를 설정한다 {
@@ -91,7 +91,7 @@ namespace TitleScene {
 					m_oGoogleSheetLoadHandlerDict.TryAdd(KCDefine.U_TABLE_P_G_PRODUCT_INFO.ExGetFileName(false), this.OnLoadGoogleSheet);
 #endif // #if ENABLE_GOOGLESHEET && (DEBUG || DEVELOPMENT_BUILD)
 				} finally {
-					CCollectionPoolManager.Inst.DespawnList(oItemKindsList);
+					CManagerPoolCollection.Inst.DespawnList(oItemKindsList);
 				}
 
 				this.SubAwake();
