@@ -11,12 +11,12 @@ public static partial class LogFunc {
 	#region 클래스 함수
 	/** 앱 구동 로그를 전송한다 */
 	public static void SendLaunchLog() {
-		LogFunc.SendLog(KDefine.L_LOG_N_LAUNCH, LogFunc.MakeDefDatas());
+		LogFunc.SendLog(KDefine.G_LOG_N_LAUNCH, LogFunc.MakeDefDatas());
 	}
 
 	/** 스플래시 로그를 전송한다 */
 	public static void SendSplashLog() {
-		LogFunc.SendLog(KDefine.L_LOG_N_SPLASH, LogFunc.MakeDefDatas());
+		LogFunc.SendLog(KDefine.G_LOG_N_SPLASH, LogFunc.MakeDefDatas());
 	}
 
 	/** 기본 데이터를 생성한다 */

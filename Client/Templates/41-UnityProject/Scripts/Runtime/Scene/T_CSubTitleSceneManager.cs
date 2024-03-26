@@ -107,7 +107,7 @@ namespace TitleScene {
 				// 앱 업데이트가 가능 할 경우
 				if(!CAppInfoStorage.Inst.IsIgnoreAppUpdate && COptsInfoTable.Inst.InfoOptsEtc.m_bIsEnableSceneTitle && CCommonAppInfoStorage.Inst.IsEnableUpdate()) {
 					CAppInfoStorage.Inst.SetIsIgnoreAppUpdate(true);
-					this.ExLateCallFunc((a_oSender) => Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_UPDATE_P_MSG), this.OnReceiveUpdatePopupResult));
+					this.ExLateCallFunc((a_oSender) => Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_UPDATE_P_MSG), this.OnReceiveUpdatePopupResult));
 				}
 
 				this.SubStart();
@@ -168,7 +168,7 @@ namespace TitleScene {
 
 			// 백 키 눌림 이벤트 일 경우
 			if(a_eEvent == EEventNavStack.BACK_KEY_DOWN) {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_QUIT_P_MSG), this.OnReceiveQuitPopupResult);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_QUIT_P_MSG), this.OnReceiveQuitPopupResult);
 			}
 		}
 
@@ -312,7 +312,7 @@ namespace TitleScene {
 				Func.OnLoadGoogleSheets(m_oVerInfos);
 				CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 
 			m_bIsTouch = a_bIsSuccess;
@@ -325,7 +325,7 @@ namespace TitleScene {
 				m_oVerInfos = a_oVerInfos;
 				Func.LoadGoogleSheets(a_oLoadGoogleSheetInfoDict.Values.ToList(), m_oGoogleSheetLoadHandlerDict, this.OnLoadGoogleSheets);
 			} else {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 
 			m_bIsTouch = a_bIsSuccess;

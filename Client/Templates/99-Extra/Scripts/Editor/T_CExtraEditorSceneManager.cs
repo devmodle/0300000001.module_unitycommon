@@ -29,7 +29,7 @@ public static partial class CExtraEditorSceneManager {
 	/** 상태를 갱신한다 */
 	private static void Update() {
 		// 상태 갱신이 불가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState) {
+		if(CAccessEditor.IsEnableUpdateState) {
 			return;
 		}
 	}
@@ -37,7 +37,7 @@ public static partial class CExtraEditorSceneManager {
 	/** 상태를 갱신한다 */
 	private static void LateUpdate() {
 		// 상태 갱신이 불가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState) {
+		if(CAccessEditor.IsEnableUpdateState) {
 			return;
 		}
 	}

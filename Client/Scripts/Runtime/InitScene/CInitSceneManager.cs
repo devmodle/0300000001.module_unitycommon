@@ -119,28 +119,28 @@ namespace InitScene
 			var oTargetFrameInfoDict = new Dictionary<RuntimePlatform, (long, long)>()
 			{
 				// 모바일
-				[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
-				[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_MOBILE_TARGET_FRAME_RATE)),
+				[RuntimePlatform.Android] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_MOBILE_TARGET_FRAME_RATE)),
+				[RuntimePlatform.IPhonePlayer] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_MOBILE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_MOBILE_TARGET_FRAME_RATE)),
 
 				// 데스크 탑 {
-				[RuntimePlatform.OSXEditor] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
-				[RuntimePlatform.OSXPlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
+				[RuntimePlatform.OSXEditor] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
+				[RuntimePlatform.OSXPlayer] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
 
-				[RuntimePlatform.WindowsEditor] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
-				[RuntimePlatform.WindowsPlayer] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
+				[RuntimePlatform.WindowsEditor] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
+				[RuntimePlatform.WindowsPlayer] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DESKTOP_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DESKTOP_TARGET_FRAME_RATE)),
 				// 데스크 탑 }
 
 				// 콘솔
-				[RuntimePlatform.PS4] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
-				[RuntimePlatform.PS5] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
-				[RuntimePlatform.XboxOne] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+				[RuntimePlatform.PS4] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+				[RuntimePlatform.PS5] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
+				[RuntimePlatform.XboxOne] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_CONSOLE_TARGET_FRAME_RATE)),
 
 				// 휴대용 콘솔
-				[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
+				[RuntimePlatform.Switch] = (CValTable.Inst.GetInt(KCDefine.G_VT_KEY_HANDHELD_CONSOLE_QUALITY_LEVEL), CValTable.Inst.GetInt(KCDefine.G_VT_KEY_HANDHELD_CONSOLE_TARGET_FRAME_RATE))
 			};
 
 			bool bIsValid = oTargetFrameInfoDict.TryGetValue(Application.platform, out (long, long) stTargetFrameInfo);
-			long nTargetFrameRate = bIsValid ? stTargetFrameInfo.Item2 : CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_TARGET_FRAME_RATE);
+			long nTargetFrameRate = bIsValid ? stTargetFrameInfo.Item2 : CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DEF_TARGET_FRAME_RATE);
 			long nDefTargetFrameRate = Application.isEditor ? KCDefine.B_EDITOR_TARGET_FRAME_RATE : KCDefine.B_DEF_TARGET_FRAME_RATE;
 
 			float fRefreshRate = (float)Screen.currentResolution.refreshRateRatio.ExGetVal(nDefTargetFrameRate).ExGetMinVal(nTargetFrameRate);
@@ -156,7 +156,7 @@ namespace InitScene
 			CSceneManager.SetupQuality(COptsInfoTable.Inst.InfoOptsQuality.m_eLevelQuality, true);
 #else
 			CSceneManager.SetupQuality(bIsValid ? 
-				(ELevelQuality)stTargetFrameInfo.Item1 : (ELevelQuality)CValTable.Inst.GetInt(KCDefine.VT_KEY_DEF_QUALITY_LEVEL), true);
+				(ELevelQuality)stTargetFrameInfo.Item1 : (ELevelQuality)CValTable.Inst.GetInt(KCDefine.G_VT_KEY_DEF_QUALITY_LEVEL), true);
 #endif // #if UNITY_EDITOR
 			// 디바이스 정보를 설정한다 }
 		}

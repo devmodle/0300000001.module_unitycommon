@@ -21,7 +21,7 @@ public static partial class CCommonEditorSceneManager
 	{
 #if ENABLE_ADAPTIVEPERFORMANCE
 		// 적응형 퍼포먼스 설정이 존재 할 경우
-		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_SETTINGS, out AdaptivePerformanceGeneralSettingsPerBuildTarget oPerformanceSettings))
+		if(EditorBuildSettings.TryGetConfigObject(KCDefineEditor.B_MODULE_N_ADAPTIVE_PERFORMANCE_SETTINGS, out AdaptivePerformanceGeneralSettingsPerBuildTarget oPerformanceSettings))
 		{
 			var oiOSSettings = oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.iOS);
 			var oAndroidSettings = oPerformanceSettings.SettingsForBuildTarget(BuildTargetGroup.Android);
@@ -43,19 +43,19 @@ public static partial class CCommonEditorSceneManager
 					oAndroidSettings.InitManagerOnStart = true;
 					oStandaloneSettings.InitManagerOnStart = true;
 
-					CEditorFunc.SaveAsset(oPerformanceSettings);
+					CFuncEditor.SaveAsset(oPerformanceSettings);
 				}
 			}
 		}
 
 		// 적응형 퍼포먼스 제공자 설정이 존재 할 경우
-		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_PROVIDER_SETTINGS, out IAdaptivePerformanceSettings oProviderSettings))
+		if(EditorBuildSettings.TryGetConfigObject(KCDefineEditor.B_MODULE_N_ADAPTIVE_PERFORMANCE_PROVIDER_SETTINGS, out IAdaptivePerformanceSettings oProviderSettings))
 		{
 			CCommonEditorSceneManager.SetupAdaptivePerformanceProvider(oProviderSettings);
 		}
 
 		// 삼성 적응형 퍼포먼스 제공자 설정이 존재 할 경우
-		if(EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_ADAPTIVE_PERFORMANCE_SAMSUNG_PROVIDER_SETTINGS, out IAdaptivePerformanceSettings oSamsungProviderSettings))
+		if(EditorBuildSettings.TryGetConfigObject(KCDefineEditor.B_MODULE_N_ADAPTIVE_PERFORMANCE_SAMSUNG_PROVIDER_SETTINGS, out IAdaptivePerformanceSettings oSamsungProviderSettings))
 		{
 			CCommonEditorSceneManager.SetupAdaptivePerformanceProvider(oSamsungProviderSettings);
 		}
@@ -84,7 +84,7 @@ public static partial class CCommonEditorSceneManager
 		a_oProviderSettings.automaticPerformanceMode = false;
 		a_oProviderSettings.indexerSettings.active = false;
 
-		CEditorFunc.SaveAsset(a_oProviderSettings);
+		CFuncEditor.SaveAsset(a_oProviderSettings);
 	}
 #endif // #if ENABLE_ADAPTIVEPERFORMANCE
 	#endregion // 클래스 함수

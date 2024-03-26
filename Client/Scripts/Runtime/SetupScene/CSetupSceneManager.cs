@@ -149,7 +149,7 @@ namespace SetupScene
 		private void UpdateUIsState()
 		{
 			m_oStrBuilderA.Clear();
-			m_oStrBuilderA.Append(CStrTable.Inst.GetStr(KCDefine.ST_KEY_SETUP_SM_LOADING_TEXT));
+			m_oStrBuilderA.Append(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_SETUP_SM_LOADING_TEXT));
 
 			string oPercentStr = string.Format(KCDefine.B_TEXT_FMT_1_INT, m_oGaugeHandlerDict[EKey.LOADING_GAUGE_HANDLER].Percent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
 			oPercentStr = string.Format(KCDefine.B_TEXT_FMT_BRACKET, string.Format(KCDefine.B_TEXT_FMT_PERCENT, oPercentStr));

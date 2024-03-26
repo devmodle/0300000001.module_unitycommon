@@ -370,7 +370,7 @@ namespace LateSetupScene
 
 				// 약관 동의 팝업이 닫혔을 경우
 				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
-					CFlurryManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
+					CFlurryManager.Inst.SendLog(KCDefine.G_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
 				}
 			}
 		}
@@ -394,14 +394,14 @@ namespace LateSetupScene
 				CFirebaseManager.Inst.SetCrashlyticsUserID(CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
 
 				CFirebaseManager.Inst.SetCrashlyticsDatas(new Dictionary<string, string>() {
-					[KCDefine.L_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
+					[KCDefine.G_LOG_KEY_COUNTRY_CODE] = CCommonAppInfoStorage.Inst.CountryCode
 				});
 
 				CFirebaseManager.Inst.LoadMsgToken(CLateSetupSceneManager.OnLoadFirebaseMsgToken);
 
 				// 약관 동의 팝업이 닫혔을 경우
 				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
-					CFirebaseManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
+					CFirebaseManager.Inst.SendLog(KCDefine.G_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
 				}
 			}
 		}
@@ -428,7 +428,7 @@ namespace LateSetupScene
 
 				// 약관 동의 팝업이 닫혔을 경우
 				if(CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
-					CAppsFlyerManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
+					CAppsFlyerManager.Inst.SendLog(KCDefine.G_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict.ExToTypes<string, object, string, string>());
 				}
 			}
 		}
@@ -464,7 +464,7 @@ namespace LateSetupScene
 
 			// 초기화되었을 경우
 			if(a_bIsSuccess && CCommonAppInfoStorage.Inst.IsCloseAgreePopup) {
-				CPlayfabManager.Inst.SendLog(KCDefine.L_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict);
+				CPlayfabManager.Inst.SendLog(KCDefine.G_LOG_N_AGREE, CLateSetupSceneManager.LogDataDict);
 			}
 		}
 #endif // #if PLAYFAB_MODULE_ENABLE

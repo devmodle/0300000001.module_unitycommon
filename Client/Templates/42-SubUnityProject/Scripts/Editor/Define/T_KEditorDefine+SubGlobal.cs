@@ -16,15 +16,15 @@ public static partial class KEditorDefine {
 	public static List<string> G_EXTRA_DIR_P_PRELOAD_ASSET_LIST = new List<string>() {
 		// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 #if DISABLE_THIS
-		Path.GetDirectoryName($"{KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_FXS}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
-		Path.GetDirectoryName($"{KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_FONTS}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
-		Path.GetDirectoryName($"{KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_SOUNDS}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
-		Path.GetDirectoryName($"{KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_PREFABS}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
-		Path.GetDirectoryName($"{KCEditorDefine.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_SCRIPTABLES}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
+		Path.GetDirectoryName($"{KCDefineEditor.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_FXS}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
+		Path.GetDirectoryName($"{KCDefineEditor.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_FONTS}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
+		Path.GetDirectoryName($"{KCDefineEditor.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_SOUNDS}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
+		Path.GetDirectoryName($"{KCDefineEditor.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_PREFABS}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
+		Path.GetDirectoryName($"{KCDefineEditor.B_DIR_P_SUB_UNITY_PROJ_RESOURCES}{KCDefine.B_DIR_P_SCRIPTABLES}").Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH),
 
-		$"{KCEditorDefine.B_DIR_P_PACKAGES}Module.UnityCommon/Client/Resources/Fonts",
-		$"{KCEditorDefine.B_DIR_P_PACKAGES}Module.UnityCommon/Client/Resources/Prefabs",
-		$"{KCEditorDefine.B_DIR_P_PACKAGES}Module.UnityCommon/Client/Resources/SpriteAtlases"
+		$"{KCDefineEditor.B_DIR_P_PACKAGES}Module.UnityCommon/Client/Resources/Fonts",
+		$"{KCDefineEditor.B_DIR_P_PACKAGES}Module.UnityCommon/Client/Resources/Prefabs",
+		$"{KCDefineEditor.B_DIR_P_PACKAGES}Module.UnityCommon/Client/Resources/SpriteAtlases"
 #endif // #if DISABLE_THIS
 		// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 	};
@@ -32,7 +32,7 @@ public static partial class KEditorDefine {
 	public static List<string> G_EXTRA_ASSET_P_PRELOAD_ASSET_LIST = new List<string>() {
 		// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 #if DISABLE_THIS
-		$"{KCEditorDefine.B_DIR_P_ASSETS}TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset"
+		$"{KCDefineEditor.B_DIR_P_ASSETS}TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset"
 #endif // #if DISABLE_THIS
 		// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 	};

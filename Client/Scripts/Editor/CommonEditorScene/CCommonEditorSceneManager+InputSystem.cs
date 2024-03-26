@@ -21,19 +21,19 @@ public static partial class CCommonEditorSceneManager
 	{
 #if INPUT_SYSTEM_MODULE_ENABLE
 		// 옵션 정보 테이블이 없을 경우
-		if(CPlatformOptsSetter.OptsInfoTable == null)
+		if(CSetterOptsPlatform.OptsInfoTable == null)
 		{
 			return;
 		}
 
 		// 입력 시스템 설정이 없을 경우
-		if(!EditorBuildSettings.TryGetConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, out InputSettings oInputSettings))
+		if(!EditorBuildSettings.TryGetConfigObject(KCDefineEditor.B_MODULE_N_INPUT_SYSTEM_SETTINGS, out InputSettings oInputSettings))
 		{
-			oInputSettings = AssetDatabase.LoadAssetAtPath<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
-			oInputSettings = oInputSettings ?? CEditorFactory.CreateScriptableObj<InputSettings>(KCEditorDefine.B_ASSET_P_INPUT_SETTINGS);
+			oInputSettings = AssetDatabase.LoadAssetAtPath<InputSettings>(KCDefineEditor.B_ASSET_P_INPUT_SETTINGS);
+			oInputSettings = oInputSettings ?? CFactoryEditor.CreateScriptableObj<InputSettings>(KCDefineEditor.B_ASSET_P_INPUT_SETTINGS);
 
 			InputSystem.settings = oInputSettings;
-			EditorBuildSettings.AddConfigObject(KCEditorDefine.B_MODULE_N_INPUT_SYSTEM_SETTINGS, oInputSettings, true);
+			EditorBuildSettings.AddConfigObject(KCDefineEditor.B_MODULE_N_INPUT_SYSTEM_SETTINGS, oInputSettings, true);
 		}
 
 		var oListIsSetupOpts = new List<bool>() {
@@ -42,8 +42,8 @@ public static partial class CCommonEditorSceneManager
 			oInputSettings.editorInputBehaviorInPlayMode == InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus,
 
 #if UNITY_IOS
-			oInputSettings.iOS.motionUsage.enabled == CPlatformOptsSetter.OptsInfoTable.InfoOptsBuild.m_stInfoOptsBuildiOS.m_bIsEnableMotionSystemInput,
-			oInputSettings.iOS.motionUsage.usageDescription.ExIsEquals(CPlatformOptsSetter.OptsInfoTable.InfoOptsBuild.m_oDescMotionSystemInput)
+			oInputSettings.iOS.motionUsage.enabled == CSetterOptsPlatform.OptsInfoTable.InfoOptsBuild.m_stInfoOptsBuildiOS.m_bIsEnableMotionSystemInput,
+			oInputSettings.iOS.motionUsage.usageDescription.ExIsEquals(CSetterOptsPlatform.OptsInfoTable.InfoOptsBuild.m_oDescMotionSystemInput)
 #endif // #if UNITY_IOS
 		};
 
@@ -58,11 +58,11 @@ public static partial class CCommonEditorSceneManager
 		oInputSettings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.PointersAndKeyboardsRespectGameViewFocus;
 
 #if UNITY_IOS
-		oInputSettings.iOS.motionUsage.enabled = CPlatformOptsSetter.OptsInfoTable.InfoOptsBuild.m_stInfoOptsBuildiOS.m_bIsEnableMotionSystemInput;
-		oInputSettings.iOS.motionUsage.usageDescription = CPlatformOptsSetter.OptsInfoTable.InfoOptsBuild.m_oDescMotionSystemInput;
+		oInputSettings.iOS.motionUsage.enabled = CSetterOptsPlatform.OptsInfoTable.InfoOptsBuild.m_stInfoOptsBuildiOS.m_bIsEnableMotionSystemInput;
+		oInputSettings.iOS.motionUsage.usageDescription = CSetterOptsPlatform.OptsInfoTable.InfoOptsBuild.m_oDescMotionSystemInput;
 #endif // #if UNITY_IOS
 
-		CEditorFunc.SaveAsset(oInputSettings);
+		CFuncEditor.SaveAsset(oInputSettings);
 #endif // #if INPUT_SYSTEM_MODULE_ENABLE
 	}
 	#endregion // 클래스 함수

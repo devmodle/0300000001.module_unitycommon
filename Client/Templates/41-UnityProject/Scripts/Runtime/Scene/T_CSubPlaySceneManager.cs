@@ -239,7 +239,7 @@ namespace PlayScene {
 			if(a_eEvent == EEventNavStack.BACK_KEY_DOWN) {
 				// 이전 씬이 레벨 에디터 씬 일 경우
 				if(CSceneLoader.Inst.PrevActiveSceneName.Equals(KCDefine.B_SCENE_N_EDITOR_LEVEL)) {
-					Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LEAVE_P_MSG), this.OnReceiveLeavePopupResult);
+					Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_LEAVE_P_MSG), this.OnReceiveLeavePopupResult);
 				} else {
 					this.OnTouchPauseBtn();
 				}

@@ -26,7 +26,7 @@ public static partial class LogFunc {
 
 #if ANALYTICS_TEST_ENABLE || STORE_DIST_BUILD
 		var oDataDict = LogFunc.MakeLogDatas(a_oDataDict);
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_LOG_NAME, a_oName);
+		oDataDict.TryAdd(KCDefine.G_LOG_KEY_LOG_NAME, a_oName);
 
 		CCommonAppInfoStorage.Inst.AppInfo.m_oSendLogList.ExAddVal(a_oName);
 
@@ -65,16 +65,16 @@ public static partial class LogFunc {
 	/** 로그 데이터를 생성한다 */
 	private static Dictionary<string, object> MakeLogDatas(Dictionary<string, object> a_oDataDict) {
 		var oDataDict = a_oDataDict ?? new Dictionary<string, object>();
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_PLATFORM, CCommonAppInfoStorage.Inst.Platform);
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_DEVICE_ID, CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_LOG_TIME, System.DateTime.UtcNow.ExToLongStr());
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_SHORT_LOG_TIME, System.DateTime.UtcNow.ExToShortStr());
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_INSTALL_TIME, CCommonAppInfoStorage.Inst.AppInfo.UTCInstallTime.ExToLongStr());
+		oDataDict.TryAdd(KCDefine.G_LOG_KEY_PLATFORM, CCommonAppInfoStorage.Inst.Platform);
+		oDataDict.TryAdd(KCDefine.G_LOG_KEY_DEVICE_ID, CCommonAppInfoStorage.Inst.AppInfo.DeviceID);
+		oDataDict.TryAdd(KCDefine.G_LOG_KEY_LOG_TIME, System.DateTime.UtcNow.ExToLongStr());
+		oDataDict.TryAdd(KCDefine.G_LOG_KEY_SHORT_LOG_TIME, System.DateTime.UtcNow.ExToShortStr());
+		oDataDict.TryAdd(KCDefine.G_LOG_KEY_INSTALL_TIME, CCommonAppInfoStorage.Inst.AppInfo.UTCInstallTime.ExToLongStr());
 
 #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_USER_TYPE, KCDefine.B_TEXT_UNKNOWN);
+		oDataDict.TryAdd(KCDefine.G_LOG_KEY_USER_TYPE, KCDefine.B_TEXT_UNKNOWN);
 #else
-		oDataDict.TryAdd(KCDefine.L_LOG_KEY_USER_TYPE, CCommonUserInfoStorage.Inst.UserInfo.UserType.ToString());
+		oDataDict.TryAdd(KCDefine.G_LOG_KEY_USER_TYPE, CCommonUserInfoStorage.Inst.UserInfo.UserType.ToString());
 #endif // #if ANALYTICS_TEST_ENABLE || (DEBUG || DEVELOPMENT_BUILD)
 
 		return oDataDict;
@@ -94,7 +94,7 @@ public static partial class LogFunc {
 	/** 결제 로그를 전송한다 */
 	public static void SendPurchaseLog(Product a_oProduct, int a_nNumProducts = KCDefine.B_VAL_1_INT) {
 		// 로그 전송이 불가능 할 경우
-		if(!LogFunc.IsEnableSendLog(KDefine.L_LOG_N_PURCHASE)) {
+		if(!LogFunc.IsEnableSendLog(KDefine.G_LOG_N_PURCHASE)) {
 			return;
 		}
 
@@ -133,7 +133,7 @@ public static partial class LogFunc {
 #endif // #if PLAYFAB_MODULE_ENABLE
 #endif // #if ANALYTICS_TEST_ENABLE || STORE_DIST_BUILD
 
-		LogFunc.m_oLogTimeDict.ExReplaceVal(KDefine.L_LOG_N_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
+		LogFunc.m_oLogTimeDict.ExReplaceVal(KDefine.G_LOG_N_PURCHASE, System.DateTime.Now.ExToPSTTime().ExToLongStr());
 	}
 #endif // #if PURCHASE_MODULE_ENABLE
 #endregion // 클래스 함수

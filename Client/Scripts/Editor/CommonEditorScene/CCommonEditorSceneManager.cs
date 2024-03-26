@@ -74,12 +74,12 @@ public static partial class CCommonEditorSceneManager
 		{
 			CCommonEditorSceneManager.m_oTextGUIStyle.normal = new GUIStyleState()
 			{
-				textColor = KCEditorDefine.G_HIERARCHY_COLOR_TEXT
+				textColor = KCDefineEditor.G_HIERARCHY_COLOR_TEXT
 			};
 
 			CCommonEditorSceneManager.m_oOutlineGUIStyle.normal = new GUIStyleState()
 			{
-				textColor = KCEditorDefine.G_HIERARCHY_COLOR_OUTLINE
+				textColor = KCDefineEditor.G_HIERARCHY_COLOR_OUTLINE
 			};
 
 			CCommonEditorSceneManager.m_dblSkipTimeUpdate = EditorApplication.timeSinceStartup;
@@ -105,18 +105,18 @@ public static partial class CCommonEditorSceneManager
 	private static void Update()
 	{
 		// 상태 갱신이 가능 할 경우
-		if(CEditorAccess.IsEnableUpdateState)
+		if(CAccessEditor.IsEnableUpdateState)
 		{
 			// 설정 가능 할 경우
 			if(CCommonEditorSceneManager.m_bIsEnableSetup)
 			{
 				CCommonEditorSceneManager.m_bIsEnableSetup = false;
-				CSceneImporter.ImportAllScenes();
+				CImporterScene.ImportAllScenes();
 
-				CPlatformOptsSetter.SetupProjOpts();
-				CPlatformOptsSetter.SetupPlayerOpts();
-				CPlatformOptsSetter.SetupEditorOpts();
-				CPlatformOptsSetter.SetupPluginProjs();
+				CSetterOptsPlatform.SetupProjOpts();
+				CSetterOptsPlatform.SetupPlayerOpts();
+				CSetterOptsPlatform.SetupEditorOpts();
+				CSetterOptsPlatform.SetupPluginProjs();
 			}
 
 			// 갱신 주기가 지났을 경우
@@ -153,13 +153,13 @@ public static partial class CCommonEditorSceneManager
 				CAccess.EnumerateRootObjs((a_oObj) =>
 				{
 					// 최상단 UI 일 경우
-					if(KCEditorDefine.B_OBJ_N_ROOT_UIS_LIST.Contains(a_oObj.name))
+					if(KCDefineEditor.B_OBJ_N_ROOT_UIS_LIST.Contains(a_oObj.name))
 					{
 						CCommonEditorSceneManager.SetupLayers(a_oObj);
 					}
 
 					// 최상단 객체 일 경우
-					if(KCEditorDefine.B_OBJ_N_ROOT_OBJ_LIST.Contains(a_oObj.name))
+					if(KCDefineEditor.B_OBJ_N_ROOT_OBJ_LIST.Contains(a_oObj.name))
 					{
 						CCommonEditorSceneManager.SetupStaticObjs(a_oObj);
 					}
@@ -171,14 +171,14 @@ public static partial class CCommonEditorSceneManager
 				// 유니티 패키지 정보를 설정한다 {
 				CCommonEditorSceneManager.m_oStrBuilder.Clear();
 
-				CFunc.EnumerateDirectories(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, (a_oFileList, a_oDirList) =>
+				CFunc.EnumerateDirectories(KCDefineEditor.B_ABS_DIR_P_UNITY_PACKAGES, (a_oFileList, a_oDirList) =>
 				{
 					for(int i = 0; i < a_oFileList.Count; ++i)
 					{
 						// DS Store 파일이 아닐 경우
 						if(!a_oFileList[i].EndsWith(KCDefine.B_FILE_EXTENSION_DS_STORE))
 						{
-							string oDirPath = Path.GetRelativePath(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES, a_oFileList[i]);
+							string oDirPath = Path.GetRelativePath(KCDefineEditor.B_ABS_DIR_P_UNITY_PACKAGES, a_oFileList[i]);
 							CCommonEditorSceneManager.m_oStrBuilder.AppendLine(oDirPath.Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH));
 						}
 					}
@@ -188,26 +188,26 @@ public static partial class CCommonEditorSceneManager
 				// 유니티 패키지 정보를 설정한다 }
 
 				// 디렉토리가 존재 할 경우
-				if(Directory.Exists(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES))
+				if(Directory.Exists(KCDefineEditor.B_ABS_DIR_P_UNITY_PACKAGES))
 				{
-					string oDirPath = Path.GetDirectoryName(KCEditorDefine.B_ABS_DIR_P_UNITY_PACKAGES).Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH);
+					string oDirPath = Path.GetDirectoryName(KCDefineEditor.B_ABS_DIR_P_UNITY_PACKAGES).Replace(KCDefine.B_TOKEN_R_SLASH, KCDefine.B_TOKEN_SLASH);
 					CFunc.WriteStr(string.Format(KCDefine.B_TEXT_FMT_2_COMBINE, oDirPath, KCDefine.B_FILE_EXTENSION_TXT), CCommonEditorSceneManager.m_oStrBuilder.ToString(), false);
 				}
 
 				// 빌드 가능 할 경우
 				if(CCommonEditorSceneManager.m_bIsEnableBuild)
 				{
-					string oBuildMethod = CFunc.ReadStr(KCEditorDefine.B_DATA_P_BUILD_METHOD, false);
+					string oBuildMethod = CFunc.ReadStr(KCDefineEditor.B_DATA_P_BUILD_METHOD, false);
 					CCommonEditorSceneManager.m_bIsEnableBuild = false;
 
 					// 빌드 메서드가 존재 할 경우
 					if(oBuildMethod.ExIsValid())
 					{
-						typeof(CPlatformBuilder).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC)?.Invoke(null, null);
+						typeof(CBuilderPlatform).GetMethod(oBuildMethod, KCDefine.B_BINDING_F_PUBLIC_STATIC)?.Invoke(null, null);
 					}
 					else
 					{
-						CFunc.RemoveFile(KCEditorDefine.B_DATA_P_BUILD_METHOD);
+						CFunc.RemoveFile(KCDefineEditor.B_DATA_P_BUILD_METHOD);
 					}
 				}
 			}
@@ -229,8 +229,8 @@ public static partial class CCommonEditorSceneManager
 				// 컴포넌트가 존재 할 경우
 				if(oComponents[i] != null)
 				{
-					var oSortingLayerProperty = oComponents[i].GetType().GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_LAYER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
-					var oSortingOrderProperty = oComponents[i].GetType().GetProperty(KCEditorDefine.B_PROPERTY_N_SORTING_ORDER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
+					var oSortingLayerProperty = oComponents[i].GetType().GetProperty(KCDefineEditor.B_PROPERTY_N_SORTING_LAYER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
+					var oSortingOrderProperty = oComponents[i].GetType().GetProperty(KCDefineEditor.B_PROPERTY_N_SORTING_ORDER, KCDefine.B_BINDING_F_PUBLIC_INSTANCE);
 
 					string oSortingLayer = (string)oSortingLayerProperty?.GetValue(oComponents[i]);
 					oSortingLayer = oSortingLayer.ExIsValid() ? CCommonEditorSceneManager.m_oSortingLayerDict.ExGetVal(oSortingLayer, string.Empty) : string.Empty;
@@ -238,8 +238,8 @@ public static partial class CCommonEditorSceneManager
 					// 프로퍼티가 존재 할 경우
 					if(oSortingOrderProperty != null && oSortingLayer.ExIsValid())
 					{
-						a_stRect.position += new Vector2((a_stRect.size.x + KCEditorDefine.G_HIERARCHY_OFFSET_TEXT) * -1.0f, KCDefine.B_VAL_0_REAL);
-						string oStr = string.Format(KCEditorDefine.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
+						a_stRect.position += new Vector2((a_stRect.size.x + KCDefineEditor.G_HIERARCHY_OFFSET_TEXT) * -1.0f, KCDefine.B_VAL_0_REAL);
+						string oStr = string.Format(KCDefineEditor.B_SORTING_OI_FMT, oSortingLayer, oSortingOrderProperty.GetValue(oComponents[i]));
 
 						var oRectList = new List<Rect>() {
 							new Rect(a_stRect.x + KCDefine.B_VAL_1_REAL, a_stRect.y, a_stRect.width, a_stRect.height),

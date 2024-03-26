@@ -1410,7 +1410,7 @@ namespace LevelEditorScene
 			}
 			else
 			{
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 		}
 
@@ -1423,11 +1423,11 @@ namespace LevelEditorScene
 				this.UpdateUIsState();
 				Func.OnLoadGoogleSheets(m_oVerInfos);
 
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_MSG), null, a_bIsEnableCancelBtn: false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_TABLE_LOAD_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 			else
 			{
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_TABLE_LOAD_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 		}
 
@@ -1453,11 +1453,11 @@ namespace LevelEditorScene
 			if(a_bIsSuccess)
 			{
 				this.UpdateUIsState();
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_MSG), null, a_bIsEnableCancelBtn: false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_TABLE_SAVE_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 			else
 			{
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_ON_TABLE_SAVE_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
+				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_ON_TABLE_SAVE_FAIL_MSG), null, a_bIsEnableCancelBtn: false);
 			}
 		}
 #endif // #if ENABLE_GOOGLESHEET
@@ -2020,7 +2020,7 @@ namespace LevelEditorScene
 			// 유저 타입이 다를 경우
 			if(CCommonUserInfoStorage.Inst.UserInfo.UserType != eUserType)
 			{
-				string oKey = (a_oSender == m_oBtnDict[EKey.LE_UIS_A_SET_BTN]) ? KCDefine.ST_KEY_C_SETUP_A_SET_MSG : KCDefine.ST_KEY_C_SETUP_B_SET_MSG;
+				string oKey = (a_oSender == m_oBtnDict[EKey.LE_UIS_A_SET_BTN]) ? KCDefine.G_ST_KEY_C_SETUP_A_SET_MSG : KCDefine.G_ST_KEY_C_SETUP_B_SET_MSG;
 				m_eSelUserType = eUserType;
 
 				Func.ShowAlertPopup(CStrTable.Inst.GetStr(oKey), this.OnReceiveEditorSetPopupResult);
@@ -2217,7 +2217,7 @@ namespace LevelEditorScene
 		{
 			// 텍스트를 설정한다
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
-			m_oTextDict[EKey.RE_UIS_TITLE_TEXT]?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, string.Format(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_LEVEL_PAGE_TEXT_FMT), this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT, nNumLevelInfos), a_bIsAssert: false);
+			m_oTextDict[EKey.RE_UIS_TITLE_TEXT]?.ExSetPropertyVal<Text>(KCDefine.U_PROPERTY_N_TEXT, string.Format(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_LEVEL_PAGE_TEXT_FMT), this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT, nNumLevelInfos), a_bIsAssert: false);
 
 			// 버튼을 설정한다 {
 			m_oBtnDict[EKey.RE_UIS_PAGE_UIS_01_REMOVE_ALL_LEVELS_BTN]?.ExSetInteractable(nNumLevelInfos > KCDefine.B_VAL_1_INT, false);

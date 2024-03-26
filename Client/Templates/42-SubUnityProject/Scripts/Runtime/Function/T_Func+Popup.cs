@@ -22,7 +22,7 @@ public static partial class Func {
 
 	/** 경고 팝업을 출력한다 */
 	public static void ShowAlertPopup(string a_oMsg, System.Action<CAlertPopup, bool> a_oCallback, System.Action<CAlertPopup> a_oInitCallback = null, bool a_bIsEnableCancelBtn = true) {
-		Func.ShowAlertPopup(CAlertPopup.MakeParams(CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_NOTI_TEXT), a_oMsg, CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_OK_TEXT), a_bIsEnableCancelBtn ? CStrTable.Inst.GetStr(KCDefine.ST_KEY_C_CANCEL_TEXT) : string.Empty, new Dictionary<CAlertPopup.ECallback, System.Action<CAlertPopup, bool>>() {
+		Func.ShowAlertPopup(CAlertPopup.MakeParams(CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_NOTI_TEXT), a_oMsg, CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_OK_TEXT), a_bIsEnableCancelBtn ? CStrTable.Inst.GetStr(KCDefine.G_ST_KEY_C_CANCEL_TEXT) : string.Empty, new Dictionary<CAlertPopup.ECallback, System.Action<CAlertPopup, bool>>() {
 			[CAlertPopup.ECallback.OK_CANCEL] = a_oCallback
 		}), a_oInitCallback);
 	}

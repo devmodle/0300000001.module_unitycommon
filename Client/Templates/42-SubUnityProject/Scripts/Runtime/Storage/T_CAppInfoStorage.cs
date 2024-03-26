@@ -91,8 +91,8 @@ public partial class CAppInfoStorage : CSingleton<CAppInfoStorage> {
 
 	public bool IsEnableShowFullscreenAds {
 		get {
-			double dblAdsDelay = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELAY_ADS);
-			double dblAdsDeltaTime = CValTable.Inst.GetReal(KCDefine.VT_KEY_DELTA_T_ADS);
+			double dblAdsDelay = CValTable.Inst.GetReal(KCDefine.G_VT_KEY_DELAY_ADS);
+			double dblAdsDeltaTime = CValTable.Inst.GetReal(KCDefine.G_VT_KEY_DELTA_T_ADS);
 
 			double dblDeltaTime01 = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevRewardAdsTime);
 			double dblDeltaTime02 = System.DateTime.Now.ExGetDeltaTime(CAppInfoStorage.Inst.PrevFullscreenAdsTime);

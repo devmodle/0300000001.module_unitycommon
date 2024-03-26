@@ -10,7 +10,7 @@ using UnityEditor;
 
 /** 서브 에셋 처리자 */
 [InitializeOnLoad]
-public partial class CSubAssetProcessor : CAssetProcessor {
+public partial class CProcessorAssetSub : CProcessorAsset {
 #region 함수
 	/** 에셋을 추가 할 경우 */
 	public override void OnPreprocessAsset() {
