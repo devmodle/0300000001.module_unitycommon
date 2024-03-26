@@ -22,9 +22,9 @@ public static partial class KEditorDefine
 		[typeof(CValTable)] = KCDefine.G_SCRIPT_O_LATE,
 		[typeof(CStrTable)] = KCDefine.G_SCRIPT_O_LATE,
 
-		[typeof(CSndManager)] = KCDefine.G_SCRIPT_O_LATE,
-		[typeof(CResManager)] = KCDefine.G_SCRIPT_O_LATE,
-		[typeof(CTaskManager)] = KCDefine.G_SCRIPT_O_LATE,
+		[typeof(CManagerSnd)] = KCDefine.G_SCRIPT_O_LATE,
+		[typeof(CManagerRes)] = KCDefine.G_SCRIPT_O_LATE,
+		[typeof(CManagerTask)] = KCDefine.G_SCRIPT_O_LATE,
 		[typeof(CNetworkManager)] = KCDefine.G_SCRIPT_O_LATE,
 
 		[typeof(CScheduleManager)] = KCDefine.G_SCRIPT_O_LATE,

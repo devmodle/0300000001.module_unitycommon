@@ -95,11 +95,11 @@ namespace PlayScene {
 
 				// 스프라이트를 설정한다 {
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
-					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+					(EKey.BG_SPRITE, $"{EKey.BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.UP_BG_SPRITE, $"{EKey.UP_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.DOWN_BG_SPRITE, $"{EKey.DOWN_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.LEFT_BG_SPRITE, $"{EKey.LEFT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE)),
+					(EKey.RIGHT_BG_SPRITE, $"{EKey.RIGHT_BG_SPRITE}", m_oObjDict[EKey.BG_SPRITE_ROOT], CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 				}, m_oSpriteDict);
 
 				var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {

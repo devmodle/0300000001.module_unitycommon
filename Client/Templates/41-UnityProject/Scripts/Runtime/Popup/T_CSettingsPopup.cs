@@ -60,8 +60,8 @@ public partial class CSettingsPopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		CSndManager.Inst.SetIsMuteSndBG(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndBG);
-		CSndManager.Inst.SetIsMuteSndsFX(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndsFX);
+		CManagerSnd.Inst.SetIsMuteSndBG(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndBG);
+		CManagerSnd.Inst.SetIsMuteSndsFX(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndsFX);
 
 		// 버튼을 갱신한다 {
 		var oBtnKeyInfoList = new List<(EKey, string, string, string, bool)>() {
@@ -78,7 +78,7 @@ public partial class CSettingsPopup : CSubPopup {
 			string oImgPath = oBtnKeyInfoList[i].Item5 ? oBtnKeyInfoList[i].Item3 : oBtnKeyInfoList[i].Item4;
 
 			oImg?.ExSetPropertyVal<Image>(KCDefine.U_PROPERTY_N_SPRITE, 
-				CResManager.Inst.GetRes<Sprite>(oImgPath), a_bIsAssert: false);
+				CManagerRes.Inst.GetRes<Sprite>(oImgPath), a_bIsAssert: false);
 		}
 		// 버튼을 갱신한다 }
 
@@ -107,7 +107,7 @@ public partial class CSettingsPopup : CSubPopup {
 		CStorageInfoGameCommon.Inst.SaveInfoGame();
 
 		this.UpdateUIsState();
-		CSndManager.Inst.Vibrate(KCDefine.U_DURATION_HEAVY_VIBRATE);
+		CManagerSnd.Inst.Vibrate(KCDefine.U_DURATION_HEAVY_VIBRATE);
 	}
 
 	/** 알림 버튼을 눌렀을 경우 */

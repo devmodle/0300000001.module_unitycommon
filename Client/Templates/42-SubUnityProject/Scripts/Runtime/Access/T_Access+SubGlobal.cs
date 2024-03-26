@@ -11,27 +11,27 @@ public static partial class Access {
 	#region 클래스 함수
 	/** 타겟 스프라이트를 반환한다 */
 	public static Sprite GetTargetSprite(EItemKinds a_eItemKinds) {
-		return CResManager.Inst.GetRes<Sprite>(string.Format(KDefine.G_IMG_P_FMT_ITEM, a_eItemKinds));
+		return CManagerRes.Inst.GetRes<Sprite>(string.Format(KDefine.G_IMG_P_FMT_ITEM, a_eItemKinds));
 	}
 
 	/** 타겟 스프라이트를 반환한다 */
 	public static Sprite GetTargetSprite(ESkillKinds a_eSkillKinds) {
-		return CResManager.Inst.GetRes<Sprite>(string.Format(KDefine.G_IMG_P_FMT_SKILL, a_eSkillKinds));
+		return CManagerRes.Inst.GetRes<Sprite>(string.Format(KDefine.G_IMG_P_FMT_SKILL, a_eSkillKinds));
 	}
 
 	/** 타겟 스프라이트를 반환한다 */
 	public static Sprite GetTargetSprite(EObjKinds a_eObjKinds) {
-		return CResManager.Inst.GetRes<Sprite>(string.Format(KDefine.G_IMG_P_FMT_OBJ, a_eObjKinds));
+		return CManagerRes.Inst.GetRes<Sprite>(string.Format(KDefine.G_IMG_P_FMT_OBJ, a_eObjKinds));
 	}
 
 	/** 타겟 스프라이트를 반환한다 */
 	public static Sprite GetTargetSprite(EAbilityKinds a_eAbilityKinds) {
-		return CResManager.Inst.GetRes<Sprite>(string.Format(KDefine.G_IMG_P_FMT_ABILITY, a_eAbilityKinds));
+		return CManagerRes.Inst.GetRes<Sprite>(string.Format(KDefine.G_IMG_P_FMT_ABILITY, a_eAbilityKinds));
 	}
 
 	/** 배경 스프라이트를 반환한다 */
 	public static Sprite GetBGSprite(string a_oImgPathFmt, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		return CResManager.Inst.GetRes<Sprite>(string.Format(a_oImgPathFmt, a_nChapterID + KCDefine.B_VAL_1_INT, a_nStageID + KCDefine.B_VAL_1_INT, a_nLevelID + KCDefine.B_VAL_1_INT));
+		return CManagerRes.Inst.GetRes<Sprite>(string.Format(a_oImgPathFmt, a_nChapterID + KCDefine.B_VAL_1_INT, a_nStageID + KCDefine.B_VAL_1_INT, a_nLevelID + KCDefine.B_VAL_1_INT));
 	}
 	#endregion // 클래스 함수
 }

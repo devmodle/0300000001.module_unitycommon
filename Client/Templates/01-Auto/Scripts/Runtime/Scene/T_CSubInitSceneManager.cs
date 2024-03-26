@@ -35,7 +35,7 @@ namespace InitScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 이미지를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
+				(EKey.SPLASH_IMG, $"{EKey.SPLASH_IMG}", this.UIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_IMG))
 			}, m_oImgDict);
 
 			m_oImgDict[EKey.SPLASH_IMG].sprite = Resources.Load<Sprite>(KCDefine.U_TEX_P_SPLASH);

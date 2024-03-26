@@ -439,7 +439,7 @@ public static partial class Func {
 		CFunc.Assert(!a_bIsAssert || a_eResKinds.ExIsValid());
 
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? 
-			CSndManager.Inst.PlayBGSnd(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsAssert) : null;
+			CManagerSnd.Inst.PlayBGSnd(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsAssert) : null;
 	}
 
 	/** 효과음을 재생한다 */
@@ -463,7 +463,7 @@ public static partial class Func {
 		CFunc.Assert(!a_bIsAssert || a_eResKinds.ExIsValid());
 
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? 
-			CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsAssert) : null;
+			CManagerSnd.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsAssert) : null;
 	}
 
 	/** 저장소를 저장한다 */

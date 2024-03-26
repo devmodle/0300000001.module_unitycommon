@@ -36,7 +36,7 @@ namespace SetupScene
 			// 객체를 설정한다 {
 			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>()
 			{
-				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
+				(EKey.LOADING_GAUGE, $"{EKey.LOADING_GAUGE}", this.UIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_GAUGE))
 			}, m_oUIDict);
 
 			m_oUIDict[EKey.LOADING_GAUGE].transform.localPosition = (oLoadingGauge != null) ?
@@ -48,7 +48,7 @@ namespace SetupScene
 			// 텍스트를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>()
 			{
-				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
+				(EKey.LOADING_TEXT, $"{EKey.LOADING_TEXT}", this.UIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_LOADING_TEXT))
 			}, m_oTextDict);
 
 			m_oTextDict[EKey.LOADING_TEXT].transform.localPosition = (oLoadingText != null) ?
@@ -67,7 +67,7 @@ namespace SetupScene
 			// 텍스트를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>()
 			{
-				(EKey.SCENE_INFO_TEXT, $"{EKey.SCENE_INFO_TEXT}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
+				(EKey.SCENE_INFO_TEXT, $"{EKey.SCENE_INFO_TEXT}", this.StretchUpUIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
 			}, m_oTextDict);
 
 			m_oTextDict[EKey.SCENE_INFO_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;
@@ -133,7 +133,7 @@ namespace SetupScene
 
 			foreach(var stKeyVal in this.MaxNumFXSndsDict)
 			{
-				CSndManager.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
+				CManagerSnd.Inst.SetMaxNumFXSnds(stKeyVal.Key, stKeyVal.Value);
 			}
 
 #if DEBUG || DEVELOPMENT_BUILD
@@ -168,7 +168,7 @@ namespace SetupScene
 			}
 
 			CSetupSceneManager.m_oPopupUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_SCREEN_POPUP_UIS,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_POPUP_UIS), null);
+				CManagerRes.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_POPUP_UIS), null);
 
 			DontDestroyOnLoad(CSetupSceneManager.m_oPopupUIs);
 			CFunc.SetupScreenUIs(CSetupSceneManager.m_oPopupUIs, KCDefine.G_SORTING_O_UIS_POPUP_SCREEN);
@@ -191,7 +191,7 @@ namespace SetupScene
 			}
 
 			CSetupSceneManager.m_oTopmostUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_SCREEN_TOPMOST_UIS,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UIS), null);
+				CManagerRes.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_TOPMOST_UIS), null);
 
 			DontDestroyOnLoad(CSetupSceneManager.m_oTopmostUIs);
 			CFunc.SetupScreenUIs(CSetupSceneManager.m_oTopmostUIs, KCDefine.G_SORTING_O_UIS_TOPMOST_SCREEN);
@@ -214,7 +214,7 @@ namespace SetupScene
 			}
 
 			CSetupSceneManager.m_oAbsUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_SCREEN_ABS_UIS,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_ABS_UIS), null);
+				CManagerRes.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_ABS_UIS), null);
 
 			DontDestroyOnLoad(CSetupSceneManager.m_oAbsUIs);
 			CFunc.SetupScreenUIs(CSetupSceneManager.m_oAbsUIs, KCDefine.G_SORTING_O_UIS_ABS_SCREEN);
@@ -237,7 +237,7 @@ namespace SetupScene
 			}
 
 			CSetupSceneManager.m_oTimerManager = CFactory.CreateCloneGameObj(KCDefine.SS_OBJ_N_TIMER_MANAGER,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TIMER_MANAGER), null);
+				CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_TIMER_MANAGER), null);
 		}
 
 		/** 디바이스 메세지를 수신했을 경우 */
@@ -338,7 +338,7 @@ namespace SetupScene
 			}
 
 			CSetupSceneManager.m_oDebugUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_SCREEN_DEBUG_UIS,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS), null);
+				CManagerRes.Inst.GetRes<GameObject>(KCDefine.SS_OBJ_P_SCREEN_DEBUG_UIS), null);
 
 			DontDestroyOnLoad(CSetupSceneManager.m_oDebugUIs);
 			CFunc.SetupScreenUIs(CSetupSceneManager.m_oDebugUIs, KCDefine.G_SORTING_O_UIS_DEBUG_SCREEN);

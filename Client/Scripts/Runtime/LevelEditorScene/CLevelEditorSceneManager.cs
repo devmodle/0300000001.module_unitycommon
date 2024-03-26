@@ -88,7 +88,7 @@ namespace LevelEditorScene
 
 			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>()
 			{
-				(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+				(EKey.EDITOR_OBJ_ROOT, $"{EKey.EDITOR_OBJ_ROOT}", this.Objs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
 			}, m_oObjDict);
 
 			CFunc.SetupGameObjs(new List<(EKey, string, GameObject, GameObject)>()

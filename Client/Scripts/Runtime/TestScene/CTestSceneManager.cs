@@ -24,7 +24,7 @@ namespace TestScene
 			// 버튼을 설정한다 {
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, GameObject, UnityAction)>()
 			{
-				(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.StretchUpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
+				(EKey.BACK_BTN, $"{EKey.BACK_BTN}", this.StretchUpUIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_BACK_BTN), this.OnTouchBackBtn)
 			}, m_oBtnDict);
 
 			var oRectTrans = m_oBtnDict[EKey.BACK_BTN].transform as RectTransform;

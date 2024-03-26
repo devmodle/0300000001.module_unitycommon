@@ -36,7 +36,7 @@ namespace NSEngine {
 			string oStr = CStrTable.Inst.GetEnumStr(typeof(EItemKinds), ((int)a_eItemKinds).ExKindsToAdjustKinds(a_eGroupType));
 			string oImgPath = KDefine.E_IMG_P_ITEM_DICT.ExGetVal((EItemKinds)((int)a_eItemKinds).ExKindsToDetailSubKindsType(), oStr);
 
-			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+			return oImgPath.ExIsValid() ? CManagerRes.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 
 		/** 스프라이트를 반환한다 */
@@ -44,7 +44,7 @@ namespace NSEngine {
 			string oStr = CStrTable.Inst.GetEnumStr(typeof(ESkillKinds), ((int)a_eSkillKinds).ExKindsToAdjustKinds(a_eGroupType));
 			string oImgPath = KDefine.E_IMG_P_SKILL_DICT.ExGetVal((ESkillKinds)((int)a_eSkillKinds).ExKindsToDetailSubKindsType(), oStr);
 
-			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+			return oImgPath.ExIsValid() ? CManagerRes.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 
 		/** 스프라이트를 반환한다 */
@@ -52,7 +52,7 @@ namespace NSEngine {
 			string oStr = CStrTable.Inst.GetEnumStr(typeof(EObjKinds), ((int)a_eObjKinds).ExKindsToAdjustKinds(a_eGroupType));
 			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.ExGetVal((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), oStr);
 
-			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
+			return oImgPath.ExIsValid() ? CManagerRes.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 
 		/** 정렬 순서 정보를 반환한다 */

@@ -518,8 +518,8 @@ namespace LateSetupScene
 				// 한국 일 경우
 				if(CStorageInfoAppCommon.Inst.CountryCode.Equals(KCDefine.B_KOREA_COUNTRY_CODE))
 				{
-					var oPrivacy = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY);
-					var oServices = CResManager.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES);
+					var oPrivacy = CManagerRes.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY);
+					var oServices = CManagerRes.Inst.GetRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES);
 
 					try
 					{
@@ -527,8 +527,8 @@ namespace LateSetupScene
 					}
 					finally
 					{
-						CResManager.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY, true);
-						CResManager.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES, true);
+						CManagerRes.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_PRIVACY, true);
+						CManagerRes.Inst.RemoveRes<TextAsset>(KCDefine.LSS_DATA_P_SERVICES, true);
 					}
 				}
 				else

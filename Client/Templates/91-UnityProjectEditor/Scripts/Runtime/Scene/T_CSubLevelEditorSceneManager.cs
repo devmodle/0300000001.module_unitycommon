@@ -292,7 +292,7 @@ namespace LevelEditorScene
 			m_oGridBoundsTex2D?.ExSetPixels(Color.white);
 
 			// 스프라이트를 설정한다 {
-			var oObjSprite = this.ObjRoot.ExFindComponent<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE) ?? CFactory.CreateCloneGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE), this.ObjRoot);
+			var oObjSprite = this.ObjRoot.ExFindComponent<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE) ?? CFactory.CreateCloneGameObj<SpriteRenderer>(KDefine.LES_OBJ_N_SEL_OBJ_SPRITE, CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE), this.ObjRoot);
 			oObjSprite.gameObject.SetActive(false);
 			oObjSprite.ExSetSortingOrder(KCDefine.G_SORTING_OI_OVERGROUND);
 
@@ -356,7 +356,7 @@ namespace LevelEditorScene
 				}, KCDefine.U_DELAY_INIT);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
-				CSndManager.Inst.StopBGSnd();
+				CManagerSnd.Inst.StopBGSnd();
 				CStorageInfoAppCommon.Inst.SetEnableEditor(false);
 			}
 		}
@@ -1905,10 +1905,10 @@ namespace LevelEditorScene
 				}, oScrollViewDict);
 
 				CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
-					(EKey.LE_UIS_LEVEL_SCROLLER_INFO, KCDefine.LES_OBJ_N_LE_UIS_LEVEL_SCROLL_VIEW, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.ES_OBJ_P_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
-					(EKey.LE_UIS_CHAPTER_SCROLLER_INFO, KCDefine.LES_OBJ_N_LE_UIS_CHAPTER_SCROLL_VIEW, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.ES_OBJ_P_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
-					(EKey.LE_UIS_STAGE_SCROLLER_INFO_01, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.ES_OBJ_P_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
-					(EKey.LE_UIS_STAGE_SCROLLER_INFO_02, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, this.LeftEditorUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.ES_OBJ_P_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
+					(EKey.LE_UIS_LEVEL_SCROLLER_INFO, KCDefine.LES_OBJ_N_LE_UIS_LEVEL_SCROLL_VIEW, this.LeftEditorUIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.ES_OBJ_P_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+					(EKey.LE_UIS_CHAPTER_SCROLLER_INFO, KCDefine.LES_OBJ_N_LE_UIS_CHAPTER_SCROLL_VIEW, this.LeftEditorUIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.ES_OBJ_P_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+					(EKey.LE_UIS_STAGE_SCROLLER_INFO_01, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_01, this.LeftEditorUIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.ES_OBJ_P_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this),
+					(EKey.LE_UIS_STAGE_SCROLLER_INFO_02, KCDefine.LES_OBJ_N_LE_UIS_STAGE_SCROLL_VIEW_02, this.LeftEditorUIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.ES_OBJ_P_EDITOR_SCROLLER_CELL_VIEW)?.GetComponentInChildren<EnhancedScrollerCellView>(), this)
 				}, m_oScrollerInfoDict);
 
 				m_oScrollerInfoDict.ExReplaceVal(EKey.LE_UIS_STAGE_SCROLLER_INFO, m_oScrollerInfoDict[EKey.LE_UIS_STAGE_SCROLLER_INFO_01]);
@@ -2184,7 +2184,7 @@ namespace LevelEditorScene
 
 					for(int i = 0; i < nMaxNumCells + nNumExtraCells; ++i)
 					{
-						var oScrollerCellView = CFactory.CreateCloneGameObj(KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_02_SCROLLER_CELL_VIEW, CResManager.Inst.GetRes<GameObject>(KCDefine.LES_OBJ_P_RE_UIS_PAGE_UIS_02_SCROLLER_CELL_VIEW), oScrollViewContents);
+						var oScrollerCellView = CFactory.CreateCloneGameObj(KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_02_SCROLLER_CELL_VIEW, CManagerRes.Inst.GetRes<GameObject>(KCDefine.LES_OBJ_P_RE_UIS_PAGE_UIS_02_SCROLLER_CELL_VIEW), oScrollViewContents);
 						this.SetupREUIsPageUIs02ScrollerCellView(oScrollerCellView, oObjKindsList, i * KDefine.LES_MAX_NUM_OBJ_KINDS_IN_ROW);
 					}
 				}

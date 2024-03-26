@@ -45,7 +45,7 @@ namespace MainScene
 			// 텍스트를 설정한다 {
 			CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>()
 			{
-				(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
+				(EKey.VER_TEXT, $"{EKey.VER_TEXT}", this.UpUIs, CManagerRes.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_G_INFO_TEXT))
 			}, m_oTextDict);
 
 			m_oTextDict[EKey.VER_TEXT].rectTransform.pivot = KCDefine.B_ANCHOR_UP_LEFT;

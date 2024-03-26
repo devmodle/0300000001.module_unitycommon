@@ -54,7 +54,7 @@ namespace InitScene
 
 			for(int i = 0; i < this.SpriteAtlasPathList.Count; ++i)
 			{
-				CResManager.Inst.LoadSpriteAtlas(this.SpriteAtlasPathList[i]);
+				CManagerRes.Inst.LoadSpriteAtlas(this.SpriteAtlasPathList[i]);
 			}
 
 			StartCoroutine(this.CoStart());
@@ -81,31 +81,31 @@ namespace InitScene
 
 			// 사운드 관리자를 설정한다 {
 #if ENABLE_MODE_2D
-			CSndManager.Inst.SetIsBypassBGSndEffects(true);
-			CSndManager.Inst.SetIsBypassFXSndsEffects(true);
+			CManagerSnd.Inst.SetIsBypassBGSndEffects(true);
+			CManagerSnd.Inst.SetIsBypassFXSndsEffects(true);
 
-			CSndManager.Inst.SetIsBypassBGSndReverbZones(true);
-			CSndManager.Inst.SetIsBypassFXSndsReverbZones(true);
+			CManagerSnd.Inst.SetIsBypassBGSndReverbZones(true);
+			CManagerSnd.Inst.SetIsBypassFXSndsReverbZones(true);
 
-			CSndManager.Inst.SetIsBypassBGSndListenerEffects(true);
-			CSndManager.Inst.SetIsBypassFXSndsListenerEffects(true);
+			CManagerSnd.Inst.SetIsBypassBGSndListenerEffects(true);
+			CManagerSnd.Inst.SetIsBypassFXSndsListenerEffects(true);
 #else
-			CSndManager.Inst.SetIsBypassBGSndEffects(false);
-			CSndManager.Inst.SetIsBypassFXSndsEffects(false);
+			CManagerSnd.Inst.SetIsBypassBGSndEffects(false);
+			CManagerSnd.Inst.SetIsBypassFXSndsEffects(false);
 
-			CSndManager.Inst.SetIsBypassBGSndReverbZones(false);
-			CSndManager.Inst.SetIsBypassFXSndsReverbZones(false);
+			CManagerSnd.Inst.SetIsBypassBGSndReverbZones(false);
+			CManagerSnd.Inst.SetIsBypassFXSndsReverbZones(false);
 
-			CSndManager.Inst.SetIsBypassBGSndListenerEffects(false);
-			CSndManager.Inst.SetIsBypassFXSndsListenerEffects(false);
+			CManagerSnd.Inst.SetIsBypassBGSndListenerEffects(false);
+			CManagerSnd.Inst.SetIsBypassFXSndsListenerEffects(false);
 #endif // #if ENABLE_MODE_2D
 
-			CSndManager.Inst.SetVolumeSndBG(CStorageInfoGameCommon.Inst.GameInfo.VolumeSndBG);
-			CSndManager.Inst.SetVolumeSndsFX(CStorageInfoGameCommon.Inst.GameInfo.VolumeSndsFX);
+			CManagerSnd.Inst.SetVolumeSndBG(CStorageInfoGameCommon.Inst.GameInfo.VolumeSndBG);
+			CManagerSnd.Inst.SetVolumeSndsFX(CStorageInfoGameCommon.Inst.GameInfo.VolumeSndsFX);
 
-			CSndManager.Inst.SetIsMuteSndBG(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndBG);
-			CSndManager.Inst.SetIsMuteSndsFX(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndsFX);
-			CSndManager.Inst.SetIsEnableVibrate(CStorageInfoGameCommon.Inst.GameInfo.IsEnableVibrate);
+			CManagerSnd.Inst.SetIsMuteSndBG(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndBG);
+			CManagerSnd.Inst.SetIsMuteSndsFX(CStorageInfoGameCommon.Inst.GameInfo.IsMuteSndsFX);
+			CManagerSnd.Inst.SetIsEnableVibrate(CStorageInfoGameCommon.Inst.GameInfo.IsEnableVibrate);
 			// 사운드 관리자를 설정한다 }
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
@@ -173,7 +173,7 @@ namespace InitScene
 		protected virtual Image CreateBlindImg(string a_oName, GameObject a_oParent)
 		{
 			return CFactory.CreateCloneGameObj<Image>(a_oName,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
+				CManagerRes.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_IMG), a_oParent);
 		}
 
 		/** 블라인드 UI 를 설정한다 */
@@ -186,7 +186,7 @@ namespace InitScene
 			}
 
 			CInitSceneManager.m_oBlindUIs = CFactory.CreateCloneGameObj(KCDefine.U_OBJ_N_SCREEN_BLIND_UIS,
-				CResManager.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
+				CManagerRes.Inst.GetRes<GameObject>(KCDefine.IS_OBJ_P_SCREEN_BLIND_UIS), null);
 
 			DontDestroyOnLoad(CInitSceneManager.m_oBlindUIs);
 			CFunc.SetupScreenUIs(CInitSceneManager.m_oBlindUIs, KCDefine.G_SORTING_O_UIS_BLIND_SCREEN);
@@ -223,9 +223,9 @@ namespace InitScene
 			yield return CAccess.CoGetWaitForSecs(KCDefine.U_DELAY_INIT);
 
 			// 관리자를 생성한다 {
-			CSndManager.Create();
-			CResManager.Create();
-			CTaskManager.Create();
+			CManagerSnd.Create();
+			CManagerRes.Create();
+			CManagerTask.Create();
 			CScheduleManager.Create();
 			CNavStackManager.Create();
 			CIndicatorManager.Create();
