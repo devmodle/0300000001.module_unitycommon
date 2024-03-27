@@ -25,7 +25,7 @@ public static partial class KEditorDefine
 		[typeof(CManagerSnd)] = KCDefine.G_SCRIPT_O_LATE,
 		[typeof(CManagerRes)] = KCDefine.G_SCRIPT_O_LATE,
 		[typeof(CManagerTask)] = KCDefine.G_SCRIPT_O_LATE,
-		[typeof(CNetworkManager)] = KCDefine.G_SCRIPT_O_LATE,
+		[typeof(CManagerNetwork)] = KCDefine.G_SCRIPT_O_LATE,
 
 		[typeof(CScheduleManager)] = KCDefine.G_SCRIPT_O_LATE,
 		[typeof(CNavStackManager)] = KCDefine.G_SCRIPT_O_LATE,
