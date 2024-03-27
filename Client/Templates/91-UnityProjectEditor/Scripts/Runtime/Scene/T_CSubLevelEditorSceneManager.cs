@@ -284,7 +284,7 @@ namespace LevelEditorScene
 			CManagerPoolGameObjs.Inst.AddPoolGameObjs(KDefine.LES_KEY_SPRITE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
 			CManagerPoolGameObjs.Inst.AddPoolGameObjs(KDefine.LES_KEY_LINE_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_LINE, this.ObjRoot));
 
-			CManagerPoolGameObjs.Inst.AddPoolGameObjs(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MiddleEditorUIs));
+			CManagerPoolGameObjs.Inst.AddPoolGameObjs(KDefine.LES_KEY_BTN_GAME_OBJS_POOL, CFactory.CreateGameObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MidEditorUIs));
 			// 게임 객체 풀을 설정한다 }
 
 			// 텍스처를 설정한다
@@ -326,7 +326,7 @@ namespace LevelEditorScene
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			this.SetupLeftEditorUIs();
 			this.SetupRightEditorUIs();
-			this.SetupMiddleEditorUIs();
+			this.SetupMidEditorUIs();
 
 			this.SetSelLevelInfo(CGameInfoStorage.Inst.PlayLevelInfo ?? CLevelInfoTable.Inst.GetLevelInfo(KCDefine.B_VAL_0_INT));
 			this.SubAwake();
@@ -423,7 +423,7 @@ namespace LevelEditorScene
 			}
 
 			// 일정 시간이 지났을 경우
-			if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL))
+			if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.B_UNITS_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL))
 			{
 				m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 				this.OnTouchMEUIsSaveBtn();
@@ -787,7 +787,7 @@ namespace LevelEditorScene
 			GameObject.DestroyImmediate(m_oGridBoundsImg);
 
 			var stRect = new Rect(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, NSEngine.Access.MaxGridSize.x, NSEngine.Access.MaxGridSize.y);
-			m_oGridBoundsImg = CFactory.MakeSprite(KCDefine.U_IMG_N_SPRITE, m_oGridBoundsTex2D, stRect, KCDefine.B_ANCHOR_MIDDLE_CENTER);
+			m_oGridBoundsImg = CFactory.MakeSprite(KCDefine.U_IMG_N_SPRITE, m_oGridBoundsTex2D, stRect, KCDefine.B_ANCHOR_MID_CENTER);
 
 			var oSpriteRenderer = this.EditorObjRoot.GetComponentInChildren<SpriteRenderer>();
 			oSpriteRenderer.color = Color.white.ExGetAlphaColor(KCDefine.B_VAL_0_1_REAL);
@@ -811,7 +811,7 @@ namespace LevelEditorScene
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnH(stIdx.x));
 
 				(oBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_DOWN_CENTER;
-				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExWorldToCanvas(this.UIsCanvas, this.MiddleEditorUIs) + KDefine.LES_OFFSET_H_GRID_LINE_BTN;
+				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExWorldToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_H_GRID_LINE_BTN;
 
 				(oBtn.transform as RectTransform).SetAsFirstSibling();
 
@@ -835,8 +835,8 @@ namespace LevelEditorScene
 				oBtn.gameObject.ExAddComponent<CBtnHandler>();
 				oBtn.ExAddListener(() => this.OnTouchMEUIsGridLineBtnV(stIdx.y));
 
-				(oBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MIDDLE_RIGHT;
-				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExWorldToCanvas(this.UIsCanvas, this.MiddleEditorUIs) + KDefine.LES_OFFSET_V_GRID_LINE_BTN;
+				(oBtn.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MID_RIGHT;
+				(oBtn.transform as RectTransform).localPosition = stWorldPos.ExWorldToCanvas(this.UIsCanvas, this.MidEditorUIs) + KDefine.LES_OFFSET_V_GRID_LINE_BTN;
 
 				(oBtn.transform as RectTransform).SetAsFirstSibling();
 
@@ -870,7 +870,7 @@ namespace LevelEditorScene
 			{
 				oGridScrollBarV.size = this.SelGridInfo.m_stViewBounds.size.y / this.SelGridInfo.m_stBounds.size.y;
 
-				(oGridScrollBarV.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MIDDLE_LEFT;
+				(oGridScrollBarV.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MID_LEFT;
 				(oGridScrollBarV.transform as RectTransform).sizeDelta = new Vector3((oGridScrollBarV.transform as RectTransform).sizeDelta.x, m_oGridBoundsImg.bounds.size.y * this.EditorObjRoot.transform.localScale.y, KCDefine.B_VAL_0_REAL);
 				(oGridScrollBarV.transform as RectTransform).anchoredPosition = new Vector3(((m_oGridBoundsImg.bounds.size.x / KCDefine.B_VAL_2_REAL) * this.EditorObjRoot.transform.localScale.x) + ((oGridScrollBarV.transform as RectTransform).sizeDelta.x * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
 			}
@@ -924,7 +924,7 @@ namespace LevelEditorScene
 
 			this.UpdateUIsStateLeftEditor();
 			this.UpdateUIsStateRightEditor();
-			this.UpdateUIsStateMiddleEditor();
+			this.UpdateUIsStateMidEditor();
 
 			this.SubUpdateUIsState();
 
@@ -1592,7 +1592,7 @@ namespace LevelEditorScene
 		#region 조건부 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 중앙 에디터 UI 를 설정한다 */
-		private void SetupMiddleEditorUIs()
+		private void SetupMidEditorUIs()
 		{
 			// 라인을 설정한다 {
 			m_oViewGridLine = CManagerPoolGameObjs.Inst.SpawnGameObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE, KDefine.LES_KEY_LINE_GAME_OBJS_POOL);
@@ -1604,38 +1604,38 @@ namespace LevelEditorScene
 
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-				(EKey.ME_UIS_MSG_TEXT, $"{EKey.ME_UIS_MSG_TEXT}", this.MiddleEditorUIs),
-				(EKey.ME_UIS_LEVEL_TEXT, $"{EKey.ME_UIS_LEVEL_TEXT}", this.MiddleEditorUIs),
-				(EKey.ME_UIS_OBJ_SIZE_TEXT, $"{EKey.ME_UIS_OBJ_SIZE_TEXT}", this.MiddleEditorUIs)
+				(EKey.ME_UIS_MSG_TEXT, $"{EKey.ME_UIS_MSG_TEXT}", this.MidEditorUIs),
+				(EKey.ME_UIS_LEVEL_TEXT, $"{EKey.ME_UIS_LEVEL_TEXT}", this.MidEditorUIs),
+				(EKey.ME_UIS_OBJ_SIZE_TEXT, $"{EKey.ME_UIS_OBJ_SIZE_TEXT}", this.MidEditorUIs)
 			}, m_oTextDict);
 
 			// 이미지를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-				(EKey.ME_UIS_SEL_OBJ_IMG, $"{EKey.ME_UIS_SEL_OBJ_IMG}", this.MiddleEditorUIs)
+				(EKey.ME_UIS_SEL_OBJ_IMG, $"{EKey.ME_UIS_SEL_OBJ_IMG}", this.MidEditorUIs)
 			}, m_oImgDict);
 
 			// 버튼을 설정한다 {
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-				(KCDefine.LES_OBJ_N_ME_UIS_SAVE_BTN, this.MiddleEditorUIs, this.OnTouchMEUIsSaveBtn),
-				(KCDefine.LES_OBJ_N_ME_UIS_RESET_BTN, this.MiddleEditorUIs, this.OnTouchMEUIsResetBtn),
-				(KCDefine.LES_OBJ_N_ME_UIS_TEST_BTN, this.MiddleEditorUIs, this.OnTouchMEUIsTestBtn),
-				(KCDefine.LES_OBJ_N_ME_UIS_COPY_LEVEL_BTN, this.MiddleEditorUIs, this.OnTouchMEUIsCopyLevelBtn)
+				(KCDefine.LES_OBJ_N_ME_UIS_SAVE_BTN, this.MidEditorUIs, this.OnTouchMEUIsSaveBtn),
+				(KCDefine.LES_OBJ_N_ME_UIS_RESET_BTN, this.MidEditorUIs, this.OnTouchMEUIsResetBtn),
+				(KCDefine.LES_OBJ_N_ME_UIS_TEST_BTN, this.MidEditorUIs, this.OnTouchMEUIsTestBtn),
+				(KCDefine.LES_OBJ_N_ME_UIS_COPY_LEVEL_BTN, this.MidEditorUIs, this.OnTouchMEUIsCopyLevelBtn)
 			});
 
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-				(EKey.ME_UIS_PREV_GRID_BTN, $"{EKey.ME_UIS_PREV_GRID_BTN}", this.MiddleEditorUIs, this.OnTouchMEUIsPrevGridBtn),
-				(EKey.ME_UIS_NEXT_GRID_BTN, $"{EKey.ME_UIS_NEXT_GRID_BTN}", this.MiddleEditorUIs, this.OnTouchMEUIsNextGridBtn),
-				(EKey.ME_UIS_PREV_LEVEL_BTN, $"{EKey.ME_UIS_PREV_LEVEL_BTN}", this.MiddleEditorUIs, this.OnTouchMEUIsPrevLevelBtn),
-				(EKey.ME_UIS_NEXT_LEVEL_BTN, $"{EKey.ME_UIS_NEXT_LEVEL_BTN}", this.MiddleEditorUIs, this.OnTouchMEUIsNextLevelBtn),
-				(EKey.ME_UIS_MOVE_LEVEL_BTN, $"{EKey.ME_UIS_MOVE_LEVEL_BTN}", this.MiddleEditorUIs, this.OnTouchMEUIsMoveLevelBtn),
-				(EKey.ME_UIS_REMOVE_LEVEL_BTN, $"{EKey.ME_UIS_REMOVE_LEVEL_BTN}", this.MiddleEditorUIs, this.OnTouchMEUIsRemoveLevelBtn)
+				(EKey.ME_UIS_PREV_GRID_BTN, $"{EKey.ME_UIS_PREV_GRID_BTN}", this.MidEditorUIs, this.OnTouchMEUIsPrevGridBtn),
+				(EKey.ME_UIS_NEXT_GRID_BTN, $"{EKey.ME_UIS_NEXT_GRID_BTN}", this.MidEditorUIs, this.OnTouchMEUIsNextGridBtn),
+				(EKey.ME_UIS_PREV_LEVEL_BTN, $"{EKey.ME_UIS_PREV_LEVEL_BTN}", this.MidEditorUIs, this.OnTouchMEUIsPrevLevelBtn),
+				(EKey.ME_UIS_NEXT_LEVEL_BTN, $"{EKey.ME_UIS_NEXT_LEVEL_BTN}", this.MidEditorUIs, this.OnTouchMEUIsNextLevelBtn),
+				(EKey.ME_UIS_MOVE_LEVEL_BTN, $"{EKey.ME_UIS_MOVE_LEVEL_BTN}", this.MidEditorUIs, this.OnTouchMEUIsMoveLevelBtn),
+				(EKey.ME_UIS_REMOVE_LEVEL_BTN, $"{EKey.ME_UIS_REMOVE_LEVEL_BTN}", this.MidEditorUIs, this.OnTouchMEUIsRemoveLevelBtn)
 			}, m_oBtnDict);
 			// 버튼을 설정한다 }
 
 			// 토글을 설정한다 {
 			CFunc.SetupToggles(new List<(EKey, string, GameObject, UnityAction<bool>)>() {
-				(EKey.ME_UIS_DRAW_MODE_TOGGLE, $"{EKey.ME_UIS_DRAW_MODE_TOGGLE}", this.MiddleEditorUIs, this.OnTouchMEUIsEditorModeToggle),
-				(EKey.ME_UIS_PAINT_MODE_TOGGLE, $"{EKey.ME_UIS_PAINT_MODE_TOGGLE}", this.MiddleEditorUIs, this.OnTouchMEUIsEditorModeToggle)
+				(EKey.ME_UIS_DRAW_MODE_TOGGLE, $"{EKey.ME_UIS_DRAW_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle),
+				(EKey.ME_UIS_PAINT_MODE_TOGGLE, $"{EKey.ME_UIS_PAINT_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle)
 			}, m_oToggleDict);
 
 			m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE]?.SetIsOnWithoutNotify(true);
@@ -1644,13 +1644,13 @@ namespace LevelEditorScene
 
 			// 스크롤 바를 설정한다
 			CFunc.SetupScrollBars(new List<(EKey, string, GameObject, UnityAction<float>)>() {
-				(EKey.ME_UIS_GRID_SCROLL_BAR_V, $"{EKey.ME_UIS_GRID_SCROLL_BAR_V}", this.MiddleEditorUIs, this.OnChangeMEUIsGridScrollBarVal),
-				(EKey.ME_UIS_GRID_SCROLL_BAR_H, $"{EKey.ME_UIS_GRID_SCROLL_BAR_H}", this.MiddleEditorUIs, this.OnChangeMEUIsGridScrollBarVal)
+				(EKey.ME_UIS_GRID_SCROLL_BAR_V, $"{EKey.ME_UIS_GRID_SCROLL_BAR_V}", this.MidEditorUIs, this.OnChangeMEUIsGridScrollBarVal),
+				(EKey.ME_UIS_GRID_SCROLL_BAR_H, $"{EKey.ME_UIS_GRID_SCROLL_BAR_H}", this.MidEditorUIs, this.OnChangeMEUIsGridScrollBarVal)
 			}, m_oScrollBarDict);
 		}
 
 		/** 중앙 에디터 UI 상태를 갱신한다 */
-		private void UpdateUIsStateMiddleEditor()
+		private void UpdateUIsStateMidEditor()
 		{
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
 

@@ -11,7 +11,7 @@ public static partial class Factory {
 	#region 클래스 함수
 	/** 타겟 정보 고유 식별자를 생성한다 */
 	public static ulong MakeUTargetInfoID(ETargetKinds a_eTargetKinds, int a_nKinds) {
-		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNIT_BITS_PER_BYTE)) | (uint)a_nKinds;
+		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNITS_BITS_PER_BYTE)) | (uint)a_nKinds;
 	}
 
 	/** 클리어 정보를 생성한다 */

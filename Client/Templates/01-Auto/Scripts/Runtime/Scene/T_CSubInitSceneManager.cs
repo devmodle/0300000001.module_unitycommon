@@ -39,7 +39,7 @@ namespace InitScene {
 			}, m_oImgDict);
 
 			m_oImgDict[EKey.SPLASH_IMG].sprite = Resources.Load<Sprite>(KCDefine.U_TEX_P_SPLASH);
-			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, this.ScreenHeight / (KCDefine.B_UNIT_DIGITS_TEN * KCDefine.B_VAL_4_REAL), KCDefine.B_VAL_0_REAL);
+			m_oImgDict[EKey.SPLASH_IMG].transform.localPosition = new Vector3(KCDefine.B_VAL_0_REAL, this.ScreenHeight / (KCDefine.B_UNITS_DIGITS_TEN * KCDefine.B_VAL_4_REAL), KCDefine.B_VAL_0_REAL);
 			m_oImgDict[EKey.SPLASH_IMG].gameObject.SetActive(false);
 			// 이미지를 설정한다 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

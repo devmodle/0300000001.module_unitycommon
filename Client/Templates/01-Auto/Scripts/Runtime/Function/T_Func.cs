@@ -938,7 +938,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oGameCenterCallbackDictB.ExReplaceVal(ECallback.GAME_CENTER_UPDATE_ACHIEVEMENT, a_oCallback);
 
-		CGameCenterManager.Inst.UpdateAchievement(a_oAchievementID, a_dblPercent * KCDefine.B_UNIT_NORM_VAL_TO_PERCENT, Func.OnUpdateAchievement);
+		CGameCenterManager.Inst.UpdateAchievement(a_oAchievementID, a_dblPercent * KCDefine.B_UNITS_VAL_NORM_TO_PERCENT, Func.OnUpdateAchievement);
 	}
 
 	/** 게임 센터에 로그인되었을 경우 */

@@ -14,9 +14,9 @@ namespace LevelEditorScene
 		private enum EKey
 		{
 			NONE = -1,
+			MID_EDITOR_UIS,
 			LEFT_EDITOR_UIS,
 			RIGHT_EDITOR_UIS,
-			MIDDLE_EDITOR_UIS,
 
 			ME_UIS_MSG_UIS,
 			ME_UIS_INFO_UIS,
@@ -47,7 +47,7 @@ namespace LevelEditorScene
 
 		protected GameObject LeftEditorUIs => m_oUIDict[EKey.LEFT_EDITOR_UIS];
 		protected GameObject RightEditorUIs => m_oUIDict[EKey.RIGHT_EDITOR_UIS];
-		protected GameObject MiddleEditorUIs => m_oUIDict[EKey.MIDDLE_EDITOR_UIS];
+		protected GameObject MidEditorUIs => m_oUIDict[EKey.MID_EDITOR_UIS];
 
 		protected GameObject MEUIsMsgUIs => m_oUIDict[EKey.ME_UIS_MSG_UIS];
 		protected GameObject MEUIsInfoUIs => m_oUIDict[EKey.ME_UIS_INFO_UIS];
@@ -73,16 +73,16 @@ namespace LevelEditorScene
 			// 객체를 설정한다 {
 			CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>()
 			{
-				(EKey.MIDDLE_EDITOR_UIS, $"{EKey.MIDDLE_EDITOR_UIS}", this.UIsBase),
+				(EKey.MID_EDITOR_UIS, $"{EKey.MID_EDITOR_UIS}", this.UIsBase),
 				(EKey.LEFT_EDITOR_UIS, $"{EKey.LEFT_EDITOR_UIS}", this.UIsBase),
 				(EKey.RIGHT_EDITOR_UIS, $"{EKey.RIGHT_EDITOR_UIS}", this.UIsBase)
 			}, m_oUIDict);
 
 			CFunc.SetupGameObjs(new List<(EKey, string, GameObject)>()
 			{
-				(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIDict[EKey.MIDDLE_EDITOR_UIS]),
-				(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIDict[EKey.MIDDLE_EDITOR_UIS]),
-				(EKey.ME_UIS_EDITOR_MODE_UIS, $"{EKey.ME_UIS_EDITOR_MODE_UIS}", m_oUIDict[EKey.MIDDLE_EDITOR_UIS]),
+				(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIDict[EKey.MID_EDITOR_UIS]),
+				(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIDict[EKey.MID_EDITOR_UIS]),
+				(EKey.ME_UIS_EDITOR_MODE_UIS, $"{EKey.ME_UIS_EDITOR_MODE_UIS}", m_oUIDict[EKey.MID_EDITOR_UIS]),
 				(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIDict[EKey.LEFT_EDITOR_UIS])
 			}, m_oUIDict);
 
@@ -108,8 +108,8 @@ namespace LevelEditorScene
 		/** 루트 객체 기준 위치를 반환한다 */
 		private Vector3 GetObjRootPivotPos()
 		{
-			var oEditorUIsMiddle = this.UIsBase?.ExFindChild(KCDefine.U_OBJ_N_SCENE_MIDDLE_EDITOR_UIS);
-			return (oEditorUIsMiddle != null) ? Vector3.zero.ExToWorld(oEditorUIsMiddle).ExToLocal(this.UIs) : Vector3.zero;
+			var oEditorUIsMid = this.UIsBase?.ExFindChild(KCDefine.U_OBJ_N_SCENE_MID_EDITOR_UIS);
+			return (oEditorUIsMid != null) ? Vector3.zero.ExToWorld(oEditorUIsMid).ExToLocal(this.UIs) : Vector3.zero;
 		}
 		#endregion // 접근 함수
 	}

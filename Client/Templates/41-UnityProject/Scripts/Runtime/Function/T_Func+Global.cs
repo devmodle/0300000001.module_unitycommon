@@ -409,7 +409,7 @@ public static partial class Func {
 
 			// 어빌리티 값 타입이 유효 할 경우
 			if(stAbilityInfo.m_eAbilityValType != EAbilityValType.NONE) {
-				decimal dmAbilityVal = (stAbilityInfo.m_stValInfo.m_eValType == EValType.INT) ? stAbilityInfo.m_stValInfo.m_dmVal : (decimal)stAbilityInfo.m_stValInfo.m_dmVal / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT;
+				decimal dmAbilityVal = (stAbilityInfo.m_stValInfo.m_eValType == EValType.INT) ? stAbilityInfo.m_stValInfo.m_dmVal : (decimal)stAbilityInfo.m_stValInfo.m_dmVal / KCDefine.B_UNITS_VAL_NORM_TO_PERCENT;
 				a_oOutAbilityValDict.ExReplaceVal(eAbilityKinds, System.Math.Clamp(a_oOutAbilityValDict.ExGetVal(eAbilityKinds) + (dmAbilityVal * a_stTargetInfo.m_stValInfo01.m_dmVal), decimal.MinValue, decimal.MaxValue), a_bIsAssert);
 			}
 

@@ -94,7 +94,7 @@ namespace MainScene {
 					}
 				}
 
-				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, KCDefine.B_UNIT_DIGITS_HUNDRED_THOUSAND);
+				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, KCDefine.B_UNITS_DIGITS_HUNDRED_THOUSAND);
 				CGameInfoStorage.Inst.SaveInfoGame();
 #endif // #if CREATIVE_DIST_BUILD
 
