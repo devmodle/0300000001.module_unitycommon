@@ -111,9 +111,9 @@ public static partial class CCommonEditorSceneManager
 	{
 		var oLightingSettingsPathDict = new Dictionary<ELevelQuality, string>()
 		{
-			[ELevelQuality.NORM] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_NORM_QUALITY,
-			[ELevelQuality.HIGH] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_HIGH_QUALITY,
-			[ELevelQuality.ULTRA] = KCDefine.U_ASSET_P_G_LIGHTING_SETTINGS_ULTRA_QUALITY
+			[ELevelQuality.NORM] = KCDefine.G_ASSET_P_SETTINGS_LIGHTING_QUALITY_NORM,
+			[ELevelQuality.HIGH] = KCDefine.G_ASSET_P_SETTINGS_LIGHTING_QUALITY_HIGH,
+			[ELevelQuality.ULTRA] = KCDefine.G_ASSET_P_SETTINGS_LIGHTING_QUALITY_ULTRA
 		};
 
 		var stScene = EditorSceneManager.GetActiveScene();
@@ -127,7 +127,7 @@ public static partial class CCommonEditorSceneManager
 		if(stScene.IsValid() && !CCommonEditorSceneManager.m_oListSceneNameSample.Contains(stScene.name) && CSetterOptsPlatform.OptsInfoTable != null)
 		{
 			bool bIsValid01 = Lightmapping.TryGetLightingSettings(out LightingSettings oLightingSettings);
-			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCDefineEditor.B_ASSET_N_LIGHTING_SETTINGS_TEMPLATE);
+			bool bIsValid02 = oLightingSettings != null && oLightingSettings.name.Equals(KCDefineEditor.B_ASSET_N_SETTINGS_LIGHTING_TEMPLATE);
 			bool bIsValid03 = oLightingSettings != null && !oLightingSettings.name.Equals(oLightingSettingsPathDict.ExGetVal(CSetterOptsPlatform.OptsInfoTable.InfoOptsQuality.m_eLevelQuality, string.Empty).ExGetFileName(false));
 
 			var stResult = oLightingSettingsPathDict.ExFindVal((a_stKeyVal) =>

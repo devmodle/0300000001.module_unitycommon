@@ -266,7 +266,7 @@ public static partial class CCommonEditorSceneManager
 		// 에디터 모드 일 경우
 		if(a_ePlayMode == PlayModeStateChange.EnteredEditMode)
 		{
-			CAccess.SetTimeScale(KCDefine.B_VAL_1_REAL);
+			CAccess.SetScaleTime(KCDefine.B_VAL_1_REAL);
 		}
 	}
 

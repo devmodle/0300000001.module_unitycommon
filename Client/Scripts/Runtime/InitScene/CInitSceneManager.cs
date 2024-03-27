@@ -269,19 +269,19 @@ namespace InitScene
 			CValTable.Create();
 			CStrTable.Create();
 
-			COptsInfoTable.Create(KCDefine.U_ASSET_P_G_OPTS_INFO_TABLE);
-			CBuildInfoTable.Create(KCDefine.U_ASSET_P_G_BUILD_INFO_TABLE);
-			CProjInfoTable.Create(KCDefine.U_ASSET_P_G_PROJ_INFO_TABLE);
-			CLocalizeInfoTable.Create(KCDefine.U_ASSET_P_G_LOCALIZE_INFO_TABLE);
-			CDefineSymbolInfoTable.Create(KCDefine.U_ASSET_P_G_DEFINE_SYMBOL_INFO_TABLE);
-			CDeviceInfoTable.Create(KCDefine.U_ASSET_P_G_DEVICE_INFO_TABLE);
+			COptsInfoTable.Create(KCDefine.G_ASSET_P_OPTS_INFO_TABLE);
+			CBuildInfoTable.Create(KCDefine.G_ASSET_P_BUILD_INFO_TABLE);
+			CProjInfoTable.Create(KCDefine.G_ASSET_P_PROJ_INFO_TABLE);
+			CLocalizeInfoTable.Create(KCDefine.G_ASSET_P_LOCALIZE_INFO_TABLE);
+			CDefineSymbolInfoTable.Create(KCDefine.G_ASSET_P_DEFINE_SYMBOL_INFO_TABLE);
+			CDeviceInfoTable.Create(KCDefine.G_ASSET_P_DEVICE_INFO_TABLE);
 
 #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE
-			CPluginInfoTable.Create(KCDefine.U_ASSET_P_G_PLUGIN_INFO_TABLE);
+			CPluginInfoTable.Create(KCDefine.G_ASSET_P_PLUGIN_INFO_TABLE);
 #endif // #if ADS_MODULE_ENABLE || FLURRY_MODULE_ENABLE || APPS_FLYER_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
-			CProductInfoTable.Create(KCDefine.U_ASSET_P_G_PRODUCT_INFO_TABLE);
+			CProductInfoTable.Create(KCDefine.G_ASSET_P_PRODUCT_INFO_TABLE);
 #endif // #if PURCHASE_MODULE_ENABLE
 			// 테이블을 생성한다 }
 
