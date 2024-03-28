@@ -143,7 +143,7 @@ namespace LevelEditorScene
 		private EInputPopup m_eSelInputPopup = EInputPopup.NONE;
 		private EEditorMode m_eSelEditorMode = EEditorMode.NONE;
 
-		private Vector3Int m_stPrevCellIdx = new Vector3Int(KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID);
+		private Vector3Int m_stPrevCellIdx = new Vector3Int(KCDefine.G_IDX_INVALID, KCDefine.G_IDX_INVALID, KCDefine.G_IDX_INVALID);
 
 		private Sprite m_oGridBoundsImg = null;
 		private Texture2D m_oGridBoundsTex2D = null;
@@ -423,7 +423,7 @@ namespace LevelEditorScene
 			}
 
 			// 일정 시간이 지났을 경우
-			if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.B_UNITS_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL))
+			if(m_fUpdateSkipTime.ExIsGreatEquals(KCDefine.G_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL))
 			{
 				m_fUpdateSkipTime = KCDefine.B_VAL_0_REAL;
 				this.OnTouchMEUIsSaveBtn();
@@ -2553,7 +2553,7 @@ namespace LevelEditorScene
 					return new Vector3Int(this.SelLevelInfo.NumCells.x - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT);
 			}
 
-			return KCDefine.B_IDX_INVALID_3D;
+			return KCDefine.G_IDX_INVALID_3D;
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 레벨을 변경한다 */

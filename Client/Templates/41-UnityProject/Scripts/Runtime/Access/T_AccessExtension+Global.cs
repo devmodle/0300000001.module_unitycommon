@@ -56,7 +56,7 @@ public static partial class AccessExtension {
 
 		for(int i = 0; i < a_nSkipTimes; ++i) {
 			dmPrevMaxTargetVal = dmMaxTargetVal;
-			dmMaxTargetVal = (i * stSkipTargetInfo.m_stValInfo01.m_dmVal) + ((dmPrevMaxTargetVal * stSkipTargetInfo.m_stValInfo02.m_dmVal) / KCDefine.B_UNITS_VAL_NORM_TO_PERCENT);
+			dmMaxTargetVal = (i * stSkipTargetInfo.m_stValInfo01.m_dmVal) + ((dmPrevMaxTargetVal * stSkipTargetInfo.m_stValInfo02.m_dmVal) / KCDefine.G_UNIT_VAL_NORM_TO_PERCENT);
 		}
 
 		return (a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds), dmPrevMaxTargetVal, dmMaxTargetVal);

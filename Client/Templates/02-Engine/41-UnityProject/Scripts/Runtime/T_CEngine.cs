@@ -131,7 +131,7 @@ namespace NSEngine {
 			// 캐릭터 정보가 존재 할 경우
 			if(CObjInfoTable.Inst.TryGetObjInfo(EObjKinds.PLAYABLE_OBJ_COMMON_CHARACTER_01, out STObjInfo stObjInfo)) {
 				this.PlayerObjListWrapper.ExAddVal(this.CreatePlayerObj(stObjInfo, CUserInfoStorage.Inst.GetCharacterUserInfo(CGameInfoStorage.Inst.PlayCharacterID), null));
-				CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.SelPlayerObj.transform.position.x + (KDefine.E_OFFSET_MAIN_CAMERA.x * CAccess.ResolutionUnitScale), this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA.y * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
+				CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.SelPlayerObj.transform.position.x + (KDefine.E_OFFSET_MAIN_CAMERA.x * CAccess.ScaleUnitResolution), this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA.y * CAccess.ScaleUnitResolution), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 			}
 #endif // #if DISABLE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
@@ -552,7 +552,7 @@ namespace NSEngine {
 				}
 			}
 
-			a_stOutIdx = KCDefine.B_IDX_INVALID_3D;
+			a_stOutIdx = KCDefine.G_IDX_INVALID_3D;
 			return KDefine.E_EMPTY_OBJ_LIST;
 		}
 

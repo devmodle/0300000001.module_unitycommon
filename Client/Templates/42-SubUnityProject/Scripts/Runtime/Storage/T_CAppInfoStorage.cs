@@ -64,7 +64,7 @@ public partial class CAppInfo : CBaseInfo {
 		}
 
 		// 버전이 다를 경우
-		if(this.Ver.CompareTo(KDefine.G_VER_APP_INFO) < KCDefine.B_COMPARE_EQUALS) {
+		if(this.Ver.CompareTo(KDefine.G_VER_APP_INFO) < KCDefine.G_COMPARE_EQUALS) {
 			// Do Something
 		}
 	}

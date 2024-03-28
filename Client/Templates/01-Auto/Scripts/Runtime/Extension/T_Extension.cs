@@ -21,7 +21,7 @@ public static partial class Extension {
 
 	/** 타겟 정보 고유 식별자 => 타겟 종류로 변환한다 */
 	public static EAbilityKinds ExUniqueTargetInfoIDToTargetKinds(this ulong a_nSender) {
-		return (EAbilityKinds)((a_nSender >> (sizeof(int) * KCDefine.B_UNITS_BITS_PER_BYTE)) & uint.MaxValue);
+		return (EAbilityKinds)((a_nSender >> (sizeof(int) * KCDefine.G_UNIT_BITS_PER_BYTE)) & uint.MaxValue);
 	}
 
 	/** JSON 문자열 => 타겟 정보로 변환한다 */

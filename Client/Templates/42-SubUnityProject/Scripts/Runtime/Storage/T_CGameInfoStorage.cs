@@ -45,7 +45,7 @@ public partial class CClearInfo : CBaseInfo {
 		base.OnAfterDeserialize();
 
 		// 버전이 다를 경우
-		if(this.Ver.CompareTo(KDefine.G_VER_CLEAR_INFO) < KCDefine.B_COMPARE_EQUALS) {
+		if(this.Ver.CompareTo(KDefine.G_VER_CLEAR_INFO) < KCDefine.G_COMPARE_EQUALS) {
 			// Do Something
 		}
 	}
@@ -165,7 +165,7 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		m_oChapterClearInfoDict = m_oChapterClearInfoDict ?? new Dictionary<ulong, CClearInfo>();
 
 		// 버전이 다를 경우
-		if(this.Ver.CompareTo(KDefine.G_VER_CHARACTER_GAME_INFO) < KCDefine.B_COMPARE_EQUALS) {
+		if(this.Ver.CompareTo(KDefine.G_VER_CHARACTER_GAME_INFO) < KCDefine.G_COMPARE_EQUALS) {
 			// Do Something
 		}
 	}
@@ -199,7 +199,7 @@ public partial class CGameInfo : CBaseInfo {
 		m_oCharacterGameInfoDict = m_oCharacterGameInfoDict ?? new Dictionary<int, CCharacterGameInfo>();
 
 		// 버전이 다를 경우
-		if(this.Ver.CompareTo(KDefine.G_VER_GAME_INFO) < KCDefine.B_COMPARE_EQUALS) {
+		if(this.Ver.CompareTo(KDefine.G_VER_GAME_INFO) < KCDefine.G_COMPARE_EQUALS) {
 			// Do Something
 		}
 	}

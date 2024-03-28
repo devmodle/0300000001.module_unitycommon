@@ -297,8 +297,8 @@ public static partial class CCommonEditorSceneManager
 
 				a_oSettings.albedoBoost.Equals(KCDefine.B_VAL_1_REAL),
 				a_oSettings.indirectScale.Equals(KCDefine.B_VAL_1_REAL),
-				a_oSettings.indirectResolution.Equals(KCDefine.B_UNITS_RESOLUTION_LIGHTMAP),
-				a_oSettings.lightmapResolution.Equals(KCDefine.B_UNITS_RESOLUTION_LIGHTMAP)
+				a_oSettings.indirectResolution.Equals(KCDefine.G_UNIT_RESOLUTION_LIGHTMAP),
+				a_oSettings.lightmapResolution.Equals(KCDefine.G_UNIT_RESOLUTION_LIGHTMAP)
 			};
 
 			// 설정 갱신이 필요 할 경우
@@ -321,8 +321,8 @@ public static partial class CCommonEditorSceneManager
 
 				a_oSettings.albedoBoost = KCDefine.B_VAL_1_INT;
 				a_oSettings.indirectScale = KCDefine.B_VAL_1_INT;
-				a_oSettings.indirectResolution = KCDefine.B_UNITS_RESOLUTION_LIGHTMAP;
-				a_oSettings.lightmapResolution = KCDefine.B_UNITS_RESOLUTION_LIGHTMAP;
+				a_oSettings.indirectResolution = KCDefine.G_UNIT_RESOLUTION_LIGHTMAP;
+				a_oSettings.lightmapResolution = KCDefine.G_UNIT_RESOLUTION_LIGHTMAP;
 			}
 		}
 	}

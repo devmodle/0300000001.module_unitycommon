@@ -94,7 +94,7 @@ namespace MainScene {
 					}
 				}
 
-				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, KCDefine.B_UNITS_DIGITS_HUNDRED_THOUSAND);
+				Access.SetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_ITEM_COINS_01, ETargetKinds.ABILITY_TARGET, (int)EAbilityKinds.STAT_ABILITY_NUMS, KCDefine.G_UNIT_DIGITS_HUNDRED_THOUSAND);
 				CGameInfoStorage.Inst.SaveInfoGame();
 #endif // #if CREATIVE_DIST_BUILD
 
@@ -196,7 +196,7 @@ namespace MainScene {
 		/** 씬을 설정한다 */
 		private void SetupAwake() {
 			var ePlayMode = CGameInfoStorage.Inst.PlayMode;
-			m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) ? CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo : new STIDInfo(KCDefine.B_VAL_0_INT);
+			m_stSelIDInfo = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.G_IDX_INVALID) ? CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo : new STIDInfo(KCDefine.B_VAL_0_INT);
 
 			// 버튼을 설정한다 {
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {

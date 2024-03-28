@@ -11,7 +11,7 @@ public static partial class Factory {
 	#region 클래스 함수
 	/** 타겟 정보 고유 식별자를 생성한다 */
 	public static ulong MakeUTargetInfoID(ETargetKinds a_eTargetKinds, int a_nKinds) {
-		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNITS_BITS_PER_BYTE)) | (uint)a_nKinds;
+		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.G_UNIT_BITS_PER_BYTE)) | (uint)a_nKinds;
 	}
 
 	/** 클리어 정보를 생성한다 */
@@ -113,7 +113,7 @@ public static partial class Factory {
 			var stTargetInfo = new STTargetInfo(a_oTargetInfos[string.Format(a_oFmt, i + KCDefine.B_VAL_1_INT)]);
 
 			// 타겟 정보가 존재 할 경우
-			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.B_IDX_INVALID) {
+			if(stTargetInfo.m_eTargetKinds.ExIsValid() && stTargetInfo.m_nKinds > KCDefine.G_IDX_INVALID) {
 				oTargetInfoDict.TryAdd(Factory.MakeUTargetInfoID(stTargetInfo.m_eTargetKinds, stTargetInfo.m_nKinds), stTargetInfo);
 			}
 		}

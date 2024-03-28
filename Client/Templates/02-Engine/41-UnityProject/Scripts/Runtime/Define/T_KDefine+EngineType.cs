@@ -23,7 +23,7 @@ namespace NSEngine {
 
 		#region 상수
 		public static STGridInfo INVALID = new STGridInfo() {
-			m_nIdx = KCDefine.B_IDX_INVALID
+			m_nIdx = KCDefine.G_IDX_INVALID
 		};
 		#endregion // 상수
 	}

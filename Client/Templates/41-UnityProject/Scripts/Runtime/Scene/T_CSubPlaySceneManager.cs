@@ -65,7 +65,7 @@ namespace PlayScene {
 			if(CSceneManager.IsInitApp) {
 #if DEBUG || DEVELOPMENT_BUILD
 				// 플레이 레벨 정보가 없을 경우
-				if(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 <= KCDefine.B_IDX_INVALID) {
+				if(CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 <= KCDefine.G_IDX_INVALID) {
 					CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
 					Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, KCDefine.B_VAL_0_INT, EPlayMode.NORM);
 				}
@@ -424,7 +424,7 @@ namespace PlayScene {
 				bool bIsValid02 = a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03);
 
 				// 레벨 에피소드 정보가 존재 할 경우
-				if(bIsValid01 && bIsValid02 && a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) {
+				if(bIsValid01 && bIsValid02 && a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.G_IDX_INVALID) {
 					CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
 					Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
 

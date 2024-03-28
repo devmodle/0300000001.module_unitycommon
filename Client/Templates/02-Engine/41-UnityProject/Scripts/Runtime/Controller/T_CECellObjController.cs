@@ -17,7 +17,7 @@ namespace NSEngine {
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
 
-		public Vector3Int CellIdx { get; private set; } = new Vector3Int(KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID);
+		public Vector3Int CellIdx { get; private set; } = new Vector3Int(KCDefine.G_IDX_INVALID, KCDefine.G_IDX_INVALID, KCDefine.G_IDX_INVALID);
 		public STCellObjInfo CellObjInfo { get; private set; } = STCellObjInfo.INVALID;
 		#endregion // 프로퍼티
 

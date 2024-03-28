@@ -34,7 +34,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 
 	#region 상수
 	public static readonly STCellObjInfo INVALID = new STCellObjInfo(null) {
-		ColorID = KCDefine.B_IDX_INVALID, ObjKinds = EObjKinds.NONE, m_stBaseIdx = KCDefine.B_IDX_INVALID_3D
+		ColorID = KCDefine.G_IDX_INVALID, ObjKinds = EObjKinds.NONE, m_stBaseIdx = KCDefine.G_IDX_INVALID_3D
 	};
 
 	private const string KEY_SIZE_X = "SizeX";
@@ -71,7 +71,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	[JsonIgnore]
 	[IgnoreMember]
 	public int ColorID {
-		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_COLOR_ID, KCDefine.G_IDX_INVALID_STR)); }
 		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
 	}
 
@@ -102,7 +102,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	
 	[IgnoreMember]
 	public int ColorID {
-		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_COLOR_ID, KCDefine.B_IDX_INVALID_STR)); }
+		get { return int.Parse(m_stBaseInfo.m_oDictStr.ExGetVal(KEY_COLOR_ID, KCDefine.G_IDX_INVALID_STR)); }
 		set { m_stBaseInfo.m_oDictStr.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
 	}
 
@@ -135,7 +135,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 
 	/** 역직렬화되었을 경우 */
 	public void OnAfterDeserialize() {
-		this.OnAfterDeserialize(KCDefine.B_IDX_INVALID_3D);
+		this.OnAfterDeserialize(KCDefine.G_IDX_INVALID_3D);
 	}
 
 	/** 역직렬화되었을 경우 */
@@ -192,7 +192,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 
 	#region 상수
 	public static readonly STCellInfo INVALID = new STCellInfo(null) {
-		m_stIdx = KCDefine.B_IDX_INVALID_3D
+		m_stIdx = KCDefine.G_IDX_INVALID_3D
 	};
 	#endregion // 상수
 
@@ -215,7 +215,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 
 	/** 역직렬화되었을 경우 */
 	public void OnAfterDeserialize() {
-		this.OnAfterDeserialize(KCDefine.B_IDX_INVALID_3D);
+		this.OnAfterDeserialize(KCDefine.G_IDX_INVALID_3D);
 	}
 
 	/** 역직렬화되었을 경우 */
@@ -414,7 +414,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		}
 
 		// 버전이 다를 경우
-		if(this.Ver.CompareTo(KDefine.G_VER_LEVEL_INFO) < KCDefine.B_COMPARE_EQUALS) {
+		if(this.Ver.CompareTo(KDefine.G_VER_LEVEL_INFO) < KCDefine.G_COMPARE_EQUALS) {
 			// Do Something
 		}
 	}
@@ -431,7 +431,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		}
 
 		// 버전이 다를 경우
-		if(this.CellInfoVer.CompareTo(KDefine.G_VER_CELL_INFO) < KCDefine.B_COMPARE_EQUALS) {
+		if(this.CellInfoVer.CompareTo(KDefine.G_VER_CELL_INFO) < KCDefine.G_COMPARE_EQUALS) {
 			// Do Something
 		}
 	}
@@ -448,11 +448,11 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 				var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 				var stCellInfo = m_oCellInfoDictContainer.ExGetVal(stIdx, STCellInfo.INVALID);
 
-				int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_OBJ_PLACEHOLDER_01 && a_stCellObjInfo.m_stBaseIdx.Equals(KCDefine.B_IDX_INVALID_3D));
+				int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == EObjKinds.BG_OBJ_PLACEHOLDER_01 && a_stCellObjInfo.m_stBaseIdx.Equals(KCDefine.G_IDX_INVALID_3D));
 
 				// 기본 인덱스 일 경우
 				if(stIdx.Equals(a_stIdx)) {
-					a_stOutCellObjInfo.m_stBaseIdx = a_stOutCellObjInfo.m_stBaseIdx.Equals(KCDefine.B_IDX_INVALID_3D) ? a_stIdx : a_stOutCellObjInfo.m_stBaseIdx;
+					a_stOutCellObjInfo.m_stBaseIdx = a_stOutCellObjInfo.m_stBaseIdx.Equals(KCDefine.G_IDX_INVALID_3D) ? a_stIdx : a_stOutCellObjInfo.m_stBaseIdx;
 				}
 				// 자리 표시 객체가 존재 할 경우
 				else if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx)) {
@@ -483,7 +483,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	/** 셀 정보를 반환한다 */
 	public bool TryGetCellInfo(Vector3Int a_stIdx, out STCellInfo a_stOutCellInfo) {
 		a_stOutCellInfo = m_oCellInfoDictContainer.ContainsKey(a_stIdx.y) ? m_oCellInfoDictContainer[a_stIdx.y].GetValueOrDefault(a_stIdx.x, STCellInfo.INVALID) : STCellInfo.INVALID;
-		return !a_stOutCellInfo.m_stIdx.Equals(KCDefine.B_IDX_INVALID_3D);
+		return !a_stOutCellInfo.m_stIdx.Equals(KCDefine.G_IDX_INVALID_3D);
 	}
 
 	/** 사본 객체를 설정한다 */

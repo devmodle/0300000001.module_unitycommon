@@ -938,7 +938,7 @@ public static partial class Func {
 		CIndicatorManager.Inst.Show();
 		Func.m_oGameCenterCallbackDictB.ExReplaceVal(ECallback.GAME_CENTER_UPDATE_ACHIEVEMENT, a_oCallback);
 
-		CGameCenterManager.Inst.UpdateAchievement(a_oAchievementID, a_dblPercent * KCDefine.B_UNITS_VAL_NORM_TO_PERCENT, Func.OnUpdateAchievement);
+		CGameCenterManager.Inst.UpdateAchievement(a_oAchievementID, a_dblPercent * KCDefine.G_UNIT_VAL_NORM_TO_PERCENT, Func.OnUpdateAchievement);
 	}
 
 	/** 게임 센터에 로그인되었을 경우 */
@@ -1343,7 +1343,7 @@ public static partial class Func {
 				string oFlags03Key = string.Format(KCDefine.U_KEY_FMT_FLAGS, KCDefine.B_VAL_3_INT);
 
 				// 구글 시트 로드가 가능 할 경우
-				if(oVerInfos[i][oFlags01Key].AsInt != KCDefine.B_VAL_0_INT || oVer.CompareTo(System.Version.Parse(oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.B_COMPARE_EQUALS) {
+				if(oVerInfos[i][oFlags01Key].AsInt != KCDefine.B_VAL_0_INT || oVer.CompareTo(System.Version.Parse(oVerInfos[i][KCDefine.U_KEY_VER])) < KCDefine.G_COMPARE_EQUALS) {
 					Func.DoSetupLoadGoogleSheetInfos(Access.GoogleSheetTableInfo.GetValueOrDefault(oVerInfos[i][KCDefine.U_KEY_NAME]), oLoadGoogleSheetInfoDict, KDefine.G_TABLE_INFO_NUM_ROWS_DICT.ExGetVal(oVerInfos[i][KCDefine.U_KEY_NAME]));
 				}
 			}
