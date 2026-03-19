@@ -5,12 +5,15 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if UNITY_EDITOR
+#if INPUT_SYSTEM_MODULE_ENABLE
 using UnityEngine.InputSystem;
-using UnityEditor;
 
 #if UNITY_IOS
 using UnityEngine.InputSystem.iOS;
 #endif // #if UNITY_IOS
+#endif // #if INPUT_SYSTEM_MODULE_ENABLE
+
+using UnityEditor;
 
 /** 공용 에디터 씬 관리자 - 입력 시스템 */
 public static partial class CCommonEditorSceneManager
